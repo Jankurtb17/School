@@ -12,12 +12,6 @@ class LoginController extends Controller
     {
       return view('Pages.Login');
     }
-    function checkLogin(Request $request)
-    {
-      $this->validate($request, [
-        'email'    => 'required|email',
-        'password' => 'required|alphaNum|min:5'
-      ]);
       
       $user_data = array(
         'email'    => $request->get('email'),
