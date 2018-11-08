@@ -1,97 +1,110 @@
-*{
-  box-sizing: border-box;
+* {
+    box-sizing: border-box;
 }
-body{
-  background-color: lightgray;
+body {
+    background-color: lightgray;
 }
-.card{
-  width: 75%;
-  height: 70vh;
-  margin: 50px 50px 50px 45px;
-  position: absolute;
-  box-shadow: 1px 2px 2px #383838;
- 
+.card {
+    width: 75%;
+    height: 70vh;
+    margin: 50px 50px 50px 45px;
+    position: absolute;
+    box-shadow: 1px 2px 2px #383838;
 }
-.login-view{
-  background: url('/image/angel.jpg');
-  background-position: center;
-  background-size: cover;
-  height: 70vh;
+.login-view {
+    background: url("/image/angel.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 70vh;
 }
-
-input{
-  border: none;
-  outline: none;
-  padding: 10px;
-  border-bottom: 2px solid darkslategray;
-  width: 80%;
+.form-check,
+.form-label {
+    margin-left: 15px;
 }
-input:focus{
-  border-bottom: 2px solid red;
+input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-bottom: 2px solid darkslategray;
+    width: 80%;
 }
-button{
-  margin-top:10px;
-  border:none;
-  width: 80%;
-  background-color:#202121;
-  color: #fff;
-  line-height: 3;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+input:focus {
+    border-bottom: 2px solid red;
 }
 
-button:hover{
-  background-color: #400414;
-  transition: .2s all linear;
-  color:yellow;
+.form-control {
+    border: none;
+    padding: 10px;
+    border-bottom: 2px solid darkslategray;
+    width: 80%;
 }
-.overlay{
-  margin-top: 50px;
-  margin-left: 50px;
-}
-.overlay-2{
-  margin-top: 20px;
+.form-control:focus {
+    box-shadow: none;
+    border-bottom: 2px solid red;
 }
 
-.alert-danger{
-  width: 80%;
-}
-li{
-  margin-left:-30px;
-}
-
-@media screen and (max-width : 480px) {
-  .login-view{
-    display:none;
-  }
-  .overlay{
-    margin-top:50px;
-    margin-left: 50px;
-  }
-  
-.alert-danger{
-  width: 80%;
-}
-li{
-  margin-left:-40px;
-}
-
-}
-@media screen and (min-width : 768px) {
-  .login-view{
-    width: 90%;
-  }
-  .overlay{
-    margin-top: 20px;
-    margin-left: 0px;
-  }
-  h1{
-    text-transform: uppercase;
-    line-height: 2;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 40px;
+button {
+    margin-top: 10px;
+    border: none;
+    width: 80%;
+    background-color: #202121;
+    color: #fff;
+    line-height: 3;
     letter-spacing: 2px;
     text-transform: uppercase;
-    line-height: 2;
-  }
-  }
+}
+
+button:hover {
+    background-color: #400414;
+    transition: 0.2s all linear;
+    color: yellow;
+}
+.overlay {
+    margin-top: 50px;
+    margin-left: 40px;
+}
+.overlay-2 {
+    margin-top: 20px;
+}
+
+.alert-danger {
+    width: 80%;
+}
+li {
+    margin-left: -30px;
+}
+
+@media screen and (max-width: 480px) {
+    .login-view {
+        display: none;
+    }
+    .overlay {
+        margin-top: 50px;
+        margin-left: 50px;
+    }
+
+    .alert-danger {
+        width: 80%;
+    }
+    li {
+        margin-left: -40px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .login-view {
+        width: 90%;
+    }
+    .overlay {
+        margin-top: 20px;
+        margin-left: 0px;
+    }
+    h1 {
+        text-transform: uppercase;
+        line-height: 2;
+        font-family: "Open Sans", sans-serif;
+        font-size: 40px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        line-height: 2;
+    }
+}

@@ -11,8 +11,11 @@
 |
 */
 
+Auth::routes();
+// Route::get('/', 'LoginController@index');
+// Route::post('/checkLogin', 'LoginController@checkLogin');
+// Route::get('/dashboard', 'LoginController@dashboard');
 
-Route::get('/', 'LoginController@index');
-Route::post('/login/checkLogin', 'LoginController@checkLogin');
-Route::get('/login/successLogin', 'LoginController@successLogin');
-Route::post('/logout', 'LoginController@logout');
+
+Route::get('/', 'HomeController@index');
+Route::get('/dashboard', 'HomeController@dashboard');

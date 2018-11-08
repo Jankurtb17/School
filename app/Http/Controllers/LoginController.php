@@ -1,47 +1,42 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Validator;
+use App\Users;
 use Auth;
 
 class LoginController extends Controller
-{
-    function index()
-    {
-      return view('Pages.Login');
-    }
-      
-      $user_data = array(
-        'email'    => $request->get('email'),
-        'password' => $request->get('password')
-      );
+{ 
+  public function index()
+  {
+    return view('Pages.Login');
+  } 
+  public function dashboard()
+  {
+    return view('Pages.dashboard');
+  }
+  function checkLogin(Request $request)
+  {
+      $this->validate($request, [
+      'email'   => 'required|string|email',
+      'password'=> 'required|min:6',
+    ]); 
 
-      if(Auth::attempt($user_data))
-      {
-        return redirect('/login/successLogin');  
-      }
-      else{
-        return back()->with('error', 'Username or password is incorrect');
-      }
+    $user_data = array(
+      'email'   =>$request->get('email'),
+      'password'=>$request->get('password')
+    );
 
-    }
-    function successLogin()
+    if(Auth::attempt($user_data))
     {
-      return view('login.success');
+      return redirect('/dashboard');
     }
-
-    function logout()
+    else
     {
-      Auth::logout();
-      return redirect('/');
+      return back()->with('error', 'Email or password is incorrect');
     }
-
-    function failedLogin()
-    {
-      return view('Pages.Login');
-    }
+  }
 
 }
 
