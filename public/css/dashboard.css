@@ -1,0 +1,108 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+body {
+    overflow: hidden;
+    background-color: #f3f3f4;
+}
+.app-body {
+    display: flex;
+    flex-direction: row;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f3f5;
+    color: black;
+}
+.navbar-top .nav-item {
+    list-style-type: none;
+}
+.navbar-top a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 800px;
+}
+.sidebar {
+    width: 280px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+.nav {
+    display: flex;
+    flex-direction: column;
+    background: #2f353a;
+    height: 100vh;
+}
+.nav-link.active {
+    color: #fff;
+    background-color: #3a4248;
+}
+
+.sidebar .nav-link {
+    padding: 0.75em 1em;
+    text-decoration: none;
+    color: #fff;
+    padding-left: 1em;
+}
+.sidebar .nav-title {
+    padding: 0.75rem 1rem;
+    font-size: 80%;
+    font-weight: 700;
+    color: #e4e7ea;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.nav-link:hover {
+    background-color: #20a8d8;
+    color: #fff;
+    transition: 0.4s ease-in;
+}
+.nav-item:active {
+    background-color: #1d2d3c !important;
+    border-left: 4px solid #20a8d8;
+}
+.main {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+}
+.navbar-top {
+    background-color: #fff;
+    padding: 20px 0;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+    z-index: -1;
+    width: 100%;
+}
+.content {
+    position: absolute;
+    top: 70px;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    left: 330px;
+}
+.dashboard h1 {
+    font-size: 24px;
+}
+.card {
+    box-shadow: 0 8px 6px -6px black;
+    flex-direction: row;
+}
+.dash-header {
+    flex-direction: column;
+}
+.dash-icon {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 2em;
+}
