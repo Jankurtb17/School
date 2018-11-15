@@ -48,6 +48,11 @@ body {
     color: #fff;
     padding-left: 1em;
 }
+.main-content {
+    margin: 20px 0 20px 20px;
+    text-transform: uppercase;
+    color: #fff;
+}
 .sidebar .nav-title {
     padding: 0.75rem 1rem;
     font-size: 80%;
@@ -56,12 +61,16 @@ body {
     text-transform: uppercase;
     letter-spacing: 2px;
 }
+#icon-dashboard {
+    margin-right: 10px;
+    font-size: 20px;
+}
 .nav-link:hover {
     background-color: #20a8d8;
     color: #fff;
     transition: 0.4s ease-in;
 }
-.nav-item:active {
+.nav .current {
     background-color: #1d2d3c !important;
     border-left: 4px solid #20a8d8;
 }
@@ -93,16 +102,41 @@ body {
 }
 .dashboard h1 {
     font-size: 24px;
+    font-family: "Nunito", sans-serif;
 }
 .card {
-    box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
     flex-direction: row;
 }
 .dash-header {
+    display: flex;
     flex-direction: column;
+    padding-left: 80px;
 }
 .dash-icon {
-    display: flex;
-    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    font-size: 46px;
+    color: #fff;
+    height: 96px;
+}
+#dash-icon {
+    position: absolute;
+    top: 10;
+}
+.modal-title {
+    margin-left: 280px;
     font-size: 2em;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.modal-body {
+    width: 80%;
+    margin-left: 55px;
+}
+.modal-body #Title {
+    font-weight: 600;
+    text-transform: uppercase;
 }

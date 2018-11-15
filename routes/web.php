@@ -19,3 +19,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@dashboard');
+Route::get('/class', 'HomeController@class');
+Route::get('/teacher', 'HomeController@teacher');
+Route::get('/logout', 'HomeController@logout');
+Route::get('/student', 'HomeController@student');

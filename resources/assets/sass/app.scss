@@ -1,15 +1,15 @@
-
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons");
+@import "node_modules/font-awesome/scss/font-awesome.scss";
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import 'node_modules/bootstrap/scss/bootstrap';
-
+@import "node_modules/bootstrap/scss/bootstrap";
 
 .navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
