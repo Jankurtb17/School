@@ -29,7 +29,7 @@
               Add Student 
           </button>
           <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-sm" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title">Add Student</h5>
@@ -39,142 +39,48 @@
                   <form action="" method="POST">
                      @csrf
                       <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-4">
-                            <label class="col-form-label" id="Title">Student information</label>
-                          </div>
-                          <div class="col-md-8"> </div>
-                        </div>
+                        <label class="col-form-label" id="Title">Student information</label>
+                        <input type="text" class="form-control" name="className" placeholder="Class Name">
                       </div>
                       <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-4"> 
-                            <label class="col-form-label">Student </label>
-                          </div>
-                          <div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="Student Number" name="studId">
-                          </div>
-                          <div class="col-md-2">
-                              <input type="text" class="form-control" placeholder="Level">
-                            </div>
-                        </div>
-                     </div>
+                        <label class="col-form-label">School Year </label>
+                        <input type="text" class="form-control" name="schoolYear" placeholder="School Year" >
+                      </div>
                      <div class="form-group"> 
-                        <div class="row">
-                          <div class="col-md-4"> </div>
-                          <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="First Name">
-                          </div>
-                          <div class="col-md-4">
-                              <input type="text" class="form-control" placeholder="Last Name">
-                            </div>
-                        </div>
+                        <label class="col-form-label">Year Level </label>
+                        <input type="text" class="form-control" name="yearLevel" placeholder="Year Level">
                      </div>
-                     <div class="form-group"> 
-                        <div class="row">
-                          <div class="col-md-4"> </div>
-                          <div class="col-md-8">
-                            <input type="email" class="form-control" placeholder="Email">
-                          </div>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <label class="col-form-label">Account </label>
-                        </div>
-                        <div class="col-md-8">
-                          <input type="text" class="form-control" placeholder="Username">
-                        </div>
-                      </div>
-                     </div>
-                    <div class="form-group">
-                      <div class="row">
-                          <div class="col-md-4"> </div>
-                          <div class="col-md-8">
-                            <input type="password" class="form-control" placeholder="Password">
-                          </div>
-                      </div>
+                  </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
+                      <button type="submit" class="btn btn-primary" name="submit"> Submit </button>                    
+                    </form>
                     </div>
-                    <div class="form-group">
-                      <div class="row">
-                          <div class="col-md-4"> </div>
-                          <div class="col-md-8">
-                            <input type="password" class="form-control" placeholder="Confirm Password">
-                          </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-4"> Address </div>
-                        <div class="col-md-8">
-                          <textarea class="form-control" row="3" placeholder="House No./Street/Barangay"> </textarea>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-4"> </div>
-                        <div class="col-md-4"> 
-                          <input type="text" class="form-control" placeholder="City / Municipality">
-                        </div>
-                        <div class="col-md-4"> 
-                            <input type="text" class="form-control" placeholder="Province / State">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-4">
-                        </div>
-                        <div class="col-md-5">
-                          <input type="text" class="form-control" placeholder="Country">
-                        </div>
-                        <div class="col-md-3">
-                          <input type="text" class="form-control" placeholder="Zip Code">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-4"> Guardian</div>
-                        <div class="col-md-4">
-                          <input type="text" class="form-control" placeholder="Guardian First Name">
-                        </div> 
-                        <div class="col-md-4">
-                          <input type="text" class="form-control" placeholder="Guardian Last Name">
-                        </div> 
-                      </div>
-                    </div> 
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-4"> </div>
-                        <div class="col-md-8">
-                          <input type="text" class="form-control" placeholder="Guardian Contact Number">
-                        </div>
-                      </div>
-                    </div>  
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
-                  <button type="submit" class="btn btn-primary" name="submit"> Submit </button>                    
-                </form>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
           <div class="table-body">
             <table class="table table-hover table-bordered">
               <thead>
                 <tr>
-                  <th> Class </th>
-                  <th> Date </th>
-                  <th> Time </th>
+                  <th> ID </th>
+                  <th> Class Name </th>
                   <th> School Year </th>
-                  <th> Professor </th>
+                  <th> Year Level </th>
                   <th> Action </th>
                 </tr>
               </thead>
+              <tbody>
+                <?php $no=1 ?>
+                @foreach ($class as $row)
+                    <tr>
+                      <td> {{ $no++}} </td>
+                      <td> {{ $row->className }}</td>
+                      <td> {{ $row->schoolYear }}</td>
+                      <td> {{ $row->yearLevel }}</td>
+                    </tr>
+                @endforeach
+              </tbody>
             </table>
           </div>
         </div>

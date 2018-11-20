@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 class HomeController extends Controller
 {
     /**
@@ -58,12 +59,12 @@ class HomeController extends Controller
 
     public function studentClass()
     {
-      return view('Dashboard.studentClass');
+      return view('Dashboard.studentclass');
     }
 
-    public function teacherAdvisory()
+    public function advisory()
     {
-      return view('Dashboard.teacherAdvisory');
+      return view('Dashboard.teacheradivsory');
     }
 
     public function subject()
@@ -76,10 +77,11 @@ class HomeController extends Controller
       return view('Dashboard.class');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
       Auth::logout();
-      return redirect('/login');
+    $request->session()->invalidate();
+    return redirect('/login');
     }
     
 }

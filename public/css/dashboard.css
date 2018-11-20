@@ -126,17 +126,3 @@ body {
     position: absolute;
     top: 10;
 }
-.modal-title {
-    margin-left: 280px;
-    font-size: 2em;
-    text-transform: uppercase;
-    font-weight: 500;
-}
-.modal-body {
-    width: 80%;
-    margin-left: 55px;
-}
-.modal-body #Title {
-    font-weight: 600;
-    text-transform: uppercase;
-}

@@ -17,9 +17,15 @@ Auth::routes();
 // Route::get('/dashboard', 'LoginController@dashboard');
 
 
+
 Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@dashboard');
-Route::get('/class', 'HomeController@class');
+Route::resource('/class', 'nameOfClass');
 Route::get('/teacher', 'HomeController@teacher');
-Route::get('/logout', 'HomeController@logout');
+Route::get('/logout', 'loginController@logout');
 Route::get('/student', 'HomeController@student');
+Route::resource('/schoolyear', 'schoolyr');
+Route::resource('/subject', 'subjectview');
+Route::resource('/yearlevel', 'yearlevel');
+Route::get('/studentclass', 'HomeController@studentClass');
+Route::get('/advisory', 'HomeController@advisory');

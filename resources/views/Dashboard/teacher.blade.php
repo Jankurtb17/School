@@ -7,6 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/addmodal.css') }}">
   <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
   <title>Document</title>
 </head>
@@ -23,10 +24,10 @@
                 <li class="breadcrumb-item active" aria-current="page">Teachers</li>
               </ol>
             </nav>
-            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
+            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade5">
                 Add Teacher 
             </button>
-            <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
+            <div class="modal fade" id="modalFade5" tabindex = "-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
