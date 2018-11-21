@@ -45,22 +45,27 @@
 
 <div class="main">
   <div class="navbar-top">
-      <ul class="navbar-nav">
-        @if (isset(Auth::user()->name))
-          <li>
-            <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-              {{ Auth::user()->name }}
+    <ul class="navbar-nav">
+      @if (isset(Auth::user()->name))
+        <li>
+          <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+            {{ Auth::user()->name }}
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">
+              {{ __('Logout') }}
             </a>
-            <div class="dropdown-menu">
-            <a class="dropdown-item" href=" {{ url('/logout') }}">
-                Logout
-              </a>
-            </div>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+            </form>
+          </div>
+        </li>
+      @else
+          <li class="nav-item">
+            <a class="nav-link" href="{{ asset('login') }}"> {{ __('Login') }} </a>
           </li>
-        @else
-          <script>
-            window.location = '/login';
-          </script>
-        @endif
-      </ul>
+      @endif
+    </ul>
 </div>

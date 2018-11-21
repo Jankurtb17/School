@@ -11,7 +11,7 @@
   <title>Document</title>
 </head>
 <body>
-  @include('Pages.sidebar')
+    @include('Pages.sidebar')
         <div class="content">
           <div class="sidebar-content">
           </div>
