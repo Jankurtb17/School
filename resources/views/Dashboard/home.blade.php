@@ -19,7 +19,7 @@
             <h1>Dashboard </h1>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page"><ion-icon name="speedometer" id="dashboard-icon"> </ion-icon>Dashboard</li>
+                <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</li>
               </ol>
             </nav>
           </div>
@@ -27,7 +27,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="dash-icon d-flex justify-content-center pt-4 bg-primary">
-                  <ion-icon name="hand" id="dashboard-icon"></ion-icon>
+                    <i class="fa fa-lock" aria-hidden="true" id="dashboard-icon"></i>
                 </div>
                 <div class="dash-header">
                   <h5 class="card-title">  Admin </h5>
@@ -38,7 +38,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="dash-icon d-flex justify-content-center pt-4 bg-danger">
-                    <ion-icon name="people" id="dashboard-icon"></ion-icon>
+                    <i class="fa fa-users" aria-hidden="true" id="dashboard-icon"></i>
                 </div>
                 <div class="dash-header">
                   <h5 class="card-title">  Teacher </h5>
@@ -49,10 +49,10 @@
           <div class="card">
             <div class="card-body">
               <div class="dash-icon d-flex justify-content-center pt-4 bg-success">
-                  <ion-icon name="people" id="dashboard-icon"></ion-icon>
+                  <i class="fa fa-users" aria-hidden="true" id="dashboard-icon"></i>
               </div>
               <div class="dash-header">
-                <h5 class="card-title">  Teacher </h5>
+                <h5 class="card-title">  Student </h5>
                 <p class="card-text"> 20 </p>
               </div>
             </div>
@@ -60,10 +60,10 @@
           <div class="card">
             <div class="card-body">
               <div class="dash-icon d-flex justify-content-center pt-4 bg-dark">
-                  <ion-icon name="people" id="dashboard-icon"></ion-icon>
+                  <i class="fa fa-book" aria-hidden="true"  id="dashboard-icon"></i>
               </div>
               <div class="dash-header">
-                <h5 class="card-title">  Teacher </h5>
+                <h5 class="card-title">  Class </h5>
                 <p class="card-text"> 20 </p>
               </div>
             </div>
@@ -75,6 +75,11 @@
   </div>
   </div>
   <script src="{{ asset('js/app.js') }}"></script>
-  <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+  <script type="text/javascript">
+    $('nav-item').on('click', 'nav-link', function(){
+        $('.nav-item nav-link.active').removeClass('current');
+        $(this).addClass('current');
+    }); 
+  </script>
 </body>
 </html>

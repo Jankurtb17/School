@@ -7,36 +7,36 @@
                 Admin
               </div>
               <li class="nav-item current">
-                  <a class="nav-link" href="/dashboard"> <ion-icon name="speedometer" id="icon-dashboard"></ion-icon> Dashboard </a>
+                  <a class="nav-link" href="/dashboard"> <i class="fa fa-tachometer" aria-hidden="true" id="icon-dashboard"></i> Dashboard </a>
               </li>
               <li class="nav-title"> Module </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/schoolyear"> <ion-icon name="calendar" id="icon-dashboard"></ion-icon>  School Year</a>
+                  <a class="nav-link" href="/schoolyear"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> School Year</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/yearlevel"> <ion-icon name="calendar" id="icon-dashboard"></ion-icon>  Year Level</a>
+                  <a class="nav-link" href="/yearlevel"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> Year Level</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/student"> <ion-icon name="person" id="icon-dashboard"></ion-icon>  Student </a>
+                  <a class="nav-link" href="/student"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/studentclass"> <ion-icon name="person" id="icon-dashboard"></ion-icon>  Student Class </a>
+                  <a class="nav-link" href="/studentclass"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student Class </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/teacher"> <ion-icon name="person" id="icon-dashboard"></ion-icon>  Teachers </a>
+                <a class="nav-link" href="/teacher"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/advisory"> <ion-icon name="person" id="icon-dashboard"></ion-icon>  Teachers Advisory </a>
+                  <a class="nav-link" href="/advisory"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers Advisory </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/subject"> <ion-icon name="albums" id="icon-dashboard"></ion-icon>  Subject </a>
+                <a class="nav-link" href="/subject"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Subject </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/class"> <ion-icon name="albums" id="icon-dashboard"></ion-icon>  Class </a>
+                  <a class="nav-link" href="/class"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Class </a>
               </li>
               <li class="nav-title"> Settings </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"> <ion-icon name="settings" id="icon-dashboard"></ion-icon>  Account Settings </a>
+                <a class="nav-link" href="#"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>
               </li>
             </ul>
           </nav>
