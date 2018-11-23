@@ -1,0 +1,22 @@
+.modal-title {
+    text-transform: uppercase;
+    font-weight: 500;
+}
+#modalFade3 .modal-body {
+    width: 80%;
+    margin-left: 60px;
+}
+#modalFade3 .modal-title {
+    margin-left: 280px;
+    font-weight: 500;
+    font-size: 2em;
+}
+#modalFade5 .modal-body {
+    width: 80%;
+    margin-left: 60px;
+}
+#modalFade5 .modal-title {
+    margin-left: 280px;
+    font-weight: 500;
+    font-size: 2em;
+}
