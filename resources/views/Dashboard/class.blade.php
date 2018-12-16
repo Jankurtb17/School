@@ -36,19 +36,27 @@
                   <button type="button" class="close" data-dismiss="modal"> &times; </button>
                 </div>  
                 <div class="modal-body">
-                  <form action="" method="POST">
+                  <form method="POST">
                      @csrf
                       <div class="form-group">
-                        <label class="col-form-label" id="Title">Student information</label>
+                        <label class="col-form-label" id="Title">Class Name</label>
                         <input type="text" class="form-control" name="className" placeholder="Class Name">
                       </div>
                       <div class="form-group">
                         <label class="col-form-label">School Year </label>
-                        <input type="text" class="form-control" name="schoolYear" placeholder="School Year" >
+                        <select name="schoolYear" id="schoolYear" class="form-control">
+                          @foreach ($schoolyear as $schoolyear)
+                        <option value="{{ $schoolyear->schoolYear }}">{{ $schoolyear->schoolYear }} </option>
+                          @endforeach
+                        </select>
                       </div>
                      <div class="form-group"> 
                         <label class="col-form-label">Year Level </label>
-                        <input type="text" class="form-control" name="yearLevel" placeholder="Year Level">
+                        <select name="yearLevel" id="yearLevel" class="form-control">
+                          @foreach ($yearlevel as $yearlevels)
+                           <option value="{{ $yearlevels->yearLevel }}"> {{ $yearlevels->yearLevel }}</option>
+                          @endforeach
+                        </select>
                      </div>
                   </div>
                     <div class="modal-footer">
@@ -73,15 +81,53 @@
               <tbody>
                 <?php $no=1 ?>
                 @foreach ($class as $row)
-                    <tr>
+                    <tr class="post{{ $row->id}}">
                       <td> {{ $no++}} </td>
                       <td> {{ $row->className }}</td>
                       <td> {{ $row->schoolYear }}</td>
                       <td> {{ $row->yearLevel }}</td>
-                    </tr>
+                      <td>
+                        <a href="#" class="edit-modal btn btn-warning"  data-target="#myModal" data-toggle="modal" data-id="{{ $row->id}}" data-classname="{{ $row->className }}" data-schoolyear="{{ $row->schoolYear}}" data-yearlevel="{{ $row->yearLevel}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                        <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $row->id}}" data-classname="{{ $row->className }}" data-schoolyear="{{ $row->schoolYear}}" data-yearlevel="{{ $row->yearLevel}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                      </td>
+                  </tr>
                 @endforeach
               </tbody>
             </table>
+          </div>
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit Class</h5>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" class="form-horizontal" role="modal">
+                    @csrf
+                    <div class="form-group">
+                      <label>Class Name </label>
+                      <input type="text" class="form-control" name="className" id="a">
+                    </div>
+                    <div class="form-group">
+                        <label>School Year </label>
+                        <input type="text" class="form-control" name="schoolYear" id="b">
+                    </div>
+                    <div class="form-group">
+                        <label>Year Level </label>
+                        <input type="text" class="form-control" name="yearLevel" id="c">
+                    </div>
+                  </form>
+                <div class="deleteContent">
+                  Do you want to delete this?
+                </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal">Update</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -90,6 +136,26 @@
   </div>
   </div>
   <script src="{{ asset('js/app.js') }}"></script>
-  <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).on('click', '.edit-modal', function() {
+      $('.modal-title').text('Edit Class');
+      $('.deleteContent').hide();
+      $('.form-horizontal').show();
+      $('.actionBtn').addClass('btn-success');
+      $('.actionBtn').removeClass('btn-danger');
+      $('.actionBtn').addClass('edit');
+      $('#a').val($(this).data('classname'));
+      $('#b').val($(this).data('schoolyear'));
+      $('#c').val($(this).data('yearlevel'));
+      $('#myModal').show();
+    });
+    $(document).on('click','.delete-modal', function() {
+      $('.modal-title').text('Delete this class?');
+      $('.deleteContent').show();
+      $('.form-horizontal').hide();
+      $('.actionBtn').text('Delete')
+    });
+  </script>
 </body>
 </html>

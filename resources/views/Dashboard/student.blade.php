@@ -36,7 +36,7 @@
                     <button type="button" class="close" data-dismiss="modal"> &times; </button>
                   </div>  
                   <div class="modal-body">
-                    <form action="" method="POST">
+                    <form method="POST">
                        @csrf
                         <div class="form-group">
                           <div class="row">
@@ -52,10 +52,10 @@
                               <label class="col-form-label">Student </label>
                             </div>
                             <div class="col-md-6">
-                              <input type="text" class="form-control" placeholder="Student Number" name="studId">
+                              <input type="text" class="form-control" placeholder="Student Number" name="studentNumber">
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Level">
+                                <input type="text" class="form-control" placeholder="Level" name="level">
                               </div>
                           </div>
                        </div>
@@ -63,28 +63,29 @@
                           <div class="row">
                             <div class="col-md-4"> </div>
                             <div class="col-md-4">
-                              <input type="text" class="form-control" placeholder="First Name">
+                              <input type="text" class="form-control" placeholder="First Name" name="firstName">
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" placeholder="Last Name">
+                                <input type="text" class="form-control" placeholder="Last Name" name="lastName">
                               </div>
                           </div>
                        </div>
+                       
                        <div class="form-group"> 
-                          <div class="row">
-                            <div class="col-md-4"> </div>
-                            <div class="col-md-8">
-                              <input type="email" class="form-control" placeholder="Email">
-                            </div>
+                        <div class="row">
+                          <div class="col-md-4"> </div>
+                          <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="Contact Number" name="contactNumber">
                           </div>
-                       </div>
+                        </div>
+                     </div>
                        <div class="form-group">
                         <div class="row">
                           <div class="col-md-4">
                             <label class="col-form-label">Account </label>
                           </div>
                           <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="Username">
+                              <input type="email" class="form-control" placeholder="Email" name="email">
                           </div>
                         </div>
                        </div>
@@ -92,68 +93,10 @@
                         <div class="row">
                             <div class="col-md-4"> </div>
                             <div class="col-md-8">
-                              <input type="password" class="form-control" placeholder="Password">
+                              <input type="password" class="form-control" placeholder="Password" name="password">
                             </div>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4"> </div>
-                            <div class="col-md-8">
-                              <input type="password" class="form-control" placeholder="Confirm Password">
-                            </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-4"> Address </div>
-                          <div class="col-md-8">
-                            <textarea class="form-control" row="3" placeholder="House No./Street/Barangay"> </textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-4"> </div>
-                          <div class="col-md-4"> 
-                            <input type="text" class="form-control" placeholder="City / Municipality">
-                          </div>
-                          <div class="col-md-4"> 
-                              <input type="text" class="form-control" placeholder="Province / State">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-4">
-                          </div>
-                          <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="Country">
-                          </div>
-                          <div class="col-md-3">
-                            <input type="text" class="form-control" placeholder="Zip Code">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-4"> Guardian</div>
-                          <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="Guardian First Name">
-                          </div> 
-                          <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="Guardian Last Name">
-                          </div> 
-                        </div>
-                      </div> 
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-4"> </div>
-                          <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="Guardian Contact Number">
-                          </div>
-                        </div>
-                      </div>  
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
@@ -174,6 +117,16 @@
                     <th>Action</th>
                   </tr>
                 </thead>
+                <tbody>
+                  @foreach ($student as $students)
+                    <tr>
+                      <td>{{ $students->studentNumber}} </td>
+                      <td>{{ $students->level}} </td>
+                      <td>{{ $students->firstName}} </td>
+                      <td>{{ $students->lastName}} </td>
+                    </tr>
+                  @endforeach
+                </tbody>
               </table>
             </div>
           </div>

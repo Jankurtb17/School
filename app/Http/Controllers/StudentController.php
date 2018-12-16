@@ -3,21 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\yearlevels;
-use Illuminate\Support\Facades\DB;
+use App\student;
+use Illuminate\Support\Facades\Auth;
 
-class yearlevel extends Controller
+class StudentController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
+    
     public function index()
     {
-        $yearlevel = yearlevels::paginate(10);
-        return view('Dashboard.yearlevel', compact('yearlevel'));
+        $student = student::all();
+        return view('Dashboard.student', compact('student'));
     }
 
     /**
@@ -27,7 +32,7 @@ class yearlevel extends Controller
      */
     public function create()
     {
-        return view('Dashboard.yearlevel');
+        return view('Dashboard.student');
     }
 
     /**
@@ -39,15 +44,26 @@ class yearlevel extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-          'yearLevel'   => 'required|string',
-          'description' => 'required|string'
+            'studentNumber'         => 'required|string',
+            'level'                 => 'required|string',
+            'first_name'            => 'required|string',
+            'last_name'             => 'required|string',
+            'contactNumber'         => 'required|string',
+            'email'                 => 'required|string',
+            'password'              => 'required|string',
+           
         ]);
+         $student = student::create([
+            'studentNumbers'       =>$request->get('studentNumber'),
+            'level'               =>$request->get('level'),
+            'firstName'           =>$request->get('firstName'),
+            'lastName'            =>$request->get('lastName'),
+            'contactNumber'       =>$request->get('contactNumber'),
+            'email'               =>$request->get('email'),
+            'password'            =>$request->get('password'),
+        ]);
+        return redirect('/student')-with('success', 'student successfully added!');
 
-        yearlevels::create([
-          'yearLevel'     =>$request->get('yearLevel'),
-          'description'   =>$request->get('description')
-        ]);
-        return redirect('/yearlevel')->with('success', 'yearLevel successfully added!');
     }
 
     /**
@@ -58,8 +74,7 @@ class yearlevel extends Controller
      */
     public function show($id)
     {
-        $yearlevel = yearlevels::findOrFail($id);
-        return view('Dashboard.yearlevel', compact('yearlevel'));
+        //
     }
 
     /**
@@ -70,8 +85,7 @@ class yearlevel extends Controller
      */
     public function edit($id)
     {
-        $yearlevel = yearlevels::findOrFail($id);
-        return view('Dashboard.yearlevel', compact('yearlevel', 'id'));
+        //
     }
 
     /**
@@ -83,11 +97,7 @@ class yearlevel extends Controller
      */
     public function update(Request $request, $id)
     {
-        $yearlevel = yearlevels::findOrFail($id);
-        $yearlevel->yearLevel = $request->yearLevel;
-        $yearlevel->description = $request->description;
-        $yearlevel->save();
-        return response()->json($yearlevel);
+        //
     }
 
     /**
@@ -100,5 +110,4 @@ class yearlevel extends Controller
     {
         //
     }
-   
 }

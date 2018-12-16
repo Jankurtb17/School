@@ -17,7 +17,7 @@
           <div class="sidebar-content">
           </div>
           <div class="title">
-            <h1>School Year </h1>
+            <h1>Examination Date </h1>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"> <i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon">  </i><a href="/dashboard">Dashboard </a> </li>
@@ -25,7 +25,7 @@
               </ol>
             </nav>
             <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade1">
-                Add school year 
+                Add examination date
             </button>
             <div class="modal fade" id="modalFade1" tabindex = "-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-sm" role="document">
@@ -39,7 +39,7 @@
                        @csrf
                     <div class="form-group">
                       <label>School Year </label>
-                      <input type="date" class="form-control" id="schoolYear" name="schoolYear" placeholder="Enter School Year" required>
+                      <input type="text" class="form-control" id="schoolYear" name="schoolYear" placeholder="Enter School Year" required>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -61,10 +61,10 @@
               </thead>
               <tbody>
                 <?php $no=1; ?>
-                @foreach ($schoolyear as $schoolyears)
-                    <tr class="post{{ $schoolyears->id }}"> 
+                @foreach ($examination as $examinations)
+                    <tr class="post{{ $examinations->id }}"> 
                       <td> {{ $no++ }} </td>
-                      <td> {{ $schoolyears->schoolYear }}</td>
+                      <td> {{ $examinations->schoolYear }}</td>
                       <td> 
                           <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
                           <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
@@ -86,7 +86,7 @@
                       @csrf
                       <div class="form-group">
                         <label>School Year </label>
-                        <input type="date" class="form-control" id="schoolyr" name="schoolyr" required>
+                        <input type="text" class="form-control" id="schoolyr" name="schoolyr" required>
                       </div>
                     </form>
                   <div class="deleteContent">
@@ -109,11 +109,9 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
-    $(document).ready(function(){
-      $('#schoolYear').datetimepicker('setStartDate', '2018-01-01');
-    });
     $('nav-item').on('click', 'nav-link', function(){
-      alert('test')
+        $('.nav-item nav-link.active').removeClass('current');
+        $(this).addClass('current');
     }); 
 
     $(document).on('click','.edit-modal', function(){

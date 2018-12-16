@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\nameOfClasses;
+use App\schoolyear;
+use App\yearlevels;
 
 class nameOfClass extends Controller
 {
@@ -15,7 +17,9 @@ class nameOfClass extends Controller
     public function index()
     {
         $class = nameOfClasses::all();
-        return view('Dashboard.class', compact('class'));
+        $schoolyear = SchoolYear::all();
+        $yearlevel = yearlevels::all();
+        return view('Dashboard.class', compact('class', 'schoolyear', 'yearlevel'));
     }
 
     /**

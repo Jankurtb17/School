@@ -17,16 +17,18 @@ Auth::routes();
 // Route::get('/dashboard', 'LoginController@dashboard');
 
 Route::group(['middleware'  => 'revalidate'], function(){
-  Route::get('/', 'HomeController@index');
-  Route::get('/dashboard', 'HomeController@dashboard');
-  Route::resource('/class', 'nameOfClass');
-  Route::get('/teacher', 'HomeController@teacher');
-  Route::get('/logout', 'LogoutController@logout');
-  Route::get('/student', 'HomeController@student');
-  Route::resource('/schoolyear', 'schoolyr');
-  Route::resource('/subject', 'subjectview');
-  Route::resource('/yearlevel', 'yearlevel');
-  Route::get('/studentclass', 'HomeController@studentClass');
-  Route::get('/advisory', 'HomeController@advisory');
-
+  Route::middleware(['Admin'])->group(function() {
+    Route::get('/', 'HomeController@index');
+    Route::get('/dashboard', 'HomeController@dashboard');
+    Route::resource('/class', 'nameOfClass');
+    Route::get('/teacher', 'HomeController@teacher');
+    Route::get('/logout', 'LogoutController@logout');
+    Route::resource('/student', 'StudentController');
+    Route::resource('/schoolyear', 'schoolyr');
+    Route::resource('/subject', 'subjectview');
+    Route::resource('/yearlevel', 'yearlevel');
+    Route::resource('/studentclass', 'manageCLasses');
+    Route::resource('/advisory', 'teacheradvisory');
+    Route::get('/examination', 'HomeController@examination');
+  });
 });

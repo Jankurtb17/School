@@ -2,37 +2,40 @@
     <div class="sidebar">
       <div class="sidebar-content">
           <nav class="sidebar-nav">
-            <ul class="nav">
+            <ul class="nav" id="menulist">
               <div class="main-content">
                 Admin
               </div>
-              <li class="nav-item current">
-                  <a class="nav-link" href="/dashboard"> <i class="fa fa-tachometer" aria-hidden="true" id="icon-dashboard"></i> Dashboard </a>
+              <li class="nav-item">
+                  <a class="nav-link {{ setActive('dashboard', 'current') }}" href="/dashboard"> <i class="fa fa-tachometer" aria-hidden="true" id="icon-dashboard"></i> Dashboard </a>
               </li>
               <li class="nav-title"> Module </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/schoolyear"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> School Year</a>
+                  <a class="nav-link {{ setActive('schoolyear', 'current') }}" href="/schoolyear"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> School Year</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/yearlevel"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> Year Level</a>
+                <a class="nav-link {{ setActive('yearlevel', 'current') }}" href="/yearlevel"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> Year Level</a>
+             </li>
+              <li class="nav-item">
+                  <a class="nav-link {{ setActive('examination', 'current') }}" href="/examination"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> Examination Date</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/student"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student </a>
+                  <a class="nav-link {{ setActive('student', 'current') }}" href="/student"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/studentclass"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student Class </a>
+                  <a class="nav-link {{ setActive('studentclass', 'current') }}" href="/studentclass"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student Class </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/teacher"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers </a>
+                <a class="nav-link {{ setActive('teacher', 'current') }}" href="/teacher"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/advisory"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers Advisory </a>
+                  <a class="nav-link {{ setActive('advisory', 'current') }}" href="/advisory"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers Advisory </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/subject"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Subject </a>
+                <a class="nav-link {{ setActive('subject', 'current') }}" href="/subject"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Subject </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/class"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Class </a>
+                  <a class="nav-link {{ setActive('class', 'current') }}" href="/class"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Class </a>
               </li>
               <li class="nav-title"> Settings </li>
               <li class="nav-item">

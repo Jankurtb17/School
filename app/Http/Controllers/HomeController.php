@@ -46,15 +46,6 @@ class HomeController extends Controller
       return view('Dashboard.student');
     }
 
-    public function schoolYear()
-    {
-      return view('Dashboard.schoolYear');
-    }
-
-    public function yearLevel()
-    {
-      return view('Dashboard.yearLevel');
-    }
 
     public function studentClass()
     {
@@ -71,9 +62,9 @@ class HomeController extends Controller
       return view('Dashboard.subject');
     }
 
-    public function pasok()
+    public function examination()
     {
-      return view('Dashboard.class');
+      return view('Dashboard.examination');
     }
 
   
