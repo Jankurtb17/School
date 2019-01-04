@@ -44,25 +44,25 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'studentNumber'         => 'required|string',
+            'studentNumbers'         => 'required|string',
             'level'                 => 'required|string',
-            'first_name'            => 'required|string',
-            'last_name'             => 'required|string',
+            'firstName'             => 'required|string',
+            'lastName'              => 'required|string',
             'contactNumber'         => 'required|string',
             'email'                 => 'required|string',
             'password'              => 'required|string',
            
         ]);
          $student = student::create([
-            'studentNumbers'       =>$request->get('studentNumber'),
+            'studentNumbers'       =>$request->get('studentNumbers'),
             'level'               =>$request->get('level'),
             'firstName'           =>$request->get('firstName'),
             'lastName'            =>$request->get('lastName'),
             'contactNumber'       =>$request->get('contactNumber'),
             'email'               =>$request->get('email'),
-            'password'            =>$request->get('password'),
+            'password'            =>$request->get('password')
         ]);
-        return redirect('/student')-with('success', 'student successfully added!');
+        return redirect('/student')->with('success', 'student successfully added!');
 
     }
 

@@ -12,7 +12,7 @@ class student extends Authenticatable
   protected $guard = 'student';
 
   protected $fillable = [
-      'studentNumber',
+      'studentNumbers',
       'level',
       'firstName',
       'lastName',

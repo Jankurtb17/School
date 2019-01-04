@@ -8,6 +8,6 @@ class schoolyear extends Model
 { 
     
     protected $fillable = [
-        'schoolYear'
+       'schoolYear'
     ];  
 }

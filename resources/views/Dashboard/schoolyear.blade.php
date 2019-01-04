@@ -39,7 +39,7 @@
                        @csrf
                     <div class="form-group">
                       <label>School Year </label>
-                      <input type="date" class="form-control" id="schoolYear" name="schoolYear" placeholder="Enter School Year" required>
+                      <input type="text" class="form-control" id="schoolYear" name="schoolYear" placeholder="Enter School Year" required>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -74,6 +74,9 @@
               </tbody> 
             </table>
             </div>
+            <div class="mt-2">
+              {{ $schoolyear->links() }}
+            </div>
             <div id="myModal" class="modal fade" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
@@ -84,9 +87,14 @@
                   <div class="modal-body">
                     <form method="POST" class="form-horizontal" role="modal">
                       @csrf
+                      <div class="form-group hide">
+                        <label>ID </label>
+                        <input type="text" class="form-control" id="id" name="id" disabled>
+                      </div>
+
                       <div class="form-group">
                         <label>School Year </label>
-                        <input type="date" class="form-control" id="schoolyr" name="schoolyr" required>
+                        <input type="text" class="form-control" id="a" name="schoolYear" required>
                       </div>
                     </form>
                   <div class="deleteContent">
@@ -94,8 +102,8 @@
                   </div>
                 </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal"> Update </button>
-                    <button type="button" class="btn btn-md" data-dismiss="modal"> Cancel</button>
+                    <button type="button" class="btn actionBtn" data-dismiss="modal"> Update </button>
+                    <button type="button" class="btn cancel" data-dismiss="modal"> Cancel</button>
                   </div>
                 </div>
               </div>
@@ -109,47 +117,65 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
-    $(document).ready(function(){
-      $('#schoolYear').datetimepicker('setStartDate', '2018-01-01');
-    });
-    $('nav-item').on('click', 'nav-link', function(){
-      alert('test')
-    }); 
-
     $(document).on('click','.edit-modal', function(){
       $('.modal-title').text('Edit school year');
       $('.form-horizontal').show();
       $('.deleteContent').hide();
       $('.actionBtn').addClass('btn-success');
-      $('.actionBtn').removeClass('btn-danger');
-      $('.actionBtn').addClass('edit');
-      $('#schoolyr').val($(this).data('schoolyear'));
+      $('.actionBtn').removeClass('delete');
+      $('#id').val($(this).data('id'));
+      $('#a').val($(this).data('schoolyear'));
+      id = $('#id').val();
       $('#myModal').show();
     });
 
-  $(document).on('click','.delete-modal', function() {
-      $('.modal-title').text('Delete this id');
-      $('.deleteContent').show();
-      $('.form-horizontal').hide();
-      $('.actionBtn').text('Delete');
-    });
-
-    $('modal-footer').on('click', 'edit', function(){
-        $.ajax({
-            type: 'POST',
-            url:  'editPost',
-            data: {
-              '_token': $('input[name=_token').val(),
-              'schoolYear': $('#schoolyr').val()
-            },
-            success: function(data) {
-              $('.post' + data.id).replaceWith(" "+
-                "<tr class='post'"+data.id +"'>" +
-                "<td>" + data.id + "</td>"+
-                "<td>" + data.schoolYear + "</td> </tr>");
-            }
-        });
+    $('.modal-footer').on('click', '.actionBtn', function() {
+      $.ajax({
+        type: 'PUT',
+        url: 'schoolyear/' +id,
+        data: {
+          '_token': $('input[name=_token]').val(),
+          'id': $('#id').val(),
+          'schoolYear': $('#a').val()
+        },
+        success:function(data) {
+          $('.post' +data.id).replaceWith(" "+
+          "<tr class='post" + data.id +"'>"+
+            "<td>" +data.id+ "</td>"+
+            "<td>" +data.schoolYear+ " </td>"+
+            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolYear='"+data.schoolYear+"' >"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
+            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolYear='"+data.schoolYear+"' >"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
+            "</td>"+
+            "</tr>");
+        }
       });
+    });
+    
+    // Delete Post
+    $(document).on('click','.delete-modal', function() {
+    $('.modal-title').text('Delete this id');
+    $('.deleteContent').show();
+    $('.form-horizontal').hide();
+    $('.actionBtn').addClass('btn-danger');
+    $('.actionBtn').addClass('delete');
+    $('.delete').removeClass('actionBtn');
+    $('.delete').text('Yes');
+    $('#id').val($(this).data('id'));
+    id = $('#id').val();
+    });
+    $(document).on('click','.delete', function() {
+      $.ajax({
+        type: 'DELETE',
+        url: 'schoolyear/' +id,
+        data: {
+          '_token': $('input[name=_token]').val(),
+          'id': $('#id').val()
+        },
+        success:function(data) {
+          $('.post' + $('#id').val()).remove();
+        }
+      });
+    });
   </script>
 </body>
 </html>

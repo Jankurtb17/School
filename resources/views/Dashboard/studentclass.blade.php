@@ -69,6 +69,7 @@
             <table class="table table-hover table-bordered table-responsive-md">
               <thead>
                 <tr>
+                  <th> ID</th>
                   <th> Student Class</th>
                   <th> Student Name </th>
                   <th> Subject </th>
@@ -76,15 +77,16 @@
                 </tr>
               </thead>
               <tbody>
+                <?php $no =1; ?>
                 @foreach ($manageclass as $manageclasses)
                     <tr class="post{{$manageclasses->id}}">
-                        <td>{{ $manageclasses->class }}</td>
-                        <td>{{ $manageclasses->student}} </td>
-                        <td>{{ $manageclasses->subject }}</td>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $manageclasses->className }}</td>
+                        <td>{{ $manageclasses->studentName}} </td>
+                        <td>{{ $manageclasses->subjectName }}</td>
                         <td>
-                          <a href="#" class="edit-modal btn btn-warning"  data-toggle="modal" data-target="#myModal" data-id="{{ $manageclasses->id }}" data-class="{{ $manageclasses->class}}" data-student="{{ $manageclasses->student }}" data-subject="{{ $manageclasses->subject }}"> <i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit </a>
-                          <a href="#" class="delete-modal btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="{{ $manageclasses->id }}" data-class="{{ $manageclasses->class}}" data-student="{{ $manageclasses->student }}" data-subject="{{ $manageclasses->subject }}"> <i class="fa fa-trash-o" aria-hidden="true"> </i> Delete </a>
-
+                          <a href="#" class="edit-modal btn btn-warning"  data-toggle="modal" data-target="#myModal" data-id="{{ $manageclasses->id }}" data-classname="{{ $manageclasses->className}}" data-studentname="{{ $manageclasses->studentName }}" data-subjectname="{{ $manageclasses->subjectName }}"> <i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit </a>
+                          <a href="#" class="delete-modal btn btn-danger" data-toggle="modal" data-target="#myModal" data-id="{{ $manageclasses->id }}" data-classname="{{ $manageclasses->className}}" data-studentname="{{ $manageclasses->studentName }}" data-subjectname="{{ $manageclasses->subjectName }}"> <i class="fa fa-trash-o" aria-hidden="true"> </i> Delete </a>
                         </td>
                     </tr>
                 @endforeach
@@ -99,8 +101,13 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                  <form class="form-horizontal" action="" method="POST">
+                  <form class="form-horizontal" method="POST" role="modal">
                     @csrf
+                    <div class="form-group">
+                        <label> ID NUmber </label>
+                        <input type="text" class="form-control" name="id" id="id">
+                      </div>
+
                     <div class="form-group">
                       <label for="className">Class Name</label>
                       <select name="className" id="a" class="form-control">
@@ -127,8 +134,8 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal">Update </button>
-                  <button type="button" class="btn btn-light" data-dismiss="modal">Cancel </button>
+                  <button type="button" class="btn actionBtn" data-dismiss="modal">Update </button>
+                  <button type="button" class="btn" data-dismiss="modal">Cancel </button>
                 </div>
               </div>
             </div>
@@ -142,22 +149,70 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
     $(document).on('click', '.edit-modal', function(){
-      $('.form-horizontal').show();
+      $('.modal-title').text('Edit Manage student class');
       $('.deleteContent').hide();
-      $('.actionBtn').addClass('btn btn-success');
+      $('.form-horizontal').show();
+      $('.actionBtn').addClass('btn-success');
       $('.actionBtn').text('Update');
-      $('#a').val($(this).data('class'));
-      $('#b').val($(this).data('student'));
-      $('#c').val($(this).data('subject'));
+      $('#id').val($(this).data('id'));
+      $('#a').val($(this).data('classname'));
+      $('#b').val($(this).data('studentname'));
+      $('#c').val($(this).data('subjectname'));
+      id = $('#id').val();
       $('#myModal').show();
+    });
+
+    $('.modal-footer').on('click', '.actionBtn', function() {
+        $.ajax({
+          type: 'PUT',
+          url: "studentclass/" +id,
+          data: {
+            '_token': $('input[name=_token]').val(),
+            'id': $('#id').val(),
+            'className': $('#a').val(),
+            'studentName': $('#b').val(),
+            'subjectName': $('#c').val()
+          },
+          success:function(data) {
+            $('.post'+data.id).replaceWith(" "+
+              "<tr class='"+data.id+"'>"+
+              "<td>" +data.id+ " </td>"+
+              "<td>" +data.className+ " </td>"+
+              "<td>" +data.studentName+ " </td>"+
+              "<td>" +data.subjectName+ "</td>"+
+              "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-classname='"+data.className+"' data-studentName='"+data.studentName+"' data-subjectName ='"+data.subjectName+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
+              "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-classname='"+data.className+"' data-studentName='"+data.studentName+"' data-subjectName ='"+data.subjectName+"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
+              "</td>"+
+              "</tr>");
+            }
+        });
     });
     $(document).on('click','.delete-modal', function(){
       $('.modal-title').text('Delete');
       $('.deleteContent').show();
       $('.form-horizontal').hide();
-      $('.actionBtn').text('Delete');
+      $('.actionBtn').addClass('btn-danger');
+      $('.actionBtn').addClass('delete');
+      $('.delete').removeClass('actionBtn');
+      $('.delete').text('Yes');
+      $('#id').val($(this).data('id'));
+      id = $('#id').val();
+      $('#myModal').show();
     });
-  
+    
+    $(document).on('click', '.delete', function() {
+      $.ajax({
+          type: 'DELETE',
+          url: 'studentclass/' +id,
+          data: {
+            '_token': $('input[name=_token').val(),
+            'id': $('#id').val()
+          },
+          success: function(data){
+            $('.post' + $('#id').val()).remove();
+          }
+      });
+    });
   </script>
 </body>
 </html>

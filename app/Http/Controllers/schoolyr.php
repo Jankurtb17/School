@@ -12,14 +12,10 @@ class schoolyr extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     
     public function index()
     {
-        $schoolyear = schoolyear::all();
+        $schoolyear = schoolyear::paginate(10);
         return view('Dashboard.schoolyear', compact('schoolyear'));
     }
 
@@ -59,7 +55,8 @@ class schoolyr extends Controller
      */
     public function show($id)
     {
-        //
+        $schoolyear = schoolyear::findOrFail($id);
+        return view('Dashboard.schoolyear', compact('schoolyear'));
     }
 
     /**
@@ -70,7 +67,8 @@ class schoolyr extends Controller
      */
     public function edit($id)
     {
-        //
+        $schoolyear = schoolyear::findOrFail($id);
+        return view('Dashboard.schoolyear', compact('schoolyear', 'id'));
     }
 
     /**
@@ -82,7 +80,10 @@ class schoolyr extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $schoolyear = schoolyear::findOrFail($id);
+        $schoolyear->schoolYear = $request->schoolYear;
+        $schoolyear->save();
+        return response()->json($schoolyear);
     }
 
     /**
@@ -93,15 +94,9 @@ class schoolyr extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-
-    public function editPost(Request $request)
-    {
-      $school = schoolyear::find($request->id);
-      $school->schoolYear = $request->schoolyr;
-      $school->save();
-      return response()->json($school);
+        $schoolyear = schoolyear::findOrFail($id);
+        $schoolyear->delete();
+        return response()->json($schoolyear);
     }
 
 }

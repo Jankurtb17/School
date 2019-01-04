@@ -47,9 +47,9 @@ class manageClasses extends Controller
           
         ]);
         manageclass::create([
-          'class'   =>$request->get('className'),
-          'student' =>$request->get('studentName'),
-          'subject' =>$request->get('subjectName')
+          'className'   =>$request->get('className'),
+          'studentName' =>$request->get('studentName'),
+          'subjectName' =>$request->get('subjectName')
         ]);
         return redirect('/studentclass')->with('success', 'CLass successfully added!');
     }
@@ -62,7 +62,8 @@ class manageClasses extends Controller
      */
     public function show($id)
     {
-        //
+        $manageclass = manageclass::findOrFail($id);
+        return view('Dashboard.studentclass', compact('manageclass'));
     }
 
     /**
@@ -73,7 +74,8 @@ class manageClasses extends Controller
      */
     public function edit($id)
     {
-        //
+      $manageclass = manageclass::findOrFail($id);
+      return view('Dashboard.studentclass', compact('manageclass', 'id'));
     }
 
     /**
@@ -85,7 +87,12 @@ class manageClasses extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $manageclass = manageclass::findOrFail($id);
+      $manageclass->className = $request->className;
+      $manageclass->studentName = $request->studentName;
+      $manageclass->subjectName = $request->subjectName;
+      $manageclass->save();
+      return response()->json($manageclass);        
     }
 
     /**
@@ -96,6 +103,8 @@ class manageClasses extends Controller
      */
     public function destroy($id)
     {
-        //
+        $manageclass = manageclass::findOrFail($id);
+        $manageclass->delete();
+        return response()->json($manageclass);
     }
 }

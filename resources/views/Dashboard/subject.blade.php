@@ -97,6 +97,10 @@
                 <div class="modal-body">
                   <form method="POST" class="form-horizontal" role="modal">
                     @csrf
+                    <div class="form-group hide">
+                      <label> Subject Name </label>
+                      <input type="text" class="form-control" name="id" id="id" disabled>
+                    </div>
                     <div class="form-group">
                       <label> Subject Name </label>
                       <input type="text" class="form-control" name="subjectName" id="a">
@@ -115,8 +119,8 @@
                   </div>  
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal">Update</button>
-                  <button type="button" class="btn btn-md" data-dismiss="modal">Cancel </button>
+                  <button type="button" class="btn actionBtn" data-dismiss="modal">Update</button>
+                  <button type="button" class="btn cancel" data-dismiss="modal">Cancel </button>
                 </div>
               </div>
             </div>
@@ -135,18 +139,67 @@
       $('.deleteContent').hide();
       $('.actionBtn').addClass('btn-success');
       $('.actionBtn').removeClass('btn-danger');
-      $('.actionBtn').addClass('edit');
+      $('.actionBtn').removeClass('delete');
+      $('#id').val($(this).data('id'));
       $('#a').val($(this).data('subjectname'));
       $('#b').val($(this).data('description'));
       $('#c').val($(this).data('yearlevel'));
+      id = $('#id').val();
       $('#myModal').show();
+    });
+    $('.modal-footer').on('click', '.actionBtn', function(){
+      $.ajax({
+          type: 'PUT',
+          url:  'subject/' + id,
+          data: {
+            '_token': $('input[name=_token]').val(),
+            'id': $('#id').val(),
+            'subjectName': $('#a').val(),
+            'description': $('#b').val(),
+            'yearLevel': $('#c').val()
+          },
+          success: function(data) {
+            $('.post' +data.id).replaceWith(" "+
+            "<tr class='post" + data.id +"'>"+
+            "<td>" +data.id+ "</td>"+
+            "<td>" +data.subjectName+ " </td>"+
+            "<td>" +data.description+ " </td>"+
+            "<td>" +data.yearLevel+ "</td>"+
+            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-subjectName='"+data.subjectName+"' data-description='"+data.description+"' data-yearLevel='"+data.yearLevel+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
+            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-subjectName='"+data.subjectName+"' data-description='"+data.description+"' data-yearLevel='"+data.yearLevel+"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
+            "</td>"+
+            "</tr>");
+          }
+
+      });
     });
     $(document).on('click','.delete-modal', function() {
       $('.modal-title').text('Delete this id');
       $('.deleteContent').show();
       $('.form-horizontal').hide();
-      $('.actionBtn').text('Delete')
+      $('.actionBtn').addClass('btn-danger');
+      $('.actionBtn').addClass('delete');
+      $('.delete').removeClass('actionBtn');
+      $('.delete').removeClass('btn-success');
+      $('.delete').text('Yes');
+      $('#id').val($(this).data('id'));
+      id = $('#id').val();
+      $('#myModal').show();      
     });
+
+    $(document).on('click', '.delete', function() {
+      $.ajax({
+        type: 'DELETE',
+        url: 'subject/' + id,
+        data: {
+          '_token': $('input[name=_token]').val(),
+          'id': id
+        },
+        success:function(data) {
+          $('.post' + id).remove();
+        }
+      });
+    }); 
   </script>
 </body>
 </html>

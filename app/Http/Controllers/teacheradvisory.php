@@ -16,10 +16,9 @@ class teacheradvisory extends Controller
      */
     public function index()
     {
-        $subject = subject::all();
-        $classname = nameOfClasses::all();
+      
         $advisory = advisory::all();
-        return view('Dashboard.teacheradvisory', compact('subject', 'classname', 'advisory'));
+        return view('Dashboard.teacheradvisory', compact('advisory'));
     }
 
     /**
@@ -64,7 +63,8 @@ class teacheradvisory extends Controller
      */
     public function show($id)
     {
-        //
+        $advisory = advisory::findOrFail($id);
+        return view('Dashboard.teacheradvisory', compact('advisory'));
     }
 
     /**
@@ -75,7 +75,8 @@ class teacheradvisory extends Controller
      */
     public function edit($id)
     {
-        //
+      $advisory = advisory::findOrFail($id);
+      return view('Dashboard.teacheradvisory', compact('advisory', 'id'));
     }
 
     /**
@@ -87,7 +88,12 @@ class teacheradvisory extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $advisory = advisory::findOrFail($id);
+        $advisory->teacherName = $request->teacherName;
+        $advisory->className = $request->className;
+        $advisory->subjectName = $request->subjectName;
+        $advisory->save();
+        return response()->json($advisory);
     }
 
     /**
@@ -98,6 +104,8 @@ class teacheradvisory extends Controller
      */
     public function destroy($id)
     {
-        //
+        $advisory = advisory::findOrFail($id);
+        $advisory->delete();
+        return response()->json($advisory);
     }
 }

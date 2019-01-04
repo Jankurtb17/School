@@ -35,7 +35,7 @@
                     <button type="button" class="close" data-dismiss="modal"> &times; </button>
                   </div>  
                   <div class="modal-body">
-                    <form action="" method="POST">
+                    <form method="POST">
                        @csrf
                       <div class="form-group">
                         <div class="row">
@@ -51,28 +51,19 @@
                             <label class="col-form-label">Student </label>
                           </div>
                           <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="Employee ID"  name="studId">
+                            <input type="text" class="form-control" placeholder="Employee ID"  name="employee_Id">
                           </div>
-                       
                         </div>
                       </div>
                       <div class="form-group"> 
                         <div class="row">
                           <div class="col-md-4"> </div>
                           <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="First Name">
+                            <input type="text" class="form-control" placeholder="First Name" name="firstName">
                           </div>
                           <div class="col-md-4">
-                              <input type="text" class="form-control" placeholder="Last Name">
+                              <input type="text" class="form-control" placeholder="Last Name" name="lastName">
                             </div>
-                        </div>
-                      </div>
-                      <div class="form-group"> 
-                        <div class="row">
-                          <div class="col-md-4"> </div>
-                          <div class="col-md-8">
-                            <input type="email" class="form-control" placeholder="Email">
-                          </div>
                         </div>
                       </div>
                       <div class="form-group">
@@ -81,7 +72,7 @@
                           <label class="col-form-label">Account </label>
                         </div>
                         <div class="col-md-8">
-                          <input type="text" class="form-control" placeholder="Username">
+                          <input type="email" class="form-control" placeholder="email" name="email">
                         </div>
                       </div>
                       </div>
@@ -89,47 +80,8 @@
                       <div class="row">
                           <div class="col-md-4"> </div>
                           <div class="col-md-8">
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" class="form-control" placeholder="Password" name="password">
                           </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="row">
-                          <div class="col-md-4"> </div>
-                          <div class="col-md-8">
-                            <input type="password" class="form-control" placeholder="Confirm Password">
-                          </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-4"> Address </div>
-                        <div class="col-md-8">
-                          <textarea class="form-control" row="3" placeholder="House No./Street/Barangay"> </textarea>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-4"> </div>
-                        <div class="col-md-4"> 
-                          <input type="text" class="form-control" placeholder="City / Municipality">
-                        </div>
-                        <div class="col-md-4"> 
-                            <input type="text" class="form-control" placeholder="Province / State">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-4">
-                        </div>
-                        <div class="col-md-5">
-                          <input type="text" class="form-control" placeholder="Country">
-                        </div>
-                        <div class="col-md-3">
-                          <input type="text" class="form-control" placeholder="Zip Code">
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -141,6 +93,27 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="table-body">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>Employee ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                @foreach ($teacher as $teachers)
+                <tr>
+                    <td>{{ $teachers->employee_Id }}</td>
+                    <td>{{ $teachers->firstName }}</td>
+                    <td>{{ $teachers->lastName }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+          </table>
           </div>
         </div>
       </div>

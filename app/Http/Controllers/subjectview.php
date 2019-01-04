@@ -59,7 +59,8 @@ class subjectview extends Controller
      */
     public function show($id)
     {
-        //
+        $subject = subject::findOrFail($id);
+        return view('Dashboard.subject', compact('subject'));
     }
 
     /**
@@ -70,7 +71,8 @@ class subjectview extends Controller
      */
     public function edit($id)
     {
-        //
+        $suject = subject::findOrFail($id);
+        return view('Dashboard.subject', compact('subject', 'id'));
     }
 
     /**
@@ -82,7 +84,12 @@ class subjectview extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $subject = subject::findOrFail($id);
+        $subject->subjectName = $request->subjectName;
+        $subject->description = $request->description;
+        $subject->yearLevel = $request->yearLevel;
+        $subject->save();
+        return response()->json($subject);
     }
 
     /**
@@ -93,7 +100,9 @@ class subjectview extends Controller
      */
     public function destroy($id)
     {
-        //
+        $subject = subject::findOrFail($id);
+        $subject->delete();
+        return response()->json($subject);
     }
 
     

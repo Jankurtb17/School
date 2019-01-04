@@ -21,7 +21,7 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::get('/', 'HomeController@index');
     Route::get('/dashboard', 'HomeController@dashboard');
     Route::resource('/class', 'nameOfClass');
-    Route::get('/teacher', 'HomeController@teacher');
+    Route::resource('/teacher', 'TeacherController');
     Route::get('/logout', 'LogoutController@logout');
     Route::resource('/student', 'StudentController');
     Route::resource('/schoolyear', 'schoolyr');

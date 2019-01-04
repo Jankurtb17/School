@@ -44,19 +44,11 @@
                       </div>
                       <div class="form-group">
                         <label class="col-form-label">Class</label>
-                        <select name="className" class="form-control">
-                            @foreach ($classname as $classnames)
-                             <option value="{{ $classnames->className }}">{{ $classnames->className }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" class="form-control" placeholder="Student Class"  name="className">
                       </div>
                       <div class="form-group">
                         <label class="col-form-label">Subject</label>
-                        <select name="subjectName" class="form-control">
-                          @foreach ($subject as $subjects)
-                            <option value="{{ $subjects->subjectName}}"> {{ $subjects->subjectName}}</option>
-                          @endforeach
-                        </select>
+                        <input type="text" class="form-control" placeholder="Student Class"  name="subjectName">
                       </div>
                   </div>
                   <div class="modal-footer">
@@ -101,25 +93,21 @@
                 <div class="modal-body">
                   <form action="" method="POST" class="form-horizontal">
                     @csrf
+                    <div class="form-group hide">
+                      <label> Teacher </label>
+                      <input type="text" class="form-control" name="id" id="id" disabled>
+                    </div>
                     <div class="form-group">
                       <label> Teacher </label>
-                      <input type="text" class="form-control" id="a">
+                      <input type="text" class="form-control" name="teacherName" id="a">
                     </div>
                     <div class="form-group">
                       <label for="b">Class</label>
-                      <select name="className" id="b" class="form-control">
-                        @foreach ($classname as $classnames)
-                          <option value="{{ $classnames->className }}">{{ $classnames->className }}</option>
-                        @endforeach
-                      </select>
+                      <input type="text" class="form-control" name="className" id="b">
                     </div>
                     <div class="form-group">
                       <label for="c">Subject</label>
-                      <select name="subjectName" id="c" class="form-control">
-                        @foreach ($subject as $subjects)
-                          <option value="{{ $subjects->subjectName }}">{{ $subjects->subjectName }}</option>                            
-                        @endforeach
-                      </select>
+                      <input type="text" class="form-control" name="subjectName" id="c">
                     </div>
                   </form>
                   <div class="deleteContent">
@@ -127,8 +115,8 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="actionBtn btn"></button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn actionBtn" data-dismiss="modal"></button>
+                    <button type="button" class="btn" data-dismiss="modal">Cancel</button>
                 </div>
               </div>
             </div>
@@ -145,22 +133,65 @@
       $('.form-horizontal').show();
       $('.deleteContent').hide();
       $('.modal-title').text('Edit Teacher advisory');
-      $('.actionBtn').addClass('edit');
-      $('.edit').addClass('btn-dark');
-      $('.edit').text('Update')
+      $('.actionBtn').text('Update')
+      $('.actionBtn').addClass('btn-dark');
+      $('#id').val($(this).data('id'));
       $('#a').val($(this).data('teacher'));
       $('#b').val($(this).data('class'));
       $('#c').val($(this).data('subject'));
+      id = $('#id').val();
       $('#myModal').show();
     });
+
+    $('.modal-footer').on('click', '.actionBtn', function() {
+        $.ajax({
+            type: 'PUT',
+            url:  'advisory/' +id,
+            data: {
+              '_token': $('input[name=_token]').val(),
+              'id':$('#id').val(),
+              'teacherName': $('#a').val(),
+              'className': $('#b').val(),
+              'subjectName': $('#c').val(),
+            },
+            success: function(data) {
+              $('.post' +data.id).replaceWith(" "+
+            "<tr class='post" + data.id +"'>"+
+            "<td>" +data.teacherName+ " </td>"+
+            "<td>" +data.className+ " </td>"+
+            "<td>" +data.subjectName+ "</td>"+
+            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-subjectName='"+data.subjectName+"' data-description='"+data.description+"' data-yearLevel='"+data.yearLevel+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
+            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-subjectName='"+data.subjectName+"' data-description='"+data.description+"' data-yearLevel='"+data.yearLevel+"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
+            "</td>"+
+            "</tr>");
+            }
+        });
+    });
+
     $(document).on('click','.delete-modal', function(){
       $('.deleteContent').show();
       $('.form-horizontal').hide();
       $('.modal-title').text('Delete');
-      $('.actionBtn').addClass('edit');
-      $('.edit').removeClass('btn-dark');
-      $('.edit').addClass('btn-danger');
-      $('.edit').text('Delete')
+      $('.actionBtn').addClass('btn-danger');
+      $('.actionBtn').addClass('delete');
+      $('.delete').removeClass('actionBtn');
+      $('.delete').text('Yes');
+      $('#id').val($(this).data('id'));
+      id = $('#id').val();
+    });
+
+    $(document).on('click', '.delete', function() {
+        $.ajax({
+            type: 'DELETE',
+            url: 'advisory/' +id,
+            data: {
+              '_token': $('input[name=_token').val(),
+              'id': id
+            },
+            success:function(data) {
+              $('.post' + $('#id').val()).remove();
+            }
+        });
     });
   </script>
 </body>

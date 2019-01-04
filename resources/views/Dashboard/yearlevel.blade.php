@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
   <link rel="stylesheet" href="{{ asset('css/addmodal.css')}}">
-  <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
   <title>Document</title>
 </head>
 <body>
@@ -57,9 +56,9 @@
             <table class="table table-hover table-bordered table-responsive-md">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th> Year Level</th>
-                  <th> Description </th>
+                  <th>@sortablelink('id')</th>
+                  <th>@sortablelink('yearLevel')</th>
+                  <th>@sortablelink('description') </th>
                   <th> Action </th>
                 </tr>
               </thead>
@@ -111,7 +110,7 @@
                 </div>
                 <div class="modal-footer">
                   <button class="btn actionBtn" type="button" data-dismiss="modal">Update</button>
-                  <button class="btn "  type="button" data-dismiss="modal">Cancel </button>
+                  <button class="btn cancel"  type="button" data-dismiss="modal">Close </button>
                 </div>
               </div>
             </div>
@@ -128,6 +127,7 @@
       $('.modal-title').text('Edit year level');
       $('.form-horizontal').show();
       $('.deleteContent').hide();
+      $('.actionBtn').addClass('btn-dark');
       $('#a').val($(this).data('yearlevel'));
       $('#b').val($(this).data('description'));
       $('#id').val($(this).data('id'));
@@ -146,13 +146,13 @@
           'description': $('#b').val()
         },
         success: function(data){
-            $('.post' +data.id).replaceWith(" "+
+          $('.post' +data.id).replaceWith(" "+
             "<tr class='post" + data.id +"'>"+
             "<td>" +data.id+ "</td>"+
             "<td>" +data.yearLevel+ "</td>"+
             "<td>" +data.description+ " </td>"+
-            "<td> <a class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-yearlevel='"+data.yearLevel+"' data-description='"+data.description+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
-            "     <a class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-yearlevel='"+data.yearLevel+"' data-description='"+data.description+"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
+            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-yearlevel='"+data.yearLevel+"' data-description='"+data.description+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
+            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-yearlevel='"+data.yearLevel+"' data-description='"+data.description+"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
             "</td>"+
             "</tr>");
         }
@@ -164,6 +164,26 @@
       $('.modal-title').text('Delete this id');
       $('.deleteContent').show();
       $('.form-horizontal').hide();
+      $('.actionBtn').addClass('btn-danger');
+      $('.actionBtn').addClass('delete');
+      $('.delete').removeClass('.actionBtn');
+      $('.delete').text('Yes');
+      $('#id').val($(this).data('id'));
+      id = $('#id').val();
+      $('#myModal').show();
+    });
+    $(document).on('click', '.delete', function() {
+      $.ajax({
+          type: 'DELETE',
+          url: 'yearlevel/' +id,
+          data: {
+            '_token': $('input[name=_token').val(),
+            'id': $('#id').val()
+          },
+          success: function(data) {
+            $('.post' +$('#id').val()).remove();
+          }
+      });
     });
   </script>
 </body>

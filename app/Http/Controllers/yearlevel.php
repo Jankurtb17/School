@@ -13,10 +13,14 @@ class yearlevel extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
-        $yearlevel = yearlevels::paginate(10);
+        $yearlevel = yearlevels::sortable()->paginate(10);
         return view('Dashboard.yearlevel', compact('yearlevel'));
     }
 
@@ -98,7 +102,9 @@ class yearlevel extends Controller
      */
     public function destroy($id)
     {
-        //
+        $yearlevel = yearlevels::findOrFail($id);
+        $yearlevel->delete();
+        return response()->json($yearlevel);
     }
    
 }

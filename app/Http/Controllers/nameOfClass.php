@@ -14,12 +14,15 @@ class nameOfClass extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     public function index()
     {
         $class = nameOfClasses::all();
-        $schoolyear = SchoolYear::all();
-        $yearlevel = yearlevels::all();
-        return view('Dashboard.class', compact('class', 'schoolyear', 'yearlevel'));
+        return view('Dashboard.class', compact('class'));
     }
 
     /**
@@ -62,7 +65,8 @@ class nameOfClass extends Controller
      */
     public function show($id)
     {
-        //
+      $class = nameOfClassess::findOrFail($id);
+      return view('Dashboard.class', compact('class'));
     }
 
     /**
@@ -73,7 +77,8 @@ class nameOfClass extends Controller
      */
     public function edit($id)
     {
-        //
+      $class = nameOfClasses::findOrFail($id);
+      return view('Dashboard.class', compact('class', 'id'));
     }
 
     /**
@@ -85,7 +90,12 @@ class nameOfClass extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $class = nameOfClasses::findOrFail($id);
+      $class->className = $request->className;
+      $class->schoolYear = $request->schoolYear;
+      $class->yearLevel = $request->yearLevel;
+      $class->save();
+      return response()->json($class);
     }
 
     /**
@@ -96,6 +106,8 @@ class nameOfClass extends Controller
      */
     public function destroy($id)
     {
-        //
+        $class = nameOfClasses::findOrFail($id);
+        $class->delete();
+        return response()->json($class);
     }
 }

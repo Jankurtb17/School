@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class manageclass extends Model
 {
     protected $fillable = [
-      'class', 'student', 'subject'
+      'className', 'studentName', 'subjectName'
     ];
 }

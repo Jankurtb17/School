@@ -52,7 +52,7 @@
                               <label class="col-form-label">Student </label>
                             </div>
                             <div class="col-md-6">
-                              <input type="text" class="form-control" placeholder="Student Number" name="studentNumber">
+                              <input type="text" class="form-control" placeholder="Student Number" name="studentNumbers">
                             </div>
                             <div class="col-md-2">
                                 <input type="text" class="form-control" placeholder="Level" name="level">
@@ -120,14 +120,21 @@
                 <tbody>
                   @foreach ($student as $students)
                     <tr>
-                      <td>{{ $students->studentNumber}} </td>
+                      <td>{{ $students->studentNumbers}} </td>
                       <td>{{ $students->level}} </td>
                       <td>{{ $students->firstName}} </td>
                       <td>{{ $students->lastName}} </td>
+                      <td>
+                      <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $students->studentNumber}}" data-level="{{ $students->level }}" data-first="{{ $students->firstName }}" data-last="{{ $students->lastName }}" data-email="{{ $students->email }}" data-password="{{ $students->password }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
+                      <a href="#" class="delete-modal btn btn-danger"><i class="fa fa-trash-o"> </i>Delete </a>
+                      </td>
                     </tr>
                   @endforeach
                 </tbody>
               </table>
+              <div id="myModal" class="modal">
+
+              </div>
             </div>
           </div>
         </div>
