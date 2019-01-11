@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\AuthenticationException;
 
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -22,6 +23,23 @@ class Handler extends ExceptionHandler
         return $request->expectsJson()
                     ? response()->json(['message' => $exception->getMessage()], 401)
                     : redirect()->guest(route('login'));
+
+        // if ($request->expectsJson()) {
+        //   return response()->json(['message' => $exception->getMessage()], 401);
+
+        // }
+        // $guard = array_get($exception->guards(), 0);
+
+        // switch($guard) {
+        //   case 'teacher':
+        //   $login = 'teacher.login';
+        //   break;
+          
+        //   default:
+        //   $login = 'login';
+        //   break;
+        // }
+        return redirect()->guest(route($login));
     }
     /**
      * A list of the inputs that are never flashed for validation exceptions.

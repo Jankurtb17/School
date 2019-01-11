@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Middleware;
-
-use Closure;
 use Auth;
-class Admin
+use Closure;
+
+class Users
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class Admin
     public function handle($request, Closure $next)
     {
         if(Auth::user()->role_id == 2){
-          return $next($request);
+          return redirect('/dashboard');
         }
-       return redirect('/');
-    }
+        return $next($request);
+      }
 }

@@ -12,6 +12,7 @@
 </head>
 <body>
     @include('Pages.sidebar')
+    @can('isAdmin')
         <div class="content">
           <div class="sidebar-content">
           </div>
@@ -74,6 +75,7 @@
     </div>
   </div>
   </div>
+  @endCan
   <script src="{{ asset('js/app.js') }}"></script>
   <script type="text/javascript">
     $('nav-item').on('click', 'nav-link', function(){

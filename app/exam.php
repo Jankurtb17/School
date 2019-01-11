@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class advisory extends Model
+class exam extends Model
 {
     protected $fillable = [
-      'user_id','teacherName', 'className', 'subjectName'
+      'schoolYear', 'examDate'
     ];
 }

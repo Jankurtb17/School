@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\subject;
-use App\nameOfClasses;
-use App\advisory;
-use Auth;
+use App\exam;
 
-class teacheradvisory extends Controller
+class Examination extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +14,8 @@ class teacheradvisory extends Controller
      */
     public function index()
     {
-      
-        $advisory = advisory::all();
-        return view('Dashboard.teacheradvisory', compact('advisory'));
+        $examination = exam::all();
+        return view('Dashboard.examination', compact('examination'));
     }
 
     /**
@@ -29,7 +25,7 @@ class teacheradvisory extends Controller
      */
     public function create()
     {
-        return view('Dashboard.teacheradvisory');
+        return view('Dashboard.examination');
     }
 
     /**
@@ -41,20 +37,14 @@ class teacheradvisory extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'teacherName' =>  'required|string',
-            'className'   =>  'required|string',
-            'subjectName' =>  'required|string'
+          'schoolYear'  => 'required',
+          'examDate'    => 'required',
         ]);
-        
-        advisory::create([
-            'user_id'     =>Auth::id(),
-            'teacherName' =>$request->get('teacherName'),
-            'className'   =>$request->get('className'),
-            'subjectName' =>$request->get('subjectName')
+        $exam = exam::create([
+          'schoolYear'    =>$request->get('schoolYear'),
+          'examDate'      =>$request->get('examDate'),
         ]);
-
-        return redirect('/advisory')->with('success', 'Teacher advisory successfully added!');
-
+        return redirect('/examination')->with('Success', 'Examination date successfully added!');
     }
 
     /**
@@ -65,8 +55,7 @@ class teacheradvisory extends Controller
      */
     public function show($id)
     {
-        $advisory = advisory::findOrFail($id);
-        return view('Dashboard.teacheradvisory', compact('advisory'));
+        //
     }
 
     /**
@@ -77,8 +66,7 @@ class teacheradvisory extends Controller
      */
     public function edit($id)
     {
-      $advisory = advisory::findOrFail($id);
-      return view('Dashboard.teacheradvisory', compact('advisory', 'id'));
+        //
     }
 
     /**
@@ -90,12 +78,7 @@ class teacheradvisory extends Controller
      */
     public function update(Request $request, $id)
     {
-        $advisory = advisory::findOrFail($id);
-        $advisory->teacherName = $request->teacherName;
-        $advisory->className = $request->className;
-        $advisory->subjectName = $request->subjectName;
-        $advisory->save();
-        return response()->json($advisory);
+        //
     }
 
     /**
@@ -106,10 +89,6 @@ class teacheradvisory extends Controller
      */
     public function destroy($id)
     {
-        $advisory = advisory::findOrFail($id);
-        $advisory->delete();
-        return response()->json($advisory);
+        //
     }
-
-    
 }

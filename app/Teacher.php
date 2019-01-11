@@ -9,16 +9,12 @@ class Teacher extends Authenticatable
 {
   use Notifiable;
 
-  protected $guard = 'Teacher';
+  protected $guard = 'teacher';
 
   protected $fillable = [
-    'employee_Id',
-    'firstName',
-    'lastName',
-    'email',
-    'password'
+    'role_id', 'employee_Id', 'firstName', 'lastName', 'email', 'password'
   ];
-
+ 
   protected $hidden = [
     'password'
   ];

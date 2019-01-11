@@ -31,15 +31,20 @@
               <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title">Add School Year</h5>
+                    <h5 class="modal-title">examination date</h5>
                     <button type="button" class="close" data-dismiss="modal"> &times; </button>
                   </div>  
                   <div class="modal-body">
-                    <form action="{{ url('schoolyear') }}" method="POST">
+                    <form action="{{ url('examination') }}" method="POST">
                        @csrf
                     <div class="form-group">
-                      <label>School Year </label>
+                      <label>Examination Date </label>
                       <input type="text" class="form-control" id="schoolYear" name="schoolYear" placeholder="Enter School Year" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Examination Date </label>
+                      <input type="date" class="form-control" id="schoolYear" name="examDate" required>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -55,7 +60,7 @@
               <thead>
                 <tr>
                   <th> Id </th>
-                  <th> School Year</th>
+                  <th> Examination Date</th>
                   <th> Action </th>
                 </tr>
               </thead>
@@ -64,10 +69,10 @@
                 @foreach ($examination as $examinations)
                     <tr class="post{{ $examinations->id }}"> 
                       <td> {{ $no++ }} </td>
-                      <td> {{ $examinations->schoolYear }}</td>
+                      <td> {{ date('m-d-Y', strtotime($examinations->examDate)) }}</td>
                       <td> 
-                          <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
-                          <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
+                          <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolYear="{{ $examinations->schoolYear}}" data-examDate="{{ $examinations->examDate}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
+                          <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolYear="{{ $examinations->schoolYear}}" data-examDate="{{ $examinations->examDate}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
                         </td>
                     </tr>
                 @endforeach
@@ -86,7 +91,12 @@
                       @csrf
                       <div class="form-group">
                         <label>School Year </label>
-                        <input type="text" class="form-control" id="schoolyr" name="schoolyr" required>
+                        <input type="text" class="form-control" id="schoolYear" name="schoolYear" required>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Examination Date </label>
+                        <input type="date" class="form-control" id="examDate" name="examDate" required>
                       </div>
                     </form>
                   <div class="deleteContent">
@@ -134,7 +144,7 @@
 
     $('modal-footer').on('click', 'edit', function(){
         $.ajax({
-            type: 'POST',
+            type: 'DELETE',
             url:  'editPost',
             data: {
               '_token': $('input[name=_token').val(),

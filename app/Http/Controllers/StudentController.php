@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\student;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
@@ -53,14 +54,16 @@ class StudentController extends Controller
             'password'              => 'required|string',
            
         ]);
-         $student = student::create([
-            'studentNumbers'       =>$request->get('studentNumbers'),
+            User::create([
+            'user_type'           => 'student',
+            'role_id'             => '1',
+            'studentNumbers'      =>$request->get('studentNumbers'),
             'level'               =>$request->get('level'),
             'firstName'           =>$request->get('firstName'),
             'lastName'            =>$request->get('lastName'),
             'contactNumber'       =>$request->get('contactNumber'),
             'email'               =>$request->get('email'),
-            'password'            =>$request->get('password')
+            'password'            =>bcrypt($request->get('password')),
         ]);
         return redirect('/student')->with('success', 'student successfully added!');
 

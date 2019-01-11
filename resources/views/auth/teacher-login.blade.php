@@ -13,10 +13,10 @@
         <div class="col-md-5">
           <div class="overlay">
             <div class="overlay-1">
-              <h1> Login </h1>
+              <h1> Teacher Login </h1>
             </div>
             <div class="overlay-2">
-              <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+              <form method="POST" action="{{ route('teacher.login.submit') }}" aria-label="{{ __('Login') }}">
                   @csrf
 
                   <div class="form-group">
@@ -29,7 +29,7 @@
                   </div>
 
                   <div class="form-group">
-                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} no-border" name="password" value="{{ old('password') }}"placeholder="Password" >
+                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" value="{{ old('password') }}"placeholder="Password" >
                     @if ($errors->has('password'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('password') }}</strong>

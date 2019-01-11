@@ -40,15 +40,16 @@
                        @csrf
                       <div class="form-group">
                         <label class="col-form-label">Teacher</label>
-                        <input type="text" class="form-control" placeholder="Student Class"  name="teacherName">
+                        <input type="text" class="form-control teacher" placeholder="Student Class"  name="teacherName">
+                        <div id="teacherList"></div>
                       </div>
                       <div class="form-group">
                         <label class="col-form-label">Class</label>
-                        <input type="text" class="form-control" placeholder="Student Class"  name="className">
+                        <input type="text" class="form-control className" placeholder="Student Class"  name="className">
                       </div>
                       <div class="form-group">
                         <label class="col-form-label">Subject</label>
-                        <input type="text" class="form-control" placeholder="Student Class"  name="subjectName">
+                        <input type="text" class="form-control subjectName" placeholder="Student Class"  name="subjectName">
                       </div>
                   </div>
                   <div class="modal-footer">
@@ -78,7 +79,7 @@
                         <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-teacher="{{ $advisories->teacherName }}" data-class="{{ $advisories->className }}" data-subject = "{{ $advisories->subjectName }}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>
                         <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-teacher="{{ $advisories->teacherName }}" data-class="{{ $advisories->className }}" data-subject = "{{ $advisories->subjectName }}"><i class="fa fa-trash-o" aria-hidden="true"> </i> Delete</a>
                       </td>
-                    </tr>
+                    </tr> 
                 @endforeach
               </tbody>
             </table>
@@ -96,6 +97,7 @@
                     <div class="form-group hide">
                       <label> Teacher </label>
                       <input type="text" class="form-control" name="id" id="id" disabled>
+                      <div id="teacherList"> </div>
                     </div>
                     <div class="form-group">
                       <label> Teacher </label>
@@ -129,6 +131,27 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
+    $(document).on('keyup', '.teacher',function(){
+        query = $(this).val();
+        if(query != '')
+        {
+            _token = $('input[name="_token"]').val();
+          $.ajax({
+          url:"{{ route('autocomplete.fetch') }}",
+          method:"POST",
+          data:{query:query, _token:_token},
+          success:function(data){
+                $('#teacherList').fadeIn();  
+                $('#teacherList').html(data);
+            }
+          });
+        }
+    });
+    $(document).on('click', 'li', function(){  
+        $('#teacherList').val($(this).text());  
+        $('#teacherList').fadeOut();  
+    });  
+
     $(document).on('click', '.edit-modal', function(){
       $('.form-horizontal').show();
       $('.deleteContent').hide();

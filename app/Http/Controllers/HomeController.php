@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-      return view('Pages.Login');
+      return view('Dashboard.home');
     }
 
     public function dashboard()
@@ -31,41 +31,11 @@ class HomeController extends Controller
       return view('Dashboard.home');
     }
 
-    public function class()
+    public function teacherDashboard()
     {
-      return view('Dashboard.class');
+      return view('teacher.dashboard');
     }
-
-    public function teacher()
-    {
-      return view('Dashboard.teacher');
-    }
-
-    public function student()
-    {
-      return view('Dashboard.student');
-    }
-
-
-    public function studentClass()
-    {
-      return view('Dashboard.studentclass');
-    }
-
-    public function advisory()
-    {
-      return view('Dashboard.teacheradivsory');
-    }
-
-    public function subject()
-    {
-      return view('Dashboard.subject');
-    }
-
-    public function examination()
-    {
-      return view('Dashboard.examination');
-    }
-
+ 
+    
   
 }

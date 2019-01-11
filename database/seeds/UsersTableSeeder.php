@@ -14,10 +14,12 @@ class UsersTableSeeder extends Seeder
     {
       User::create([
             'role_id'        => '2',
-            'name'           => 'Admin',
+            'firstName'      => 'Jan Kurt',
+            'lastName'       => 'Bayaras',
             'email'          => 'kurtb4@yopmail.com',
             'password'       => Hash::make('password'),
             'remember_token' => str_random(20),
+            'user_type'      => 'admin',
         ]);
     }
 }

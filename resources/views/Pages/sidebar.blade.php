@@ -4,8 +4,15 @@
           <nav class="sidebar-nav">
             <ul class="nav" id="menulist">
               <div class="main-content">
-                Admin
+                @can('isAdmin')
+                    Admin
+                @endcan
+                @can('isTeacher')
+                    Teacher Dashboard
+                @endcan
               </div>
+
+              @can('isAdmin')
               <li class="nav-item">
                   <a class="nav-link {{ setActive('dashboard', 'current') }}" href="/dashboard"> <i class="fa fa-tachometer" aria-hidden="true" id="icon-dashboard"></i> Dashboard </a>
               </li>
@@ -26,7 +33,7 @@
                   <a class="nav-link {{ setActive('studentclass', 'current') }}" href="/studentclass"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student Class </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ setActive('teacher', 'current') }}" href="/teacher"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers </a>
+                <a class="nav-link {{ setActive('teacher', 'current') }}" href="/addteacher"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers </a>
               </li>
               <li class="nav-item">
                   <a class="nav-link {{ setActive('advisory', 'current') }}" href="/advisory"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers Advisory </a>
@@ -41,6 +48,17 @@
               <li class="nav-item">
                 <a class="nav-link" href="#"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>
               </li>
+              @endcan
+
+              @can('isTeacher')
+              <li class="nav-item">
+                <a class="nav-link {{ setActive('subject', 'current' )}}" href="/subjectload"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Subject Module </a>
+              </li>
+              <li class="nav-title"> Settings </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>
+              </li>
+              @endCan
             </ul>
           </nav>
       </div>
@@ -49,10 +67,10 @@
 <div class="main">
   <div class="navbar-top">
     <ul class="navbar-nav">
-      @if (isset(Auth::user()->name))
+      @if (isset(Auth::user()->firstName))
         <li>
           <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-            {{ Auth::user()->name }}
+            {{ Auth::user()->firstName }}
           </a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ route('logout') }}"
