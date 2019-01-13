@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'user_type','role_id', 'employee_id', 'student_id', 'level', 'firstName', 'lastName', 'email', 'password',
+        'user_type','role_id', 'employee_id', 'student_id', 'level', 'firstName', 'middleName',  'lastName',  'email', 'password',
     ];
 
     /**
@@ -30,7 +30,4 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function role(){
-      return $this->belongsTo('App\Roles');
-    }
 }

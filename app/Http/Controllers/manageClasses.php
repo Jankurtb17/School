@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\nameOfClasses;
 use App\subject;
 use App\manageclass;
+use App\User;
+use DB;
 
 class manageClasses extends Controller  
 {
@@ -19,7 +21,10 @@ class manageClasses extends Controller
         $manageclass = manageclass::all();
         $nameOfClasses = nameOfClasses::all();
         $subject = subject::all();
-        return view('Dashboard.studentclass', compact('nameOfClasses', 'subject', 'manageclass'));
+        $user = DB::table('users')
+                 ->where('role_id', 1)
+                 ->get();
+        return view('Dashboard.studentclass', compact('nameOfClasses', 'subject', 'manageclass', 'user'));
     }
 
   /**

@@ -21,7 +21,7 @@
                   <a class="nav-link {{ setActive('schoolyear', 'current') }}" href="/schoolyear"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> School Year</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ setActive('yearlevel', 'current') }}" href="/yearlevel"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> Year Level</a>
+                <a class="nav-link {{ setActive('gradelevel', 'current') }}" href="/gradelevel"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> Grade Level</a>
              </li>
               <li class="nav-item">
                   <a class="nav-link {{ setActive('examination', 'current') }}" href="/examination"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> Examination Date</a>
@@ -29,20 +29,21 @@
               <li class="nav-item">
                   <a class="nav-link {{ setActive('student', 'current') }}" href="/student"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student </a>
               </li>
+            
               <li class="nav-item">
-                  <a class="nav-link {{ setActive('studentclass', 'current') }}" href="/studentclass"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student Class </a>
+                  <a class="nav-link {{ setActive('studentgrades', 'current') }}" href="/studentgrades"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student Grades </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ setActive('teacher', 'current') }}" href="/addteacher"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers </a>
+                <a class="nav-link {{ setActive('addteacher', 'current') }}" href="/addteacher"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers </a>
               </li>
               <li class="nav-item">
                   <a class="nav-link {{ setActive('advisory', 'current') }}" href="/advisory"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers Advisory </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ setActive('subject', 'current') }}" href="/subject"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Subject </a>
+                  <a class="nav-link {{ setActive('class', 'current') }}" href="/class"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Class Section</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link {{ setActive('class', 'current') }}" href="/class"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Class </a>
+                <a class="nav-link {{ setActive('subject', 'current') }}" href="/subject"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Subject </a>
               </li>
               <li class="nav-title"> Settings </li>
               <li class="nav-item">
@@ -56,7 +57,7 @@
               </li>
               <li class="nav-title"> Settings </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>
+                <a class="nav-link {{ setActive('settings', 'current')}}" href="/settings"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>
               </li>
               @endCan
             </ul>

@@ -15,8 +15,9 @@ class CreateYearlevelsTable extends Migration
     {
         Schema::create('yearlevels', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('yearLevel');
-            $table->string('description');
+            $table->string('schoolYear');
+            $table->string('gradeLevel');
+            $table->string('className');
             $table->timestamps();
         });
     }

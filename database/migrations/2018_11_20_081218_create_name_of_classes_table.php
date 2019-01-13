@@ -15,8 +15,8 @@ class CreateNameOfClassesTable extends Migration
     {
         Schema::create('name_of_classes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('className');
             $table->string('schoolYear');
+            $table->string('className');
             $table->string('yearLevel');
             $table->timestamps();
         });

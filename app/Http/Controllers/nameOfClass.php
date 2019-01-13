@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\nameOfClasses;
 use App\schoolyear;
 use App\yearlevels;
-
+use DB;
 class nameOfClass extends Controller
 {
     /**
@@ -20,9 +20,14 @@ class nameOfClass extends Controller
       $this->middleware('auth');
     }
     public function index()
-    {
-        $class = nameOfClasses::all();
-        return view('Dashboard.class', compact('class'));
+    { 
+        $schoolyear = schoolyear::all();
+        $yearlevels =DB::table('yearlevels')
+                        ->groupBy('gradeLevel')
+                        ->get();
+        $class = DB::table('name_of_classes')
+                    ->get();
+        return view('Dashboard.class', compact('class', 'schoolyear', 'yearlevels'));
     }
 
     /**
@@ -44,9 +49,9 @@ class nameOfClass extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-          'className'   => 'required|string',
           'schoolYear'  => 'required|string',
           'yearLevel'   => 'required|string',
+          'className'   => 'required|string',
         ]);
 
         nameOfClasses::create([
@@ -110,4 +115,22 @@ class nameOfClass extends Controller
         $class->delete();
         return response()->json($class);
     }
+
+    // public function fetch(Request $request)
+    // {
+    //   $select = $request->get('select');
+    //   $value = $request->get('value');
+    //   $dependent = $request->get('dependent');
+    //   $data = DB::table('name_of_classes')
+    //               ->where($select, $value)
+    //               ->groupBy($dependent)
+    //               ->get();
+    //   $output = '<select value="">-Select' .ucfirst($dependent).'</option>'; 
+    //   foreach($data as $row)
+    //   {
+    //     $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
+    //   }
+    //   echo $output;
+
+    // }
 }

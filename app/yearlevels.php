@@ -12,10 +12,10 @@ class yearlevels extends Model
     protected $table = 'yearlevels';
 
     protected $fillable = [
-      'yearLevel', 'description'
+      'schoolYear', 'gradeLevel', 'className'
     ];
 
     protected $sortable =  [
-      'id', 'yearLevel', 'description'
+      'id', 'schoolYear', 'gradeLevel', 'className'
     ];
 }

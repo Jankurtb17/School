@@ -6,6 +6,7 @@ use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Session;
 
 class AddTeacherController extends Controller
 {
@@ -48,15 +49,16 @@ class AddTeacherController extends Controller
             'email'        => 'required|string',
             'password'     => 'required|string',
         ]);
-        User::create([
+        $user = User::create([
             'user_type'      => 'teacher',
             'role_id'        => '3',
             'employee_id'    => $request->get('employee_Id'),
             'firstName'      => $request->get('firstName'),
+            'middleName'     => $request->get('middleName'),
             'lastName'       => $request->get('lastName'),
             'email'          => $request->get('email'),
             'password'       => bcrypt($request->get('password')),
-            'remember_token' => str_random(20),
+            'remember_token' => str_random(20)
         ]);
         return redirect('/addteacher')->with('success', 'Teacher successfully added!');
     }

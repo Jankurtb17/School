@@ -122,3 +122,7 @@ body {
     position: absolute;
     top: 10;
 }
+.selectbox {
+    height: 100px;
+    overflow-y: auto;
+}

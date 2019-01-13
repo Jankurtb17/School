@@ -26,30 +26,42 @@
             </ol>
           </nav>
           <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
-              Add Student 
+              Add Class Section
           </button>
           <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Add Student</h5>
+                  <h5 class="modal-title">Add Class Section</h5>
                   <button type="button" class="close" data-dismiss="modal"> &times; </button>
                 </div>  
                 <div class="modal-body">
                   <form method="POST">
-                     @csrf
-                      <div class="form-group">
-                        <label class="col-form-label" id="Title">Class Name</label>
-                        <input type="text" class="form-control" name="className" placeholder="Class Name">
-                      </div>
+                    @csrf
                       <div class="form-group">
                         <label class="col-form-label">School Year </label>
-                        <input type="text" class="form-control" name="schoolYear" placeholder="School Year">
+                        {{-- <input type="text" class="form-control" name="schoolYear" placeholder="School Year"> --}}
+                        <select class ="form-control" name="schoolYear" id="schoolYear">
+                          <option value="" selected disabled>-Select School Year-</option>
+                          @foreach ($schoolyear as $schoolyears)
+                              <option value="{{ $schoolyears->schoolYear }}"> {{ $schoolyears->schoolYear }}</option>
+                          @endforeach
+                        </select>
                       </div>
-                     <div class="form-group"> 
-                        <label class="col-form-label">Year Level </label>
-                        <input type="text" class="form-control" name="yearLevel" placeholder="Year Level">
-                     </div>
+                      <div class="form-group"> 
+                          <label class="col-form-label">Grade Level </label>
+                          {{-- <input type="text" class="form-control" name="yearLevel" placeholder="Year Level"> --}}
+                          <select class ="form-control" name="yearLevel" id="yearLevel">
+                              <option value="" selected disabled>-Select Grade Year-</option>
+                              @foreach ($yearlevels as $yearlevel)
+                                  <option value="{{ $yearlevel->gradeLevel }}"> {{ $yearlevel->gradeLevel }}</option>
+                              @endforeach
+                            </select>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label" id="Title">Section Name</label>
+                        <input type="text" class="form-control" name="className" placeholder="Class Name">
+                      </div>
                   </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\subject;
-use App\nameOfClasses;
 use App\advisory;
 use Auth;
+use App\User;
+use DB;
+use App\yearlevels;
 
 class teacheradvisory extends Controller
 {
@@ -17,9 +18,14 @@ class teacheradvisory extends Controller
      */
     public function index()
     {
-      
-        $advisory = advisory::all();
-        return view('Dashboard.teacheradvisory', compact('advisory'));
+      $user = DB::Table('Users')
+                ->where('role_id', 3)
+                ->get();
+      $advisory = advisory::all();
+      $yearlevel = DB::table('yearlevels')
+                      ->groupBy('gradeLevel')
+                      ->get();
+      return view('Dashboard.teacheradvisory', compact('user', 'advisory', 'yearlevel'));
     }
 
     /**
@@ -41,20 +47,20 @@ class teacheradvisory extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'teacherName' =>  'required|string',
-            'className'   =>  'required|string',
-            'subjectName' =>  'required|string'
+          'gradeLevel'   =>  'required|string',
+          'className'   =>  'required|string',
+          'employee_id' =>  'required|string',
         ]);
         
         advisory::create([
             'user_id'     =>Auth::id(),
-            'teacherName' =>$request->get('teacherName'),
+            'gradeLevel'   =>$request->get('gradeLevel'),
             'className'   =>$request->get('className'),
-            'subjectName' =>$request->get('subjectName')
+            'employee_id' =>$request->get('employee_id'),
         ]);
 
         return redirect('/advisory')->with('success', 'Teacher advisory successfully added!');
-
+        
     }
 
     /**
@@ -109,6 +115,23 @@ class teacheradvisory extends Controller
         $advisory = advisory::findOrFail($id);
         $advisory->delete();
         return response()->json($advisory);
+    }
+
+    public function fetch(Request $request)
+    {
+      $select = $request->get('select');
+      $value = $request->get('value');
+      $dependent = $request->get('dependent');
+      $data = DB::table('yearlevels')
+                  ->where($select, $value)
+                  ->groupBy($dependent)
+                  ->get();
+      $output = '<option value="" selected disabled>-Select Class Name- </option>';
+      foreach($data as  $row)
+      {
+        $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
+      }
+      echo $output;
     }
 
     

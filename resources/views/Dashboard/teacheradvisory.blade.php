@@ -38,18 +38,33 @@
                   <div class="modal-body">
                     <form action="" method="POST">
                        @csrf
-                      <div class="form-group">
-                        <label class="col-form-label">Teacher</label>
-                        <input type="text" class="form-control teacher" placeholder="Student Class"  name="teacherName">
+                       <div class="form-group">
+                         <label class="col-form-label">Grade Level</label>
+                         <select name="gradeLevel" id="gradeLevel" class="form-control  dynamic" data-dependent="className">
+                            <option value=""  selected disabled>-Select Grade Level-</option>
+                            @foreach ($yearlevel as $yearlevels)
+                                <option value="{{ $yearlevels->gradeLevel }}">Grade {{ $yearlevels->gradeLevel }}</option>
+                            @endforeach
+                         </select>
+                       </div>
+                       <div class="form-group">
+                         <label class="col-form-label">Class Name</label>
+                         {{-- <input type="text" class="form-control className" id="className" placeholder="Class Name"  name="className"> --}}
+                         <select name="className" id="className" class="form-control">
+                           <option value="">-Select Class Name-</option>
+                         </select>
+                         <div id="className"></div>
+                       </div>
+
+                      <div class="form-group ">     
+                        <label class="col-form-label">Teacher Name</label>
+                        <select name="employee_id" id="gradeLevel" class="form-control">
+                            <option value="javascript:void(0);" selected disabled>-Select Teacher Name-</option>
+                            @foreach ($user as $users)
+                                <option value="{{ $users->employee_id}}">{{ $users->firstName}} {{ $users->lastName}}</option>
+                            @endforeach
+                          </select>
                         <div id="teacherList"></div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-form-label">Class</label>
-                        <input type="text" class="form-control className" placeholder="Student Class"  name="className">
-                      </div>
-                      <div class="form-group">
-                        <label class="col-form-label">Subject</label>
-                        <input type="text" class="form-control subjectName" placeholder="Student Class"  name="subjectName">
                       </div>
                   </div>
                   <div class="modal-footer">
@@ -63,18 +78,22 @@
             <table class="table table-hover table-bordered table-responsive-md">
               <thead>
                 <tr>
-                  <th> Teacher</th>
-                  <th> Class </th>
-                  <th> Subject </th>
+                  <th> ID</th>
+                  <th> Grade Level</th>
+                  <th> Class Name</th>
+                  <th> Teacher Name</th>
                   <th> Action </th>
                 </tr>
               </thead>
               <tbody>
+                <?php $n=1; ?>
                 @foreach ($advisory as $advisories)
                     <tr class="post{{ $advisories->id }}">
-                      <td>{{ $advisories->teacherName }}</td>
+                      <td>{{ $n++  }}</td>
+                      <td>{{ $advisories->gradeLevel }} </td>
                       <td>{{ $advisories->className }}</td>
-                      <td>{{ $advisories->subjectName }}</td>
+                      <td><a href="/teacher/{{ $advisories->employee_id }}">{{$advisories->employee_id }} </a></td>
+                    
                       <td>
                         <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-teacher="{{ $advisories->teacherName }}" data-class="{{ $advisories->className }}" data-subject = "{{ $advisories->subjectName }}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>
                         <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-teacher="{{ $advisories->teacherName }}" data-class="{{ $advisories->className }}" data-subject = "{{ $advisories->subjectName }}"><i class="fa fa-trash-o" aria-hidden="true"> </i> Delete</a>
@@ -131,27 +150,30 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    $(document).on('keyup', '.teacher',function(){
-        query = $(this).val();
-        if(query != '')
+    $(document).on('change', '.dynamic', function() {
+        if($(this).val() != '')
         {
-            _token = $('input[name="_token"]').val();
+          select = $(this).attr("id");
+          value= $(this).val();
+          dependent  =$(this).data('dependent');
+          _token = $('input[name="_token"]').val();
           $.ajax({
-          url:"{{ route('autocomplete.fetch') }}",
-          method:"POST",
-          data:{query:query, _token:_token},
-          success:function(data){
-                $('#teacherList').fadeIn();  
-                $('#teacherList').html(data);
+            url: "{{ route('dynamicdependent2.fetch')}}",
+            method: "POST",
+            data: {
+              select: select,
+              value: value,
+              _token: _token,
+              dependent: dependent
+            },
+            success:function(result)
+            {
+              $('#'+dependent).html(result);
             }
-          });
+
+          })
         }
     });
-    $(document).on('click', 'li', function(){  
-        $('#teacherList').val($(this).text());  
-        $('#teacherList').fadeOut();  
-    });  
-
     $(document).on('click', '.edit-modal', function(){
       $('.form-horizontal').show();
       $('.deleteContent').hide();

@@ -39,16 +39,29 @@
                   <form action="" method="POST">
                      @csrf
                       <div class="form-group">
-                        <label class="col-form-label" id="Title">Subject Name</label>
-                        <input type="text" class="form-control" name="subjectName" placeholder="Subject Name">
+                        <label class="col-form-label" id="Title">Grade Level</label>
+                        {{-- <input type="text" class="form-control" name="subjectName" placeholder="Subject Name"> --}}
+                      <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className">
+                          <option value="" selected disabled>-Select Grade Level-</option>
+                          @foreach ($yearlevel as $yearlevels)
+                              <option value="{{  $yearlevels->gradeLevel }}">Grade {{  $yearlevels->gradeLevel }} </option>
+                          @endforeach
+                      </select>
                       </div>
                       <div class="form-group">
                         <label class="col-form-label">Description  </label>
-                        <input type="text" class="form-control" name="description" placeholder="Description" >
+                        {{-- <input type="text" class="form-control" name="description" placeholder="Description" > --}}
+                        <select name="className" id="className" class="form-control">
+                          <option value="">-Select Class-</option>
+                        </select>
                       </div>
                      <div class="form-group"> 
-                        <label class="col-form-label">Year Level </label>
-                        <input type="text" class="form-control" name="yearLevel" placeholder="Year Level">
+                        <label class="col-form-label">Subject Code </label>
+                        <input type="text" class="form-control" name="subjectCode" id='subjectCode' placeholder="Subject Code e.g MATH 101">
+                     </div>
+                     <div class="form-group"> 
+                        <label class="col-form-label">Subject Description </label>
+                        <input type="text" class="form-control" name="description" id='description' placeholder="Subject description">
                      </div>
                   </div>
                     <div class="modal-footer">
@@ -64,9 +77,10 @@
               <thead>
                 <tr>
                   <th> ID </th>
-                  <th> Subject Name </th>
-                  <th> Description </th>
-                  <th> Year Level </th>
+                  <th> Grade Level </th>
+                  <th> Section Name </th>
+                  <th> Subject Code</th>
+                  <th> description</th>
                   <th> Action </th>
                 </tr>
               </thead>
@@ -75,12 +89,13 @@
                 @foreach ($subject as $subjects)
                  <tr class="post{{ $subjects->id}}">
                     <td> {{ $no++ }}</td>
-                    <td> {{ $subjects->subjectName}} </td>
+                    <td> {{ $subjects->gradeLevel}} </td>
+                    <td> {{ $subjects->className}} </td>
+                    <td> {{ $subjects->subjectCode}} </td>
                     <td> {{ $subjects->description}} </td>
-                    <td> {{ $subjects->yearLevel}} </td>
                     <td>
-                      <a href="#" class="edit-modal btn btn-warning"  data-target="#myModal" data-toggle="modal" data-id="{{ $subjects->id }}" data-subjectname="{{ $subjects->subjectName}}" data-description="{{ $subjects->description}}" data-yearlevel="{{ $subjects->yearLevel }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
-                      <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $subjects->id }}" data-subjectname="{{ $subjects->subjectName}}" data-description="{{ $subjects->description}}" data-yearlevel="{{ $subjects->yearLevel }}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
+                      <a href="#" class="edit-modal btn btn-warning"  data-target="#myModal" data-toggle="modal" data-id="{{ $subjects->id }}" data-gradelevel="{{ $subjects->gradeLevel}}" data-classname="{{ $subjects->className}}" data-subjectcode="{{ $subjects->subjectCode }}" data-description="{{ $subjects->description }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
+                      <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $subjects->id }}" data-gradelevel="{{ $subjects->gradeLevel}}" data-classname="{{ $subjects->className}}" data-subjectcode="{{ $subjects->subjectCode }}" data-description="{{ $subjects->description }}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
                     </td>
                  </tr>
                 @endforeach
@@ -102,16 +117,28 @@
                       <input type="text" class="form-control" name="id" id="id" disabled>
                     </div>
                     <div class="form-group">
-                      <label> Subject Name </label>
-                      <input type="text" class="form-control" name="subjectName" id="a">
+                      <label> Grade Level </label>
+                      {{-- <input type="text" class="form-control" name="subjectName" id="a"> --}}
+                      <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className">
+                          <option value="" selected disabled>-Select Grade Level-</option>
+                          @foreach ($yearlevel as $yearlevels)
+                              <option value="{{  $yearlevels->gradeLevel }}">Grade {{  $yearlevels->gradeLevel }} </option>
+                          @endforeach
+                      </select>
                     </div>
                     <div class="form-group">
-                        <label> Description</label>
-                        <input type="text" class="form-control" name="description" id="b">
+                        <label> Class name</label>
+                        {{-- <input type="text" class="form-control" name="description" id="b"> --}}
+                        <select name="className" class="form-control className">
+                            <option value="">-Select Class-</option>
+                        </select>
+                    <div class="form-group">
+                        <label> Subject Code</label>
+                        <input type="text" class="form-control" name="subjectCode" id="c">
                     </div>
                     <div class="form-group">
-                        <label> Year Level</label>
-                        <input type="text" class="form-control" name="yearLevel" id="c">
+                        <label> Subject Code</label>
+                        <input type="text" class="form-control" name="description" id="d">
                     </div>
                   </form>
                   <div class="deleteContent">
@@ -134,6 +161,30 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
+    $(document).on('change', '.dynamic', function() {
+        if($(this).val() != '')
+          {
+              select = $(this).attr("id");
+              value = $(this).val();
+              dependent =  $(this).data('dependent');
+              _token = $('input[name="_token"]').val();
+              $.ajax({
+                  url: "{{ route('dynamicdependent.fetch') }}",
+                  method: "POST",
+                  data: {
+                    select: select,
+                    value: value,
+                    _token: _token,
+                    dependent:dependent
+                  },
+                  success:function(result)
+                  {
+                    $('#'+dependent).html(result);
+                  }
+              });
+          }
+    });
+
     $(document).on('click', '.edit-modal', function() {
       $('.form-horizontal').show();
       $('.deleteContent').hide();
@@ -141,9 +192,10 @@
       $('.actionBtn').removeClass('btn-danger');
       $('.actionBtn').removeClass('delete');
       $('#id').val($(this).data('id'));
-      $('#a').val($(this).data('subjectname'));
-      $('#b').val($(this).data('description'));
-      $('#c').val($(this).data('yearlevel'));
+      $('.dynamic').val($(this).data('gradelevel'));
+      $('.className').val($(this).data('classname'));
+      $('#c').val($(this).data('subjectcode'));
+      $('#d').val($(this).data('description'));
       id = $('#id').val();
       $('#myModal').show();
     });
@@ -154,9 +206,10 @@
           data: {
             '_token': $('input[name=_token]').val(),
             'id': $('#id').val(),
-            'subjectName': $('#a').val(),
-            'description': $('#b').val(),
-            'yearLevel': $('#c').val()
+            'gradeLevel': $('#a').val(),
+            'className': $('#b').val(),
+            'subjectCode': $('#c').val(),
+            'description': $('#d').val()
           },
           success: function(data) {
             $('.post' +data.id).replaceWith(" "+

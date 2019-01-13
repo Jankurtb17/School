@@ -21,19 +21,6 @@ class RedirectIfAuthenticated
             return redirect('/dashboard');
         }
         
-        // switch($guard) {
-        //   case 'teacher':
-        //     if (Auth::guard($guard)->check()) {
-        //       return redirect()->route('teacher.dashboard');
-        //     }
-        //     break;
-
-        //   default:
-        //     if(Auth::guard($guard)->check()) {
-        //       return redirect()->route('/');
-        //     }
-        //   break;
-        // }
         return $next($request);
     }
 }

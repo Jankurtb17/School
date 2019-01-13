@@ -47,39 +47,42 @@
                       </div>
                       <div class="form-group">
                         <div class="row">
-                          <div class="col-md-4"> 
+                          <div class="col-md-3"> 
                             <label class="col-form-label">Student </label>
                           </div>
-                          <div class="col-md-8">
+                          <div class="col-md-9">
                             <input type="text" class="form-control" placeholder="Employee ID"  name="employee_Id">
                           </div>
                         </div>
                       </div>
                       <div class="form-group"> 
                         <div class="row">
-                          <div class="col-md-4"> </div>
-                          <div class="col-md-4">
+                          <div class="col-md-3"> </div>
+                          <div class="col-md-3">
                             <input type="text" class="form-control" placeholder="First Name" name="firstName">
                           </div>
                           <div class="col-md-4">
                               <input type="text" class="form-control" placeholder="Last Name" name="lastName">
-                            </div>
+                          </div>
+                          <div class="col-md-2">
+                              <input type="text" class="form-control" placeholder="M.I" name="middleName">
+                          </div>
                         </div>
                       </div>
                       <div class="form-group">
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                           <label class="col-form-label">Account </label>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                           <input type="email" class="form-control" placeholder="email" name="email">
                         </div>
                       </div>
                       </div>
                     <div class="form-group">
                       <div class="row">
-                          <div class="col-md-4"> </div>
-                          <div class="col-md-8">
+                          <div class="col-md-3"> </div>
+                          <div class="col-md-9">
                             <input type="password" class="form-control" placeholder="Password" name="password">
                           </div>
                       </div>

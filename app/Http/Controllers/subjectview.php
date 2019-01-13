@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\subject;
 use App\yearlevels;
+use App\nameOfClasses;
+use DB;
 
 class subjectview extends Controller
 {
@@ -14,9 +16,12 @@ class subjectview extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $subject = subject::all();
-        return view('Dashboard.subject', compact('subject'));
+    { 
+        $yearlevel = DB::table('yearlevels')
+                      ->groupBy('gradeLevel')
+                      ->get();
+        $subject =  subject::all();
+        return view('Dashboard.subject', compact('yearlevel', 'subject'));
     }
     /**
      * Show the form for creating a new resource.
@@ -37,15 +42,17 @@ class subjectview extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-          'subjectName'   => 'required|string',
-          'description'   => 'required|string',
-          'yearLevel'     => 'required|string'
+          'gradeLevel'      => 'required|string',
+          'className'       => 'required|string',
+          'subjectCode'     => 'required|string',
+          'description'     => 'required|string'
         ]);
 
         subject::create([
-          'subjectName'     =>$request->get('subjectName'),
-          'description'     =>$request->get('description'),
-          'yearLevel'       =>$request->get('yearLevel')
+          'gradeLevel'        =>$request->get('gradeLevel'),
+          'className'         =>$request->get('className'),
+          'subjectCode'       =>$request->get('subjectCode'),
+          'description'       =>$request->get('description')
         ]);
 
         return redirect('/subject')->with('success', 'subject successfully added!');
@@ -105,5 +112,21 @@ class subjectview extends Controller
         return response()->json($subject);
     }
 
+    public function fetch(Request $request)
+    {
+      $select    = $request->get('select');
+      $value     = $request->get('value');
+      $dependent = $request->get('dependent');
+      $data = DB::table('yearlevels')
+                ->where($select, $value)
+                ->groupBy($dependent)
+                ->get();
+      $output  = '<option value=""  selected disabled>-Select Class-</option>';
+      foreach($data as $row)
+      {
+        $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
+      }
+      echo $output;
+    }
     
 }

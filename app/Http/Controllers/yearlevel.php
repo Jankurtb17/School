@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\yearlevels;
+use App\schoolyear;
 use Illuminate\Support\Facades\DB;
 
 class yearlevel extends Controller
@@ -19,9 +20,10 @@ class yearlevel extends Controller
     }
     
     public function index()
-    {
+    { 
+        $schoolyear = schoolyear::all();
         $yearlevel = yearlevels::sortable()->paginate(10);
-        return view('Dashboard.yearlevel', compact('yearlevel'));
+        return view('Dashboard.gradelevel', compact('yearlevel', 'schoolyear'));
     }
 
     /**
@@ -31,7 +33,7 @@ class yearlevel extends Controller
      */
     public function create()
     {
-        return view('Dashboard.yearlevel');
+        return view('Dashboard.gradelevel');
     }
 
     /**
@@ -43,15 +45,17 @@ class yearlevel extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-          'yearLevel'   => 'required|string',
-          'description' => 'required|string'
+          'schoolYear'   => 'required|string',
+          'gradeLevel' => 'required|string',
+          'className'  => 'required|string'
         ]);
 
         yearlevels::create([
-          'yearLevel'     =>$request->get('yearLevel'),
-          'description'   =>$request->get('description')
+          'schoolYear'     =>$request->get('schoolYear'),
+          'gradeLevel'     =>$request->get('gradeLevel'),
+          'className'      =>$request->get('className')
         ]);
-        return redirect('/yearlevel')->with('success', 'yearLevel successfully added!');
+        return redirect('/gradelevel')->with('success', 'yearLevel successfully added!');
     }
 
     /**
@@ -63,7 +67,7 @@ class yearlevel extends Controller
     public function show($id)
     {
         $yearlevel = yearlevels::findOrFail($id);
-        return view('Dashboard.yearlevel', compact('yearlevel'));
+        return view('Dashboard.gradelevel', compact('yearlevel'));
     }
 
     /**
@@ -75,7 +79,7 @@ class yearlevel extends Controller
     public function edit($id)
     {
         $yearlevel = yearlevels::findOrFail($id);
-        return view('Dashboard.yearlevel', compact('yearlevel', 'id'));
+        return view('Dashboard.gradelevel', compact('yearlevel', 'id'));
     }
 
     /**
@@ -88,8 +92,8 @@ class yearlevel extends Controller
     public function update(Request $request, $id)
     {
         $yearlevel = yearlevels::findOrFail($id);
-        $yearlevel->yearLevel = $request->yearLevel;
-        $yearlevel->description = $request->description;
+        $yearlevel->schoolYear = $request->schoolYear;
+        $yearlevel->gradeLevel = $request->gradeLevel;
         $yearlevel->save();
         return response()->json($yearlevel);
     }

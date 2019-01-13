@@ -48,51 +48,60 @@
                         </div>
                         <div class="form-group">
                           <div class="row">
-                            <div class="col-md-4"> 
+                            <div class="col-md-3"> 
                               <label class="col-form-label">Student </label>
                             </div>
-                            <div class="col-md-6">
-                              <input type="text" class="form-control" placeholder="Student Number" name="studentNumbers">
+                            <div class="col-md-5">
+                              <input id ="studentNumber" type="text" class="form-control" placeholder="Student Number" name="studentNumbers">
                             </div>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Level" name="level">
+                            <div class="col-md-4">
+                                {{-- <input type="text" class="form-control" placeholder="Level" name="level"> --}}
+                                <select name="level" id="level" class="form-control">
+                                  <option value="" selected  disabled>-Select Grade-</option>
+                                  @foreach ($yearlevel as $yearlevels)
+                                      <option value="{{ $yearlevels->gradeLevel}}">Grade {{ $yearlevels->gradeLevel}} </option>
+                                  @endforeach
+                                </select>
                               </div>
                           </div>
                        </div>
                        <div class="form-group"> 
                           <div class="row">
-                            <div class="col-md-4"> </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3"> </div>
+                            <div class="col-md-3">
                               <input type="text" class="form-control" placeholder="First Name" name="firstName">
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" placeholder="Last Name" name="lastName">
-                              </div>
+                              <input type="text" class="form-control" placeholder="Last Name" name="lastName">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" placeholder="M.I" name="middleName">
+                            </div>
                           </div>
                        </div>
                        
                        <div class="form-group"> 
                         <div class="row">
-                          <div class="col-md-4"> </div>
-                          <div class="col-md-8">
+                          <div class="col-md-3"> </div>
+                          <div class="col-md-9">
                             <input type="text" class="form-control" placeholder="Contact Number" name="contactNumber">
                           </div>
                         </div>
                      </div>
                        <div class="form-group">
                         <div class="row">
-                          <div class="col-md-4">
+                          <div class="col-md-3">
                             <label class="col-form-label">Account </label>
                           </div>
-                          <div class="col-md-8">
+                          <div class="col-md-9">
                               <input type="email" class="form-control" placeholder="Email" name="email">
                           </div>
                         </div>
                        </div>
                       <div class="form-group">
                         <div class="row">
-                            <div class="col-md-4"> </div>
-                            <div class="col-md-8">
+                            <div class="col-md-3"> </div>
+                            <div class="col-md-9">
                               <input type="password" class="form-control" placeholder="Password" name="password">
                             </div>
                         </div>
@@ -120,12 +129,12 @@
                 <tbody>
                   @foreach ($student as $students)
                     <tr>
-                      <td>{{ $students->studentNumbers}} </td>
+                      <td>{{ $students->student_id}} </td>
                       <td>{{ $students->level}} </td>
                       <td>{{ $students->firstName}} </td>
                       <td>{{ $students->lastName}} </td>
                       <td>
-                      <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $students->studentNumber}}" data-level="{{ $students->level }}" data-first="{{ $students->firstName }}" data-last="{{ $students->lastName }}" data-email="{{ $students->email }}" data-password="{{ $students->password }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
+                      <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $students->student_id}}" data-level="{{ $students->level }}" data-first="{{ $students->firstName }}" data-last="{{ $students->lastName }}" data-email="{{ $students->email }}" data-password="{{ $students->password }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
                       <a href="#" class="delete-modal btn btn-danger"><i class="fa fa-trash-o"> </i>Delete </a>
                       </td>
                     </tr>

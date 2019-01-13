@@ -16,8 +16,8 @@ class Users
     public function handle($request, Closure $next)
     {
         if(Auth::user()->role_id == 2){
-          return redirect('/dashboard');
+          return $next($request);
         }
-        return $next($request);
+        return redirect('/dashboard');
       }
 }

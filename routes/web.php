@@ -23,14 +23,20 @@ Route::group(['middleware'  => 'revalidate'], function(){
       Route::resource('/student', 'StudentController');
       Route::resource('/schoolyear', 'schoolyr');
       Route::resource('/subject', 'subjectview');
-      Route::resource('/yearlevel', 'yearlevel');
-      Route::resource('/studentclass', 'manageCLasses');
+      Route::resource('/gradelevel', 'yearlevel');
       Route::resource('/advisory', 'teacheradvisory');
       Route::resource('/examination', 'Examination');
       Route::get('/teacher/dashboard', 'HomeController@teacherDashboard');
     // });
-      Route::get('/autocomplete', 'SearchController@showAddingForm');
-      Route::post('/autocomplete/fetch/','SearchController@fetch')->name('autocomplete.fetch');  
+      Route::post('/subject/fetch', 'subjectview@fetch')->name('dynamicdependent.fetch');
+      Route::post('/advisoryy/fetch', 'teacheradvisory@fetch')->name('dynamicdependent2.fetch');
+      Route::post('/subjectload', 'ViewSubjectLoad@search');
+      // Route::post('/class/fetch', 'nameOfClass@fetch')->name('dynamicdependent.fetch');
+      // Route::get('/subjectload/get', 'ViewSubjectLoad@accessInformation');
+      Route::get('/subjectload', 'ViewSubjectLoad@index');
+      // Route::get('/advisory', 'SearchController@showAddingForm');
+      // Route::post('/advisory/fetch/','SearchController@fetch')->name('autocomplete.fetch'); 
+      // Route::get('/advisory', 'SearchController@search');
   }); 
     // Route::prefix('teacher')->group(function() {
     //   Route::post('/login', 'Auth\teacherLoginController@login')->name('teacher.login.submit');
