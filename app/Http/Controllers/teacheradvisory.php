@@ -97,9 +97,9 @@ class teacheradvisory extends Controller
     public function update(Request $request, $id)
     {
         $advisory = advisory::findOrFail($id);
-        $advisory->teacherName = $request->teacherName;
+        $advisory->gradeLevel = $request->gradeLevel;
         $advisory->className = $request->className;
-        $advisory->subjectName = $request->subjectName;
+        $advisory->employee_id = $request->employee_id;
         $advisory->save();
         return response()->json($advisory);
     }

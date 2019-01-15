@@ -6,9 +6,9 @@ body {
 }
 .card {
     position: absolute;
-    top: 100px;
-    right: 250px;
-    width: 75%;
+    top: 120px;
+    left: 330px;
+    width: 65%;
     height: 70vh;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
@@ -39,6 +39,7 @@ input:focus {
 
 .form-control {
     border: none;
+    outline: none;
     padding: 10px;
     border-bottom: 2px solid darkslategray;
     width: 80%;
@@ -47,27 +48,24 @@ input:focus {
     box-shadow: none;
     border-bottom: 2px solid red;
 }
-
+.btn-primary {
+    background-color: #233849;
+    border-color: #233849;
+}
 button {
     margin-top: 10px;
     border: none;
     width: 80%;
-    background-color: #202121;
-    color: #fff;
     line-height: 3;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
-button:hover {
-    background-color: #400414;
-    transition: 0.2s all linear;
-    color: yellow;
-}
 .overlay {
     margin-top: 100px;
     margin-left: 50px;
 }
+
 .overlay-2 {
     margin-top: 60px;
 }
@@ -86,6 +84,36 @@ h1 {
     letter-spacing: 2px;
     text-transform: uppercase;
     line-height: 2;
+}
+
+a {
+    color: black;
+}
+a:hover {
+    color: #233849;
+    text-decoration: none;
+}
+#password-reset {
+    width: 250px;
+}
+.overlay2 {
+    margin-right: 120px;
+    margin-top: 150px;
+}
+.overlay2 h2 {
+    text-transform: uppercase;
+    line-height: 2;
+    font-family: "Open Sans", sans-serif;
+    font-size: 27px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-left: 80px;
+}
+.overlay-3 {
+    margin-top: 70px;
+}
+.email {
+    width: 250px;
 }
 
 @media screen and (max-width: 575.98px) {

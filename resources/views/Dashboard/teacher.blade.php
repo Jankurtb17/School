@@ -104,15 +104,17 @@
                 <th>Employee ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Email</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
                 @foreach ($user as $users)
                 <tr class="post {{ $users->id }}">
-                    <td>{{ $users->employee_id }}</td>
+                  <td>{{ $users->employee_id }}</td>
                     <td>{{ $users->firstName }}</td>
                     <td>{{ $users->lastName }}</td>
+                    <td>{{ $users->email}}</td>
                     <td>
                        <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $users->id }}" data-first="{{ $users->firstName }}" data-last="{{ $users->lastName }}" data-email="{{ $users->email }}" data-password="{{ $users->password }}"> <i class="fa fa-pencil-square-o"> Edit</i></a>
                        <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $users->id }}" data-first="{{ $users->firstName }}" data-last="{{ $users->lastName }}" data-email="{{ $users->email }}" data-password="{{ $users->password }}"><i class="fa fa-trash-o"> </i>Delete</a>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\exam;
+use App\schoolyear;
 
 class Examination extends Controller
 {
@@ -15,7 +16,8 @@ class Examination extends Controller
     public function index()
     {
         $examination = exam::all();
-        return view('Dashboard.examination', compact('examination'));
+        $schlyr = schoolyear::all();
+        return view('Dashboard.examination', compact('examination', 'schlyr'));
     }
 
     /**
@@ -37,12 +39,16 @@ class Examination extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-          'schoolYear'  => 'required',
-          'examDate'    => 'required',
+          'schoolYear'  => 'required|string',
+          'grading'     => 'required|string',
+          'startDate'   => 'required|string',
+          'endDate'     => 'required|string',
         ]);
         $exam = exam::create([
           'schoolYear'    =>$request->get('schoolYear'),
-          'examDate'      =>$request->get('examDate'),
+          'grading'       =>$request->get('grading'),
+          'startDate'     =>$request->get('startDate'),
+          'endDate'       =>$request->get('endDate'),
         ]);
         return redirect('/examination')->with('Success', 'Examination date successfully added!');
     }
@@ -66,7 +72,8 @@ class Examination extends Controller
      */
     public function edit($id)
     {
-        //
+        $exam = exam::fimdOrFail($id);
+        return view('/examination', compact('exam', 'id'));
     }
 
     /**
@@ -78,7 +85,13 @@ class Examination extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $exam = exam::findOrFail($id);
+        $exam->schoolYear = $request->schoolYear;
+        $exam->grading = $request->grading;
+        $exam->startDate = $request->startDate;
+        $exam->endDate = $request->endDate;
+        $exam->save();
+        return response()->json($exam);
     }
 
     /**
@@ -89,6 +102,8 @@ class Examination extends Controller
      */
     public function destroy($id)
     {
-        //
+        $exam = exam::findOrFail($id);
+        $exam->delete();
+        return response()->json($exam);
     }
 }

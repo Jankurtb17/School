@@ -27,13 +27,16 @@ Route::group(['middleware'  => 'revalidate'], function(){
       Route::resource('/advisory', 'teacheradvisory');
       Route::resource('/examination', 'Examination');
       Route::get('/teacher/dashboard', 'HomeController@teacherDashboard');
+      Route::get('/studentgrades', 'StudentGrades@index');
     // });
+      
       Route::post('/subject/fetch', 'subjectview@fetch')->name('dynamicdependent.fetch');
-      Route::post('/advisoryy/fetch', 'teacheradvisory@fetch')->name('dynamicdependent2.fetch');
+      Route::post('/advisory/fetch', 'teacheradvisory@fetch')->name('dynamicdependent2.fetch');
       Route::post('/subjectload', 'ViewSubjectLoad@search');
+      Route::get('/subjectload', 'ViewSubjectLoad@index');
+      Route::get('/listsubject', 'ListSubject@index');
       // Route::post('/class/fetch', 'nameOfClass@fetch')->name('dynamicdependent.fetch');
       // Route::get('/subjectload/get', 'ViewSubjectLoad@accessInformation');
-      Route::get('/subjectload', 'ViewSubjectLoad@index');
       // Route::get('/advisory', 'SearchController@showAddingForm');
       // Route::post('/advisory/fetch/','SearchController@fetch')->name('autocomplete.fetch'); 
       // Route::get('/advisory', 'SearchController@search');

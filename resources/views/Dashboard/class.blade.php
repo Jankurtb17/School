@@ -59,13 +59,13 @@
                             </select>
                       </div>
                       <div class="form-group">
-                        <label class="col-form-label" id="Title">Section Name</label>
+                        <label class="col-form-label" id="className">Section Name</label>
                         <input type="text" class="form-control" name="className" placeholder="Class Name">
                       </div>
                   </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
                       <button type="submit" class="btn btn-primary" name="submit"> Submit </button>                    
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
                     </form>
                     </div>
                   </div>
@@ -109,13 +109,9 @@
                 <div class="modal-body">
                   <form method="POST" class="form-horizontal" role="modal">
                     @csrf
-                    <div class="form-group hide">
-                      <label>Class Name </label>
-                      <input type="text" class="form-control" name="id" id="id">
-                    </div>
                     <div class="form-group">
-                      <label>Class Name </label>
-                      <input type="text" class="form-control" name="className" id="a">
+                      <label>id </label>
+                      <input type="text" class="form-control" name="id" id="id" disabled>
                     </div>
                     <div class="form-group">
                         <label>School Year </label>
@@ -125,6 +121,10 @@
                         <label>Year Level </label>
                         <input type="text" class="form-control" name="yearLevel" id="c">
                     </div>
+                    <div class="form-group">
+                      <label>Class Name </label>
+                      <input type="text" class="form-control" name="className" id="a">
+                    </div>
                   </form>
                 <div class="deleteContent">
                   Do you want to delete this?
@@ -132,6 +132,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn actionBtn" data-dismiss="modal">Update</button>
+                  <button type="button" class="btn btn-danger delete" data-dismiss="modal">Delete</button>
                   <button type="button" class="btn " data-dismiss="modal">Cancel </button>
                 </div>
               </div>
@@ -146,13 +147,16 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
+    $(document).on('click', '.modal', function() {
+      $('.modal-title').text('Add Class');
+    });
     $(document).on('click', '.edit-modal', function() {
+      $('.actionBtn').show();
+      $('.delete').hide();
       $('.modal-title').text('Edit Class');
       $('.deleteContent').hide();
       $('.form-horizontal').show();
       $('.actionBtn').addClass('btn-success');
-      $('.actionBtn').removeClass('btn-danger');
-      $('.actionBtn').removeClass('delete');
       $('#id').val($(this).data('id'));
       $('#a').val($(this).data('classname'));
       $('#b').val($(this).data('schoolyear'));
@@ -189,18 +193,16 @@
     });
 
     $(document).on('click','.delete-modal', function() {
-      $('.modal-title').text('Delete this class?');
+      $('.delete').show();
+      $('.actionBtn').hide();
+      $('.modal-title').text('Delete this class');
       $('.deleteContent').show();
       $('.form-horizontal').hide();
-      $('.actionBtn').addClass('btn-danger');
-      $('.actionBtn').addClass('delete');
-      $('.delete').removeClass('actionBtn');
-      $('.delete').removeClass('btn-success');
-      $('.delete').text('Yes');
       $('#id').val($(this).data('id'));
       id = $('#id').val();
       $('#myModal').show();
     });
+
     $(document).on('click', '.delete', function() {
       $.ajax({
           type: 'DELETE',

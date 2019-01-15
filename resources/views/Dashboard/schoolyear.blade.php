@@ -20,7 +20,7 @@
             <h1>School Year </h1>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"> <i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon">  </i><a href="/dashboard">Dashboard </a> </li>
+                <li class="breadcrumb-item"> <i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon">  </i><a href="/dashboard"> Dashboard </a> </li>
                 <li class="breadcrumb-item active" aria-current="page">School Year</li>
               </ol>
             </nav>
@@ -103,6 +103,7 @@
                 </div>
                   <div class="modal-footer">
                     <button type="button" class="btn actionBtn" data-dismiss="modal"> Update </button>
+                    <button type="button" class="btn btn-danger delete" data-dismiss="modal"></button>
                     <button type="button" class="btn cancel" data-dismiss="modal"> Cancel</button>
                   </div>
                 </div>
@@ -117,7 +118,12 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
+    $(document).on('click', '.modal', function() {
+      $('.modal-title').text('Add School Year');
+    });
     $(document).on('click','.edit-modal', function(){
+      $('.actionBtn').show();
+      $('.delete').hide();
       $('.modal-title').text('Edit school year');
       $('.form-horizontal').show();
       $('.deleteContent').hide();
@@ -153,15 +159,14 @@
     
     // Delete Post
     $(document).on('click','.delete-modal', function() {
+    $('.delete').show();
+    $('.actionBtn').hide();
     $('.modal-title').text('Delete this id');
     $('.deleteContent').show();
     $('.form-horizontal').hide();
-    $('.actionBtn').addClass('btn-danger');
-    $('.actionBtn').addClass('delete');
-    $('.delete').removeClass('actionBtn');
-    $('.delete').text('Yes');
     $('#id').val($(this).data('id'));
     id = $('#id').val();
+    $('#myModal').show();
     });
     $(document).on('click','.delete', function() {
       $.ajax({

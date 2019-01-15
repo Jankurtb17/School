@@ -94,6 +94,7 @@ class yearlevel extends Controller
         $yearlevel = yearlevels::findOrFail($id);
         $yearlevel->schoolYear = $request->schoolYear;
         $yearlevel->gradeLevel = $request->gradeLevel;
+        $yearlevel->className = $request->className;
         $yearlevel->save();
         return response()->json($yearlevel);
     }

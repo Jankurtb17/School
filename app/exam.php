@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class exam extends Model
 {
     protected $fillable = [
-      'schoolYear', 'examDate'
+      'schoolYear', 
+      'grading',
+      'startDate',
+      'endDate'
     ];
 }

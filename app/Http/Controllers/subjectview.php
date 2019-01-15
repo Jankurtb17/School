@@ -92,9 +92,10 @@ class subjectview extends Controller
     public function update(Request $request, $id)
     {
         $subject = subject::findOrFail($id);
-        $subject->subjectName = $request->subjectName;
+        $subject->gradeLevel = $request->gradeLevel;
+        $subject->className = $request->className;
+        $subject->subjectCode = $request->subjectCode;
         $subject->description = $request->description;
-        $subject->yearLevel = $request->yearLevel;
         $subject->save();
         return response()->json($subject);
     }
@@ -118,7 +119,7 @@ class subjectview extends Controller
       $value     = $request->get('value');
       $dependent = $request->get('dependent');
       $data = DB::table('yearlevels')
-                ->where($select, $value)
+              ->where($select, $value)
                 ->groupBy($dependent)
                 ->get();
       $output  = '<option value=""  selected disabled>-Select Class-</option>';

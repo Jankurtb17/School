@@ -24,6 +24,13 @@ body {
     text-transform: uppercase;
     font-weight: 800px;
 }
+.logo-admin {
+    height: 200px;
+    margin-left: 12px;
+}
+#dashboard-icon1 {
+    border-top: 1px solid #595959;
+}
 .sidebar {
     width: 280px;
     position: absolute;

@@ -32,7 +32,7 @@
             <div class="modal-dialog modal-sm" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Add Student</h5>
+                  <h5 class="modal-title">Add Class</h5>
                   <button type="button" class="close" data-dismiss="modal"> &times; </button>
                 </div>  
                 <div class="modal-body">
@@ -118,20 +118,21 @@
                     </div>
                     <div class="form-group">
                       <label> Grade Level </label>
-                      {{-- <input type="text" class="form-control" name="subjectName" id="a"> --}}
-                      <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className">
+                      <input type="text" class="form-control" name="gradeLevel" id="a">
+                      {{-- <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className">
                           <option value="" selected disabled>-Select Grade Level-</option>
                           @foreach ($yearlevel as $yearlevels)
                               <option value="{{  $yearlevels->gradeLevel }}">Grade {{  $yearlevels->gradeLevel }} </option>
                           @endforeach
-                      </select>
+                      </select> --}}
                     </div>
                     <div class="form-group">
                         <label> Class name</label>
-                        {{-- <input type="text" class="form-control" name="description" id="b"> --}}
-                        <select name="className" class="form-control className">
+                        <input type="text" class="form-control" name="className" id="b">
+                        {{-- <select name="className"  class="form-control className">
                             <option value="">-Select Class-</option>
-                        </select>
+                        </select> --}}
+                    </div>
                     <div class="form-group">
                         <label> Subject Code</label>
                         <input type="text" class="form-control" name="subjectCode" id="c">
@@ -147,6 +148,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn actionBtn" data-dismiss="modal">Update</button>
+                  <button type="button" class="btn btn-danger delete" data-dismiss="modal">Delete</button>
                   <button type="button" class="btn cancel" data-dismiss="modal">Cancel </button>
                 </div>
               </div>
@@ -184,16 +186,19 @@
               });
           }
     });
+    $(document).on('click', '.modal', function() {
+      $('.modal-title').text('Add Subject');
+    });
 
     $(document).on('click', '.edit-modal', function() {
+      $('.actionBtn').show();
+      $('.delete').hide();
+      $('.actionBtn').addClass('btn-success');
       $('.form-horizontal').show();
       $('.deleteContent').hide();
-      $('.actionBtn').addClass('btn-success');
-      $('.actionBtn').removeClass('btn-danger');
-      $('.actionBtn').removeClass('delete');
       $('#id').val($(this).data('id'));
-      $('.dynamic').val($(this).data('gradelevel'));
-      $('.className').val($(this).data('classname'));
+      $('#a').val($(this).data('gradelevel'));
+      $('#b').val($(this).data('classname'));
       $('#c').val($(this).data('subjectcode'));
       $('#d').val($(this).data('description'));
       id = $('#id').val();
@@ -215,11 +220,12 @@
             $('.post' +data.id).replaceWith(" "+
             "<tr class='post" + data.id +"'>"+
             "<td>" +data.id+ "</td>"+
-            "<td>" +data.subjectName+ " </td>"+
-            "<td>" +data.description+ " </td>"+
-            "<td>" +data.yearLevel+ "</td>"+
-            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-subjectName='"+data.subjectName+"' data-description='"+data.description+"' data-yearLevel='"+data.yearLevel+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
-            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-subjectName='"+data.subjectName+"' data-description='"+data.description+"' data-yearLevel='"+data.yearLevel+"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
+            "<td>" +data.gradeLevel+ " </td>"+
+            "<td>" +data.className+ " </td>"+
+            "<td>" +data.subjectCode+ "</td>"+
+            "<td>" +data.description+ "</td>"+
+            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-gradelevel='"+data.gradeLevel+"' data-classname='"+data.className+"' data-subjectcode='"+data.subjectCode+"' data-description='"+data.description+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
+            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-gradelevel='"+data.gradeLevel+"' data-classname='"+data.className+"' data-subjectcode='"+data.subjectCode+"' data-description='"+data.description+"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
             "</td>"+
             "</tr>");
           }
@@ -227,14 +233,11 @@
       });
     });
     $(document).on('click','.delete-modal', function() {
-      $('.modal-title').text('Delete this id');
+      $('.modal-title').text('Delete this subject');
       $('.deleteContent').show();
       $('.form-horizontal').hide();
-      $('.actionBtn').addClass('btn-danger');
-      $('.actionBtn').addClass('delete');
-      $('.delete').removeClass('actionBtn');
-      $('.delete').removeClass('btn-success');
-      $('.delete').text('Yes');
+      $('.actionBtn').hide();
+      $('.delete').show();
       $('#id').val($(this).data('id'));
       id = $('#id').val();
       $('#myModal').show();      

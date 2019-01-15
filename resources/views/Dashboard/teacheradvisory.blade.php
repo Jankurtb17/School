@@ -36,7 +36,7 @@
                     <button type="button" class="close" data-dismiss="modal"> &times; </button>
                   </div>  
                   <div class="modal-body">
-                    <form action="" method="POST">
+                    <form method="POST" id="form-horizontal">
                        @csrf
                        <div class="form-group">
                          <label class="col-form-label">Grade Level</label>
@@ -53,9 +53,7 @@
                          <select name="className" id="className" class="form-control">
                            <option value="">-Select Class Name-</option>
                          </select>
-                         <div id="className"></div>
                        </div>
-
                       <div class="form-group ">     
                         <label class="col-form-label">Teacher Name</label>
                         <select name="employee_id" id="gradeLevel" class="form-control">
@@ -64,12 +62,17 @@
                                 <option value="{{ $users->employee_id}}">{{ $users->firstName}} {{ $users->lastName}}</option>
                             @endforeach
                           </select>
-                        <div id="teacherList"></div>
                       </div>
+                      {{-- <div class="form-group" id="hide">
+                          <label for="d" class="col-form-label">Subject Name </label>
+                          <select name="subject" id="subject" class="form-control">
+                            <option value="">-Select Subject-</option>
+                          </select>
+                      </div> --}}
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
                     <button type="submit" class="btn btn-primary" name="submit"> Submit </button>                    
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
                   </form>
                   </div>
                 </div>
@@ -95,8 +98,8 @@
                       <td><a href="/teacher/{{ $advisories->employee_id }}">{{$advisories->employee_id }} </a></td>
                     
                       <td>
-                        <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-teacher="{{ $advisories->teacherName }}" data-class="{{ $advisories->className }}" data-subject = "{{ $advisories->subjectName }}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>
-                        <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-teacher="{{ $advisories->teacherName }}" data-class="{{ $advisories->className }}" data-subject = "{{ $advisories->subjectName }}"><i class="fa fa-trash-o" aria-hidden="true"> </i> Delete</a>
+                        <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>
+                        <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}"><i class="fa fa-trash-o" aria-hidden="true"> </i> Delete</a>
                       </td>
                     </tr> 
                 @endforeach
@@ -119,24 +122,39 @@
                       <div id="teacherList"> </div>
                     </div>
                     <div class="form-group">
-                      <label> Teacher </label>
-                      <input type="text" class="form-control" name="teacherName" id="a">
-                    </div>
+                        <label class="col-form-label">Grade Level</label>
+                        <select name="gradeLevel" id="gradeLevel" class="form-control  dynamic" data-dependent="className">
+                           <option value=""  selected disabled>-Select Grade Level-</option>
+                           @foreach ($yearlevel as $yearlevels)
+                               <option value="{{ $yearlevels->gradeLevel }}">Grade {{ $yearlevels->gradeLevel }}</option>
+                           @endforeach
+                        </select>
+                      </div>
                     <div class="form-group">
-                      <label for="b">Class</label>
-                      <input type="text" class="form-control" name="className" id="b">
-                    </div>
+                        <label class="col-form-label">Class Name</label>
+                        {{-- <input type="text" class="form-control className" id="className" placeholder="Class Name"  name="className"> --}}
+                        <select name="className" id="className b" class="form-control b">
+                          <option value="">-Select Class Name-</option>
+                        </select>
+                      </div>
                     <div class="form-group">
-                      <label for="c">Subject</label>
-                      <input type="text" class="form-control" name="subjectName" id="c">
+                      <label for="c">Teacher Name</label>
+                      {{-- <input type="text" class="form-control" name="employee_id" id="c"> --}}
+                      <select name="employee_id" id="c" class="form-control">
+                        @foreach ($user as $user)
+                            <option value="{{ $user->employee_id }}"> {{ $user->employee_id }}</option>
+                        @endforeach
+                      </select>
                     </div>
+                   
                   </form>
                   <div class="deleteContent">
                     Are you sure you want to delete this?
                   </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn actionBtn" data-dismiss="modal"></button>
+                    <button type="button" class="btn actionBtn" data-dismiss="modal">Update</button>
+                    <button type="button" class="btn btn-danger delete" data-dismiss="modal">Delete</button>
                     <button type="button" class="btn" data-dismiss="modal">Cancel</button>
                 </div>
               </div>
@@ -150,6 +168,49 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
+    $(document).on('click', '.modal', function() {
+      $('.modal-title').text('Teacher Advisory')
+    });
+    $(document).on('click', '.edit-modal', function(){
+      $('.form-horizontal').show();
+      $('.deleteContent').hide();
+      $('.actionBtn').show();
+      $('.delete').hide();
+      $('.modal-title').text('Edit Teacher advisory');
+      $('.actionBtn').addClass('btn-dark');
+      $('#id').val($(this).data('id'));
+      $('.dynamic').val($(this).data('gradelevel'));
+      $('#b').val($(this).data('class'));
+      $('#c').val($(this).data('employee'));
+      id = $('#id').val();
+      $('#myModal').show();
+    });
+
+    $('.modal-footer').on('click', '.actionBtn', function() {
+        $.ajax({
+            type: 'PUT',
+            url:  'advisory/' +id,
+            data: {
+              '_token': $('input[name=_token]').val(),
+              'id':$('#id').val(),
+              'gradeLevel': $('.dynamic').val(),
+              'className': $('#className').val(),
+              'employee_id': $('#c').val(),
+            },
+            success: function(data) {
+              $('.post' +data.id).replaceWith(" "+
+            "<tr class='post" + data.id +"'>"+
+            "<td>" +data.id+ " </td>"+
+            "<td>" +data.gradeLevel+ " </td>"+
+            "<td>" +data.className+ " </td>"+
+            "<td>" +data.employee_id+ "</td>"+
+            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-gradelevel='"+data.gradeLevel+"' data-class='"+data.className+"' data-employee='"+data.employee_id+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
+            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-gradelevel='"+data.gradeLevel+"' data-class='"+data.className+"' data-employee='"+data.employee_id +"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
+            "</td>"+
+            "</tr>");
+            }
+        });
+    });
     $(document).on('change', '.dynamic', function() {
         if($(this).val() != '')
         {
@@ -174,55 +235,17 @@
           })
         }
     });
-    $(document).on('click', '.edit-modal', function(){
-      $('.form-horizontal').show();
-      $('.deleteContent').hide();
-      $('.modal-title').text('Edit Teacher advisory');
-      $('.actionBtn').text('Update')
-      $('.actionBtn').addClass('btn-dark');
-      $('#id').val($(this).data('id'));
-      $('#a').val($(this).data('teacher'));
-      $('#b').val($(this).data('class'));
-      $('#c').val($(this).data('subject'));
-      id = $('#id').val();
-      $('#myModal').show();
-    });
 
-    $('.modal-footer').on('click', '.actionBtn', function() {
-        $.ajax({
-            type: 'PUT',
-            url:  'advisory/' +id,
-            data: {
-              '_token': $('input[name=_token]').val(),
-              'id':$('#id').val(),
-              'teacherName': $('#a').val(),
-              'className': $('#b').val(),
-              'subjectName': $('#c').val(),
-            },
-            success: function(data) {
-              $('.post' +data.id).replaceWith(" "+
-            "<tr class='post" + data.id +"'>"+
-            "<td>" +data.teacherName+ " </td>"+
-            "<td>" +data.className+ " </td>"+
-            "<td>" +data.subjectName+ "</td>"+
-            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-subjectName='"+data.subjectName+"' data-description='"+data.description+"' data-yearLevel='"+data.yearLevel+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
-            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-subjectName='"+data.subjectName+"' data-description='"+data.description+"' data-yearLevel='"+data.yearLevel+"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
-            "</td>"+
-            "</tr>");
-            }
-        });
-    });
 
     $(document).on('click','.delete-modal', function(){
+      $('.delete').show();
+      $('.actionBtn').hide();
+      $('.modal-title').text('Delete this advisory');
       $('.deleteContent').show();
       $('.form-horizontal').hide();
-      $('.modal-title').text('Delete');
-      $('.actionBtn').addClass('btn-danger');
-      $('.actionBtn').addClass('delete');
-      $('.delete').removeClass('actionBtn');
-      $('.delete').text('Yes');
       $('#id').val($(this).data('id'));
       id = $('#id').val();
+      $('#myModal').show();
     });
 
     $(document).on('click', '.delete', function() {

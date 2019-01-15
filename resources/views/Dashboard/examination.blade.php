@@ -38,13 +38,31 @@
                     <form action="{{ url('examination') }}" method="POST">
                        @csrf
                     <div class="form-group">
-                      <label>Examination Date </label>
-                      <input type="text" class="form-control" id="schoolYear" name="schoolYear" placeholder="Enter School Year" required>
+                        <label class="col-form-label">School Year</label>
+                        <select name="schoolYear" id="schoolYear" class="form-control">
+                          <option value="" selected disabled>-Select School Year-</option>
+                          @foreach ($schlyr as $schlyrs)
+                              <option value="{{ $schlyrs->schoolYear}}">{{ $schlyrs->schoolYear}}</option>
+                          @endforeach
+                        </select>
                     </div>
-
                     <div class="form-group">
-                      <label>Examination Date </label>
-                      <input type="date" class="form-control" id="schoolYear" name="examDate" required>
+                        <label class="col-form-label"> Grading Period</label>
+                        <select name="grading" id="grading" class="form-control">
+                          <option value="" selected disabled>-Select Grading Period-</option>
+                          <option value="1">1st Grading</option>
+                          <option value="2">2nd Grading</option>
+                          <option value="3">3rd Grading</option>
+                          <option value="4">4th Grading</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-form-label">Start Date </label>
+                      <input type="date" class="form-control" id="startDate" name="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">End Date </label>
+                        <input type="date" class="form-control" id="endDate" name="endDate" required>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -60,7 +78,10 @@
               <thead>
                 <tr>
                   <th> Id </th>
-                  <th> Examination Date</th>
+                  <th> School Year </th>
+                  <th> Grading Period </th>
+                  <th> Start Date of Examination</th>
+                  <th> End Date of Examination</th>
                   <th> Action </th>
                 </tr>
               </thead>
@@ -69,10 +90,13 @@
                 @foreach ($examination as $examinations)
                     <tr class="post{{ $examinations->id }}"> 
                       <td> {{ $no++ }} </td>
+                      <td> {{ $examinations->schoolYear }}</td>
+                      <td> {{ $examinations->grading }} Grading</td>
+                      <td> {{ date('m-d-Y', strtotime($examinations->schoolYear)) }}</td>
                       <td> {{ date('m-d-Y', strtotime($examinations->examDate)) }}</td>
                       <td> 
-                          <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolYear="{{ $examinations->schoolYear}}" data-examDate="{{ $examinations->examDate}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
-                          <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolYear="{{ $examinations->schoolYear}}" data-examDate="{{ $examinations->examDate}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
+                          <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}" data-grading="{{ $examinations->grading}}" data-startdate="{{ $examinations->startDate}}" data-enddate="{{ $examinations->endDate}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
+                          <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}" data-grading="{{ $examinations->grading}}" data-startdate="{{ $examinations->startDate}}" data-enddate="{{ $examinations->endDate}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
                         </td>
                     </tr>
                 @endforeach
@@ -90,13 +114,35 @@
                     <form method="POST" class="form-horizontal" role="modal">
                       @csrf
                       <div class="form-group">
-                        <label>School Year </label>
-                        <input type="text" class="form-control" id="schoolYear" name="schoolYear" required>
+                          <label class="col-form-label">Id</label>
+                          <input type="text" class="form-control" id="id" disabled>
                       </div>
-
                       <div class="form-group">
-                        <label>Examination Date </label>
-                        <input type="date" class="form-control" id="examDate" name="examDate" required>
+                          <label class="col-form-label">School Year</label>
+                          <select name="schoolYear" id="a" class="form-control">
+                            <option value="" selected disabled>-Select School Year-</option>
+                            @foreach ($schlyr as $schlyrs)
+                                <option value="{{ $schlyrs->schoolYear}}">{{ $schlyrs->schoolYear}}</option>
+                            @endforeach
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-form-label"> Grading Period</label>
+                          <select name="grading" id="b" class="form-control">
+                            <option value="" selected disabled>-Select Grading Period-</option>
+                            <option value="1">1st Grading</option>
+                            <option value="2">2nd Grading</option>
+                            <option value="3">3rd Grading</option>
+                            <option value="4">4th Grading</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Start Date </label>
+                        <input type="date" class="form-control" id="c" name="startDate" required>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-form-label">End Date </label>
+                          <input type="date" class="form-control" id="d" name="endDate" required>
                       </div>
                     </form>
                   <div class="deleteContent">
@@ -104,8 +150,9 @@
                   </div>
                 </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal"> Update </button>
-                    <button type="button" class="btn btn-md" data-dismiss="modal"> Cancel</button>
+                    <button type="button" class="btn actionBtn" data-dismiss="modal"> Update </button>
+                    <button type="button" class="btn btn-danger deletes" data-dismiss="modal"> Delete </button>
+                    <button type="button" class="btn" data-dismiss="modal"> Cancel</button>
                   </div>
                 </div>
               </div>
@@ -119,45 +166,80 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
-    $('nav-item').on('click', 'nav-link', function(){
-        $('.nav-item nav-link.active').removeClass('current');
-        $(this).addClass('current');
-    }); 
-
+    $(document).on('click', '.modal', function() {
+      $('.modal-title').text('Examination date');
+    });
     $(document).on('click','.edit-modal', function(){
-      $('.modal-title').text('Edit school year');
+      $('.actionBtn').show();
+      $('.deletes').hide();
+      $('.modal-title').text('Edit examination date');
       $('.form-horizontal').show();
       $('.deleteContent').hide();
+      $('.actionBtn').text('Update');
       $('.actionBtn').addClass('btn-success');
       $('.actionBtn').removeClass('btn-danger');
-      $('.actionBtn').addClass('edit');
-      $('#schoolyr').val($(this).data('schoolyear'));
+      $('.actionBtn').removeClass('delete');
+      $('#a').val($(this).data('schoolyear'));
+      $('#b').val($(this).data('grading'));
+      $('#c').val($(this).data('startdate'));
+      $('#d').val($(this).data('enddate'));
+      $('#id').val($(this).data('id'));
+      id = $('#id').val();
       $('#myModal').show();
     });
 
-  $(document).on('click','.delete-modal', function() {
-      $('.modal-title').text('Delete this id');
-      $('.deleteContent').show();
-      $('.form-horizontal').hide();
-      $('.actionBtn').text('Delete');
-    });
-
-    $('modal-footer').on('click', 'edit', function(){
-        $.ajax({
-            type: 'DELETE',
-            url:  'editPost',
-            data: {
-              '_token': $('input[name=_token').val(),
-              'schoolYear': $('#schoolyr').val()
-            },
-            success: function(data) {
-              $('.post' + data.id).replaceWith(" "+
-                "<tr class='post'"+data.id +"'>" +
-                "<td>" + data.id + "</td>"+
-                "<td>" + data.schoolYear + "</td> </tr>");
-            }
+    $('.modal-footer').on('click', '.actionBtn', function(){
+      $.ajax({
+        type: 'PUT',
+        url:  'examination/' + id,
+        data: {
+          '_token': $('input[name=_token').val(),
+          'id': id,
+          'schoolYear': $('#a').val(),
+          'grading': $('#b').val(),
+          'startDate': $('#c').val(),
+          'endDate': $('#d').val()
+        },
+        success: function(data) {
+          $('.post' + data.id).replaceWith(" "+
+          "<tr class='post'"+data.id +"'>" +
+            "<td>" + data.id + "</td>"+
+            "<td>" + data.schoolYear + "</td>"+
+            "<td>" + data.grading + "</td>"+
+            "<td>" + data.schoolYear + "</td>"+
+            "<td>" + data.endDate + "</td>"+
+            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolyear='"+data.schoolYear+"' data-grading='"+data.grading+"' data-startdate='"+data.startDate+"' data-enddate='"+data.endDate+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
+              "     <a href='#' class='delete-modal btn btn-danger'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolyear='"+data.schoolYear+"' data-grading='"+data.grading+"' data-startdate='"+data.startDate+"'data-enddate='"+data.endDate+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Delete </a>" +
+              "</tr>");
+          }
         });
       });
+
+    $(document).on('click','.delete-modal', function() {
+        $('.deletes').show();
+        $('.actionBtn').hide();
+        $('.modal-title').text('Delete this date');
+        $('.deleteContent').show();
+        $('.form-horizontal').hide();
+        $('.delete').removeClass('actionBtn');
+        $('#id').val($(this).data('id'));
+        id = $('#id').val();
+        $('#myModal').show();
+      });
+
+    $(document).on('click', '.deletes', function() {
+        $.ajax({
+            type: 'DELETE',
+            url: 'examination/' +id,
+            data: {
+              '_token': $('input[name=_token]').val(),
+              'id': $('#id').val()
+            },
+            success:function(data) {
+                $('.post' +$('#id').val()).remove();
+            }
+        });
+    });
   </script>
 </body>
 </html>

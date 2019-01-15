@@ -49,14 +49,16 @@
                   </div>
 
                 <div class="form-group">
-                      <button type="submit" name="submit">
+                      <button class="btn btn-primary" type="submit" name="submit">
                           {{ __('Login') }}
                       </button>
 
-                      <a class="btn btn-link" href="{{ route('password.request') }}">
-                          {{ __('Forgot Your Password?') }}
-                      </a>
-                  </div>
+                    </div>
+                <div class="form-group mt-4">
+                  <a href="{{ route('password.request') }}">
+                      {{ __('Forgot Your Password?') }}
+                  </a>
+                </div>
                 </div>
               </form>
             </div>

@@ -35,6 +35,13 @@
                     <h5 class="modal-title">Add Student</h5>
                     <button type="button" class="close" data-dismiss="modal"> &times; </button>
                   </div>  
+                  @if($errors->all())
+                      @foreach ($errors as $error)
+                        <div class="alert alert-danger" role="alert">
+                            </li>{{ $error }} </div>
+                        </div>
+                      @endforeach
+                  @endif  
                   <div class="modal-body">
                     <form method="POST">
                        @csrf
@@ -56,7 +63,7 @@
                             </div>
                             <div class="col-md-4">
                                 {{-- <input type="text" class="form-control" placeholder="Level" name="level"> --}}
-                                <select name="level" id="level" class="form-control">
+                                <select name="gradeLevel" id="gradeLevel" class="form-control">
                                   <option value="" selected  disabled>-Select Grade-</option>
                                   @foreach ($yearlevel as $yearlevels)
                                       <option value="{{ $yearlevels->gradeLevel}}">Grade {{ $yearlevels->gradeLevel}} </option>
@@ -130,11 +137,11 @@
                   @foreach ($student as $students)
                     <tr>
                       <td>{{ $students->student_id}} </td>
-                      <td>{{ $students->level}} </td>
+                      <td>{{ $students->gradeLevel}} </td>
                       <td>{{ $students->firstName}} </td>
                       <td>{{ $students->lastName}} </td>
                       <td>
-                      <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $students->student_id}}" data-level="{{ $students->level }}" data-first="{{ $students->firstName }}" data-last="{{ $students->lastName }}" data-email="{{ $students->email }}" data-password="{{ $students->password }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
+                      <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $students->student_id}}" data-level="{{ $students->gradeLevel }}" data-first="{{ $students->firstName }}" data-last="{{ $students->lastName }}" data-email="{{ $students->email }}" data-password="{{ $students->password }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
                       <a href="#" class="delete-modal btn btn-danger"><i class="fa fa-trash-o"> </i>Delete </a>
                       </td>
                     </tr>

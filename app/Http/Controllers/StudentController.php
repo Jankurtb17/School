@@ -51,7 +51,7 @@ class StudentController extends Controller
     {
         $this->validate($request, [
             'studentNumbers'        => 'required|string',
-            'level'                 => 'required|string',
+            'gradeLevel'            => 'required|string',
             'firstName'             => 'required|string',
             'lastName'              => 'required|string',
             'email'                 => 'required|string',
@@ -62,7 +62,7 @@ class StudentController extends Controller
             'user_type'           => 'student',
             'role_id'             => '1',
             'student_id'          =>$request->get('studentNumbers'),
-            'level'               =>$request->get('level'),
+            'gradeLevel'          =>$request->get('gradeLevel'),
             'firstName'           =>$request->get('firstName'),
             'middleName'          =>$request->get('middleName'),
             'lastName'            =>$request->get('lastName'),
