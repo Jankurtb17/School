@@ -11,10 +11,14 @@
 
                 @endcan
                 @can('isTeacher')
-                    Teacher Dashboard
+                <div class="sidebar-image">
+                    <img src="{{ url('image/teacher.png')}}" class="logo-admin">
+                </div>
                 @endcan
                 @can('isStudent')
-                    Student Dashboard
+                <div class="sidebar-image">
+                    <img src="{{ url('image/student.png')}}" class="logo-admin">
+                </div>
                 @endcan
               </div>
 

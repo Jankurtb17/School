@@ -23,7 +23,7 @@ class teacheradvisory extends Controller
                 ->get();
       $advisory = advisory::all();
       $yearlevel = DB::table('yearlevels')
-                      ->groupBy('gradeLevel')
+                      ->groupBy('schoolYear')
                       ->get();
       return view('Dashboard.teacheradvisory', compact('user', 'advisory', 'yearlevel'));
     }
@@ -47,6 +47,7 @@ class teacheradvisory extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+          'schoolYear'  => 'required|string',
           'gradeLevel'   =>  'required|string',
           'className'   =>  'required|string',
           'employee_id' =>  'required|string',
@@ -54,6 +55,7 @@ class teacheradvisory extends Controller
         
         advisory::create([
             'user_id'     =>Auth::id(),
+            'schoolYear'  =>$request->get('schoolYear'),
             'gradeLevel'   =>$request->get('gradeLevel'),
             'className'   =>$request->get('className'),
             'employee_id' =>$request->get('employee_id'),
@@ -126,7 +128,7 @@ class teacheradvisory extends Controller
                   ->where($select, $value)
                   ->groupBy($dependent)
                   ->get();
-      $output = '<option value="" selected disabled>-Select Class Name- </option>';
+      $output = '<option value="" selected disabled>-Select Section Name- </option>';
       foreach($data as  $row)
       {
         $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';

@@ -16,6 +16,7 @@ class CreateAdvisoriesTable extends Migration
         Schema::create('advisories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_id');
+            $table->string('schoolYear');
             $table->string('gradeLevel');
             $table->string('className');
             $table->string('employee_id');

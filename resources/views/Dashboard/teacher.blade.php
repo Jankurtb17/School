@@ -48,7 +48,7 @@
                       <div class="form-group">
                         <div class="row">
                           <div class="col-md-3"> 
-                            <label class="col-form-label">Student </label>
+                            <label class="col-form-label">Teacher </label>
                           </div>
                           <div class="col-md-9">
                             <input type="text" class="form-control" placeholder="Employee ID"  name="employee_Id">

@@ -30,10 +30,13 @@ class LoginController extends Controller
      * @var string
      */
     /**
+     * 
      * Create a new controller instance.
      *
      * @return void
      */
+    protected $redirectTo = '/dashboard';
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');

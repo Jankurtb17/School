@@ -8,6 +8,7 @@ class advisory extends Model
 {
     protected $fillable = [
       'user_id',
+      'schoolYear',
       'gradeLevel',
       'className', 
       'employee_id',

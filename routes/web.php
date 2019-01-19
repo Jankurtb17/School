@@ -21,20 +21,33 @@ Route::group(['middleware'  => 'revalidate'], function(){
       Route::resource('/class', 'nameOfClass');
       Route::resource('/addteacher', 'AddTeacherController');
       Route::resource('/student', 'StudentController');
+      Route::post('/student/fetch', 'StudentController@fetch')->name('dynamicdependent3.fetch');
       Route::resource('/schoolyear', 'schoolyr');
       Route::resource('/subject', 'subjectview');
+      Route::post('/subject/fetch', 'subjectview@fetch')->name('dynamicdependent.fetch');
       Route::resource('/gradelevel', 'yearlevel');
       Route::resource('/advisory', 'teacheradvisory');
+      Route::post('/advisory/fetch', 'teacheradvisory@fetch')->name('dynamicdependent2.fetch');
       Route::resource('/examination', 'Examination');
       Route::get('/teacher/dashboard', 'HomeController@teacherDashboard');
       Route::get('/studentgrades', 'StudentGrades@index');
     // });
       
-      Route::post('/subject/fetch', 'subjectview@fetch')->name('dynamicdependent.fetch');
-      Route::post('/advisory/fetch', 'teacheradvisory@fetch')->name('dynamicdependent2.fetch');
-      Route::post('/subjectload', 'ViewSubjectLoad@search');
+      //teacher
       Route::get('/subjectload', 'ViewSubjectLoad@index');
+      Route::post('/subjectload', 'VIewSUbjectLoad@edit')->name('subjectload.search');
+      Route::get('/subjectload/search', 'ViewSubjectLoad@search')->name('search.subject');
       Route::get('/listsubject', 'ListSubject@index');
+      Route::get('/subjectgrade', 'ViewSubjectGrade@index');
+      Route::get('/subjectgrade/search', 'ViewSubjectGrade@studentSearch')->name("student.search");
+      Route::post('/subjectgrade/fetch', 'ViewSubjectGrade@fetch')->name('classname.search');
+      //studnet
+      Route::get('/grades','StudentGrades@index');
+
+      //changepassword
+      
+
+
       // Route::post('/class/fetch', 'nameOfClass@fetch')->name('dynamicdependent.fetch');
       // Route::get('/subjectload/get', 'ViewSubjectLoad@accessInformation');
       // Route::get('/advisory', 'SearchController@showAddingForm');

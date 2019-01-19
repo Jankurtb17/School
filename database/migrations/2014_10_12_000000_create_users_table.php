@@ -19,7 +19,9 @@ class CreateUsersTable extends Migration
             $table->integer('role_id');
             $table->string('employee_id')->nullable();
             $table->string('student_id')->nullable();
+            $table->string('schoolYear')->nullable();
             $table->string('gradeLevel')->nullable();
+            $table->string('className')->nullable();
             $table->string('firstName');
             $table->string('middleName')->nullable();
             $table->string('lastName');

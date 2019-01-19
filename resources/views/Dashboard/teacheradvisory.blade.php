@@ -39,12 +39,21 @@
                     <form method="POST" id="form-horizontal">
                        @csrf
                        <div class="form-group">
+                          <label class="col-form-label"> School Year </label>
+                          <select name="schoolYear" id="schoolYear" class="form-control dynamic" data-dependent="gradeLevel">
+                              <option value=""  selected disabled>-Select Grade Level-</option>
+                              @foreach ($yearlevel as $yearlevels)
+                                  <option value="{{ $yearlevels->schoolYear }}">{{ $yearlevels->schoolYear }}</option>
+                              @endforeach
+                          </select>
+                       </div>
+                       <div class="form-group">
                          <label class="col-form-label">Grade Level</label>
                          <select name="gradeLevel" id="gradeLevel" class="form-control  dynamic" data-dependent="className">
-                            <option value=""  selected disabled>-Select Grade Level-</option>
-                            @foreach ($yearlevel as $yearlevels)
+                            <option value="">-Select Grade Level-</option>
+                            {{-- @foreach ($yearlevel as $yearlevels)
                                 <option value="{{ $yearlevels->gradeLevel }}">Grade {{ $yearlevels->gradeLevel }}</option>
-                            @endforeach
+                            @endforeach --}}
                          </select>
                        </div>
                        <div class="form-group">
@@ -83,8 +92,9 @@
                 <tr>
                   <th> ID</th>
                   <th> Grade Level</th>
+                  <th> School Year</th>
                   <th> Class Name</th>
-                  <th> Teacher Name</th>
+                  <th> Teacher ID</th>
                   <th> Action </th>
                 </tr>
               </thead>
@@ -93,13 +103,14 @@
                 @foreach ($advisory as $advisories)
                     <tr class="post{{ $advisories->id }}">
                       <td>{{ $n++  }}</td>
+                      <td>{{ $advisories->schoolYear }} </td>
                       <td>{{ $advisories->gradeLevel }} </td>
                       <td>{{ $advisories->className }}</td>
                       <td><a href="/teacher/{{ $advisories->employee_id }}">{{$advisories->employee_id }} </a></td>
                     
                       <td>
-                        <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>
-                        <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}"><i class="fa fa-trash-o" aria-hidden="true"> </i> Delete</a>
+                        <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>
+                        <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}"><i class="fa fa-trash-o" aria-hidden="true"> </i> Delete</a>
                       </td>
                     </tr> 
                 @endforeach
@@ -122,12 +133,18 @@
                       <div id="teacherList"> </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-form-label"> School Year </label>
+                        <select name="schoolYear" id="schoolYear" class="form-control dynamic" data-dependent="gradeLevel">
+                            <option value=""  selected disabled>-Select Grade Level-</option>
+                            @foreach ($yearlevel as $yearlevels)
+                                <option value="{{ $yearlevels->schoolYear }}">{{ $yearlevels->schoolYear }}</option>
+                            @endforeach
+                        </select>
+                     </div>
+                    <div class="form-group">
                         <label class="col-form-label">Grade Level</label>
                         <select name="gradeLevel" id="gradeLevel" class="form-control  dynamic" data-dependent="className">
-                           <option value=""  selected disabled>-Select Grade Level-</option>
-                           @foreach ($yearlevel as $yearlevels)
-                               <option value="{{ $yearlevels->gradeLevel }}">Grade {{ $yearlevels->gradeLevel }}</option>
-                           @endforeach
+                           <option value="">-Select Grade Level-</option>
                         </select>
                       </div>
                     <div class="form-group">
@@ -179,7 +196,8 @@
       $('.modal-title').text('Edit Teacher advisory');
       $('.actionBtn').addClass('btn-dark');
       $('#id').val($(this).data('id'));
-      $('.dynamic').val($(this).data('gradelevel'));
+      $('#schoolyear').val($(this).data('schoolyear'));
+      $('#gradeLevel').val($(this).data('gradelevel'));
       $('#b').val($(this).data('class'));
       $('#c').val($(this).data('employee'));
       id = $('#id').val();

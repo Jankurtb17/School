@@ -52,6 +52,7 @@ class StudentController extends Controller
         $this->validate($request, [
             'studentNumbers'        => 'required|string',
             'gradeLevel'            => 'required|string',
+            'className'             => 'required|string',
             'firstName'             => 'required|string',
             'lastName'              => 'required|string',
             'email'                 => 'required|string',
@@ -63,6 +64,7 @@ class StudentController extends Controller
             'role_id'             => '1',
             'student_id'          =>$request->get('studentNumbers'),
             'gradeLevel'          =>$request->get('gradeLevel'),
+            'className'           =>$request->get('className'),
             'firstName'           =>$request->get('firstName'),
             'middleName'          =>$request->get('middleName'),
             'lastName'            =>$request->get('lastName'),
@@ -118,5 +120,22 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function fetch(Request $request)
+    {
+      $select = $request->get('select');
+      $value = $request->get('value');
+      $dependent = $request->get('dependent');
+      $data = DB::table('yearlevels')
+                ->where($select, $value)
+                ->groupBy($dependent)
+                ->get();
+      $output = '<option value="" selected disabled>-Select Class-</option>';
+      foreach($data as $row)
+      {
+        $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
+      }
+      echo $output;
     }
 }

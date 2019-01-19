@@ -7,7 +7,7 @@ body {
 .card {
     position: absolute;
     top: 120px;
-    left: 330px;
+    left: 315px;
     width: 65%;
     height: 70vh;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);

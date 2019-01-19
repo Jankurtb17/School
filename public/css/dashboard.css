@@ -133,3 +133,8 @@ body {
     height: 100px;
     overflow-y: auto;
 }
+
+#input-group {
+    display: flex;
+    justify-content: flex-end;
+}

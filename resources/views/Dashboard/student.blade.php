@@ -58,20 +58,35 @@
                             <div class="col-md-3"> 
                               <label class="col-form-label">Student </label>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-9">
                               <input id ="studentNumber" type="text" class="form-control" placeholder="Student Number" name="studentNumbers">
                             </div>
-                            <div class="col-md-4">
+                          </div>
+                        </div>
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-3">
+                            </div>
+                            <div class="col-md-5">
                                 {{-- <input type="text" class="form-control" placeholder="Level" name="level"> --}}
-                                <select name="gradeLevel" id="gradeLevel" class="form-control">
+                                <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className">
                                   <option value="" selected  disabled>-Select Grade-</option>
-                                  @foreach ($yearlevel as $yearlevels)
-                                      <option value="{{ $yearlevels->gradeLevel}}">Grade {{ $yearlevels->gradeLevel}} </option>
-                                  @endforeach
+                                  <option value="kindergarten">kindergarten</option>
+                                  <option value="1">Grade 1</option>
+                                  <option value="2">Grade 2</option>
+                                  <option value="3">Grade 3</option>
+                                  <option value="4">Grade 4</option>
+                                  <option value="5">Grade 5</option>
+                                  <option value="6">Grade 6</option>
                                 </select>
                               </div>
+                            <div class="col-md-4">
+                              <select name="className" id="className" class="form-control">
+                                <option value="">-Select Class-</option>
+                              </select>
+                            </div>
                           </div>
-                       </div>
+                        </div>
                        <div class="form-group"> 
                           <div class="row">
                             <div class="col-md-3"> </div>
@@ -159,6 +174,30 @@
   </div>
   </div>
   <script src="{{ asset('js/app.js') }}"></script>
-  <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+  <script>
+    $(document).on('change', '.dynamic', function() {
+      if($(this).val() != ''){
+        select = $(this).attr('id');
+        value = $(this).val();
+        dependent = $(this).data('dependent');
+        _token = $('input[name="_token"]').val();
+          $.ajax({
+                  url: "{{ route('dynamicdependent3.fetch') }}",
+                  method: "POST",
+                  data: {
+                    select: select,
+                    value: value,
+                    _token: _token,
+                    dependent:dependent
+                  },
+                  success:function(result)
+                  {
+                    $('#'+dependent).html(result);
+                  }
+              });
+          }
+    });
+  
+  </script>  
 </body>
 </html>
