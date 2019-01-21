@@ -1,37 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-  <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-  <title>Document</title>
-</head>
-<body>
+@extends('layouts.admin')
+
+
+@section('content')
 
       @include('Pages.sidebar')
-      
       <div class="content">
         <div class="sidebar-content">
         </div>
-        <div class="title">
-          <h1>Class </h1>
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"> <ion-icon name="speedometer" id="dashboard-icon"> </ion-icon> <a href="/dashboard"> Dashboard </a> </li>
-              <li class="breadcrumb-item active" aria-current="page"> </ion-icon>Class</li>
-            </ol>
-          </nav>
+        
+        <div class="row mt-4">
+            <div class="col-lg-6">
+                <div class="card" id="changepassword2">
+                  <div class="card-body">
+                      <form id="horizontal">
+                        @csrf
+                        <div class="form-group">
+                          <h5 class="display-5">EDIT PROFILE 
+                        </div>
+
+                        <div class="form-group" id="form-group">
+                            <div class="row">
+                              <Label class="col-lg-3">First Name</Label>
+                              <input  type="text" class="form-control col-lg-8" name="currentPassword" id="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="form-group">
+                            <div class="row">
+                              <Label class="col-lg-3">Last Name</Label>
+                              <input  type="text" class="form-control col-lg-8" name="currentPassword" id="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="form-group">
+                            <div class="row">
+                              <Label class="col-lg-3">Middle Name</Label>
+                              <input  type="text" class="form-control col-lg-8" name="currentPassword" id="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="form-group">
+                            <div class="row">
+                              <Label class="col-lg-3">Contact Number</Label>
+                              <input  type="text" class="form-control col-lg-8" name="currentPassword" id="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="form-group">
+                            <div class="row">
+                              <Label class="col-lg-3">Address</Label>
+                              <input  type="text" class="form-control col-lg-8" name="currentPassword" id="">
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group">
+                            <div class="row">
+                              <Label class="col-lg-3"></Label>
+                              <input  type="text" class="form-control col-lg-8" name="currentPassword" id="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="form-group">
+                            <div class="row">
+                            <div class="col-lg-3"> </div>
+                            <button type="submit" class="btn btn-default col-lg-8" id="changepassButton">Edit</button>
+                            </div>
+                        </div>
+
+                      </form>
+                  </div>
+                </div>
+              </div>
+              
+          <div class="col-lg-6">
+            <div class="card" id="changepassword">
+              <div class="card-body">
+                  <form action="" id="horizontal">
+                    @csrf
+                    <div class="form-group">
+                        <h5 class="display-5">CHANGE PASSWORD</h1>
+                    </div>
+                    
+                   
+                    <div class="form-group" id="form-group">
+                      <div class="row">
+                        <Label class="col-lg-3">Current Password</Label>
+                        <input  type="password" class="form-control col-lg-8" name="currentPassword" id="">
+                      </div>
+                    </div>
+
+                    <div class="form-group" id="form-group">
+                        <div class="row">
+                          <Label class="col-lg-3">New Password</Label>
+                          <input id="password" type="password" class="form-control col-lg-8" name="password" id="">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="form-group">
+                        <div class="row">
+                          <Label class="col-lg-3">Confirm Password</Label>
+                          <input id="password-confirm" type="password" class="form-control col-lg-8" name="password_confirmation " id="">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="form-group">
+                        <div class="row">
+                        <div class="col-lg-3"> </div>
+                        <button type="submit" class="btn btn-default col-lg-8" id="changepassButton">Reset</button>
+                        </div>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
           
         </div>
+
       </div>
     </div>
     </div>
   </div>
   </div>
-  <script src="{{ asset('js/app.js') }}"></script>
-</body>
-</html>
+@endsection

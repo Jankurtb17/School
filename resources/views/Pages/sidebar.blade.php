@@ -26,7 +26,7 @@
               <li class="nav-item">
                   <a id="dashboard-icon1" class="nav-link {{ setActive('dashboard', 'current') }}" href="/dashboard"> <i class="fa fa-tachometer" aria-hidden="true" id="icon-dashboard"></i> Dashboard </a>
               </li>
-              <li class="nav-title"> Module </li>
+              <li class="nav-title"> Main Module </li>
               <li class="nav-item">
                   <a class="nav-link {{ setActive('schoolyear', 'current') }}" href="/schoolyear"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> School Year</a>
               </li>
@@ -62,15 +62,17 @@
               @endcan
 
               @can('isTeacher')
+              <li class="nav-title"> Main Navigation </li>
               <li class="nav-item">
                 <a class="nav-link {{ setActive('subject', 'current' )}}" href="/subjectload"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Subject Module </a>
+                <ul>
+                  <li class="nav-item"> <a class="nav-link" href="#">Example</a></li>
+                </ul>
               </li>
               <li class="nav-item">
                 <a class="nav-link {{ setActive('subjectgrade', 'current' )}}" href="/subjectgrade"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Subject Grade </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link {{ setActive('studentgrades', 'current' )}}" href="/studentgrades"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Student Grades </a>
-              </li>
+              
               <li class="nav-title"> Settings </li>
               <li class="nav-item">
                 <a class="nav-link {{ setActive('settings', 'current')}}" href="/settings"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>

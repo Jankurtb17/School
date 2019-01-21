@@ -50,7 +50,13 @@ body {
     text-decoration: none;
     color: #fff;
     padding-left: 1em;
+    display: block;
 }
+
+.nav .nav-item ul li {
+    display: none;
+}
+
 .main-content {
     margin: 20px 0 20px 20px;
     text-transform: uppercase;
@@ -145,3 +151,29 @@ body {
 }
 
 /* input grades */
+
+/* Changepassword */
+#horizontal {
+    position: relative;
+    top: 60px;
+    left: 20px;
+}
+
+#changepassword {
+    height: 450px;
+}
+
+#changepassword2 {
+    height: 650px;
+}
+
+#form-group {
+    position: relative;
+    top: 40px;
+}
+
+#changepassButton {
+    background-color: #233849;
+    border-color: #233849;
+    color: #fff;
+}

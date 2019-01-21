@@ -46,7 +46,7 @@ Route::group(['middleware'  => 'revalidate'], function(){
       Route::get('/grades','StudentGrades@index');
 
       //changepassword
-      
+      Route::get('/settings', 'AccountSettings@index');
 
 
       // Route::post('/class/fetch', 'nameOfClass@fetch')->name('dynamicdependent.fetch');
