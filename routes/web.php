@@ -39,6 +39,7 @@ Route::group(['middleware'  => 'revalidate'], function(){
       Route::get('/subjectload/search', 'ViewSubjectLoad@search')->name('search.subject');
       Route::get('/listsubject', 'ListSubject@index');
       Route::get('/subjectgrade', 'ViewSubjectGrade@index');
+      Route::get('/studentgrades/{id}', 'MakeGrades@test');
       Route::get('/subjectgrade/search', 'ViewSubjectGrade@studentSearch')->name("student.search");
       Route::post('/subjectgrade/fetch', 'ViewSubjectGrade@fetch')->name('classname.search');
       //studnet

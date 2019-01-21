@@ -17,15 +17,6 @@
   @yield('content')
 
 
-
-
-
 <script src="{{ asset('js/app.js') }}"></script>
-<script type="text/javascript">
-  $('nav-item').on('click', 'nav-link', function(){
-      $('.nav-item nav-link.active').removeClass('current');
-      $(this).addClass('current');
-  }); 
-</script>
 </body>
 </html>

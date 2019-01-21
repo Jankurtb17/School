@@ -27,18 +27,18 @@ class ViewSubjectGrade extends Controller
                     ->where('gradeLevel' , $gradeLevel)
                     ->orWhere('className', $className)
                     ->get();
-      $count = count($search);
 
+      $count = count($search);
       if($count > 0)
       {
         foreach($search as $row)
-          {
+          { 
             $output .= '
               <tr>
-                <td>'.$row->student_id.'</td>
+                <td> <a href="/studentgrades/'.$row->student_id.'">'.$row->student_id.'</a></td>
                 <td>'.$row->firstName.'</td>
-                <td>'.$row->lastName.'</td>
                 <td>'.$row->middleName.'</td>
+                <td>'.$row->lastName.'</td>
                 </tr>
             ';
           }

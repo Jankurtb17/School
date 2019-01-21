@@ -68,6 +68,9 @@
               <li class="nav-item">
                 <a class="nav-link {{ setActive('subjectgrade', 'current' )}}" href="/subjectgrade"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Subject Grade </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link {{ setActive('studentgrades', 'current' )}}" href="/studentgrades"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Student Grades </a>
+              </li>
               <li class="nav-title"> Settings </li>
               <li class="nav-item">
                 <a class="nav-link {{ setActive('settings', 'current')}}" href="/settings"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>
@@ -102,8 +105,8 @@
           <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
             {{ Auth::user()->firstName }}
           </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ route('logout') }}"
+          <div class="dropdown-menu" id="dropdown">
+            <a class="dropdown-item"  href="{{ route('logout') }}"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">
               {{ __('Logout') }}
