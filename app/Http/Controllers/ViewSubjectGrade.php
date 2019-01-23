@@ -35,17 +35,18 @@ class ViewSubjectGrade extends Controller
           { 
             $output .= '
               <tr>
-                <td> <a href="/studentgrades/'.$row->student_id.'">'.$row->student_id.'</a></td>
-                <td>'.$row->firstName.'</td>
-                <td>'.$row->middleName.'</td>
-                <td>'.$row->lastName.'</td>
+                <td> <a href="/studentgrades/'.$row->student_id.'"><input type="hidden" name="student_id" value="'.$row->student_id.'">'.$row->student_id.'</a></td>
+                <td>'.$row->firstName.' '.$row->middleName.' '.$row->lastName.'</td>
+                <td> <input type="text" class="form-control col-lg-4" name="grade['.$row->student_id.']"> </td>
                 </tr>
             ';
           }
+    
           return response()->json($output);
       }
       else {
         $output = '<tr> <td colspan="5"> No result were found </td>';
+        return response()->json($output);
       }
     }
 

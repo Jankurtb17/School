@@ -50,19 +50,19 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'studentNumbers'        => 'required|string',
+            'student_id'        => 'required|string|unique:users',
             'gradeLevel'            => 'required|string',
             'className'             => 'required|string',
             'firstName'             => 'required|string',
             'lastName'              => 'required|string',
-            'email'                 => 'required|string',
+            'email'                 => 'required|string|unique:users',
             'password'              => 'required|string',
             'contactNumber'         => 'required|string',
         ]);
             User::create([
             'user_type'           => 'student',
             'role_id'             => '1',
-            'student_id'          =>$request->get('studentNumbers'),
+            'student_id'          =>$request->get('student_id'),
             'gradeLevel'          =>$request->get('gradeLevel'),
             'className'           =>$request->get('className'),
             'firstName'           =>$request->get('firstName'),

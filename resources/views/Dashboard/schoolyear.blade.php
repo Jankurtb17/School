@@ -24,6 +24,11 @@
                 <li class="breadcrumb-item active" aria-current="page">School Year</li>
               </ol>
             </nav>
+            @if(count($errors) > 0)
+                @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger">{{ $error}} </div>
+                @endforeach
+            @endif
             <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade1">
                 Add school year 
             </button>
@@ -66,8 +71,8 @@
                       <td> {{ $no++ }} </td>
                       <td> {{ $schoolyears->schoolYear }}</td>
                       <td> 
-                          <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
-                          <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
+                          <a href="#" class="edit-modal btn btn-default" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
+                          <a href="#" class="delete-modal btn btn-default" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
                         </td>
                     </tr>
                 @endforeach
@@ -103,7 +108,7 @@
                 </div>
                   <div class="modal-footer">
                     <button type="button" class="btn actionBtn" data-dismiss="modal"> Update </button>
-                    <button type="button" class="btn btn-danger delete" data-dismiss="modal"></button>
+                    <button type="button" class="btn btn-danger delete" data-dismiss="modal">Delete</button>
                     <button type="button" class="btn cancel" data-dismiss="modal"> Cancel</button>
                   </div>
                 </div>

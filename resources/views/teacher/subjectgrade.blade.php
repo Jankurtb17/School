@@ -48,18 +48,20 @@
                 </div>
               </form>
               <table class="table table-bordered table-hover mt-4">
-                <thead>
+                <thead align="center">
                     <tr>
                       <th>Student Number</th>
-                      <th>First Name</th>
-                      <th>Middle Initial</th>
-                      <th>Last Name</th>
+                      <th>Student Full Name</th>
+                      <th>Input Grade</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody align="center">
                   
                 </tbody>
               </table>
+              <form action="">
+                <button type="button" class="btn btn-success">Submit</button>
+              </form>
             </div> 
           </div>
         </div>
@@ -69,6 +71,9 @@
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
+    $('body').ready(function() {
+       $('.btn-success').hide();
+    }); 
     $(document).on('change', '.dynamic', function() {
       if($(this).val() != '')
       {
@@ -106,6 +111,8 @@
           success:function(data)
           {
             $('tbody').html(data);
+            $('.btn-success').show();
+
           }
         });
     });

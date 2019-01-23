@@ -24,7 +24,19 @@
                 <li class="breadcrumb-item active" aria-current="page">Students</li>
               </ol>
             </nav>
+            @if ($message = Session::get('success'))
+              <div class="alert alert-success" role="alert">
+                  <li>{{ $message }}</li>
+              </div>
+            @endif
 
+            @if(count($errors) > 0)
+              <div class="alert alert-danger" role="alert">
+                @foreach ($errors->all() as $error)
+                      <li> {{ $error }} </li>
+                @endforeach
+              </div>
+            @endif    
             <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade3">
                 Add Student 
             </button>
@@ -35,13 +47,7 @@
                     <h5 class="modal-title">Add Student</h5>
                     <button type="button" class="close" data-dismiss="modal"> &times; </button>
                   </div>  
-                  @if($errors->all())
-                      @foreach ($errors as $error)
-                        <div class="alert alert-danger" role="alert">
-                            </li>{{ $error }} </div>
-                        </div>
-                      @endforeach
-                  @endif  
+                 
                   <div class="modal-body">
                     <form method="POST">
                        @csrf
@@ -59,7 +65,7 @@
                               <label class="col-form-label">Student </label>
                             </div>
                             <div class="col-md-9">
-                              <input id ="studentNumber" type="text" class="form-control" placeholder="Student Number" name="studentNumbers">
+                              <input id ="studentNumber" type="text" class="form-control" placeholder="Student Number" name="student_id">
                             </div>
                           </div>
                         </div>

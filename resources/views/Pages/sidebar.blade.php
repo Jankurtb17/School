@@ -64,7 +64,7 @@
               @can('isTeacher')
               <li class="nav-title"> Main Navigation </li>
               <li class="nav-item">
-                <a class="nav-link {{ setActive('subject', 'current' )}}" href="/subjectload"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Subject Module </a>
+                <a class="nav-link {{ setActive('subjectload', 'current' )}}" href="/subjectload"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Subject Module </a>
                 <ul>
                   <li class="nav-item"> <a class="nav-link" href="#">Example</a></li>
                 </ul>

@@ -41,7 +41,7 @@ body {
 .nav {
     display: flex;
     flex-direction: column;
-    background: #2f353a;
+    background: linear-gradient(to top, rgb(150, 0, 50), rgb(35, 44, 74));
     height: 100vh;
 }
 
@@ -75,12 +75,12 @@ body {
     font-size: 20px;
 }
 .nav-link:hover {
-    background-color: #20a8d8;
+    background: linear-gradient(to right, rgb(222, 97, 97), rgb(38, 87, 235));
     color: #fff;
     transition: 0.4s ease-in;
 }
 .current {
-    background-color: #1d2d3c !important;
+    background: linear-gradient(to right, rgb(222, 97, 97), rgb(38, 87, 235));
     border-left: 4px solid #20a8d8;
 }
 .main {
@@ -147,7 +147,35 @@ body {
 #dropdown {
     position: absolute;
 }
-.alert-primary {
+
+.delete-modal {
+    background: linear-gradient(to right, rgb(195, 20, 50), rgb(36, 11, 54));
+    color: white;
+    border-style: none;
+}
+.delete-modal:hover {
+    background: linear-gradient(to left, rgb(195, 20, 50), rgb(36, 11, 54));
+    color: #fff;
+    border-style: none;
+}
+
+.edit-modal {
+    background: linear-gradient(to top, rgb(252, 234, 187), rgb(248, 181, 10));
+    color: black;
+    border-style: none;
+}
+.edit-modal:hover {
+    background: linear-gradient(
+        to bottom,
+        rgb(252, 234, 187),
+        rgb(248, 181, 10)
+    );
+    color: black;
+    border-style: none;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, rgb(55, 59, 68), rgb(66, 134, 244));
 }
 
 /* input grades */
