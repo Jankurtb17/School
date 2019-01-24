@@ -16,6 +16,8 @@
               </ol>
             </nav>
           </div>
+         
+    
           <div class="card">
             <div class="card-body">
               <form action="{{ route('student.search')}}" method="GET" id="form-horizontal">
@@ -59,8 +61,8 @@
                   
                 </tbody>
               </table>
-              <form action="">
-                <button type="button" class="btn btn-success">Submit</button>
+              
+                <button type="submit" class="btn btn-success">Submit</button>
               </form>
             </div> 
           </div>
@@ -71,6 +73,20 @@
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
+    $('.btn-success').on('click', function() {
+        $.ajax({
+            url: '{{ route("subjectgrade.grade")}}',
+            type: 'POST',
+            data: {
+              "_token": $('input[name=_token]').val(),
+              "student_id":  $('input[name=student_id]').val(),
+              "grade":  $('input[name=grade]').val()
+            },
+            success:function(data) {
+            
+            }
+        });
+    });
     $('body').ready(function() {
        $('.btn-success').hide();
     }); 

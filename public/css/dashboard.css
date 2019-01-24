@@ -11,11 +11,15 @@ body {
     display: flex;
     flex-direction: row;
 }
+.dropdown-menu {
+    position: absolute;
+}
 
 .dropdown-item:hover {
     background-color: #f0f3f5;
     color: black;
 }
+
 .navbar-top .nav-item {
     list-style-type: none;
 }
@@ -174,10 +178,6 @@ body {
     border-style: none;
 }
 
-.btn-primary {
-    background: linear-gradient(to right, rgb(55, 59, 68), rgb(66, 134, 244));
-}
-
 /* input grades */
 
 /* Changepassword */
@@ -204,4 +204,8 @@ body {
     background-color: #233849;
     border-color: #233849;
     color: #fff;
+}
+
+.alert-primary {
+    position: relative;
 }

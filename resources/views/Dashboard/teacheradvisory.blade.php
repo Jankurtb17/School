@@ -72,12 +72,12 @@
                             @endforeach
                           </select>
                       </div>
-                      {{-- <div class="form-group" id="hide">
+                      <div class="form-group" id="hide">
                           <label for="d" class="col-form-label">Subject Name </label>
                           <select name="subject" id="subject" class="form-control">
                             <option value="">-Select Subject-</option>
                           </select>
-                      </div> --}}
+                      </div>
                   </div>
                   <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" name="submit"> Submit </button>                    
@@ -143,7 +143,7 @@
                      </div>
                     <div class="form-group">
                         <label class="col-form-label">Grade Level</label>
-                        <select name="gradeLevel" id="gradeLevel" class="form-control  dynamic" data-dependent="className">
+                        <select name="gradeLevel" id="gradeLevel" class="form-control  dynamic gradeLevel" data-dependent="className">
                            <option value="">-Select Grade Level-</option>
                         </select>
                       </div>
@@ -185,6 +185,12 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
+    $('.btn-primary').on('click', function() {
+      // console.log('asd');
+      $('#hide').hide();
+    });
+
+  
     $(document).on('click', '.modal', function() {
       $('.modal-title').text('Teacher Advisory')
     });
@@ -279,6 +285,7 @@
             }
         });
     });
+  
   </script>
 </body>
 </html>

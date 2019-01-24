@@ -57,7 +57,7 @@
               </li>
               <li class="nav-title"> Settings </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>
+                <a class="nav-link" href="/settings"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>
               </li>
               @endcan
 

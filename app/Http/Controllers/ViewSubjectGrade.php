@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\schoolyear;
-
+use App\firstgrading;
 class ViewSubjectGrade extends Controller
 {
     public function index()
@@ -34,10 +34,11 @@ class ViewSubjectGrade extends Controller
         foreach($search as $row)
           { 
             $output .= '
+
               <tr>
-                <td> <a href="/studentgrades/'.$row->student_id.'"><input type="hidden" name="student_id" value="'.$row->student_id.'">'.$row->student_id.'</a></td>
+                <td> <a href="/studentgrades/'.$row->student_id.'"><input type="hidden" name="student_id" value="'.$row->student_id.'" id="a">'.$row->student_id.'</a></td>
                 <td>'.$row->firstName.' '.$row->middleName.' '.$row->lastName.'</td>
-                <td> <input type="text" class="form-control col-lg-4" name="grade['.$row->student_id.']"> </td>
+                <td> <input type="text" class="form-control col-lg-4" id ="b" name="grade"> </td>
                 </tr>
             ';
           }
@@ -67,5 +68,21 @@ class ViewSubjectGrade extends Controller
       }
       echo $output;
     }
+
+    public function store(Request $request)
+    {
+      $this->validate($request, [
+          'student_id' => 'required|string',
+          'grade'      => 'required|string'
+      ]);
+      $firstgrading = firstgrading::create([
+          'student_id'    =>$request->get('student_id'),
+          'grade'         =>$request->get('grade')
+      ]);
+      session()->flash('notif', 'successfully added!');
+      return response()->json($firstgrading);
+
+    }
+
 }
 

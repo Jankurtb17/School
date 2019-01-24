@@ -35,7 +35,11 @@ class HomeController extends Controller
     {
       return view('teacher.dashboard');
     }
- 
+    
+    public function welcome()
+    {
+      return view('dashboard.welcome');
+    }
     
   
 }
