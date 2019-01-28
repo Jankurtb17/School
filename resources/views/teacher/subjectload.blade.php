@@ -17,6 +17,8 @@
         <div class="content">
           <div class="sidebar-content">
           </div>
+          <div class="card" id="card-subjectgrade">
+          <div class="card-body" >
           <div class="title">
             <h1>Subject Load</h1>
             <nav aria-label="breadcrumb">
@@ -26,8 +28,17 @@
               </ol>
             </nav>
             
+
            <div class="form-group">
-              <input type="text" name= "search" class="form-control col-lg-2" id="search" placeholder="Search">
+              <input type="text" name= "search" class="form-control col-lg-2 float-left mb-2" id="search" placeholder="Search">
+              @if(session()->has('notif'))
+              <div class="row float-right mr-2">
+                <div class="alert alert-success" role="alert">
+                    <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
+                    <strong>Grade</strong> {{session()->get('notif')}}
+                </div>
+              </div>
+              @endif
            </div>
 
             <div class="table-responsive mt-3">
@@ -35,6 +46,7 @@
                   <thead>
                     <tr>
                       <th>Id</th>
+                      <th>School Year</th>
                       <th>Grade Level</th>
                       <th>Class Name</th>
                     </tr> 
@@ -44,17 +56,21 @@
                     @foreach ($advisory as $advisories)
                         <tr class="post{{ $advisories->id}}">
                           <td>{{$advisories->id}}</td>
+                          <td>{{$advisories->schoolYear}}</td>
                           <td>{{$advisories->gradeLevel }}</td>
-                          <td><a href="{{ route('subjectload.search', $advisories->className)}}">{{$advisories->className }}</a></td>
+                          <td><a href="/studentgrades/{{$advisories->gradeLevel}}">{{$advisories->className }}</a></td>
                         </tr>
                     @endforeach
                   </tbody>
               </table>
             </div>
 
+
             <div class="mt-2">
               {{-- {{ $advisory->links() }} --}}
             </div>
+          </div>
+          </div>
         </div>
       </div>
     </div>

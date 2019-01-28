@@ -15,7 +15,7 @@ class Examination extends Controller
      */
     public function index()
     {
-        $examination = exam::all();
+        $examination = exam::paginate(10);
         $schlyr = schoolyear::all();
         return view('Dashboard.examination', compact('examination', 'schlyr'));
     }

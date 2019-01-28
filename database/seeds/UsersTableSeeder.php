@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
             'role_id'        => '2',
             'firstName'      => 'Jan Kurt',
             'lastName'       => 'Bayaras',
+            'gender'         => 'male',
             'email'          => 'kurtb4@yopmail.com',
             'password'       => Hash::make('password'),
             'remember_token' => str_random(20),

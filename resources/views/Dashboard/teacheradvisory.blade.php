@@ -17,105 +17,116 @@
         <div class="content">
           <div class="sidebar-content">
           </div>
-          <div class="title">
-            <h1>Manage Teacher Advisory </h1>
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><ion-icon name="speedometer" id="dashboard-icon"> </ion-icon> <a href="/dashboard">Dashboard </a> </li>
-                <li class="breadcrumb-item active" aria-current="page">Teacher Advisory</li>
-              </ol>
-            </nav>
-            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
-                Add teacher advisory
-            </button>
-            <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title"> Teacher Advisory</h5>
-                    <button type="button" class="close" data-dismiss="modal"> &times; </button>
-                  </div>  
-                  <div class="modal-body">
-                    <form method="POST" id="form-horizontal">
-                       @csrf
-                       <div class="form-group">
-                          <label class="col-form-label"> School Year </label>
-                          <select name="schoolYear" id="schoolYear" class="form-control dynamic" data-dependent="gradeLevel">
-                              <option value=""  selected disabled>-Select Grade Level-</option>
-                              @foreach ($yearlevel as $yearlevels)
-                                  <option value="{{ $yearlevels->schoolYear }}">{{ $yearlevels->schoolYear }}</option>
-                              @endforeach
-                          </select>
-                       </div>
-                       <div class="form-group">
-                         <label class="col-form-label">Grade Level</label>
-                         <select name="gradeLevel" id="gradeLevel" class="form-control  dynamic" data-dependent="className">
-                            <option value="">-Select Grade Level-</option>
-                            {{-- @foreach ($yearlevel as $yearlevels)
-                                <option value="{{ $yearlevels->gradeLevel }}">Grade {{ $yearlevels->gradeLevel }}</option>
-                            @endforeach --}}
-                         </select>
-                       </div>
-                       <div class="form-group">
-                         <label class="col-form-label">Class Name</label>
-                         {{-- <input type="text" class="form-control className" id="className" placeholder="Class Name"  name="className"> --}}
-                         <select name="className" id="className" class="form-control">
-                           <option value="">-Select Class Name-</option>
-                         </select>
-                       </div>
-                      <div class="form-group ">     
-                        <label class="col-form-label">Teacher Name</label>
-                        <select name="employee_id" id="gradeLevel" class="form-control">
-                            <option value="javascript:void(0);" selected disabled>-Select Teacher Name-</option>
-                            @foreach ($user as $users)
-                                <option value="{{ $users->employee_id}}">{{ $users->firstName}} {{ $users->lastName}}</option>
-                            @endforeach
-                          </select>
+          <div class="card" id="card-subjectgrade">
+            <div class="card-body">
+              <div class="title">
+                <h1>Manage Teacher Advisory </h1>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon"> </i> <a href="/dashboard">Dashboard </a> </li>
+                    <li class="breadcrumb-item active" aria-current="page">Teacher Advisory</li>
+                  </ol>
+                </nav>
+                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
+                    Add teacher advisory
+                </button>
+                <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title"> Teacher Advisory</h5>
+                        <button type="button" class="close" data-dismiss="modal"> &times; </button>
+                      </div>  
+                      <div class="modal-body">
+                        <form method="POST" id="form-horizontal">
+                          @csrf
+                          <div class="form-group">
+                              <label class="col-form-label"> School Year </label>
+                              <select name="schoolYear" id="schoolYear" class="form-control dynamic" data-dependent="gradeLevel">
+                                  <option value=""  selected disabled>-Select Grade Level-</option>
+                                  @foreach ($yearlevel as $yearlevels)
+                                      <option value="{{ $yearlevels->schoolYear }}">{{ $yearlevels->schoolYear }}</option>
+                                  @endforeach
+                              </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-form-label">Grade Level</label>
+                            <select name="gradeLevel" id="gradeLevel" class="form-control  dynamic" data-dependent="className">
+                                <option value="">-Select Grade Level-</option>
+                                {{-- @foreach ($yearlevel as $yearlevels)
+                                    <option value="{{ $yearlevels->gradeLevel }}">Grade {{ $yearlevels->gradeLevel }}</option>
+                                @endforeach --}}
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-form-label">Class Name</label>
+                            {{-- <input type="text" class="form-control className" id="className" placeholder="Class Name"  name="className"> --}}
+                            <select name="className" id="className" class="form-control">
+                              <option value="">-Select Class Name-</option>
+                            </select>
+                          </div>
+                          <div class="form-group ">     
+                            <label class="col-form-label">Teacher Name</label>
+                            <select name="employee_id" id="gradeLevel" class="form-control">
+                                <option value="javascript:void(0);" selected disabled>-Select Teacher Name-</option>
+                                @foreach ($user as $users)
+                                    <option value="{{ $users->employee_id}}">{{ $users->firstName}} {{ $users->lastName}}</option>
+                                @endforeach
+                              </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-form-label">Subject</label>
+                            <select name="subject" class="form-control">
+                                <option value="" selected disabled>-Select Subject-</option>
+                                @foreach ($subject as $subjects)
+                                    <option value="{{ $subjects->subjectCode }}">{{ $subjects->description }}</option>
+                                @endforeach
+                            </select>
+                          </div>
                       </div>
-                      <div class="form-group" id="hide">
-                          <label for="d" class="col-form-label">Subject Name </label>
-                          <select name="subject" id="subject" class="form-control">
-                            <option value="">-Select Subject-</option>
-                          </select>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" name="submit"> Submit </button>                    
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
+                      </form>
                       </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="submit"> Submit </button>                    
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
-                  </form>
+                    </div>
                   </div>
                 </div>
+                <table class="table table-hover table-bordered table-responsive-md">
+                  <thead>
+                    <tr>
+                      <th> ID</th>
+                      <th> Grade Level</th>
+                      <th> School Year</th>
+                      <th> Class Name</th>
+                      <th>Subject code</th>
+                      <th> Teacher ID</th>
+                      <th> Action </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $n=1; ?>
+                    @foreach ($advisory as $advisories)
+                        <tr class="post{{ $advisories->id }}">
+                          <td>{{ $n++  }}</td>
+                          <td>{{ $advisories->schoolYear }} </td>
+                          <td>{{ $advisories->gradeLevel }} </td>
+                          <td>{{ $advisories->className }}</td>
+                          <td>{{ $advisories->subject }}</td>
+                          <td><a href="/teacher/{{ $advisories->employee_id }}">{{$advisories->employee_id }} </a></td>
+                          <td>
+                            <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>
+                            <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}"><i class="fa fa-trash-o" aria-hidden="true"> </i> Delete</a>
+                          </td>
+                        </tr> 
+                    @endforeach
+                  </tbody>
+                </table>
+              <div class="mt-2">
+                {{ $advisory->links() }}
               </div>
+             </div>
             </div>
-            <table class="table table-hover table-bordered table-responsive-md">
-              <thead>
-                <tr>
-                  <th> ID</th>
-                  <th> Grade Level</th>
-                  <th> School Year</th>
-                  <th> Class Name</th>
-                  <th> Teacher ID</th>
-                  <th> Action </th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $n=1; ?>
-                @foreach ($advisory as $advisories)
-                    <tr class="post{{ $advisories->id }}">
-                      <td>{{ $n++  }}</td>
-                      <td>{{ $advisories->schoolYear }} </td>
-                      <td>{{ $advisories->gradeLevel }} </td>
-                      <td>{{ $advisories->className }}</td>
-                      <td><a href="/teacher/{{ $advisories->employee_id }}">{{$advisories->employee_id }} </a></td>
-                    
-                      <td>
-                        <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>
-                        <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}"><i class="fa fa-trash-o" aria-hidden="true"> </i> Delete</a>
-                      </td>
-                    </tr> 
-                @endforeach
-              </tbody>
-            </table>
           </div>
           <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-sm" role="document">

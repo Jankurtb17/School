@@ -15,6 +15,8 @@
         <div class="content">
           <div class="sidebar-content">
           </div>
+          <div class="card" id="card-subjectgrade">
+          <div class="card-body">
           <div class="title">
             <h1>Grade Level </h1>
             <nav aria-label="breadcrumb">
@@ -101,6 +103,8 @@
             <div class="mt-4">
               {{ $yearlevel->links()}}
             </div>
+          </div>
+          </div>
           </div>
           <div class="modal fade" id="myModal" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">

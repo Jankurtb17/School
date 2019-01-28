@@ -26,7 +26,7 @@ class StudentController extends Controller
 
         $student = DB::table('Users')
                       ->where('role_id', 1)
-                      ->get();
+                      ->paginate(5);
         $yearlevel = yearlevels::all();
         return view('Dashboard.student', compact('student', 'yearlevel'));
     }
@@ -50,11 +50,12 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'student_id'        => 'required|string|unique:users',
+            'student_id'            => 'required|string|unique:users',
             'gradeLevel'            => 'required|string',
             'className'             => 'required|string',
             'firstName'             => 'required|string',
             'lastName'              => 'required|string',
+            'gender'                => 'required|string',
             'email'                 => 'required|string|unique:users',
             'password'              => 'required|string',
             'contactNumber'         => 'required|string',
@@ -68,11 +69,13 @@ class StudentController extends Controller
             'firstName'           =>$request->get('firstName'),
             'middleName'          =>$request->get('middleName'),
             'lastName'            =>$request->get('lastName'),
+            'gender'              =>$request->get('gender'),
             'email'               =>$request->get('email'),
             'password'            =>bcrypt($request->get('password')),
             'contactNumber'       =>$request->get('contactNumber'),
             'remember_token'      => str_random(20)
         ]);
+        session()->flash('notif', ' successfully added');
         return redirect('/student')->with('success', 'student successfully added!');
 
     }

@@ -18,6 +18,7 @@ class ViewSubjectLoad extends Controller
   {
     $advisory = DB::table('advisories')
                     ->where('employee_id', Auth()->user()->employee_id)
+                    ->groupBy('className')
                     ->get();
     return view('teacher.subjectload', compact('advisory'));
     }
@@ -33,7 +34,6 @@ class ViewSubjectLoad extends Controller
         {
           $data = DB::table('advisories')
                       ->where('className', 'LIKE', '%'.$search.'%')
-
                       ->Where('employee_id', Auth()->user()->employee_id)
                       ->paginate(5);
         }
@@ -51,6 +51,7 @@ class ViewSubjectLoad extends Controller
               $output .='
               <tr>
                   <td>'.$row->id.'</td>
+                  <td>'.$row->schoolYear.'</td>
                   <td>'.$row->gradeLevel.'</td>
                   <td>  <a href="/">'.$row->className.' </a></td>
               </tr>
