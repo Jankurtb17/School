@@ -20,6 +20,7 @@ class CreateAdvisoriesTable extends Migration
             $table->string('gradeLevel');
             $table->string('className');
             $table->string('employee_id');
+            $table->string('subject');
             $table->timestamps();
         });
     }

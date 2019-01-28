@@ -20,7 +20,7 @@ class subjectview extends Controller
         $yearlevel = DB::table('yearlevels')
                       ->groupBy('gradeLevel')
                       ->get();
-        $subject =  subject::all();
+        $subject =  subject::paginate(10);
         return view('Dashboard.subject', compact('yearlevel', 'subject'));
     }
     /**

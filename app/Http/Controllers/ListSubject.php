@@ -13,6 +13,6 @@ class ListSubject extends Controller
       $subject = DB::table('search_subjects')
                     ->where('gradeLevel', Auth()->user()->gradeLevel)
                     ->get();
-        return view('student.dashboard', compact('subject'));
+        return view('student.listsubject', compact('subject'));
     }
 }

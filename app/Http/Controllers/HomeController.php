@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 class HomeController extends Controller
 {
     /**
@@ -23,12 +24,30 @@ class HomeController extends Controller
      */
     public function index()
     {
-      return view('Dashboard.home');
+      $admin = DB::table('users')
+                  ->where('role_id', 2)
+                  ->count();
+      $teacher = DB::table('users')
+                  ->where('role_id', 3)
+                  ->count();
+      $student = DB::table('users')
+                  ->where('role_id', 1)
+                  ->count();
+      return view('Dashboard.home', compact('admin', 'teacher', 'student'));
     }
 
     public function dashboard()
     {
-      return view('Dashboard.home');
+      $admin = DB::table('users')
+      ->where('role_id', 2)
+      ->count();
+      $teacher = DB::table('users')
+            ->where('role_id', 3)
+            ->count();
+      $student = DB::table('users')
+            ->where('role_id', 1)
+            ->count();
+return view('Dashboard.home', compact('admin', 'teacher', 'student'));
     }
 
     public function teacherDashboard()
@@ -41,5 +60,9 @@ class HomeController extends Controller
       return view('dashboard.welcome');
     }
     
+    public function dashboard2() 
+    {
+      return view('Dashboard.sidebar');  
+    }
   
 }

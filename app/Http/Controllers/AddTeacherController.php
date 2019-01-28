@@ -20,7 +20,7 @@ class AddTeacherController extends Controller
     {
        $user = DB::table('users')
                     ->where('role_id', 3)
-                    ->get();
+                    ->paginate(10);
        return view('Dashboard.teacher', compact('user'));
     }
 

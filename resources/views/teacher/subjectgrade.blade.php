@@ -4,39 +4,38 @@
 @section('content')
   @include('Pages.sidebar')
   @can('isTeacher')
+  
         <div class="content">
           <div class="sidebar-content">
           </div>
+          
+          <div class="card" id="card-subjectgrade">
+            <div class="card-body">
           <div class="title">
-            <h1>Subject Load</h1>
+            <h1>Grade Encoding</h1>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon"> </i> <a href="/dashboard">Dashboard </a></li>
-                <li class="breadcrumb-item active" aria-current="page">Students</li>
+                <li class="breadcrumb-item active" aria-current="page"> Grade Encoding</li>
               </ol>
             </nav>
           </div>
          
     
-          <div class="card">
-            <div class="card-body">
               <form action="{{ route('student.search')}}" method="GET" id="form-horizontal">
                 @csrf
                 <div class="row">
                   <div class="col-lg-2">
-                    <select name="schoolYear" class="form-control" id ="schoolYear" required>
+                    <select name="schoolYear" class="form-control dynamic" id ="schoolYear" data-dependent="gradeLevel" required>
                       <option value="" selected disabled>-Select School Year-</option>
-                      @foreach ($schoolyear as $schoolyears)
-                         <option value="{{ $schoolyears->schoolYear }}">{{ $schoolyears->schoolYear }}</option>
+                      @foreach ($advisory as $advisories)
+                         <option value="{{ $advisories->schoolYear }}">{{ $advisories->schoolYear }}</option>
                       @endforeach
                     </select>
                   </div>
                   <div class="col-lg-2">
                       <select name="gradeLevel" class="form-control dynamic" id ="gradeLevel" data-dependent="className" required>
                         <option value="" selected disabled>-Select Grade Level-</option>
-                        @foreach ($advisory as $advisories)
-                           <option value="{{ $advisories->gradeLevel }}">{{ $advisories->gradeLevel }}</option>
-                        @endforeach
                       </select>
                   </div>
                   <div class="col-lg-2">
@@ -45,10 +44,12 @@
                     </select>
                   </div>
                   <div class="col-lg-2">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                    <button class="addButton" type="submit">Search</button>
                   </div>
                 </div>
               </form>
+              <form method="POST" id="form-submit" action="{{ route("subjectgrade.grade")}}">
+                @csrf
               <table class="table table-bordered table-hover mt-4">
                 <thead align="center">
                     <tr>
@@ -60,8 +61,8 @@
                 <tbody align="center">
                   
                 </tbody>
-              </table>
-              
+              </table>  
+                
                 <button type="submit" class="btn btn-success">Submit</button>
               </form>
             </div> 
@@ -73,7 +74,7 @@
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    $('.btn-success').on('click', function() {
+    $('#form-submit').on('submit', function() {
         $.ajax({
             url: '{{ route("subjectgrade.grade")}}',
             type: 'POST',
@@ -83,13 +84,14 @@
               "grade":  $('input[name=grade]').val()
             },
             success:function(data) {
-            
+               alert('Successsfully Added!');
             }
         });
     });
     $('body').ready(function() {
        $('.btn-success').hide();
     }); 
+    
     $(document).on('change', '.dynamic', function() {
       if($(this).val() != '')
       {

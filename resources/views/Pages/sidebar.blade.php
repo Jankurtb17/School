@@ -87,11 +87,11 @@
                 <a class="nav-link {{ setActive('grades', 'current' )}}" href="/grades"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Grades </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ setActive('balance', 'current' )}}" href="/balance"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Balance Fees </a>
+                <a class="nav-link {{ setActive('balance', 'current' )}}" href="/balance"> <i class="fa fa-money" aria-hidden="true" id="icon-dashboard"> </i> Balance Fees </a>
               </li>
               <li class="nav-title"> Settings </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>
+                <a class="nav-link {{ setActive('settings', 'current' )}}" href="/settings"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>
               </li>
               @endcan
             </ul>

@@ -16,11 +16,13 @@
         <div class="content">
           <div class="sidebar-content">
           </div>
+          <div class="card" id="card-subjectgrade">
+           <div class="card-body">
           <div class="title">
             <h1>Teachers </h1>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><ion-icon name="speedometer" id="dashboard-icon"> </ion-icon> <a href="/dashboard">Dashboard </a> </li>
+                <li class="breadcrumb-item"><i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon"> </i> <a href="/dashboard">Dashboard </a> </li>
                 <li class="breadcrumb-item active" aria-current="page">Teachers</li>
               </ol>
             </nav>
@@ -123,6 +125,11 @@
                 @endforeach
             </tbody>
           </table>
+          <div class="mt-2">
+             {{ $user->links() }}
+          </div>
+          </div>
+          </div>
           </div>
         </div>
       </div>

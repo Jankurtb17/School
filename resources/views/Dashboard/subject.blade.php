@@ -17,90 +17,97 @@
       <div class="content">
         <div class="sidebar-content">
         </div>
-        <div class="title">
-          <h1>Subject </h1>
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"> <ion-icon name="speedometer" id="dashboard-icon"> </ion-icon> <a href="/dashboard"> Dashboard </a> </li>
-              <li class="breadcrumb-item active" aria-current="page"> </ion-icon>Class</li>
-            </ol>
-          </nav>
-          <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
-              Add Student 
-          </button>
-          <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-sm" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Add Class</h5>
-                  <button type="button" class="close" data-dismiss="modal"> &times; </button>
-                </div>  
-                <div class="modal-body">
-                  <form action="" method="POST">
-                     @csrf
-                      <div class="form-group">
-                        <label class="col-form-label" id="Title">Grade Level</label>
-                        {{-- <input type="text" class="form-control" name="subjectName" placeholder="Subject Name"> --}}
-                      <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className">
-                          <option value="" selected disabled>-Select Grade Level-</option>
-                          @foreach ($yearlevel as $yearlevels)
-                              <option value="{{  $yearlevels->gradeLevel }}">Grade {{  $yearlevels->gradeLevel }} </option>
-                          @endforeach
-                      </select>
+        <div class="card" id="card-subjectgrade">
+          <div class="card-body">
+            <div class="title">
+              <h1>Subject </h1>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"> <i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon"> </i> <a href="/dashboard"> Dashboard </a> </li>
+                  <li class="breadcrumb-item active" aria-current="page"> </ion-icon>Class</li>
+                </ol>
+              </nav>
+              <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
+                  Add Student 
+              </button>
+              <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Add Class</h5>
+                      <button type="button" class="close" data-dismiss="modal"> &times; </button>
+                    </div>  
+                    <div class="modal-body">
+                      <form action="" method="POST">
+                        @csrf
+                          <div class="form-group">
+                            <label class="col-form-label" id="Title">Grade Level</label>
+                            {{-- <input type="text" class="form-control" name="subjectName" placeholder="Subject Name"> --}}
+                          <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className">
+                              <option value="" selected disabled>-Select Grade Level-</option>
+                              @foreach ($yearlevel as $yearlevels)
+                                  <option value="{{  $yearlevels->gradeLevel }}">Grade {{  $yearlevels->gradeLevel }} </option>
+                              @endforeach
+                          </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-form-label">Description  </label>
+                            {{-- <input type="text" class="form-control" name="description" placeholder="Description" > --}}
+                            <select name="className" id="className" class="form-control">
+                              <option value="">-Select Class-</option>
+                            </select>
+                          </div>
+                        <div class="form-group"> 
+                            <label class="col-form-label">Subject Code </label>
+                            <input type="text" class="form-control" name="subjectCode" id='subjectCode' placeholder="Subject Code e.g MATH 101">
+                        </div>
+                        <div class="form-group"> 
+                            <label class="col-form-label">Subject Description </label>
+                            <input type="text" class="form-control" name="description" id='description' placeholder="Subject description">
+                        </div>
                       </div>
-                      <div class="form-group">
-                        <label class="col-form-label">Description  </label>
-                        {{-- <input type="text" class="form-control" name="description" placeholder="Description" > --}}
-                        <select name="className" id="className" class="form-control">
-                          <option value="">-Select Class-</option>
-                        </select>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
+                          <button type="submit" class="btn btn-primary" name="submit"> Submit </button>                    
+                        </form> 
+                        </div>
                       </div>
-                     <div class="form-group"> 
-                        <label class="col-form-label">Subject Code </label>
-                        <input type="text" class="form-control" name="subjectCode" id='subjectCode' placeholder="Subject Code e.g MATH 101">
-                     </div>
-                     <div class="form-group"> 
-                        <label class="col-form-label">Subject Description </label>
-                        <input type="text" class="form-control" name="description" id='description' placeholder="Subject description">
-                     </div>
-                  </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
-                      <button type="submit" class="btn btn-primary" name="submit"> Submit </button>                    
-                    </form> 
                     </div>
                   </div>
-                </div>
+              <div class="table-body">
+                <table class="table table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th> ID </th>
+                      <th> Grade Level </th>
+                      <th> Section Name </th>
+                      <th> Subject Code</th>
+                      <th> description</th>
+                      <th> Action </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no=1 ?>
+                    @foreach ($subject as $subjects)
+                    <tr class="post{{ $subjects->id}}">
+                        <td> {{ $no++ }}</td>
+                        <td> {{ $subjects->gradeLevel}} </td>
+                        <td> {{ $subjects->className}} </td>
+                        <td> {{ $subjects->subjectCode}} </td>
+                        <td> {{ $subjects->description}} </td>
+                        <td>
+                          <a href="#" class="edit-modal btn btn-warning"  data-target="#myModal" data-toggle="modal" data-id="{{ $subjects->id }}" data-gradelevel="{{ $subjects->gradeLevel}}" data-classname="{{ $subjects->className}}" data-subjectcode="{{ $subjects->subjectCode }}" data-description="{{ $subjects->description }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
+                          <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $subjects->id }}" data-gradelevel="{{ $subjects->gradeLevel}}" data-classname="{{ $subjects->className}}" data-subjectcode="{{ $subjects->subjectCode }}" data-description="{{ $subjects->description }}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              <div class="mt-2">
+                  {{ $subject->links() }}
               </div>
-          <div class="table-body">
-            <table class="table table-hover table-bordered">
-              <thead>
-                <tr>
-                  <th> ID </th>
-                  <th> Grade Level </th>
-                  <th> Section Name </th>
-                  <th> Subject Code</th>
-                  <th> description</th>
-                  <th> Action </th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $no=1 ?>
-                @foreach ($subject as $subjects)
-                 <tr class="post{{ $subjects->id}}">
-                    <td> {{ $no++ }}</td>
-                    <td> {{ $subjects->gradeLevel}} </td>
-                    <td> {{ $subjects->className}} </td>
-                    <td> {{ $subjects->subjectCode}} </td>
-                    <td> {{ $subjects->description}} </td>
-                    <td>
-                      <a href="#" class="edit-modal btn btn-warning"  data-target="#myModal" data-toggle="modal" data-id="{{ $subjects->id }}" data-gradelevel="{{ $subjects->gradeLevel}}" data-classname="{{ $subjects->className}}" data-subjectcode="{{ $subjects->subjectCode }}" data-description="{{ $subjects->description }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
-                      <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $subjects->id }}" data-gradelevel="{{ $subjects->gradeLevel}}" data-classname="{{ $subjects->className}}" data-subjectcode="{{ $subjects->subjectCode }}" data-description="{{ $subjects->description }}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
-                    </td>
-                 </tr>
-                @endforeach
-              </tbody>
-            </table>
+            </div>
+          </div>
           </div>
           <div class="modal fade" id="myModal" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">

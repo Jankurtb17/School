@@ -16,71 +16,75 @@
         <div class="content">
           <div class="sidebar-content">
           </div>
-          <div class="title">
-            <h1>School Year </h1>
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"> <i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon">  </i><a href="/dashboard"> Dashboard </a> </li>
-                <li class="breadcrumb-item active" aria-current="page">School Year</li>
-              </ol>
-            </nav>
-            @if(count($errors) > 0)
-                @foreach ($errors->all() as $error)
-                    <div class="alert alert-danger">{{ $error}} </div>
-                @endforeach
-            @endif
-            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade1">
-                Add school year 
-            </button>
-            <div class="modal fade" id="modalFade1" tabindex = "-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Add School Year</h5>
-                    <button type="button" class="close" data-dismiss="modal"> &times; </button>
-                  </div>  
-                  <div class="modal-body">
-                    <form action="{{ url('schoolyear') }}" method="POST">
-                       @csrf
-                    <div class="form-group">
-                      <label>School Year </label>
-                      <input type="text" class="form-control" id="schoolYear" name="schoolYear" placeholder="Enter School Year" required>
+          <div class="card" id="card-subjectgrade">
+            <div class="card-body">
+              <div class="title">
+                <h1>School Year </h1>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"> <i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon">  </i><a href="/dashboard"> Dashboard </a> </li>
+                    <li class="breadcrumb-item active" aria-current="page">School Year</li>
+                  </ol>
+                </nav>
+                @if(count($errors) > 0)
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger">{{ $error}} </div>
+                    @endforeach
+                @endif
+                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade1">
+                    Add school year 
+                </button>
+                <div class="modal fade" id="modalFade1" tabindex = "-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Add School Year</h5>
+                        <button type="button" class="close" data-dismiss="modal"> &times; </button>
+                      </div>  
+                      <div class="modal-body">
+                        <form action="{{ url('schoolyear') }}" method="POST">
+                          @csrf
+                        <div class="form-group">
+                          <label>School Year </label>
+                          <input type="text" class="form-control" id="schoolYear" name="schoolYear" placeholder="Enter School Year" required>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" name="submit"> Submit </button>     
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
+                      </form>
+                      </div>
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="submit"> Submit </button>     
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
-                  </form>
-                  </div>
+                </div>
+                <div class="table table-responsive">
+                <table class="table table-hover table-bordered table-responsive-md">
+                  <thead>
+                    <tr>
+                      <th> Id </th>
+                      <th> School Year</th>
+                      <th> Action </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no=1; ?>
+                    @foreach ($schoolyear as $schoolyears)
+                        <tr class="post{{ $schoolyears->id }}"> 
+                          <td> {{ $no++ }} </td>
+                          <td> {{ $schoolyears->schoolYear }}</td>
+                          <td> 
+                              <a href="#" class="edit-modal btn btn-default" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
+                              <a href="#" class="delete-modal btn btn-default" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                  </tbody> 
+                </table>
+                </div>
+                <div class="mt-2">
+                  {{ $schoolyear->links() }}
                 </div>
               </div>
-            </div>
-            <div class="table table-responsive">
-            <table class="table table-hover table-bordered table-responsive-md">
-              <thead>
-                <tr>
-                  <th> Id </th>
-                  <th> School Year</th>
-                  <th> Action </th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $no=1; ?>
-                @foreach ($schoolyear as $schoolyears)
-                    <tr class="post{{ $schoolyears->id }}"> 
-                      <td> {{ $no++ }} </td>
-                      <td> {{ $schoolyears->schoolYear }}</td>
-                      <td> 
-                          <a href="#" class="edit-modal btn btn-default" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
-                          <a href="#" class="delete-modal btn btn-default" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
-                        </td>
-                    </tr>
-                @endforeach
-              </tbody> 
-            </table>
-            </div>
-            <div class="mt-2">
-              {{ $schoolyear->links() }}
             </div>
             <div id="myModal" class="modal fade" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-sm" role="document">

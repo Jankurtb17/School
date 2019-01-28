@@ -16,30 +16,40 @@
         <div class="content">
           <div class="sidebar-content">
           </div>
+          <div class="card" id="card-subjectgrade">
+          <div class="card-body">
           <div class="title">
             <h1>Students</h1>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"> <ion-icon name="speedometer" id="dashboard-icon"> </ion-icon> <a href="/dashboard">Dashboard </a></li>
+                <li class="breadcrumb-item"> <i class="fa fa-tachometer" aria-hidden = "true" id="dashboard-icon"> </i> <a href="/dashboard">Dashboard </a></li>
                 <li class="breadcrumb-item active" aria-current="page">Students</li>
               </ol>
             </nav>
-            @if ($message = Session::get('success'))
+            @if(session()->has('notif'))
               <div class="alert alert-success" role="alert">
-                  <li>{{ $message }}</li>
+                  <button type="button" data-dismiss="alert" class="close" aria-hidden="true">&times; </button>
+                  <strong>Student </strong> {{session()->get('notif')}}
               </div>
             @endif
-
             @if(count($errors) > 0)
               <div class="alert alert-danger" role="alert">
+                <button type="button" data-dismiss="alert" class="close" aria-hidden="true">&times; </button>
                 @foreach ($errors->all() as $error)
                       <li> {{ $error }} </li>
                 @endforeach
               </div>
-            @endif    
-            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade3">
+            @endif
+            <div class="ui-form">
+            <form>
+              <div class="form-group">
+                <input type="search" class="form-control col-lg-2 float-right" placeholder="Search" name="search">
+              </div>
+            </form>
+            <button type="button" class="btn btn-primary mb-2 float-left" data-toggle="modal" data-target="#modalFade3">
                 Add Student 
             </button>
+            </div>
             <div class="modal fade" id="modalFade3" tabindex = "-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -111,8 +121,15 @@
                        <div class="form-group"> 
                         <div class="row">
                           <div class="col-md-3"> </div>
-                          <div class="col-md-9">
+                          <div class="col-md-5">
                             <input type="text" class="form-control" placeholder="Contact Number" name="contactNumber">
+                          </div>
+                          <div class="col-md-4">
+                            <select name="gender" id="gender" class="form-control">
+                              <option value="" selected disabled>-Select Gender-</option>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                            </select>
                           </div>
                         </div>
                      </div>
@@ -169,9 +186,11 @@
                   @endforeach
                 </tbody>
               </table>
-              <div id="myModal" class="modal">
-
+                <div class="mt-2">
+                    {{ $student->links() }}
+                </div>
               </div>
+            </div>
             </div>
           </div>
         </div>
