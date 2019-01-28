@@ -1,0 +1,218 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+#sidebar {
+    position: fixed;
+    width: 280px;
+    height: 100%;
+    background: linear-gradient(to top, rgb(150, 0, 50), rgb(35, 44, 74));
+    left: -280px;
+    transition: all 0.7s;
+}
+
+#sidebar.active {
+    left: 0px;
+}
+
+.toggle-btn {
+    position: absolute;
+    left: 320px;
+    top: 10px;
+}
+
+#btnClose {
+    font-size: 30px;
+}
+
+.logo-admin {
+    height: 200px;
+    margin-left: 12px;
+}
+
+.nav-link {
+    padding: 0.75em 1em;
+    text-decoration: none;
+    color: #fff;
+    padding-left: 1em;
+    display: block;
+    font-family: roboto;
+}
+
+.nav-title {
+    padding: 0.75rem 1rem;
+    font-size: 80%;
+    font-weight: 700;
+    color: #e4e7ea;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#icon-dashboard {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* sidebar hover a*/
+.nav-link:hover {
+    background: linear-gradient(to right, rgb(222, 97, 97), rgb(38, 87, 235));
+    color: #fff;
+    transition: 0.4s ease-in;
+}
+.current {
+    background: linear-gradient(to right, rgb(222, 97, 97), rgb(38, 87, 235));
+    border-left: 4px solid #20a8d8;
+}
+
+.card {
+    position: absolute;
+    top: 90px;
+    left: 350px;
+    height: 80vh;
+    width: 1450px;
+}
+
+.navbar-top {
+    background-color: #fff;
+    padding: 20px 0;
+    position: absolute;
+    top: 0;
+    left: 320px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+    width: 1650px;
+}
+
+.content {
+    position: absolute;
+    top: 70px;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    left: 330px;
+}
+.dashboard h1 {
+    font-size: 24px;
+    font-family: "Nunito", sans-serif;
+}
+.title {
+    font-family: roboto;
+    text-transform: uppercase;
+}
+.card {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    flex-direction: row;
+}
+
+#card-subjectgrade {
+    position: relative;
+    top: 40px;
+}
+#message {
+    margin-left: 20px;
+}
+
+.dash-header {
+    display: flex;
+    flex-direction: column;
+    padding-left: 80px;
+}
+.dash-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    font-size: 46px;
+    color: #fff;
+    height: 96px;
+}
+#dash-icon {
+    position: absolute;
+    top: 10;
+}
+.addButton {
+    border: none;
+    padding: 6px 10px;
+    background-color: #23c5ff;
+    border-bottom: 4px solid #0084b2;
+    font-family: roboto;
+    text-transform: uppercase;
+    color: #333;
+}
+.addButton:hover {
+    background-color: #ff9200;
+    border-bottom: 4px solid #b26600;
+}
+.selectbox {
+    height: 100px;
+    overflow-y: auto;
+}
+
+#input-group {
+    display: flex;
+    justify-content: flex-end;
+}
+#dropdown {
+    position: absolute;
+}
+
+.delete-modal {
+    background: linear-gradient(to right, rgb(195, 20, 50), rgb(36, 11, 54));
+    color: white;
+    border-style: none;
+}
+.delete-modal:hover {
+    background: linear-gradient(to left, rgb(195, 20, 50), rgb(36, 11, 54));
+    color: #fff;
+    border-style: none;
+}
+
+.edit-modal {
+    background: linear-gradient(to top, rgb(252, 234, 187), rgb(248, 181, 10));
+    color: black;
+    border-style: none;
+}
+.edit-modal:hover {
+    background: linear-gradient(
+        to bottom,
+        rgb(252, 234, 187),
+        rgb(248, 181, 10)
+    );
+    color: black;
+    border-style: none;
+}
+
+/* input grades */
+
+/* Changepassword */
+#horizontal {
+    position: relative;
+    top: 60px;
+    left: 20px;
+}
+
+#changepassword {
+    height: 450px;
+}
+
+#changepassword2 {
+    height: 650px;
+}
+
+#form-group {
+    position: relative;
+    top: 40px;
+}
+
+#changepassButton {
+    background-color: #233849;
+    border-color: #233849;
+    color: #fff;
+}
+
+.alert-primary {
+    position: relative;
+}
