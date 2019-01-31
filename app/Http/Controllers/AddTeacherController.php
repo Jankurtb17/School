@@ -20,7 +20,7 @@ class AddTeacherController extends Controller
     {
        $user = DB::table('users')
                     ->where('role_id', 3)
-                    ->paginate(10);
+                    ->paginate(7);
        return view('Dashboard.teacher', compact('user'));
     }
 
@@ -46,8 +46,8 @@ class AddTeacherController extends Controller
             'employee_Id'  => 'required|string',
             'firstName'    => 'required|string',
             'lastName'     => 'required|string',
-            'email'        => 'required|string',
-            'password'     => 'required|string',
+            'email'        => 'required|string|unique:users',
+            'password'     => 'required|string|alpha_num|min:6',
         ]);
         $user = User::create([
             'user_type'      => 'teacher',
@@ -56,11 +56,15 @@ class AddTeacherController extends Controller
             'firstName'      => $request->get('firstName'),
             'middleName'     => $request->get('middleName'),
             'lastName'       => $request->get('lastName'),
+            'gender'         => $request->get('gender'),
+            'contactNumber'  => $request->get('contactNumber'),
             'email'          => $request->get('email'),
             'password'       => bcrypt($request->get('password')),
-            'remember_token' => str_random(20)
+            'contactNumber'  =>$request->get('contactNumber'),
+            'remember_token'      => str_random(20)
+
         ]);
-        return redirect('/addteacher')->with('success', 'Teacher successfully added!');
+        return redirect('/addteacher')->with('success', ' successfully added!');
     }
 
     /**

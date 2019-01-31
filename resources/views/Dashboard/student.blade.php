@@ -168,6 +168,7 @@
                     <th>Grade Level </th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Email</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -178,6 +179,7 @@
                       <td>{{ $students->gradeLevel}} </td>
                       <td>{{ $students->firstName}} </td>
                       <td>{{ $students->lastName}} </td>
+                      <td>{{ $students->email}} </td>
                       <td>
                       <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $students->student_id}}" data-level="{{ $students->gradeLevel }}" data-first="{{ $students->firstName }}" data-last="{{ $students->lastName }}" data-email="{{ $students->email }}" data-password="{{ $students->password }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
                       <a href="#" class="delete-modal btn btn-danger"><i class="fa fa-trash-o"> </i>Delete </a>

@@ -76,7 +76,7 @@
                           </div>
                           <div class="form-group">
                             <label class="col-form-label">Subject</label>
-                            <select name="subject" class="form-control">
+                            <select name="subjectCode" class="form-control">
                                 <option value="" selected disabled>-Select Subject-</option>
                                 @foreach ($subject as $subjects)
                                     <option value="{{ $subjects->subjectCode }}">{{ $subjects->description }}</option>
@@ -112,7 +112,7 @@
                           <td>{{ $advisories->schoolYear }} </td>
                           <td>{{ $advisories->gradeLevel }} </td>
                           <td>{{ $advisories->className }}</td>
-                          <td>{{ $advisories->subject }}</td>
+                          <td>{{ $advisories->subjectCode}}</td>
                           <td><a href="/teacher/{{ $advisories->employee_id }}">{{$advisories->employee_id }} </a></td>
                           <td>
                             <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>

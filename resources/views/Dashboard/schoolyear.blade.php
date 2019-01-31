@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/addmodal.css') }}">
-  <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-  <title>Document</title>
-</head>
-<body>
+@extends('layouts.admin')
+
+@can('isAdmin')
+@section('content')
   @include('Pages.sidebar')
         <div class="content">
           <div class="sidebar-content">
@@ -26,7 +16,22 @@
                     <li class="breadcrumb-item active" aria-current="page">School Year</li>
                   </ol>
                 </nav>
+                @if(session()->has('success'))
+                  <div class="alert alert-success" role="alert">
+                    <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
+                    <strong> School Year </strong> {{ session()->get('success')}}
+                  </div>
+                @endif
+
+                @if(session()->has('error'))
+                  <div class="alert alert-danger" role="alert">
+                    <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
+                    <strong> School Year </strong> {{ session()->get('error')}}
+                  </div>
+                @endif
+
                 @if(count($errors) > 0)
+                  <button class="close" data-dismiss="alert"> &times; </button>
                     @foreach ($errors->all() as $error)
                         <div class="alert alert-danger">{{ $error}} </div>
                     @endforeach
@@ -46,7 +51,7 @@
                           @csrf
                         <div class="form-group">
                           <label>School Year </label>
-                          <input type="text" class="form-control" id="schoolYear" name="schoolYear" placeholder="Enter School Year" required>
+                          <input type="text" class="form-control" id="schoolYear" name="schoolYear" placeholder="Enter School Year">
                         </div>
                       </div>
                       <div class="modal-footer">
@@ -124,8 +129,9 @@
     </div>
   </div>
   </div>
-  <script src="{{ asset('js/app.js') }}"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+@endsection
+
+ @section('scripts')
   <script type="text/javascript">
     $(document).on('click', '.modal', function() {
       $('.modal-title').text('Add School Year');
@@ -191,5 +197,5 @@
       });
     });
   </script>
-</body>
-</html>
+@endsection
+@endCan

@@ -18,6 +18,15 @@
                     </ol>
                   </nav>
 
+                @if(count($errors))
+                  <div class="alert alert-danger" role="alert">
+                      <button class="close" data-dismiss="alert" aria-hidden="true">&times; </button>
+                      @foreach ($errors->all() as $error)
+                          <li> {{ $error }} </li>
+                      @endforeach
+                  </div>
+                @endif
+
                 <form method="POST" id="form-submit" action="{{ route('studentgrades.grade')}}"> 
                 @csrf
                 <div class="row">
@@ -26,19 +35,19 @@
                       <select name="subjectCode" id="subjectCode" class="form-control" required>
                         <option value="" selected disabled>-Select Subject-</option>
                         @foreach ($advisory as $advisories)
-                            <option value="{{ $advisories->subject}}">{{$advisories->subject}}</option>
+                            <option value="{{ $advisories->subjectCode}}">{{$advisories->subjectCode}}</option>
                         @endforeach
                       </select>
                     </div>
                   </div>
-                  <div class="col-lg-3">
+                  <div class="col-lg-2">
                       <div class="form-group">
                         <select name="gradingperiod" class="form-control" required>
                           <option value="" selected disabled>-Select Grading Period-</option>
-                          <option value="1">1st Grading</option>
-                          <option value="2">2nd Grading</option>
-                          <option value="3">3rd Grading</option>
-                          <option value="4">4th Grading</option>
+                          <option value="1">1st</option>
+                          <option value="2">2nd</option>
+                          <option value="3">3rd</option>
+                          <option value="4">4th</option>
                         </select>
                       </div>
                     </div>
@@ -47,6 +56,7 @@
                     </td><input type="hidden" name="className" value="{{ $advisories->className }}">
                     @endforeach
                 </div>
+                <div class="table-wrapper-scroll-y">
                 <table class="table table-hover">
                   <thead>
                     <tr>
@@ -61,12 +71,13 @@
                       <tr>
                           <td><input type="hidden" name="student_id[]" value="{{$users->student_id}}">{{$users->student_id}}</td>
                           <td>{{$users->firstName}} {{$users->lastName}}</td>
-                          <td><input  type="text" name="grade[]" class="form-control col-lg-2"></td>
+                          <td><input  type="text" name="grade[]" class="form-control col-lg-2" id="grade" maxlength="4" required></td>
                           <td><input type="hidden" name="gradeLevel[]" value="{{$users->gradeLevel}}"></td>
                       </tr>
                     @endforeach
                   </tbody>
                 </table>
+                </div>
                 <button type="submit" class="btn btn-success">Submit Grade </button>
                 </form>
               </div>       
@@ -81,6 +92,17 @@
   @endsection
 
   @section('scripts')
- 
+  <script>
+    $('#grade').on('keypress', function(evt) {
+      var charCode = (evt.which) ? evt.which : event.keyCode
+      if (charCode != 45  && charCode > 31 && (charCode < 48 || charCode > 57))
+      {
+        return false;
+
+      }
+     return true;
+    });
+
+  </script>
 @endsection
 @endCan

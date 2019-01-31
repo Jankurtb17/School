@@ -38,18 +38,17 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <button id="password-reset" type="submit" class="btn btn-primary">
-                                    {{ __('Send Password') }}
-                                </button>
-                            </div>
+                        <div class="d-flex">
+                          <button type="button" class="el-button--text float-left col-lg-4 mr-2">
+                            <span><a href="/login" >Login</a></span>
+                          </button>
+                          <button id="password-reset " type="submit" class="btn btn-primary float-right">
+                             <span> Send Password </span>
+                          </button>
+                            
                         </div>
 
-                        <div class="form-group row mt-4 ">
-                          <div class="col-md-6 offset-md-4">
-                            <a href="/login">Login</a>
-                        </div>
+                        
                        
                     </form>
                 </div>

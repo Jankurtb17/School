@@ -42,7 +42,6 @@ class MakeGrades extends Controller
      */
     public function store(Request $request)
     {
-      
       $student = $request->get('student_id');
       $subjectCode = $request->get('subjectCode');
       $gradingperiod = $request->get('gradingperiod');
@@ -50,20 +49,107 @@ class MakeGrades extends Controller
       $gradeLevel = $request->get('gradeLevel');
       $schoolYear = $request->get('schoolYear');
       $className = $request->get('className');
-      foreach($student as $students => $key)
+      
+      $data = firstgrading::where('subjectCode', $subjectCode)
+                          ->where('gradingperiod', $gradingperiod)
+                          ->count();
+      if($gradingperiod == 1)
       {
-       $datas[] = array(
-          "student_id"       =>$student[$students],
-          "gradeLevel"       =>$gradeLevel[$students],
-          "schoolYear"       =>$schoolYear,
-          "gradingperiod"    =>$gradingperiod,
-          "className"        =>$className,
-          "subjectCode"      =>$subjectCode,
-          "grade"            =>$grade[$students],
-       );
+       
+      if($data > 0){
+        return redirect('/subjectload')->with('error', 'already encoded! ');
       }
-      DB::table('firstgradings')->insert($datas);
-        return redirect('/subjectload')->with('notif', 'successfully added! ');
+      else{
+       
+        foreach($student as $students => $key)
+          {
+              $datas[] = array(
+                  "student_id"       =>$student[$students],
+                  "gradeLevel"       =>$gradeLevel[$students],
+                  "schoolYear"       =>$schoolYear,
+                  "gradingperiod"    =>'1',
+                  "className"        =>$className,
+                  "subjectCode"      =>$subjectCode,
+                  "grade"            =>$grade[$students],
+                  "employee_id"      =>Auth()->user()->employee_id
+              );
+            
+            }
+           
+            DB::table('firstgradings')->insert($datas);
+              return redirect('/subjectload')->with('notif', 'successfully added! ');
+          }
+      }
+      elseif($gradingperiod == 2){
+        if($data > 0){
+          return redirect('/subjectload')->with('error', 'already encoded! ');
+        }
+        else{
+          foreach($student as $students => $key)
+            {
+                $datas[] = array(
+                    "student_id"       =>$student[$students],
+                    "gradeLevel"       =>$gradeLevel[$students],
+                    "schoolYear"       =>$schoolYear,
+                    "gradingperiod"    =>'2',
+                    "className"        =>$className,
+                    "subjectCode"      =>$subjectCode,
+                    "grade"            =>$grade[$students],
+                    "employee_id"      =>Auth()->user()->employee_id
+
+                );
+              }
+              DB::table('firstgradings')->insert($datas);
+                return redirect('/subjectload')->with('notif', 'successfully added! ');
+            }
+        }
+        elseif($gradingperiod == 3){
+          if($data > 0){
+            return redirect('/subjectload')->with('error', 'already encoded! ');
+          }
+          else{
+            foreach($student as $students => $key)
+              {
+                  $datas[] = array(
+                      "student_id"       =>$student[$students],
+                      "gradeLevel"       =>$gradeLevel[$students],
+                      "schoolYear"       =>$schoolYear,
+                      "gradingperiod"    =>'3',
+                      "className"        =>$className,
+                      "subjectCode"      =>$subjectCode,
+                      "grade"            =>$grade[$students],
+                      "employee_id"      =>Auth()->user()->employee_id
+
+                  );
+                }
+                DB::table('firstgradings')->insert($datas);
+                  return redirect('/subjectload')->with('notif', 'successfully added! ');
+              }
+          }
+          elseif($gradingperiod == 4){
+            if($data > 0){
+              return redirect('/subjectload')->with('error', 'already encoded! ');
+            }
+            else{
+              foreach($student as $students => $key)
+                {
+                    $datas[] = array(
+                        "student_id"       =>$student[$students],
+                        "gradeLevel"       =>$gradeLevel[$students],
+                        "schoolYear"       =>$schoolYear,
+                        "gradingperiod"    =>'4',
+                        "className"        =>$className,
+                        "subjectCode"      =>$subjectCode,
+                        "grade"            =>$grade[$students],
+                        "employee_id"      =>Auth()->user()->employee_id
+                    );
+                  }
+                  DB::table('firstgradings')->insert($datas);
+                    return redirect('/subjectload')->with('notif', 'successfully added! ');
+                }
+            }
+
+      
 
     }
 
@@ -113,15 +199,19 @@ class MakeGrades extends Controller
         //
     }
 
-    public function test($studentgrade)
+    public function test($studentgrade, $classname)
     {   
+      $encrypt = Crypt::encryptString($studentgrade);
+      $decrypt = Crypt::decryptString($encrypt);
       $advisory = DB::table('advisories')
                 ->where('employee_id', Auth()->user()->employee_id)
-                ->where('gradeLevel', '=', $studentgrade)
+                ->where('gradeLevel', '=', $decrypt)
+                ->where('className', '=', $classname)
                 ->get();
-        
+      // $subject = DB::table('search_subjects')
+              
         $user = DB::table('users')
-                    ->where('gradeLevel','=', $studentgrade)
+                    ->where('gradeLevel','=', $decrypt)
                     ->get();
         return view('teacher.studentgrades', compact('user', 'advisory'));
     }

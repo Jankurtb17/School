@@ -26,6 +26,22 @@
                 <li class="breadcrumb-item active" aria-current="page">Teachers</li>
               </ol>
             </nav>
+            @if(session()->has('success'))
+              <div class="alert alert-success" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h4><i class="fa fa-check"> </i> Alert!</h4>
+                  <strong>Teacher </strong> {{session()->get('success')}}
+              </div>
+            @endif  
+
+            @if(count($errors) > 0)
+              <div class="alert alert-danger" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  @foreach ($errors->all() as $error)
+                      <li> {{ $error }} </li>
+                  @endforeach
+              </div>
+            @endif
             <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade5">
                 Add Teacher 
             </button>
@@ -54,7 +70,7 @@
                           </div>
                           <div class="col-md-9">
                             <input type="text" class="form-control" placeholder="Employee ID"  name="employee_Id">
-                          </div>
+                          </div>  
                         </div>
                       </div>
                       <div class="form-group"> 
@@ -64,11 +80,29 @@
                             <input type="text" class="form-control" placeholder="First Name" name="firstName">
                           </div>
                           <div class="col-md-4">
-                              <input type="text" class="form-control" placeholder="Last Name" name="lastName">
+                            <input type="text" class="form-control" placeholder="Last Name" name="lastName">
                           </div>
                           <div class="col-md-2">
-                              <input type="text" class="form-control" placeholder="M.I" name="middleName">
+                            <input type="text" class="form-control" placeholder="M.I" name="middleName">
                           </div>
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-3"> 
+                            <label class="col-form-label"> </label>
+                          </div>
+                          <div class="col-md-5">
+                            <input type="text" class="form-control" placeholder="Contact Number"  name="contactNumber">
+                          </div> 
+                          <div class="col-md-4">
+                            <select name="gender" id="gender" class="form-control">
+                              <option value="" selected disabled>-Select Gender- </option>
+                                  <option value="Male">Male</option>
+                                  <option value="Female">Female</option>
+                              </option>
+                            </select>
+                          </div> 
                         </div>
                       </div>
                       <div class="form-group">

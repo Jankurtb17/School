@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\schoolyear;
-
+use DB;
 class schoolyr extends Controller
 {
     /**
@@ -40,11 +40,19 @@ class schoolyr extends Controller
         $this->validate($request, [
             'schoolYear' => 'required|string'
         ]);
-        
+        $schoolyear = $request->get('schoolYear');
+        $data = DB::table('schoolyears')
+                ->where('schoolYear', $schoolyear)
+                ->count();
+        if($data > 0){
+          return redirect('/schoolyear')->with('error', 'already added! ');
+        }
+        else{
         schoolyear::create([
-          'schoolYear'  => $request->get('schoolYear')
+          'schoolYear'  => $schoolyear
         ]);
-        return redirect('/schoolyear')->with('sucess', 'SchoolYear Successfully added!');
+        }
+        return redirect('/schoolyear')->with('success', 'Successfully added!');
     }
 
     /**

@@ -24,7 +24,6 @@
                     <div class="dash-header">
                       <h5 class="card-title">  Admin </h5>
                       <p class="card-text"> {{ $admin }}</p>
-                        
                     </div>
                   </div>
                 </div>

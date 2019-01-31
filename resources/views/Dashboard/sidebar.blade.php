@@ -63,9 +63,23 @@
               <li class="nav-item">
                   <a class="nav-link {{ setActive('advisory', 'current') }}" href="/advisory"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers Advisory </a>
               </li>
-              {{-- <li class="nav-item">
-                  <a class="nav-link {{ setActive('class', 'current') }}" href="/class"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Class Section</a>
-              </li> --}}
+              <li class="nav-item">
+                  <a class="nav-link {{ setActive('class', 'current') }}" href="/class"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Class Section
+                    <ul>
+                        <li> asd</li>
+                    </ul>
+                  </a>
+              </li>
+
+              <div class="dropdown">
+                  <a class="nav-link" href="#">  <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Class Section <span class="caret"></span> </a>
+                  
+                    <ul class="dropdown-menu">
+                      <li><a href="#">HTML</a></li>
+                      <li><a href="#">CSS</a></li>
+                      <li><a href="#">JavaScript</a></li>
+                    </ul>
+              </div>
               <li class="nav-item">
                 <a class="nav-link {{ setActive('subject', 'current') }}" href="/subject"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Subject </a>
               </li>

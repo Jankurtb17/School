@@ -41,6 +41,30 @@
               @endif
            </div>
 
+           <div class="form-group">
+            @if(session()->has('error'))
+            <div class="row float-right mr-2">
+              <div class="alert alert-danger" role="alert">
+                  <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
+                  <strong>Grade</strong> {{session()->get('error')}}
+              </div>
+            </div>
+            @endif
+          </div>
+
+          <div class="form-group">
+            @if(count($errors))
+            <div class="row float-right mr-2">
+              <div class="alert alert-danger" role="alert">
+                  <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
+                  @foreach ($errors->all() as $error)
+                      <li> {{ $error }} </li>
+                  @endforeach
+              </div>
+            </div>
+            @endif
+          </div>
+
             <div class="table-responsive mt-3">
               <table class="table table-bordered table-hover">
                   <thead>
@@ -58,7 +82,7 @@
                           <td>{{$advisories->id}}</td>
                           <td>{{$advisories->schoolYear}}</td>
                           <td>{{$advisories->gradeLevel }}</td>
-                          <td><a href="/studentgrades/{{$advisories->gradeLevel}}">{{$advisories->className }}</a></td>
+                          <td><a href="/studentgrades/{{$advisories->gradeLevel}}/{{$advisories->className }}">{{$advisories->className }}</a></td>
                         </tr>
                     @endforeach
                   </tbody>

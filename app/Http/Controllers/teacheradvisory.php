@@ -54,7 +54,7 @@ class teacheradvisory extends Controller
           'gradeLevel'  =>  'required|string',
           'className'   =>  'required|string',
           'employee_id' =>  'required|string',
-          'subject'     =>  'required|string',
+          'subjectCode'     =>  'required|string',
         ]);
         
         advisory::create([
@@ -63,7 +63,7 @@ class teacheradvisory extends Controller
             'gradeLevel'  =>$request->get('gradeLevel'),
             'className'   =>$request->get('className'),
             'employee_id' =>$request->get('employee_id'),
-            'subject'     =>$request->get('subject'),
+            'subjectCode' =>$request->get('subjectCode'),
         ]);
 
         return redirect('/advisory')->with('success', 'Teacher advisory successfully added!');

@@ -12,6 +12,6 @@ class advisory extends Model
       'gradeLevel',
       'className', 
       'employee_id',
-      'subject',
+      'subjectCode',
     ];
 }

@@ -63,6 +63,7 @@ button {
     line-height: 3;
     letter-spacing: 2px;
     text-transform: uppercase;
+    font-family: "ROBOTO";
 }
 
 .overlay {
@@ -83,7 +84,7 @@ li {
 h1 {
     text-transform: uppercase;
     line-height: 2;
-    font-family: "Open Sans", sans-serif;
+    font-family: "ROBOTO";
     font-size: 40px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -92,23 +93,27 @@ h1 {
 
 a {
     color: black;
+    font-family: "ROBOTO";
 }
 a:hover {
     color: #233849;
     text-decoration: none;
+    font-family: "ROBOTO";
 }
-#password-reset {
-    width: 250px;
+.el-button--text {
+    background: transparent;
 }
+
 .overlay2 {
-    margin-right: 120px;
-    margin-top: 150px;
+    width: 400px;
+    position: relative;
+    top: 150px;
 }
 .overlay2 h2 {
     text-transform: uppercase;
     line-height: 2;
-    font-family: "Open Sans", sans-serif;
-    font-size: 27px;
+    font-family: "ROBOTO";
+    font-size: 30px;
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-left: 80px;
@@ -116,10 +121,39 @@ a:hover {
 .overlay-3 {
     margin-top: 70px;
 }
+.overlay-main {
+    width: 400px;
+    position: relative;
+    top: 150px;
+}
+.overlay-reset h2 {
+    text-transform: uppercase;
+    line-height: 2;
+    font-family: "ROBOTO";
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-left: 80px;
+}
+.overlay-body {
+    position: relative;
+    top: 40px;
+    left: 80px;
+}
 .email {
     width: 250px;
+    font-family: "roboto";
 }
 
+#email,
+#password,
+#password-confirm {
+    font-family: "roboto";
+}
+
+.form-check-label {
+    font-family: "roboto";
+}
 @media screen and (max-width: 575.98px) {
     .card {
         position: absolute;

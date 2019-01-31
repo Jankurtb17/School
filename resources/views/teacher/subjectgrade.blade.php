@@ -44,7 +44,7 @@
                     </select>
                   </div>
                   <div class="col-lg-2">
-                    <button class="addButton" type="submit">Search</button>
+                    <button class="btn btn-primary" type="submit">Search</button>
                   </div>
                 </div>
               </form>

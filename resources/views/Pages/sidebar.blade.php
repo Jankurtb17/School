@@ -37,7 +37,7 @@
                   <a class="nav-link {{ setActive('examination', 'current') }}" href="/examination"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> Examination Date</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link {{ setActive('student', 'current') }}" href="/student"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student </a>
+                  <a class="nav-link {{ setActive('student', 'current') }}" href="/student"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Students </a>
               </li>
             
               <li class="nav-item">
@@ -69,8 +69,12 @@
                   <li class="nav-item"> <a class="nav-link" href="#">Example</a></li>
                 </ul>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link {{ setActive('subjectgrade', 'current' )}}" href="/subjectgrade"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Subject Grade </a>
+              </li> --}}
+             
+              <li class="nav-item">
+                <a class="nav-link {{ setActive('viewgrades', 'current' )}}" href="/viewgrades"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> View Student Grades </a>
               </li>
               
               <li class="nav-title"> Settings </li>
@@ -108,10 +112,11 @@
             {{ Auth::user()->firstName }}
           </a>
           <div class="dropdown-menu" id="dropdown">
+           
             <a class="dropdown-item"  href="{{ route('logout') }}"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">
-              {{ __('Logout') }}
+              <i class="fa fa-sign-out" aria-hidden="true"></i> {{ __('Logout') }}
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               @csrf

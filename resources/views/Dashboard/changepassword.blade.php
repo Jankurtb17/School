@@ -15,7 +15,7 @@
                       <form id="horizontal">
                         @csrf
                         <div class="form-group">
-                          <h5 class="display-5">EDIT PROFILE 
+                          <h5 class="display-5">EDIT PROFILE </h5>
                         </div>
 
                         <div class="form-group" id="form-group">
@@ -77,7 +77,7 @@
                   <form action="" id="horizontal">
                     @csrf
                     <div class="form-group">
-                        <h5 class="display-5">CHANGE PASSWORD</h1>
+                        <h5 class="display-5">CHANGE PASSWORD</h5>
                     </div>
                     
                    

@@ -25,7 +25,21 @@
                 <li class="breadcrumb-item active" aria-current="page">Grade Level</li>
             </ol>
             </nav>
-            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
+            @if(session()->has('success'))
+              <div class="alert alert-success">
+                  <button type="button" class="close" data-dismiss="alert"> &times; </button>
+                  <strong> Grade Level </strong> {{ session()->get('success') }}
+              </div>
+            @endif
+
+            @if(session()->has('error'))
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert"> &times; </button>
+                <strong> Grade Level </strong> {{ session()->get('error') }}
+            </div>
+          @endif
+
+          <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
                 Add grade level
             </button>
             <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">

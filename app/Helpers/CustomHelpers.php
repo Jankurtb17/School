@@ -11,5 +11,5 @@
  */
 function setActive(string $path, string $class_name = "is-active")
 {
-    return Request::path() === $path ? $class_name : "";
+    return Request::path() === $path ? $class_name : "";  
 }

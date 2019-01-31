@@ -17,11 +17,11 @@
                     <li class="breadcrumb-item active" aria-current="page">Grades</li>
                   </ol>
                 </nav>
-                <form>
+                <form method="POST">
                   <div class="row">
                 
                     <div class="col-lg-2">
-                      <select class="form-control" name="period">
+                      <select class="form-control" name="gradingPeriod" id="gradingPeriod">
                         <option value="" selected disabled>-Grading Period-</option>
                         <option value="1">1st Grading</option>
                         <option value="2">2nd Grading</option>
@@ -30,7 +30,7 @@
                       </select>
                     </div>
                     <div class="col-lg-2">
-                      <select class="form-control" name="schoolYear">
+                      <select class="form-control" name="schoolYear" id="schoolYear">
                           <option value="" selected disabled>-School Year-</option>
                           @foreach ($schoolyear as $schoolyears)
                               <option value="{{ $schoolyears->schoolYear }}">{{ $schoolyears->schoolYear }}</option>
@@ -41,6 +41,10 @@
                       <button type="submit" class="btn btn-primary"> Proceed </button>
                     </div>
                     </form>
+
+                      <table class="table">
+                         
+                      </table>
                   </div>
                 </div>
               </div>
@@ -51,7 +55,26 @@
     </div>
   </div>
   </div>
-  <script src="{{ asset('js/app.js') }}"></script>
+@section('scripts')
+<script>
+  $(document).on('submit', 'form', function(e) {
+    e.preventDefault();
+      $.ajax({
+          url: "{{ route('show.grades')}}",
+          type: "get",
+          data: {
+            "_token": $('input[name=_token]').val(),
+            "gradingPeriod": $('#gradingPeriod').val(),
+            "schoolYear": $('#schoolYear').val(),
+          },
+          success:function(data)
+          {
+            $('table').html(data);
+          }
+      });
+  });
+</script>
+@endsection
 </body>
 </html>
 @endCan

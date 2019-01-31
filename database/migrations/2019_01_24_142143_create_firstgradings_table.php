@@ -22,6 +22,7 @@ class CreateFirstgradingsTable extends Migration
             $table->string('className');
             $table->string('subjectCode');
             $table->string('grade');
+            $table->string('employee_id');
             $table->timestamps();
         });
     }

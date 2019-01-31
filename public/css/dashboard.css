@@ -11,23 +11,29 @@ body {
     display: flex;
     flex-direction: row;
 }
-.dropdown-menu {
+
+.navbar-top {
+    background-color: #1b998b;
+    padding: 20px 0;
     position: absolute;
-}
-
-.dropdown-item:hover {
-    background-color: #f0f3f5;
-    color: black;
-}
-
-.navbar-top .nav-item {
-    list-style-type: none;
+    top: 0;
+    left: 0px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+    z-index: -1;
+    width: 100%;
 }
 .navbar-top a {
     text-decoration: none;
     text-transform: uppercase;
-    font-weight: 800px;
+    color: #333;
 }
+.dropdown-item:hover {
+    background-color: #333;
+    color: #fff;
+}
+
 .logo-admin {
     height: 200px;
     margin-left: 12px;
@@ -45,7 +51,7 @@ body {
 .nav {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to top, rgb(150, 0, 50), rgb(35, 44, 74));
+    background: #222d32;
     height: 100vh;
 }
 
@@ -80,13 +86,13 @@ body {
     font-size: 20px;
 }
 .nav-link:hover {
-    background: linear-gradient(to right, rgb(222, 97, 97), rgb(38, 87, 235));
+    background: #23527c;
     color: #fff;
     transition: 0.4s ease-in;
 }
 .current {
-    background: linear-gradient(to right, rgb(222, 97, 97), rgb(38, 87, 235));
-    border-left: 4px solid #20a8d8;
+    background: rgb(32, 1, 34);
+    border-left: 4px solid #fff;
 }
 .main {
     display: flex;
@@ -94,18 +100,7 @@ body {
     position: absolute;
     width: 100%;
 }
-.navbar-top {
-    background-color: #fff;
-    padding: 20px 0;
-    position: absolute;
-    top: 0;
-    left: 0px;
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 10px;
-    z-index: -1;
-    width: 100%;
-}
+
 .content {
     position: absolute;
     top: 70px;
@@ -131,6 +126,18 @@ body {
     position: relative;
     top: 40px;
 }
+.table-wrapper-scroll-y {
+    display: block;
+    max-height: 60vh;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+thead {
+    background-color: #7f6769;
+    color: #fff;
+}
+
 #message {
     margin-left: 20px;
 }
@@ -239,4 +246,9 @@ body {
 
 .col-lg-2 {
     text-align: center;
+}
+
+.alert-success {
+    background-color: #00a65a;
+    color: #fff;
 }
