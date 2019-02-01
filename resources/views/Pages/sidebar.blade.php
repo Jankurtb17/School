@@ -23,10 +23,10 @@
               </div>
 
               @can('isAdmin')
-              <li class="nav-item">
-                  <a id="dashboard-icon1" class="nav-link {{ setActive('dashboard', 'current') }}" href="/dashboard"> <i class="fa fa-tachometer" aria-hidden="true" id="icon-dashboard"></i> Dashboard </a>
-              </li>
               <li class="nav-title"> Main Module </li>
+              <li class="nav-item">
+                  <a class="nav-link {{ setActive('dashboard', 'current') }}" href="/dashboard"> <i class="fa fa-tachometer" aria-hidden="true" id="icon-dashboard"></i> Dashboard </a>
+              </li>
               <li class="nav-item">
                   <a class="nav-link {{ setActive('schoolyear', 'current') }}" href="/schoolyear"> <i class="fa fa-calendar" aria-hidden="true" id="icon-dashboard"></i> School Year</a>
               </li>
@@ -84,14 +84,12 @@
               @endcan
 
               @can('isStudent')
+              <li class="nav-title"> Main Navigation </li>
               <li class="nav-item">
                 <a class="nav-link {{ setActive('listsubject', 'current' )}}" href="/listsubject"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> List of subject </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link {{ setActive('grades', 'current' )}}" href="/grades"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Grades </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link {{ setActive('balance', 'current' )}}" href="/balance"> <i class="fa fa-money" aria-hidden="true" id="icon-dashboard"> </i> Balance Fees </a>
               </li>
               <li class="nav-title"> Settings </li>
               <li class="nav-item">

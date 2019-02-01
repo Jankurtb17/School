@@ -56,7 +56,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" name="submit"> Submit </button>     
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
+                        <button type="button" class="btn btn-dark" data-dismiss="modal"> Cancel </button>
                       </form>
                       </div>
                     </div>
@@ -78,8 +78,8 @@
                           <td> {{ $no++ }} </td>
                           <td> {{ $schoolyears->schoolYear }}</td>
                           <td> 
-                              <a href="#" class="edit-modal btn btn-default" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
-                              <a href="#" class="delete-modal btn btn-default" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
+                              <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
+                              <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $schoolyears->id}}" data-schoolYear="{{ $schoolyears->schoolYear}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
                             </td>
                         </tr>
                     @endforeach
@@ -116,7 +116,7 @@
                   </div>
                 </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn actionBtn" data-dismiss="modal"> Update </button>
+                    <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal"> Update </button>
                     <button type="button" class="btn btn-danger delete" data-dismiss="modal">Delete</button>
                     <button type="button" class="btn cancel" data-dismiss="modal"> Cancel</button>
                   </div>
@@ -142,7 +142,6 @@
       $('.modal-title').text('Edit school year');
       $('.form-horizontal').show();
       $('.deleteContent').hide();
-      $('.actionBtn').addClass('btn-success');
       $('.actionBtn').removeClass('delete');
       $('#id').val($(this).data('id'));
       $('#a').val($(this).data('schoolyear'));

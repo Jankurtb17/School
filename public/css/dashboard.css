@@ -38,9 +38,6 @@ body {
     height: 200px;
     margin-left: 12px;
 }
-#dashboard-icon1 {
-    border-top: 1px solid #595959;
-}
 .sidebar {
     width: 280px;
     position: absolute;
@@ -121,7 +118,6 @@ body {
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
     flex-direction: row;
 }
-
 #card-subjectgrade {
     position: relative;
     top: 40px;
@@ -131,17 +127,15 @@ body {
     max-height: 60vh;
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
+    font-family: "roboto";
 }
-
 thead {
     background-color: #7f6769;
     color: #fff;
 }
-
 #message {
     margin-left: 20px;
 }
-
 .dash-header {
     display: flex;
     flex-direction: column;
@@ -160,24 +154,6 @@ thead {
     position: absolute;
     top: 10;
 }
-.addButton {
-    border: none;
-    padding: 6px 10px;
-    background-color: #23c5ff;
-    border-bottom: 4px solid #0084b2;
-    font-family: roboto;
-    text-transform: uppercase;
-    color: #333;
-}
-.addButton:hover {
-    background-color: #ff9200;
-    border-bottom: 4px solid #b26600;
-}
-.selectbox {
-    height: 100px;
-    overflow-y: auto;
-}
-
 #input-group {
     display: flex;
     justify-content: flex-end;
@@ -185,31 +161,77 @@ thead {
 #dropdown {
     position: absolute;
 }
-
-.delete-modal {
-    background: linear-gradient(to right, rgb(195, 20, 50), rgb(36, 11, 54));
-    color: white;
-    border-style: none;
+.btn {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 0.125rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+        -webkit-box-shadow 0.15s ease-in-out;
 }
-.delete-modal:hover {
-    background: linear-gradient(to left, rgb(195, 20, 50), rgb(36, 11, 54));
+.btn-success {
+    background: #388e3c !important;
+    border-color: #388e3c !important;
+}
+.btn-success:hover {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18),
+        0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    border-color: #0062cc;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18),
+        0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    outline: 0;
+}
+.btn-primary {
+    background-color: #4285f4 !important;
+    color: #fff !important;
+}
+.btn-primary:hover {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18),
+        0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    border-color: #4285f4;
+}
+.btn-danger {
     color: #fff;
-    border-style: none;
+    background-color: #ff3547 !important;
+    border-color: #ff3547 !important;
+}
+.btn-danger:hover {
+    color: #fff;
+    background-color: #c82333;
+    border-color: #bd2130;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18),
+        0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
-.edit-modal {
-    background: linear-gradient(to top, rgb(252, 234, 187), rgb(248, 181, 10));
-    color: black;
-    border-style: none;
+.btn-warning {
+    background-color: #fb3 !important;
+    border-color: #fb3 !important;
+    color: #fff !important;
 }
-.edit-modal:hover {
-    background: linear-gradient(
-        to bottom,
-        rgb(252, 234, 187),
-        rgb(248, 181, 10)
-    );
-    color: black;
-    border-style: none;
+.btn-warning:hover {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18),
+        0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn-default {
+    background-color: #e0e0e0 !important;
+    color: #000 !important;
+}
+.btn-default:hover {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18),
+        0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+.btn-dark {
+    background-color: #212121 !important;
+    color: #fff !important;
+}
+.btn-dark:hover {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18),
+        0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.modal-content {
+    font-family: "roboto";
 }
 
 /* input grades */
@@ -223,21 +245,17 @@ thead {
 
 #changepassword {
     height: 450px;
+    font-family: "roboto";
 }
 
 #changepassword2 {
     height: 650px;
+    font-family: "roboto";
 }
 
 #form-group {
     position: relative;
     top: 40px;
-}
-
-#changepassButton {
-    background-color: #233849;
-    border-color: #233849;
-    color: #fff;
 }
 
 .alert-primary {
@@ -251,4 +269,10 @@ thead {
 .alert-success {
     background-color: #00a65a;
     color: #fff;
+}
+
+.changepass-alert {
+    position: relative;
+    top: 0;
+    right: 20px;
 }

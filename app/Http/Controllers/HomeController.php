@@ -64,5 +64,9 @@ return view('Dashboard.home', compact('admin', 'teacher', 'student'));
     {
       return view('Dashboard.sidebar');  
     }
+    public function showChangePasswordForm()
+    {
+      return view('auth.changepassword');
+    }
   
 }

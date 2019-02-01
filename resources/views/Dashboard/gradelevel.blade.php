@@ -82,8 +82,8 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
                     <button type="submit" class="btn btn-primary"> Submit </button>                    
+                    <button type="button" class="btn btn-dark" data-dismiss="modal"> Cancel </button>
                   </form>
                   </div>
                 </div>
@@ -131,7 +131,6 @@
                   <form method="POST" class="form-horizontal" role="modal">
                     @csrf
                     <div class="form-group hide">
-                      <label>  Id </label>
                       <input type="text" class="form-control" id="id" name="id" disabled>
                     </div>
                     <div class="form-group">
@@ -171,7 +170,7 @@
                 <div class="modal-footer">
                   <button class="btn actionBtn" type="button" data-dismiss="modal">Update</button>
                   <button class="btn btn-danger delete" type="button" data-dismiss="modal">Delete</button>
-                  <button class="btn cancel"  type="button" data-dismiss="modal">Close </button>
+                  <button class="btn bt"  type="button" data-dismiss="modal">Close </button>
                 </div>
               </div>
             </div>
@@ -184,6 +183,9 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
+    $(document).on('load', 'body', function() {
+        $('.hide').hide();
+    });
     $(document).on('click', '.edit-modal', function(){
       $('.modal-title').text('Edit year level');
       $('.actionBtn').show();

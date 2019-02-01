@@ -71,7 +71,7 @@
                       <tr>
                           <td><input type="hidden" name="student_id[]" value="{{$users->student_id}}">{{$users->student_id}}</td>
                           <td>{{$users->firstName}} {{$users->lastName}}</td>
-                          <td><input  type="text" name="grade[]" class="form-control col-lg-2" id="grade" maxlength="4" required></td>
+                          <td><input  type="text" name="grade[]" class="form-control col-lg-2" id="grade" onkeypress="isNumber(event)" maxlength="5" required></td>
                           <td><input type="hidden" name="gradeLevel[]" value="{{$users->gradeLevel}}"></td>
                       </tr>
                     @endforeach
@@ -93,15 +93,14 @@
 
   @section('scripts')
   <script>
-    $('#grade').on('keypress', function(evt) {
-      var charCode = (evt.which) ? evt.which : event.keyCode
-      if (charCode != 45  && charCode > 31 && (charCode < 48 || charCode > 57))
-      {
-        return false;
+     function isNumber(evt) {
+      var ch = String.fromCharCode(evt.which);
 
+
+      if(!/[0-9-.]/.test(ch)) {
+        evt.preventDefault();
       }
-     return true;
-    });
+    }
 
   </script>
 @endsection

@@ -57,6 +57,7 @@ Route::group(['middleware'  => 'revalidate'], function(){
   
 
     //changepassword
-    Route::get('/settings', 'AccountSettings@index');
+    Route::get('/settings', 'AccountSettings@showChangePasswordForm');
+    Route::post('/settings', 'AccountSettings@changePassword')->name('changePassword');
 
   }); 

@@ -22,9 +22,13 @@ class StudentGrades extends Controller
       $schoolyear = $request->get('schoolYear');
       $search = DB::table('firstgradings')
                   ->join('search_subjects', 'firstgradings.subjectCode', '=', 'search_subjects.subjectCode')
-                  ->where('gradingperiod', $gradingperiod)
-                  ->where('schoolYear', $schoolyear)
-                  ->where('student_id', Auth()->user()->student_id)
+                  ->join('users', 'firstgradings.employee_id', '=', 'users.employee_id')
+                  // ->select('search_subjects.subjectCode, search_subjects.description, firstgradings.schoolYear, 
+                  // firstgradings.gradingperiod, firstgradings.student_id, users.employee_id')
+                  ->where('firstgradings.gradingperiod', $gradingperiod)
+                  ->where('firstgradings.schoolYear', $schoolyear)
+                  ->where('firstgradings.student_id', Auth()->user()->student_id)
+                  ->groupBy('firstgradings.subjectCode')
                   ->get();
       $count = count($search);
       if($count > 0)
@@ -32,22 +36,13 @@ class StudentGrades extends Controller
           foreach($search as $row)
           {
             $output .= '
-              <thead align="center">
-                <tr>
-                  <th>Subject Code <th>
-                  <th>Subject Description <th>
-                  <th>Instructor <th>
-                  <th>Grade <th>
-                </tr>
-              </thead>
-              <tbody align="center">
+                
                   <tr>
-                    <td>'.$row->subjectCode.'</td>
-                    <td>'.$row->description.'</td>
-                    <td>'.$row->employee_id.'</td>
+                    <td colspan="2">'.$row->subjectCode.'</td>
+                    <td colspan="2">'.$row->description.'</td>
+                    <td colspan="2">'.$row->employee_id.'</td>
                     <td>'.$row->grade.'</td>
                   </tr>
-              </tbody>
                   ';
           }
           return response()->json($output);

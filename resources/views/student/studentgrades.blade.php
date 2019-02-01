@@ -17,6 +17,7 @@
                     <li class="breadcrumb-item active" aria-current="page">Grades</li>
                   </ol>
                 </nav>
+              </div>
                 <form method="POST">
                   <div class="row">
                 
@@ -40,12 +41,22 @@
                     <div class="form-group"> 
                       <button type="submit" class="btn btn-primary"> Proceed </button>
                     </div>
-                    </form>
+                  </div>
+                </form>
 
                       <table class="table">
-                         
+                          <thead align="left">
+                              <tr>
+                                <th>Subject Code <th>
+                                <th>Subject Description <th>
+                                <th>Instructor <th>
+                                <th>Grade <th>
+                              </tr>
+                            </thead>
+                            <tbody align="left">
+
+                            </tbody>
                       </table>
-                  </div>
                 </div>
               </div>
             </div>
@@ -69,7 +80,7 @@
           },
           success:function(data)
           {
-            $('table').html(data);
+            $('tbody').html(data);
           }
       });
   });
