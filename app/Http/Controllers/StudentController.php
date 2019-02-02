@@ -23,12 +23,20 @@ class StudentController extends Controller
     
     public function index()
     {
-
-        $student = DB::table('Users')
+        $admin = DB::table('users')
+              ->where('role_id', 2)
+              ->count();
+        $teacher = DB::table('users')
+              ->where('role_id', 3)
+              ->count();
+        $student = DB::table('users')
+              ->where('role_id', 1)
+              ->count();
+        $students = DB::table('Users')
                       ->where('role_id', 1)
                       ->paginate(5);
         $yearlevel = yearlevels::all();
-        return view('Dashboard.student', compact('student', 'yearlevel'));
+        return view('Dashboard.student', compact('students', 'yearlevel', 'student', 'admin', 'teacher'));
     }
 
     /**
@@ -140,5 +148,52 @@ class StudentController extends Controller
         $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
       }
       echo $output;
+    }
+
+    public function search(Request $request)
+    {
+        if($request->ajax())
+        {
+          $output = '';
+          $search = $request->get('search');
+          if($search != '')
+          {
+            $data = DB::table('users')
+                      ->where('firstName', 'LIKE', '%'.$search.'%')
+                      ->orWhere('lastName', 'LIKE', '%'.$search.'%')
+                      ->orWhere('student_id', 'LIKE', '%'.$search.'%')
+                      ->orWhere('gradeLevel', 'LIKE', '%'.$search.'%')
+                      ->orWhere('className', 'LIKE', '%'.$search.'%')
+                      ->orWhere('email', 'LIKE', '%'.$search.'%')
+                      ->paginate(5);
+          }
+          else{
+            $data = DB::table('users')
+                      ->paginate(5);
+          }
+          $total_row = $data->count();
+          if($total_row > 0) 
+          {
+            foreach($data as $row)
+            {
+              $output .= '
+                    <tr>
+                      <td>'.$row->student_id.'</td>
+                      <td>'.$row->gradeLevel.'</td>
+                      <td>'.$row->firstName.'</td>
+                      <td>'.$row->lastName.'</td>
+                      <td>'.$row->email.'</td>
+                    </tr>
+               ';
+            }
+          }
+          else 
+          {
+            $output = "<tr> 
+                        <td align='center' colspan='5'> No results were found </td>
+                      </tr>";
+          }
+          return response()->json($output);
+        }
     }
 }

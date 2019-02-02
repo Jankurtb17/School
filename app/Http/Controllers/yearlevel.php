@@ -21,9 +21,18 @@ class yearlevel extends Controller
     
     public function index()
     { 
+      $admin = DB::table('users')
+              ->where('role_id', 2)
+              ->count();
+        $teacher = DB::table('users')
+              ->where('role_id', 3)
+              ->count();
+        $student = DB::table('users')
+              ->where('role_id', 1)
+              ->count();
         $schoolyear = schoolyear::all();
         $yearlevel = yearlevels::sortable()->paginate(10);
-        return view('Dashboard.gradelevel', compact('yearlevel', 'schoolyear'));
+        return view('Dashboard.gradelevel', compact('yearlevel', 'schoolyear', 'student', 'admin', 'teacher'));
     }
 
     /**

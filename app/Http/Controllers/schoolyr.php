@@ -14,9 +14,18 @@ class schoolyr extends Controller
      */
     
     public function index()
-    {
+    {   
+        $admin = DB::table('users')
+        ->where('role_id', 2)
+        ->count();
+        $teacher = DB::table('users')
+              ->where('role_id', 3)
+              ->count();
+        $student = DB::table('users')
+              ->where('role_id', 1)
+              ->count();
         $schoolyear = schoolyear::paginate(10);
-        return view('Dashboard.schoolyear', compact('schoolyear'));
+        return view('Dashboard.schoolyear', compact('schoolyear' ,'admin', 'teacher', 'student'));
     }
 
     /**

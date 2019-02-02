@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/addmodal.css') }}">
-  <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-  <title>Document</title>
-</head>
-<body>
-  @include('Pages.sidebar')
+@extends('layouts.admin')
+
+@section('content')
+@can('isAdmin')
         <div class="content">
           <div class="sidebar-content">
           </div>
@@ -42,9 +31,13 @@
                   @endforeach
               </div>
             @endif
-            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade5">
+            <div class="ui-form">
+            <input type="text" class="form-control float-right col-lg-2" name="search" id="search" placeholder="Search">
+            <button type="button" class="btn btn-primary mb-2 float-left" data-toggle="modal" data-target="#modalFade5">
                 Add Teacher 
             </button>
+            </div>
+
             <div class="modal fade" id="modalFade5" tabindex = "-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -134,14 +127,13 @@
             </div>
           </div>
           <div class="table-body">
-          <table class="table table-hover table-bordered">
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th>Employee ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
-                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -151,10 +143,6 @@
                     <td>{{ $users->firstName }}</td>
                     <td>{{ $users->lastName }}</td>
                     <td>{{ $users->email}}</td>
-                    <td>
-                       <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $users->id }}" data-first="{{ $users->firstName }}" data-last="{{ $users->lastName }}" data-email="{{ $users->email }}" data-password="{{ $users->password }}"> <i class="fa fa-pencil-square-o"> Edit</i></a>
-                       <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $users->id }}" data-first="{{ $users->firstName }}" data-last="{{ $users->lastName }}" data-email="{{ $users->email }}" data-password="{{ $users->password }}"><i class="fa fa-trash-o"> </i>Delete</a>
-                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -170,7 +158,23 @@
     </div>
   </div>
   </div>
-  <script src="{{ asset('js/app.js') }}"></script>
-  <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
-</body>
-</html>
+@endsection
+@section('scripts')
+<script>
+  $(document).on('keyup', '#search', function() {
+    value = $(this).val();
+    $.ajax({
+      url: "{{ route('find.teacher')}}",
+      type: "GET",
+      data: {
+        "search": value,
+        "_token": $('input[name_token]').val()
+      },
+      success:function(data) {
+        $('tbody').html(data);
+      }
+    });
+  });
+</script>
+@endSection
+@endCan

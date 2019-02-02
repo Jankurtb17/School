@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/addmodal.css')}}">
-  <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-  <title>Document</title>
-</head>
-<body>
+@extends('layouts.admin')
+
+@section('content')
   @include('Pages.sidebar')
   @can('isTeacher')
         <div class="content">
@@ -66,7 +55,7 @@
           </div>
 
             <div class="table-responsive mt-3">
-              <table class="table table-bordered table-hover">
+              <table class="table table-hover">
                   <thead>
                     <tr>
                       <th>Id</th>
@@ -100,17 +89,18 @@
     </div>
   </div>
   </div>
-  @endCan
-  <script src="{{ asset('js/app.js') }}"></script>
+  @endSection
+  @section('scripts')
+ 
   <script>
       $(document).on('keyup', '#search', function() {
         
-        $value = $(this).val();
+        value = $(this).val();
         $.ajax({
           url: "{{ route('search.subject')}}",
           type: "GET",
           data: {
-            'search': $value,
+            'search': value,
             '_token': $('input[name=_token]').val()
           },
           success:function(data) {
@@ -119,5 +109,5 @@
         });
       })
   </script>
-</body>
-</html>
+   @endSection
+   @endCan

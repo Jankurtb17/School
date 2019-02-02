@@ -18,6 +18,12 @@ class teacheradvisory extends Controller
      */
     public function index()
     {
+      $teacher = DB::table('users')
+              ->where('role_id', 3)
+              ->count();
+        $student = DB::table('users')
+              ->where('role_id', 1)
+              ->count();
       $user = DB::Table('Users')
                 ->where('role_id', 3)
                 ->get();
@@ -27,7 +33,7 @@ class teacheradvisory extends Controller
                       ->get();
       $subject = DB::table('search_subjects')
                     ->get();
-      return view('Dashboard.teacheradvisory', compact('user', 'advisory', 'yearlevel', 'subject'));
+      return view('Dashboard.teacheradvisory', compact('user', 'advisory', 'yearlevel', 'subject', 'student', 'teacher'));
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Hash;
-
+use DB;
 class AccountSettings extends Controller
 {
     public function __construct()
@@ -15,7 +15,13 @@ class AccountSettings extends Controller
 
     public function showChangePasswordForm()
     {
-      return view('auth.changepassword');    
+      $teacher = DB::table('users')
+              ->where('role_id', 3)
+              ->count();
+        $student = DB::table('users')
+              ->where('role_id', 1)
+              ->count();
+      return view('auth.changepassword', compact('teacher', 'student'));    
     }
 
     public function changePassword(Request $request)

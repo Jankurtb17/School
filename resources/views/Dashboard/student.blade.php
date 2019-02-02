@@ -41,11 +41,9 @@
               </div>
             @endif
             <div class="ui-form">
-            <form>
               <div class="form-group">
-                <input type="search" class="form-control col-lg-2 float-right" placeholder="Search" name="search">
+                <input type="text" class="form-control col-lg-2 float-right" placeholder="Search" name="search" id="search">
               </div>
-            </form>
             <button type="button" class="btn btn-primary mb-2 float-left" data-toggle="modal" data-target="#modalFade3">
                 Add Student 
             </button>
@@ -161,7 +159,7 @@
               </div>
             </div>
             <div class="table-body">
-              <table class="table table-hover table-bordered">
+              <table class="table table-hover">
                 <thead>
                   <tr>
                     <th>ID Number</th>
@@ -173,15 +171,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($student as $students)
+                  @foreach ($students as $student)
                     <tr>
-                      <td>{{ $students->student_id}} </td>
-                      <td>{{ $students->gradeLevel}} </td>
-                      <td>{{ $students->firstName}} </td>
-                      <td>{{ $students->lastName}} </td>
-                      <td>{{ $students->email}} </td>
+                      <td>{{ $student->student_id}} </td>
+                      <td>{{ $student->gradeLevel}} </td>
+                      <td>{{ $student->firstName}} </td>
+                      <td>{{ $student->lastName}} </td>
+                      <td>{{ $student->email}} </td>
                       <td>
-                      <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $students->student_id}}" data-level="{{ $students->gradeLevel }}" data-first="{{ $students->firstName }}" data-last="{{ $students->lastName }}" data-email="{{ $students->email }}" data-password="{{ $students->password }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
+                      <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $student->student_id}}" data-level="{{ $student->gradeLevel }}" data-first="{{ $student->firstName }}" data-last="{{ $student->lastName }}" data-email="{{ $student->email }}" data-password="{{ $student->password }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
                       <a href="#" class="delete-modal btn btn-danger"><i class="fa fa-trash-o"> </i>Delete </a>
                       </td>
                     </tr>
@@ -189,7 +187,7 @@
                 </tbody>
               </table>
                 <div class="mt-2">
-                    {{ $student->links() }}
+                    {{ $students->links() }}
                 </div>
               </div>
             </div>
@@ -200,7 +198,8 @@
     </div>
   </div>
   </div>
-  <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
     $(document).on('change', '.dynamic', function() {
       if($(this).val() != ''){
@@ -225,6 +224,21 @@
           }
     });
   
+    $(document).on('keyup', '#search', function() {
+        value = $(this).val();
+        $.ajax({
+            url: "{{ route('find.student') }}",
+            type: "GET",
+            data: {
+              'search': value,
+              '_token': $('input[name=_token]').val()
+            },
+            succes:function(data)
+            {
+              $('tbody').html(data);
+            }
+        }); 
+    }); 
   </script>  
 </body>
 </html>

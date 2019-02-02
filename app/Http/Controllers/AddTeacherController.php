@@ -17,11 +17,17 @@ class AddTeacherController extends Controller
      */
     
     public function index()
-    {
+    { 
+        $teacher = DB::table('users')
+              ->where('role_id', 3)
+              ->count();
+        $student = DB::table('users')
+              ->where('role_id', 1)
+              ->count();
        $user = DB::table('users')
                     ->where('role_id', 3)
                     ->paginate(7);
-       return view('Dashboard.teacher', compact('user'));
+       return view('Dashboard.teacher', compact('user', 'teacher', 'student'));
     }
 
     /**
@@ -110,5 +116,42 @@ class AddTeacherController extends Controller
     public function destroy(Teacher $teacher)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+      if($request->ajax())
+      {
+        $output = "";
+        $search = $request->get('search');
+        if($search != ''){
+          $data = DB::table('users')
+                    ->where('firstName', 'LIKE', '%'.$search.'%')
+                    ->Where('role_id',  3)
+                    ->paginate(5);
+        }
+        else {
+          $data = DB::table('users')
+                    ->where('role_id', 3)
+                    ->paginate(5);
+        }
+        $total_rows = $data->count();
+        if($total_rows > 0)
+        {
+          foreach($data as $row)
+          {
+            $output .= '<tr>
+                  <td>'.$row->employee_id.'</td>
+                  <td>'.$row->firstName.'</td>
+                  <td>'.$row->lastName.'</td>
+                  <td>'.$row->email.'</td>
+            ';
+          }
+        }
+        else {
+          $output ="<tr> <td colspan='5'> No results were found</td> </tr>";
+        }
+        return response()->json($output);
+      }
     }
 }

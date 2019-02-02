@@ -20,7 +20,9 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::get('/dashboard2', 'HomeController@dashboard2');
     Route::get('/dashboard', 'HomeController@dashboard');
     Route::resource('/class', 'nameOfClass');
+    Route::get('/addteacher/search', 'AddTeacherController@search')->name('find.teacher');
     Route::resource('/addteacher', 'AddTeacherController');
+    Route::post('/student/search', 'StudentController@search')->name('find.student');
     Route::resource('/student', 'StudentController');
     Route::post('/student/fetch', 'StudentController@fetch')->name('dynamicdependent3.fetch');
     Route::resource('/schoolyear', 'schoolyr');
