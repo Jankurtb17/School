@@ -62,8 +62,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="table table-responsive">
-                <table class="table table-hover table-bordered table-responsive-md">
+                <div class="table table-responsive-md">
+                <table class="table table-hover">
                   <thead>
                     <tr>
                       <th> Id </th>
@@ -71,7 +71,7 @@
                       <th> Action </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="table-bordered">
                     <?php $no=1; ?>
                     @foreach ($schoolyear as $schoolyears)
                         <tr class="post{{ $schoolyears->id }}"> 

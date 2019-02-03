@@ -78,7 +78,7 @@
                 </div>
               </div>
             </div>
-            <table class="table table-hover table-bordered table-responsive-md">
+            <table class="table table-hover table-responsive-md">
               <thead>
                 <tr>
                   <th>@sortablelink('id')</th>
@@ -88,7 +88,7 @@
                   <th> Action </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="table-bordered">
                 @foreach ($yearlevel as $yearlevels)
                   <tr class="post{{ $yearlevels->id}}">
                     <td> {{ $yearlevels->id }} </td>

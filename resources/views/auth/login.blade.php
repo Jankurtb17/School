@@ -26,7 +26,7 @@
                               <i class="fa fa-envelope" aria-hidden="true"> </i>
                             </div>
                       </div>
-                    <input id="email" type="email" class="col-lg-8 form-control{{ $errors->has('email') ? ' is-invalid' : '' }} no-border" name="email" value="{{ old('email') }}" placeholder ="Email" >
+                    <input id="email" type="email" class="col-sm-3 col-lg-8 form-control{{ $errors->has('email') ? ' is-invalid' : '' }} no-border" name="email" value="{{ old('email') }}" placeholder ="Email" >
                     @if ($errors->has('email'))
                         <span class="invalid-feedback ml-5" role="alert">
                             <strong>{{ $errors->first('email') }}</strong>
@@ -42,7 +42,7 @@
                             <i class="fa fa-lock" aria-hidden="true"> </i>
                           </div>
                       </div>
-                    <input id="password" type="password" class="col-lg-8 form-control{{ $errors->has('password') ? ' is-invalid' : '' }} no-border" name="password" value="{{ old('password') }}"placeholder="Password" >
+                    <input id="password" type="password" class="col-sm-12 col-lg-8 form-control{{ $errors->has('password') ? ' is-invalid' : '' }} no-border" name="password" value="{{ old('password') }}"placeholder="Password" >
                     @if ($errors->has('password'))
                         <span class="invalid-feedback ml-5" role="alert">
                             <strong>{{ $errors->first('password') }}</strong>

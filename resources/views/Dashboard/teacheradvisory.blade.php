@@ -92,7 +92,7 @@
                     </div>
                   </div>
                 </div>
-                <table class="table table-hover table-bordered table-responsive-md">
+                <table class="table table-hover table-responsive-md">
                   <thead>
                     <tr>
                       <th> ID</th>
@@ -104,7 +104,7 @@
                       <th> Action </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="table-bordered">
                     <?php $n=1; ?>
                     @foreach ($advisory as $advisories)
                         <tr class="post{{ $advisories->id }}">

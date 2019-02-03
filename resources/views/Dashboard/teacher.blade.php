@@ -62,7 +62,7 @@
                             <label class="col-form-label">Teacher </label>
                           </div>
                           <div class="col-md-9">
-                            <input type="text" class="form-control" placeholder="Employee ID"  name="employee_Id">
+                            <input type="text" class="form-control" placeholder="Employee ID" value="19-1000-100" name="employee_Id" id="employee-id">
                           </div>  
                         </div>
                       </div>
@@ -127,7 +127,7 @@
             </div>
           </div>
           <div class="table-body">
-          <table class="table table-hover">
+          <table class="table table-hover" id="example">
             <thead>
               <tr>
                 <th>Employee ID</th>
@@ -139,7 +139,7 @@
             <tbody>
                 @foreach ($user as $users)
                 <tr class="post {{ $users->id }}">
-                  <td>{{ $users->employee_id }}</td>
+                  <td><a href="/addteacher/{{$users->employee_id}}">{{ $users->employee_id }} </a></td>
                     <td>{{ $users->firstName }}</td>
                     <td>{{ $users->lastName }}</td>
                     <td>{{ $users->email}}</td>
@@ -174,6 +174,9 @@
         $('tbody').html(data);
       }
     });
+  });
+  $(document).ready(function() {
+      student = $('#employee-id').val();
   });
 </script>
 @endSection

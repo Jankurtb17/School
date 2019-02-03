@@ -63,7 +63,6 @@
                       <th>ID Number</th>
                       <th>Student Name</th>
                       <th>Input Grade</th>
-                      <th>Remarks</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -72,7 +71,7 @@
                           <td><input type="hidden" name="student_id[]" value="{{$users->student_id}}">{{$users->student_id}}</td>
                           <td>{{$users->firstName}} {{$users->lastName}}</td>
                           <td><input  type="text" name="grade[]" class="form-control col-lg-2" id="grade" onkeypress="isNumber(event)" maxlength="5" required></td>
-                          <td><input type="hidden" name="gradeLevel[]" value="{{$users->gradeLevel}}"></td>
+                          <input type="hidden" name="gradeLevel[]" value="{{$users->gradeLevel}}">
                       </tr>
                     @endforeach
                   </tbody>
@@ -97,7 +96,7 @@
       var ch = String.fromCharCode(evt.which);
 
 
-      if(!/[0-9-.]/.test(ch)) {
+      if(!/^[0-9.\b]+$/.test(ch)) {
         evt.preventDefault();
       }
     }

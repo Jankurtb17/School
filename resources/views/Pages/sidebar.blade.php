@@ -49,9 +49,6 @@
               <li class="nav-item">
                   <a class="nav-link {{ setActive('advisory', 'current') }}" href="/advisory"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers Advisory </a>
               </li>
-              {{-- <li class="nav-item">
-                  <a class="nav-link {{ setActive('class', 'current') }}" href="/class"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Class Section</a>
-              </li> --}}
               <li class="nav-item">
                 <a class="nav-link {{ setActive('subject', 'current') }}" href="/subject"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Subject </a>
               </li>
@@ -69,9 +66,6 @@
                   <li class="nav-item"> <a class="nav-link" href="#">Example</a></li>
                 </ul>
               </li>
-              {{-- <li class="nav-item">
-                <a class="nav-link {{ setActive('subjectgrade', 'current' )}}" href="/subjectgrade"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> Subject Grade </a>
-              </li> --}}
              
               <li class="nav-item">
                 <a class="nav-link {{ setActive('viewgrades', 'current' )}}" href="/viewgrades"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"> </i> View Student Grades </a>

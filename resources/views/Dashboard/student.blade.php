@@ -73,7 +73,7 @@
                               <label class="col-form-label">Student </label>
                             </div>
                             <div class="col-md-9">
-                              <input id ="studentNumber" type="text" class="form-control" placeholder="Student Number" name="student_id">
+                              <input id ="studentNumber" type="text" class="form-control" placeholder="Student Number" name="student_id" required>
                             </div>
                           </div>
                         </div>
@@ -83,7 +83,7 @@
                             </div>
                             <div class="col-md-5">
                                 {{-- <input type="text" class="form-control" placeholder="Level" name="level"> --}}
-                                <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className">
+                                <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className" required>
                                   <option value="" selected  disabled>-Select Grade-</option>
                                   <option value="kindergarten">kindergarten</option>
                                   <option value="1">Grade 1</option>
@@ -95,7 +95,7 @@
                                 </select>
                               </div>
                             <div class="col-md-4">
-                              <select name="className" id="className" class="form-control">
+                              <select name="className" id="className" class="form-control" required>
                                 <option value="">-Select Class-</option>
                               </select>
                             </div>
@@ -105,10 +105,10 @@
                           <div class="row">
                             <div class="col-md-3"> </div>
                             <div class="col-md-3">
-                              <input type="text" class="form-control" placeholder="First Name" name="firstName">
+                              <input type="text" class="form-control" placeholder="First Name" name="firstName" required>
                             </div>
                             <div class="col-md-4">
-                              <input type="text" class="form-control" placeholder="Last Name" name="lastName">
+                              <input type="text" class="form-control" placeholder="Last Name" name="lastName" required>
                             </div>
                             <div class="col-md-2">
                                 <input type="text" class="form-control" placeholder="M.I" name="middleName">
@@ -118,26 +118,34 @@
                        
                        <div class="form-group"> 
                         <div class="row">
-                          <div class="col-md-3"> </div>
+                            <div class="col-md-3"> </div>
+                            <div class="col-md-4">
+                                <select name="gender" id="gender" class="form-control" required>
+                                  <option value="" selected disabled>-Select Gender-</option>
+                                  <option value="Male">Male</option>
+                                  <option value="Female">Female</option>
+                                </select>
+                              </div>
                           <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="Contact Number" name="contactNumber">
-                          </div>
-                          <div class="col-md-4">
-                            <select name="gender" id="gender" class="form-control">
-                              <option value="" selected disabled>-Select Gender-</option>
-                              <option value="Male">Male</option>
-                              <option value="Female">Female</option>
-                            </select>
+                            <input type="text" class="form-control" placeholder="Contact Number" name="contactNumber" required>
                           </div>
                         </div>
                      </div>
+                     <div class="form-group">
+                       <div class="row">
+                        <div class="col-md-3"> </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="Address" name="Address">
+                        </div>
+                       </div>
+                     </div> 
                        <div class="form-group">
                         <div class="row">
                           <div class="col-md-3">
                             <label class="col-form-label">Account </label>
                           </div>
                           <div class="col-md-9">
-                              <input type="email" class="form-control" placeholder="Email" name="email">
+                              <input type="email" class="form-control" placeholder="Email" name="email" required>
                           </div>
                         </div>
                        </div>
@@ -145,7 +153,7 @@
                         <div class="row">
                             <div class="col-md-3"> </div>
                             <div class="col-md-9">
-                              <input type="password" class="form-control" placeholder="Password" name="password">
+                              <input type="password" class="form-control" placeholder="Password" name="password" required>
                             </div>
                         </div>
                       </div>
@@ -167,20 +175,21 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
+                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-bordered">
                   @foreach ($students as $student)
                     <tr>
-                      <td>{{ $student->student_id}} </td>
+                      <td> <a href="/student/{{ $student->student_id }}/{{ $student->gradeLevel}}">{{ $student->student_id}} </a> </td>
                       <td>{{ $student->gradeLevel}} </td>
                       <td>{{ $student->firstName}} </td>
                       <td>{{ $student->lastName}} </td>
                       <td>{{ $student->email}} </td>
+                      <td></td>
                       <td>
                       <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $student->student_id}}" data-level="{{ $student->gradeLevel }}" data-first="{{ $student->firstName }}" data-last="{{ $student->lastName }}" data-email="{{ $student->email }}" data-password="{{ $student->password }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
-                      <a href="#" class="delete-modal btn btn-danger"><i class="fa fa-trash-o"> </i>Delete </a>
                       </td>
                     </tr>
                   @endforeach
@@ -223,22 +232,22 @@
               });
           }
     });
-  
+
     $(document).on('keyup', '#search', function() {
-        value = $(this).val();
-        $.ajax({
-            url: "{{ route('find.student') }}",
-            type: "GET",
-            data: {
-              'search': value,
-              '_token': $('input[name=_token]').val()
-            },
-            succes:function(data)
-            {
-              $('tbody').html(data);
-            }
-        }); 
-    }); 
+      value = $(this).val();
+      $.ajax({
+          url: "{{ route('find.student')}}",
+          type: "GET",
+          data: {
+            "_token": $('input[name=_token]').val(),
+            "search": value
+          },
+          success:function(data) {
+            $('tbody').html(data);
+          }
+      });
+    });
+  
   </script>  
 </body>
 </html>

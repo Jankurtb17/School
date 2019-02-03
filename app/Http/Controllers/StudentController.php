@@ -132,6 +132,8 @@ class StudentController extends Controller
     {
         //
     }
+    
+ 
 
     public function fetch(Request $request)
     {
@@ -152,48 +154,77 @@ class StudentController extends Controller
 
     public function search(Request $request)
     {
-        if($request->ajax())
+      if($request->ajax())
+      {
+        $output = "";
+        $search = $request->get('search');
+        if($search != '')
         {
-          $output = '';
-          $search = $request->get('search');
-          if($search != '')
-          {
-            $data = DB::table('users')
-                      ->where('firstName', 'LIKE', '%'.$search.'%')
-                      ->orWhere('lastName', 'LIKE', '%'.$search.'%')
-                      ->orWhere('student_id', 'LIKE', '%'.$search.'%')
-                      ->orWhere('gradeLevel', 'LIKE', '%'.$search.'%')
-                      ->orWhere('className', 'LIKE', '%'.$search.'%')
-                      ->orWhere('email', 'LIKE', '%'.$search.'%')
-                      ->paginate(5);
-          }
-          else{
-            $data = DB::table('users')
-                      ->paginate(5);
-          }
-          $total_row = $data->count();
-          if($total_row > 0) 
-          {
-            foreach($data as $row)
-            {
-              $output .= '
-                    <tr>
-                      <td>'.$row->student_id.'</td>
-                      <td>'.$row->gradeLevel.'</td>
-                      <td>'.$row->firstName.'</td>
-                      <td>'.$row->lastName.'</td>
-                      <td>'.$row->email.'</td>
-                    </tr>
-               ';
-            }
-          }
-          else 
-          {
-            $output = "<tr> 
-                        <td align='center' colspan='5'> No results were found </td>
-                      </tr>";
-          }
-          return response()->json($output);
+          $data = DB::table('users')
+                    ->where('firstName', 'LIKE', '%'.$search.'%')
+                    ->where('role_id', 1)
+                    ->paginate(5);
         }
+        else {
+          $data = DB::table('users')
+                  ->where('role_id', 1)
+                  ->paginate(5);
+        }
+
+        $total_rows = $data->count();
+        if($total_rows > 0)
+        {
+          foreach($data as $row)
+          {
+            $output .= '<tr>
+                <td><a href="/student/'.$row->student_id.'">'.$row->student_id.'</a></td>
+                <td>'.$row->gradeLevel.'</td>
+                <td>'.$row->firstName.'</td>
+                <td>'.$row->lastName.'</td>
+                <td>'.$row->email.'</td>
+                <td> <button class="btn btn-warning"><i class="fa fa-pencil-square-o"> </i>Edit</button></td>
+                </tr>';
+          }
+        }
+        else {
+          $output = "<tr><td coslpan='6'>No results were found </td> </tr>";
+        }
+        return response()->json($output);
+      }
+    }
+
+    public function select($student_id, $gradelevel)
+    {
+     
+    $teacher = DB::table('users')
+                ->where('role_id', 3)
+                ->count();
+    $student = DB::table('users')
+                ->where('role_id', 1)
+                ->count();
+    $user = DB::table('users')
+                ->where('student_id', $student_id)
+                ->groupBy('student_id')
+                ->get();
+    $first = DB::table('firstgradings')
+                ->where('student_id', $student_id)
+                ->where('gradingperiod', 1)
+                ->groupBy('subjectCode')
+                ->get();
+    $second = DB::table('firstgradings')
+                ->where('student_id', $student_id)
+                ->where('gradingperiod', 2)
+                ->groupBy('subjectCode')
+                ->get();
+   
+
+    // $subject = DB::table('search_subjects')
+    //             ->where('gradeLevel', $gradelevel)
+    //             ->get();
+    // $finalgrade = DB::table('firstgradings')
+    //             ->where('student_id', $student_id)
+    //             ->get();
+
+      return view('Dashboard.viewstudent', compact('user', 'teacher', 'student', 'first', 'second'));
     }
 }

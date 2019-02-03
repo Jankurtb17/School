@@ -201,17 +201,15 @@ class MakeGrades extends Controller
 
     public function test($studentgrade, $classname)
     {   
-      $encrypt = Crypt::encryptString($studentgrade);
-      $decrypt = Crypt::decryptString($encrypt);
       $advisory = DB::table('advisories')
                 ->where('employee_id', Auth()->user()->employee_id)
-                ->where('gradeLevel', '=', $decrypt)
+                ->where('gradeLevel', '=', $studentgrade)
                 ->where('className', '=', $classname)
                 ->get();
       // $subject = DB::table('search_subjects')
               
         $user = DB::table('users')
-                    ->where('gradeLevel','=', $decrypt)
+                    ->where('gradeLevel','=', $studentgrade)
                     ->get();
         return view('teacher.studentgrades', compact('user', 'advisory'));
     }

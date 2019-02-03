@@ -145,6 +145,7 @@ class AddTeacherController extends Controller
                   <td>'.$row->firstName.'</td>
                   <td>'.$row->lastName.'</td>
                   <td>'.$row->email.'</td>
+                  </tr>
             ';
           }
         }
@@ -154,4 +155,23 @@ class AddTeacherController extends Controller
         return response()->json($output);
       }
     }
+
+    public function select($employee_id)
+    {
+      $teacher = DB::table('users')
+                ->where('role_id', 3)
+                ->count();
+      $student = DB::table('users')
+                ->where('role_id', 1)
+                ->count();
+      $advisory = DB::table('advisories')
+                ->join('search_subjects', 'advisories.subjectCode', '=', 'search_subjects.subjectCode')
+                ->where('advisories.employee_id', $employee_id)
+                ->get();
+      $user= DB::table('users')
+                ->where('employee_id', $employee_id)
+                ->get();
+       return view('Dashboard.viewteacher', compact('user','student', 'teacher', 'advisory'));
+    }
+
 }

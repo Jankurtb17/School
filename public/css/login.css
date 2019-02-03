@@ -84,7 +84,7 @@ input:focus {
 }
 .overlay {
     margin-top: 160px;
-    margin-left: 80px;
+    margin-left: 50px;
 }
 
 .overlay-2 {
@@ -121,25 +121,37 @@ a:hover {
     border: none;
     outline: none;
 }
-.btn-login {
-}
 
-.overlay2 {
-    width: 400px;
-    position: relative;
-    top: 150px;
-}
 .overlay2 h2 {
     text-transform: uppercase;
     line-height: 2;
     font-family: "ROBOTO";
-    font-size: 30px;
+    font-size: 40px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-left: 80px;
+    line-height: 2;
+}
+.overlay2 {
+    position: relative;
+    top: 180px;
+    left: 40px;
+}
+.overlay-1 h2 {
+    text-transform: uppercase;
+    line-height: 2;
+    font-family: "ROBOTO";
+    font-size: 35px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 2;
+    margin-left: 30px;
+}
+
+.overlay2 .input-group {
+    margin-left: 50px;
 }
 .overlay-3 {
-    margin-top: 70px;
+    margin-top: 80px;
 }
 .overlay-main {
     width: 400px;
@@ -161,7 +173,6 @@ a:hover {
     left: 80px;
 }
 .email {
-    width: 250px;
     font-family: "roboto";
 }
 
@@ -177,16 +188,24 @@ a:hover {
 @media screen and (max-width: 575.98px) {
     .card {
         position: absolute;
-        left: 50px;
+        top: 50px;
+        left: 35px;
+        width: 300px;
+        height: 80vh;
     }
     .login-view {
         display: none;
     }
     .overlay {
         margin-top: 50px;
-        margin-left: 50px;
+        margin-left: 20px;
     }
-
+    .input-group {
+        width: 250px;
+    }
+    .d-flex {
+        margin-right: 30px;
+    }
     .alert-danger {
         width: 80%;
     }
@@ -196,7 +215,7 @@ a:hover {
     h1 {
         text-transform: uppercase;
         line-height: 2;
-        font-family: "Open Sans", sans-serif;
+        font-family: "ROBOTO";
         font-size: 40px;
         letter-spacing: 2px;
         text-transform: uppercase;
@@ -208,6 +227,7 @@ a:hover {
         position: absolute;
         left: 100px;
     }
+
     .login-view {
         width: 90%;
     }
