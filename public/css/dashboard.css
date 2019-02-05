@@ -24,11 +24,15 @@ body {
     z-index: -1;
     width: 100%;
 }
-.navbar-top a {
+.navbar-nav .navbar-na .navbar-naa {
     text-decoration: none;
-    text-transform: uppercase;
-    color: #333;
+    color: #fff;
 }
+.dropdown-menu a {
+    color: #333;
+    text-transform: uppercase;
+}
+
 .dropdown-item:hover {
     background-color: #333;
     color: #fff;
@@ -108,6 +112,7 @@ ol li a:hover {
     flex-direction: column;
     width: 80%;
     left: 330px;
+    height: 90vh;
 }
 .dashboard h1 {
     font-size: 24px;
@@ -120,6 +125,8 @@ ol li a:hover {
 .card {
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
     flex-direction: row;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 #card-subjectgrade {
     position: relative;
@@ -157,10 +164,15 @@ ol li a:hover {
     -ms-overflow-style: -ms-autohiding-scrollbar;
     font-family: "roboto";
 }
-thead {
-    background-color: #7f6769;
-    color: #fff;
+::-webkit-scrollbar {
+    width: 7px;
 }
+
+::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 3px;
+}
+
 #message {
     margin-left: 20px;
 }
@@ -295,6 +307,10 @@ table a:hover {
     position: relative;
 }
 
+.alert-danger {
+    background-color: #dd4b39 !important;
+    color: #fff;
+}
 .col-lg-2 {
     text-align: center;
 }
@@ -318,4 +334,7 @@ table a:hover {
 
 #information-icon {
     font-size: 20px;
+}
+.ui-form {
+    display: block;
 }

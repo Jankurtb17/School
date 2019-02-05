@@ -28,11 +28,12 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::resource('/student', 'StudentController');
     Route::post('/student/fetch', 'StudentController@fetch')->name('dynamicdependent3.fetch');
     Route::resource('/schoolyear', 'schoolyr');
-    Route::resource('/subject', 'subjectview');
+    // Route::resource('/subject', 'subjectview');
     Route::post('/subject/fetch', 'subjectview@fetch')->name('dynamicdependent.fetch');
     Route::resource('/gradelevel', 'yearlevel');
     Route::resource('/advisory', 'teacheradvisory');
     Route::post('/advisory/fetch', 'teacheradvisory@fetch')->name('dynamicdependent2.fetch');
+    Route::post('/advisory/subjectcode', 'teacheradvisory@subjectCode')->name('gradelevel.subjectcode');
     Route::resource('/examination', 'Examination');
     Route::get('/studentgrades', 'StudentGrades@index');
     });
@@ -48,9 +49,11 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::post('/studentgrades/grade', 'MakeGrades@store')->name('studentgrades.grade');
     Route::get('/subjectgrade/search', 'ViewSubjectGrade@studentSearch')->name("student.search");
     Route::post('/subjectgrade/fetch', 'ViewSubjectGrade@fetch')->name('classname.search');
+    Route::get('/viewgrades/search', 'SubmittedGrades@search')->name('find.grades');
     Route::post('/viewgrades/fetch', 'SubmittedGrades@fetch')->name('find.advisory');
     Route::get('/viewgrades ', 'SubmittedGrades@index');
-    Route::get('/viewgrades/search', 'SubmittedGrades@search')->name('find.grades');
+    Route::post('/viewgrades', 'SubmittedGrades@sendGrade')->name('send.grade');
+    
   });
     //studnets
   Route::group(['middleware' => 'Student'], function() {

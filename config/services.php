@@ -40,4 +40,10 @@ return [
       'client_secret' => '41b0c38a123e44396cf81552460895e5',
       'redirect'      => 'http://localhost:8000/facebook/login',
     ],
+    
+    'nexmo' => [
+      'key' => env('NEXMO_KEY'),
+      'secret' => env('NEXMO_SECRET'),
+      'sms_from' => env('NEXMO_NUMBER'),
+  ],
 ];

@@ -7,6 +7,8 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <link rel="stylesheet" href="{{ asset('css/dashboard2.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
   <title>Document</title>
 </head>
 <body>
@@ -155,7 +157,26 @@
     <div class="row">
         <div class="card">
           <div class="card-body">
-            Melody
+                <table id="example" class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     @foreach ($user as $users)
+                         <tr>
+                           <td>{{$users->firstName}}</td>
+                           <td>{{$users->lastName}}</td>
+                           <td>{{$users->middleName}}</td>
+                           <td>{{$users->email}}</td>
+                         </tr>
+                     @endforeach
+                    </tbody>
+                </table>
           </div>
         </div>
       </div>
@@ -163,7 +184,13 @@
   </div>
   
   <script src="{{ asset('js/app.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
   <script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
   function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('active');
   }

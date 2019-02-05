@@ -55,6 +55,9 @@
             </div>
           </form>
 
+          <form>
+            @csrf
+          <div class="table-wrapper-scroll-y">
           <table class="table">
             <thead>
               <tr>
@@ -62,12 +65,21 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Grade</th>
+                <th>Remarks</th>
+                <th>Send Grade</th>
               </tr>
             </thead>
             <tbody>
-
+              
             </tbody>
           </table>
+          </div>
+
+          <div class="form-group">
+              <button class="btn btn-dark" type="submit">Send Grade</button>
+          </div>
+          
+          </form>
             
             </div> 
           </div>
@@ -79,6 +91,10 @@
 @endSection
 @section('scripts')
 <script> 
+$(document).ready(function() {
+  $('table').hide();
+  $('.btn-dark').hide();
+});
 $(document).on('change', '.dynamic', function() {
   if($(this).val() != '') 
   {
@@ -117,10 +133,28 @@ $('form').on('submit', function(e) {
       "subjectCode": $('#subjectCode').val()
     },
     success:function(data){
+      $('table').show();
+      $('.btn-dark').show();
       $('tbody').html(data);
     }
   })
 
+});
+
+$(document).on('submit', '.btn-dark', function() {
+  $.ajax({
+      url: "{{ route('send.grade')}}",
+      type: "POST",
+      data: {
+        "id": $('#student_id').val(),
+        "contactNumber": $('#contactNumber').val(),
+        "_token": $('input[name=_token]').val()
+      },
+      success:function(data)
+      {
+
+      }
+  }); 
 });
 </script>
 @endsection

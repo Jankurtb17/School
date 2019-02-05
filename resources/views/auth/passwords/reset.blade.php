@@ -21,35 +21,57 @@
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="form-group">
-                          <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" placeholder="Email" required autofocus>
-                          @if ($errors->has('email'))
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $errors->first('email') }}</strong>
+                        <div class="form-group" id="reset">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                  <i class="fa fa-envelope"></i>
                               </span>
-                          @endif
+                            </div>
+                            <input id="email" type="email" class="col-lg-8 form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" placeholder="Email" required autofocus>
+                            @if ($errors->has('email'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
+                          </div>
                         </div>
 
-                        <div class="form-group">
-                          <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password" required>
-                          @if ($errors->has('password'))
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $errors->first('password') }}</strong>
-                              </span>
-                          @endif
-                        </div>
+                          <div class="form-group" id="reset">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                              </div>
+                              <input id="password" type="password" class="col-lg-8 form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password" required>
+                              @if ($errors->has('password'))
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $errors->first('password') }}</strong>
+                                  </span>
+                              @endif
+                            </div>
+                          </div>
 
-                        <div class="form-group">
-                          <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
-                        </div>
+                          <div class="form-group" id="reset">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                              </div>
+                            <input id="password-confirm" type="password" class="col-lg-8 form-control" name="password_confirmation" placeholder="Confirm Password" required>
+                          </div>
 
-                        <div class="form-group row mb-0 d-flex">
+                        <div class="form-group row mb-0 d-flex" id="button">
                           <button type="submit" class="btn btn-primary ">
-                              {{ __('Reset Password') }}
+                              RESET PASSWORD
                           </button>
                         </div>
+
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

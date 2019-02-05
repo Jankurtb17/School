@@ -14,7 +14,7 @@ class ListSubject extends Controller
                     ->where('gradeLevel', 1)
                     ->get();
       $grade2 = DB::table('search_subjects')
-                    ->where('gradeLevel', 2)
+      ->where('gradeLevel', 2)
                     ->get();
       $grade3 = DB::table('search_subjects')
                     ->where('gradeLevel', 3)

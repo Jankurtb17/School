@@ -72,7 +72,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"> Submit </button>                    
-                    <button type="button" class="btn btn-dark" data-dismiss="modal"> Cancel </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> Cancel </button>
                   </form>
                   </div>
                 </div>
@@ -119,9 +119,7 @@
                 <div class="modal-body">
                   <form method="POST" class="form-horizontal" role="modal">
                     @csrf
-                    <div class="form-group hide">
-                      <input type="text" class="form-control" id="id" name="id" disabled>
-                    </div>
+                      <input type="hidden" class="form-control" id="id" name="id">
                     <div class="form-group">
                       <label>  School Year </label>
                       {{-- <input type="text" class="form-control" id="a" name="schoolYear" required> --}}

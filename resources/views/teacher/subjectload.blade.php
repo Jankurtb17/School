@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.teacher')
 
 @section('content')
   @include('Pages.sidebar')
@@ -19,43 +19,36 @@
             
 
            <div class="form-group">
-              <input type="text" name= "search" class="form-control col-lg-2 float-left mb-2" id="search" placeholder="Search">
               @if(session()->has('notif'))
-              <div class="row float-right mr-2">
                 <div class="alert alert-success" role="alert">
                     <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
-                    <strong>Grade</strong> {{session()->get('notif')}}
+                    <i class="fa fa-check"></i><strong>Grade</strong> {{session()->get('notif')}}
                 </div>
-              </div>
               @endif
            </div>
 
            <div class="form-group">
             @if(session()->has('error'))
-            <div class="row float-right mr-2">
               <div class="alert alert-danger" role="alert">
                   <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
                   <strong>Grade</strong> {{session()->get('error')}}
               </div>
-            </div>
             @endif
           </div>
 
           <div class="form-group">
             @if(count($errors))
-            <div class="row float-right mr-2">
               <div class="alert alert-danger" role="alert">
                   <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
                   @foreach ($errors->all() as $error)
                       <li> {{ $error }} </li>
                   @endforeach
               </div>
-            </div>
             @endif
           </div>
 
             <div class="table-responsive mt-3">
-              <table class="table table-hover">
+              <table class="table table-hover" id="example">
                   <thead>
                     <tr>
                       <th>Id</th>
@@ -78,10 +71,7 @@
               </table>
             </div>
 
-
-            <div class="mt-2">
-              {{-- {{ $advisory->links() }} --}}
-            </div>
+         
           </div>
           </div>
         </div>
@@ -91,8 +81,10 @@
   </div>
   @endSection
   @section('scripts')
- 
   <script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
       $(document).on('keyup', '#search', function() {
         
         value = $(this).val();

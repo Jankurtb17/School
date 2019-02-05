@@ -49,9 +49,9 @@
               <li class="nav-item">
                   <a class="nav-link {{ setActive('advisory', 'current') }}" href="/advisory"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers Advisory </a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link {{ setActive('subject', 'current') }}" href="/subject"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Subject </a>
-              </li>
+              </li> --}}
               <li class="nav-title"> Settings </li>
               <li class="nav-item">
                 <a class="nav-link" href="/settings"> <i class="fa fa-cog" aria-hidden="true" id="icon-dashboard"></i> Account Settings </a>
@@ -99,13 +99,13 @@
   <div class="navbar-top">
     <ul class="navbar-nav">
       @if (isset(Auth::user()->firstName))
-        <li>
-          <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-            {{ Auth::user()->firstName }}
-          </a>
+        <li class="navbar-na">
+          <a class="navbar-naa" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+            {{ Auth::user()->firstName }}    <i class="fa fa-caret-down" aria-hidden="true"></i>
+          </a> 
           <div class="dropdown-menu" id="dropdown">
            
-            <a class="dropdown-item"  href="{{ route('logout') }}"
+          <a class="dropdown-item"  href="{{ route('logout') }}"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">
               <i class="fa fa-sign-out" aria-hidden="true"></i> {{ __('Logout') }}

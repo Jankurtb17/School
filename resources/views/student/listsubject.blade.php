@@ -34,37 +34,55 @@
                   <table class="table">
                     <thead>
                       <tr>
+                        <th>Level</th>
                         <th>Subject Code</th>
                         <th>Subject Description</th>
                         <th>Remarks </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <td colspan="3" id="level"><strong>Grade 1 </strong></td>
+                      <tr>
+                      <td colspan="4" id="level"><strong>GRADE 1 </strong></td>
                       @foreach ($grade1 as $grade1s)
                         <tr>
+                          <td></td>
                           <td>{{ $grade1s->subjectCode}}</td>
                           <td>{{ $grade1s->description}}</td>
                           <td></td>
                         </tr>
                       @endforeach
-                      <td colspan="3" id="level"><strong>GRADE 2 </strong></td>
+                      </tr>
+                      <tr>
+                      <td colspan="4" id="level"><strong>GRADE 2 </strong></td>
                       @foreach ($grade2 as $grade2s)
                         <tr>
+                          <td></td>
                           <td>{{ $grade2s->subjectCode}}</td>
                           <td>{{ $grade2s->description}}</td>
                           <td></td>
                         </tr>
                       @endforeach
-                      
-                    <td colspan="3" id="level">Grade 3</td>
+                    </tr>
+                    <tr>
+                    <td colspan="4" id="level"> <strong> GRADE 3 </strong></td>
                     @foreach ($grade3 as $grade3e)
                     <tr>
+                      <td></td>
                       <td>{{ $grade3e->subjectCode}}</td>
                       <td>{{ $grade3e->description}}</td>
                       <td></td>
                     </tr>
                   @endforeach
+                </tr>
+                <tr>
+                    <td colspan="4" id="level"><strong>GRADE 4 </strong></td>
+                </tr>
+                <tr>
+                    <td colspan="4" id="level"><strong>GRADE 5 </strong></td>
+                </tr>
+                <tr>
+                    <td colspan="4" id="level"><strong>GRADE 6 </strong></td>
+                </tr>
                     </tbody>
                   </table>
               </div>

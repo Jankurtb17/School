@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Nexmo\Client;
 
 class SubmittedGrades extends Controller
 {
@@ -55,13 +56,16 @@ class SubmittedGrades extends Controller
           {
             $output .= '
                     <tr>
-                      <td>'.$row->student_id.'</td>
-                      <td>'.$row->firstName.'</td>
+                      <td> <input type="hidden" value="'.$row->student_id.'" id="student_od">'.$row->student_id.'</td>
+                      <td> '.$row->firstName.'</td>
                       <td>'.$row->lastName.'</td>
-                      <td>'.$row->grade.'</td>
-                    </tr>';
-
+                      <td> <input type="hidden" value="grade['.$row->grade.']">'.$row->grade.'</td>
+                      <td></td>
+                      <td> <input type="checkbox" value="contactNumber['.$row->phone_number.']"></td>
+                    </tr>
+                    ';
           }
+          
           return response()->json($output);
       }
       else {
@@ -69,5 +73,7 @@ class SubmittedGrades extends Controller
         return response()->json($output);
       }
      
+   
+
     }
 }

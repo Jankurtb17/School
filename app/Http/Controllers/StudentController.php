@@ -34,7 +34,7 @@ class StudentController extends Controller
               ->count();
         $students = DB::table('Users')
                       ->where('role_id', 1)
-                      ->paginate(5);
+                      ->get();
         $yearlevel = yearlevels::all();
         return view('Dashboard.student', compact('students', 'yearlevel', 'student', 'admin', 'teacher'));
     }
@@ -66,7 +66,7 @@ class StudentController extends Controller
             'gender'                => 'required|string',
             'email'                 => 'required|string|unique:users',
             'password'              => 'required|string',
-            'contactNumber'         => 'required|string',
+            'phone_number'         => 'required|string',
         ]);
             User::create([
             'user_type'           => 'student',
@@ -80,7 +80,7 @@ class StudentController extends Controller
             'gender'              =>$request->get('gender'),
             'email'               =>$request->get('email'),
             'password'            =>bcrypt($request->get('password')),
-            'contactNumber'       =>$request->get('contactNumber'),
+            'phone_number'        =>$request->get('phone_number'),
             'remember_token'      => str_random(20)
         ]);
         session()->flash('notif', ' successfully added');

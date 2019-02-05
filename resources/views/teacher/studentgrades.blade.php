@@ -3,7 +3,6 @@
 
 @section('content')
   @include('Pages.sidebar')
-  @can('isTeacher')
         <div class="content">
           <div class="sidebar-content">
           </div>
@@ -94,13 +93,9 @@
   <script>
      function isNumber(evt) {
       var ch = String.fromCharCode(evt.which);
-
-
       if(!/^[0-9.\b]+$/.test(ch)) {
         evt.preventDefault();
       }
     }
-
   </script>
 @endsection
-@endCan

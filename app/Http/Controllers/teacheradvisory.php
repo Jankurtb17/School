@@ -27,7 +27,10 @@ class teacheradvisory extends Controller
       $user = DB::Table('Users')
                 ->where('role_id', 3)
                 ->get();
-      $advisory = advisory::paginate(6);
+      $advisory = DB::table('search_subjects')
+                    ->join('advisories', 'search_subjects.subjectCode', '=', 'advisories.subjectCode')
+                    ->groupBy('advisories.subjectCode')
+                    ->get();
       $yearlevel = DB::table('yearlevels')
                       ->groupBy('schoolYear')
                       ->get();
@@ -139,7 +142,7 @@ class teacheradvisory extends Controller
                   ->where($select, $value)
                   ->groupBy($dependent)
                   ->get();
-      $output = '<option value="" selected disabled>-Select Section Name- </option>';
+      $output = '<option value="" selected disabled>-Select '.ucfirst($dependent).'- </option>';
       foreach($data as  $row)
       {
         $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';

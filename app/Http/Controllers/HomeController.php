@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use App\User;
+use Nexmo\Laravel\Facade\Nexmo;
+
 class HomeController extends Controller
 {
     /**
@@ -62,6 +65,7 @@ return view('Dashboard.home', compact('admin', 'teacher', 'student'));
     
     public function dashboard2() 
     {
+      
       return view('Dashboard.sidebar');  
     }
     public function showChangePasswordForm()

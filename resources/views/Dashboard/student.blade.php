@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
   <link rel="stylesheet" href="{{ asset('css/addmodal.css')}}">
   <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
   <title>Document</title>
 </head>
 <body>
@@ -40,14 +41,7 @@
                 @endforeach
               </div>
             @endif
-            <div class="ui-form">
-              <div class="form-group">
-                <input type="text" class="form-control col-lg-2 float-right" placeholder="Search" name="search" id="search">
-              </div>
-            <button type="button" class="btn btn-primary mb-2 float-left" data-toggle="modal" data-target="#modalFade3">
-                Add Student 
-            </button>
-            </div>
+         
             <div class="modal fade" id="modalFade3" tabindex = "-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -127,7 +121,7 @@
                                 </select>
                               </div>
                           <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="Contact Number" name="contactNumber" required>
+                            <input type="text" class="form-control" placeholder="Contact Number" name="phone_number" required>
                           </div>
                         </div>
                      </div>
@@ -159,15 +153,21 @@
                       </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
                     <button type="submit" class="btn btn-primary" name="submit"> Submit </button>                    
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
                   </form>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="table-body">
-              <table class="table table-hover">
+ 
+              <div class="ui-form">
+              <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade3">
+                  <i class="fa fa-plus" aria-hidden="true"></i> Add Student 
+              </button>
+              </div>
+              <div class="table-body">
+              <table class="table table-hover" id="example">
                 <thead>
                   <tr>
                     <th>ID Number</th>
@@ -195,9 +195,6 @@
                   @endforeach
                 </tbody>
               </table>
-                <div class="mt-2">
-                    {{ $students->links() }}
-                </div>
               </div>
             </div>
             </div>
@@ -209,6 +206,9 @@
   </div>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
   <script>
     $(document).on('change', '.dynamic', function() {
       if($(this).val() != ''){
@@ -232,21 +232,24 @@
               });
           }
     });
-
-    $(document).on('keyup', '#search', function() {
-      value = $(this).val();
-      $.ajax({
-          url: "{{ route('find.student')}}",
-          type: "GET",
-          data: {
-            "_token": $('input[name=_token]').val(),
-            "search": value
-          },
-          success:function(data) {
-            $('tbody').html(data);
-          }
-      });
+    $(document).ready(function() {
+        $('#example').DataTable();
     });
+
+    // $(document).on('keyup', '#search', function() {
+    //   value = $(this).val();
+    //   $.ajax({
+    //       url: "{{ route('find.student')}}",
+    //       type: "GET",
+    //       data: {
+    //         "_token": $('input[name=_token]').val(),
+    //         "search": value
+    //       },
+    //       success:function(data) {
+    //         $('tbody').html(data);
+    //       }
+    //   });
+    // });
   
   </script>  
 </body>

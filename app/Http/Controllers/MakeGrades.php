@@ -77,7 +77,7 @@ class MakeGrades extends Controller
             }
            
             DB::table('firstgradings')->insert($datas);
-              return redirect('/subjectload')->with('notif', 'successfully added! ');
+              return redirect('/subjectload')->with('notif', 'successfully encoded! ');
           }
       }
       elseif($gradingperiod == 2){
@@ -100,7 +100,7 @@ class MakeGrades extends Controller
                 );
               }
               DB::table('firstgradings')->insert($datas);
-                return redirect('/subjectload')->with('notif', 'successfully added! ');
+                return redirect('/subjectload')->with('notif', 'successfully encoded! ');
             }
         }
         elseif($gradingperiod == 3){
@@ -123,7 +123,7 @@ class MakeGrades extends Controller
                   );
                 }
                 DB::table('firstgradings')->insert($datas);
-                  return redirect('/subjectload')->with('notif', 'successfully added! ');
+                  return redirect('/subjectload')->with('notif', 'successfully encoded! ');
               }
           }
           elseif($gradingperiod == 4){
@@ -145,7 +145,7 @@ class MakeGrades extends Controller
                     );
                   }
                   DB::table('firstgradings')->insert($datas);
-                    return redirect('/subjectload')->with('notif', 'successfully added! ');
+                    return redirect('/subjectload')->with('notif', 'successfully encoded! ');
                 }
             }
 

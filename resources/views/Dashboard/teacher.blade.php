@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.teacher')
 
 @section('content')
 @can('isAdmin')
@@ -18,8 +18,7 @@
             @if(session()->has('success'))
               <div class="alert alert-success" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                  <h4><i class="fa fa-check"> </i> Alert!</h4>
-                  <strong>Teacher </strong> {{session()->get('success')}}
+               <i class="fa fa-check"> </i> <strong>Teacher </strong> {{session()->get('success')}}
               </div>
             @endif  
 
@@ -32,8 +31,7 @@
               </div>
             @endif
             <div class="ui-form">
-            <input type="text" class="form-control float-right col-lg-2" name="search" id="search" placeholder="Search">
-            <button type="button" class="btn btn-primary mb-2 float-left" data-toggle="modal" data-target="#modalFade5">
+            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade5">
                 Add Teacher 
             </button>
             </div>
@@ -134,6 +132,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -143,6 +142,7 @@
                     <td>{{ $users->firstName }}</td>
                     <td>{{ $users->lastName }}</td>
                     <td>{{ $users->email}}</td>
+                    <td><a href="#" class="btn btn-warning"><i class="fa fa-pencil-square-o"> </i>EDIT </a></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -161,6 +161,9 @@
 @endsection
 @section('scripts')
 <script>
+  $(document).ready(function() {
+      $('#example').DataTable();
+  });
   $(document).on('keyup', '#search', function() {
     value = $(this).val();
     $.ajax({

@@ -16,19 +16,24 @@
                     <li class="breadcrumb-item active" aria-current="page">School Year</li>
                   </ol>
                 </nav>
+                <div class="ui-form">
                 @if(session()->has('success'))
-                  <div class="alert alert-success" role="alert">
+                  <div class="alert alert-success float-right mr-2" role="alert">
                     <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
                     <strong> School Year </strong> {{ session()->get('success')}}
                   </div>
                 @endif
 
                 @if(session()->has('error'))
-                  <div class="alert alert-danger" role="alert">
+                  <div class="alert alert-danger float-right mr-2" role="alert">
                     <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
                     <strong> School Year </strong> {{ session()->get('error')}}
                   </div>
                 @endif
+                <button type="button" class="btn btn-primary mb-2 float-left" data-toggle="modal" data-target="#modalFade1">
+                    Add school year 
+                </button>
+                </div>
 
                 @if(count($errors) > 0)
                   <button class="close" data-dismiss="alert"> &times; </button>
@@ -36,9 +41,7 @@
                         <div class="alert alert-danger">{{ $error}} </div>
                     @endforeach
                 @endif
-                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade1">
-                    Add school year 
-                </button>
+            
                 <div class="modal fade" id="modalFade1" tabindex = "-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
@@ -56,7 +59,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" name="submit"> Submit </button>     
-                        <button type="button" class="btn btn-dark" data-dismiss="modal"> Cancel </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"> Cancel </button>
                       </form>
                       </div>
                     </div>
@@ -101,10 +104,8 @@
                   <div class="modal-body">
                     <form method="POST" class="form-horizontal" role="modal">
                       @csrf
-                      <div class="form-group hide">
-                        <label>ID </label>
-                        <input type="text" class="form-control" id="id" name="id" disabled>
-                      </div>
+                     
+                        <input type="hidden" class="form-control" id="id" name="id">
 
                       <div class="form-group">
                         <label>School Year </label>
