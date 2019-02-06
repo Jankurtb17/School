@@ -161,12 +161,13 @@
               </div>
             </div>
  
-              <div class="ui-form">
-              <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade3">
-                  <i class="fa fa-plus" aria-hidden="true"></i> Add Student 
-              </button>
-              </div>
-              <div class="table-body">
+             <div class="form-group">
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalFade3">
+                   <i class="fa fa-plus" aria-hidden="true"></i> Add Student 
+               </button>
+               <a href="{{ route('export.student')}}" class="btn btn-success"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export</a>
+             </div>
+              <div class="table-wrapper-scroll-y">
               <table class="table table-hover" id="example">
                 <thead>
                   <tr>
@@ -187,7 +188,7 @@
                       <td>{{ $student->firstName}} </td>
                       <td>{{ $student->lastName}} </td>
                       <td>{{ $student->email}} </td>
-                      <td></td>
+                      <td><span class="badge badge-success">Active</span></td>
                       <td>
                       <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $student->student_id}}" data-level="{{ $student->gradeLevel }}" data-first="{{ $student->firstName }}" data-last="{{ $student->lastName }}" data-email="{{ $student->email }}" data-password="{{ $student->password }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
                       </td>
@@ -196,7 +197,6 @@
                 </tbody>
               </table>
               </div>
-            </div>
             </div>
           </div>
         </div>

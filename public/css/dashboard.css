@@ -125,8 +125,6 @@ ol li a:hover {
 .card {
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
     flex-direction: row;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 #card-subjectgrade {
     position: relative;
@@ -161,6 +159,7 @@ ol li a:hover {
     display: block;
     max-height: 60vh;
     overflow-y: auto;
+    overflow-x: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     font-family: "roboto";
 }

@@ -31,7 +31,7 @@
                   </div>
                 @endif
                 <button type="button" class="btn btn-primary mb-2 float-left" data-toggle="modal" data-target="#modalFade1">
-                    Add school year 
+                   <i class="fa fa-plus"></i> Add school year 
                 </button>
                 </div>
 

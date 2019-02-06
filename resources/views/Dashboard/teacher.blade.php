@@ -30,10 +30,11 @@
                   @endforeach
               </div>
             @endif
-            <div class="ui-form">
-            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade5">
+            <div class="form-group">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalFade5">
                 Add Teacher 
             </button>
+            <a href="{{ route('export.teacher')}}" class="btn btn-success">  <i class="fa fa-file-excel-o" aria-hidden="true"> </i> Export</a>
             </div>
 
             <div class="modal fade" id="modalFade5" tabindex = "-1" role="dialog" aria-hidden="true">
@@ -124,7 +125,7 @@
               </div>
             </div>
           </div>
-          <div class="table-body">
+          <div class="table-wrapper-scroll-y">
           <table class="table table-hover" id="example">
             <thead>
               <tr>
@@ -132,6 +133,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -142,14 +144,13 @@
                     <td>{{ $users->firstName }}</td>
                     <td>{{ $users->lastName }}</td>
                     <td>{{ $users->email}}</td>
-                    <td><a href="#" class="btn btn-warning"><i class="fa fa-pencil-square-o"> </i>EDIT </a></td>
+                    <th><span class="badge badge-success">Active</span></th>
+                    <td><a href="#" class="btn btn-warning" data-target="#modalFade" data-id="{{ $users->id }}" data-employee="{{ $users->employee_id}}"><i class="fa fa-pencil-square-o"> </i>EDIT </a></td>
                 </tr>
                 @endforeach
             </tbody>
           </table>
-          <div class="mt-2">
-             {{ $user->links() }}
-          </div>
+         
           </div>
           </div>
           </div>

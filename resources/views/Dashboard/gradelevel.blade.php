@@ -29,7 +29,7 @@
           @endif
 
           <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
-                Add grade level
+               <i class="fa fa-plus"></i> Add grade level
             </button>
             <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-sm" role="document">

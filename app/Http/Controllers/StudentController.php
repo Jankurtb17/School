@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +36,7 @@ class StudentController extends Controller
               ->count();
         $students = DB::table('Users')
                       ->where('role_id', 1)
+                      ->orderBy('gradeLevel', 'asc')
                       ->get();
         $yearlevel = yearlevels::all();
         return view('Dashboard.student', compact('students', 'yearlevel', 'student', 'admin', 'teacher'));
@@ -163,11 +166,13 @@ class StudentController extends Controller
           $data = DB::table('users')
                     ->where('firstName', 'LIKE', '%'.$search.'%')
                     ->where('role_id', 1)
+                    ->groupBy('gradeLevel')
                     ->paginate(5);
         }
         else {
           $data = DB::table('users')
                   ->where('role_id', 1)
+                  ->groupBy('gradeLevel')
                   ->paginate(5);
         }
 
@@ -226,5 +231,11 @@ class StudentController extends Controller
     //             ->get();
 
       return view('Dashboard.viewstudent', compact('user', 'teacher', 'student', 'first', 'second'));
+    }
+
+    public function excel()
+    {
+     
+      return Excel::download(new UsersExport, 'Students.xlsx');
     }
 }

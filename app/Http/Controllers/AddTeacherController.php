@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use Session;
+use App\Exports\TeacherExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AddTeacherController extends Controller
 {
@@ -26,7 +28,7 @@ class AddTeacherController extends Controller
               ->count();
        $user = DB::table('users')
                     ->where('role_id', 3)
-                    ->paginate(7);
+                    ->get();
        return view('Dashboard.teacher', compact('user', 'teacher', 'student'));
     }
 
@@ -172,6 +174,11 @@ class AddTeacherController extends Controller
                 ->where('employee_id', $employee_id)
                 ->get();
        return view('Dashboard.viewteacher', compact('user','student', 'teacher', 'advisory'));
+    }
+
+    public function excel()
+    {
+      return Excel::download(new TeacherExport, 'Teacher.xlsx');
     }
 
 }

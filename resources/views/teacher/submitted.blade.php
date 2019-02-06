@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.teacher')
 
 
 @section('content')
@@ -50,7 +50,8 @@
                   </div>
                 </div>
               <div class="col-lg-4">
-                <button type="submit" name="submit" class="btn btn-success">Proceed</button>
+                <button type="submit" name="submit" class="btn btn-primary">Proceed</button>
+                <a href="{{ Route('export.grades')}}" class="btn btn-success">Export</a>
               </div>
             </div>
           </form>
@@ -58,7 +59,7 @@
           <form>
             @csrf
           <div class="table-wrapper-scroll-y">
-          <table class="table">
+          <table class="table" id="example">
             <thead>
               <tr>
                 <th>Student Number</th>
@@ -92,8 +93,8 @@
 @section('scripts')
 <script> 
 $(document).ready(function() {
-  $('table').hide();
   $('.btn-dark').hide();
+  $('#example').DataTable();
 });
 $(document).on('change', '.dynamic', function() {
   if($(this).val() != '') 

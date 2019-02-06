@@ -85,8 +85,8 @@
                   <thead>
                     <tr>
                       <th> ID</th>
-                      <th> Grade Level</th>
                       <th> School Year</th>
+                      <th> Grade Level</th>
                       <th> Class Name</th>
                       <th>Subject code</th>
                       <th> Teacher ID</th>

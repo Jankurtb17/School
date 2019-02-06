@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Nexmo\Client;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class SubmittedGrades extends Controller
 {
@@ -49,6 +51,8 @@ class SubmittedGrades extends Controller
                 ->where('firstgradings.employee_id', Auth()->user()->employee_id)
                 ->groupBy('firstgradings.student_id')
                 ->get();
+
+
       $total_rows = $data->count();
       if($total_rows > 0)
       {
@@ -64,16 +68,20 @@ class SubmittedGrades extends Controller
                       <td> <input type="checkbox" value="contactNumber['.$row->phone_number.']"></td>
                     </tr>
                     ';
+             
           }
-          
+          $this->getData($output);
           return response()->json($output);
       }
       else {
         $output = "<tr> <td colspan='4'> No results were found </td> </tr> ";
         return response()->json($output);
       }
-     
-   
+        
+    }
 
+    public function getData($output)
+    {
+      return Excel::download($output, 'Grades.xlsx');
     }
 }

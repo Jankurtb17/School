@@ -29,7 +29,6 @@ class teacheradvisory extends Controller
                 ->get();
       $advisory = DB::table('search_subjects')
                     ->join('advisories', 'search_subjects.subjectCode', '=', 'advisories.subjectCode')
-                    ->groupBy('advisories.subjectCode')
                     ->get();
       $yearlevel = DB::table('yearlevels')
                       ->groupBy('schoolYear')
