@@ -94,8 +94,8 @@
                           <td> {{ $no++ }} </td>
                           <td> {{ $examinations->schoolYear }}</td>
                           <td> {{ $examinations->grading }} Grading</td>
-                          <td> {{ date('m-d-Y', strtotime($examinations->schoolYear)) }}</td>
-                          <td> {{ date('m-d-Y', strtotime($examinations->examDate)) }}</td>
+                          <td> {{ date('m-d-Y', strtotime($examinations->startDate)) }}</td>
+                          <td> {{ date('m-d-Y', strtotime($examinations->endDate)) }}</td>
                           <td> 
                               <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}" data-grading="{{ $examinations->grading}}" data-startdate="{{ $examinations->startDate}}" data-enddate="{{ $examinations->endDate}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
                               <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}" data-grading="{{ $examinations->grading}}" data-startdate="{{ $examinations->startDate}}" data-enddate="{{ $examinations->endDate}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>

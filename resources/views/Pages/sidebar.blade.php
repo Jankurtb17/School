@@ -40,9 +40,9 @@
                   <a class="nav-link {{ setActive('student', 'current') }}" href="/student"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Students  <span class="badge badge-success ml-3">{{ $student }}</span> </a>
               </li>
             
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                   <a class="nav-link {{ setActive('studentgrades', 'current') }}" href="/studentgrades"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Student Grades </a>
-              </li>
+              </li> --}}
               <li class="nav-item">
                 <a class="nav-link {{ setActive('addteacher', 'current') }}" href="/addteacher"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers <span class="badge badge-success ml-3">{{ $teacher }}</span> </a>
               </li>

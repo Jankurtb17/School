@@ -20,35 +20,48 @@ class StudentGrades extends Controller
       $output = '';
       $gradingperiod = $request->get('gradingPeriod');
       $schoolyear = $request->get('schoolYear');
-      $search = DB::table('firstgradings')
-                  ->join('search_subjects', 'firstgradings.subjectCode', '=', 'search_subjects.subjectCode')
-                  ->join('users', 'firstgradings.employee_id', '=', 'users.employee_id')
-                  // ->select('search_subjects.subjectCode, search_subjects.description, firstgradings.schoolYear, 
-                  // firstgradings.gradingperiod, firstgradings.student_id, users.employee_id')
-                  ->where('firstgradings.gradingperiod', $gradingperiod)
-                  ->where('firstgradings.schoolYear', $schoolyear)
-                  ->where('firstgradings.student_id', Auth()->user()->student_id)
-                  ->groupBy('firstgradings.subjectCode')
+      $search = DB::table('sendgradeadmins')
+                  ->join('search_subjects', 'sendgradeadmins.subjectCode', '=', 'search_subjects.subjectCode')
+                  ->join('users', 'sendgradeadmins.employee_id', '=', 'users.employee_id')
+                  ->select('search_subjects.subjectCode', 'search_subjects.description', 'users.firstName', 'users.lastName', 'users.middleName','sendgradeadmins.grade')
+                  ->where('sendgradeadmins.gradingperiod', $gradingperiod)
+                  ->where('sendgradeadmins.schoolYear', $schoolyear)
+                  ->where('sendgradeadmins.student_id', Auth()->user()->student_id)
+                  ->groupBy('sendgradeadmins.subjectCode')
                   ->get();
       $count = count($search);
       if($count > 0)
       {
+     
           foreach($search as $row)
           {
-            $output .= '
-                
-                  <tr>
-                    <td colspan="2">'.$row->subjectCode.'</td>
-                    <td colspan="2">'.$row->description.'</td>
-                    <td colspan="2">'.$row->employee_id.'</td>
-                    <td>'.$row->grade.'</td>
-                  </tr>
-                  ';
-          }
-          return response()->json($output);
+            $grade = $row->grade;
+            if($grade >= 75){
+                $output .= '
+                      <tr>
+                        <td colspan="2">'.$row->subjectCode.'</td>
+                        <td colspan="2">'.$row->description.'</td>
+                        <td colspan="2">'.$row->firstName.' '.$row->middleName.' '.$row->lastName.'</td>
+                        <td>'.$row->grade.'</td>
+                        <td> <span class="badge badge-success"> Passed </span> </td>
+                      </tr>';
+              }
+              else {
+                $output .= '
+                      <tr>
+                        <td colspan="2">'.$row->subjectCode.'</td>
+                        <td colspan="2">'.$row->description.'</td>
+                        <td colspan="2">'.$row->firstName.' '.$row->middleName.' '.$row->lastName.'</td>
+                        <td>'.$row->grade.'</td>
+                        <td><span class="badge badge-danger"> Failed </span> </td>
+                      </tr>';
+                    }
+              }
+                  return response()->json($output);
+      
       }
       else {
-        $output = '<tr> <td colspan="5">No results were found </td> </tr>';
+        $output = '<tr> <td colspan="5">No grades were found </td> </tr>';
         return response()->json($output);
       }
     }

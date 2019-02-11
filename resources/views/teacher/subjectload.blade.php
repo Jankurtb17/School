@@ -17,12 +17,11 @@
               </ol>
             </nav>
             
-
            <div class="form-group">
               @if(session()->has('notif'))
                 <div class="alert alert-success" role="alert">
                     <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
-                    <i class="fa fa-check"></i><strong>Grade</strong> {{session()->get('notif')}}
+                    <i class="fa fa-check"  aria-hidden="true"></i> <strong>Grade</strong> {{session()->get('notif')}}
                 </div>
               @endif
            </div>
@@ -31,7 +30,7 @@
             @if(session()->has('error'))
               <div class="alert alert-danger" role="alert">
                   <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
-                  <strong>Grade</strong> {{session()->get('error')}}
+                  <i class="fa fa-times" aria-hidden="true"></i>  <strong>Grade</strong> {{session()->get('error')}}
               </div>
             @endif
           </div>
@@ -54,7 +53,6 @@
                       <th>Id</th>
                       <th>School Year</th>
                       <th>Grade Level</th>
-                      <th>Class Name</th>
                     </tr> 
                   </thead>
 
@@ -63,8 +61,7 @@
                         <tr class="post{{ $advisories->id}}">
                           <td>{{$advisories->id}}</td>
                           <td>{{$advisories->schoolYear}}</td>
-                          <td>{{$advisories->gradeLevel }}</td>
-                          <td><a href="/studentgrades/{{$advisories->gradeLevel}}/{{$advisories->className }}">{{$advisories->className }}</a></td>
+                          <td><a href="/studentgrades/{{$advisories->gradeLevel}}/{{$advisories->className }}">{{$advisories->gradeLevel }}</a></td>
                         </tr>
                     @endforeach
                   </tbody>

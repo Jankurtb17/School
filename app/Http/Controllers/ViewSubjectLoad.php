@@ -20,6 +20,7 @@ class ViewSubjectLoad extends Controller
                     ->where('employee_id', Auth()->user()->employee_id)
                     ->groupBy('gradeLevel')
                     ->get();
+
     return view('teacher.subjectload', compact('advisory'));
     }
 

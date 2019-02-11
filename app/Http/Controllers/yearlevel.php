@@ -21,7 +21,7 @@ class yearlevel extends Controller
     
     public function index()
     { 
-      $admin = DB::table('users')
+        $admin = DB::table('users')
               ->where('role_id', 2)
               ->count();
         $teacher = DB::table('users')

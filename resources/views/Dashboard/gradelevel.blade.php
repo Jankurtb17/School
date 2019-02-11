@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.teacher')
 
 @section('content')
         <div class="content">
@@ -17,19 +17,19 @@
             @if(session()->has('success'))
               <div class="alert alert-success">
                   <button type="button" class="close" data-dismiss="alert"> &times; </button>
-                  <strong> Grade Level </strong> {{ session()->get('success') }}
+                  <i class="fa fa-check" aria-hidden="true"></i> <strong> Grade Level </strong> {{ session()->get('success') }}
               </div>
             @endif
 
             @if(session()->has('error'))
             <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert"> &times; </button>
-                <strong> Grade Level </strong> {{ session()->get('error') }}
+                <i class="fa fa-times" aria-hidden="true"></i>  <strong> Grade Level </strong> {{ session()->get('error') }}
             </div>
           @endif
 
           <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
-               <i class="fa fa-plus"></i> Add grade level
+               <i class="fa fa-plus"></i> ADD GRADE LEVEL
             </button>
             <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-sm" role="document">
@@ -77,8 +77,9 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <table class="table table-hover table-responsive-md">
+            </div>  
+            <div class="table-wrapper-scroll-y">
+            <table class="table table-hover table-responsive-md" id="example">
               <thead>
                 <tr>
                   <th>@sortablelink('id')</th>
@@ -103,6 +104,7 @@
                 @endforeach
               </tbody>
             </table>
+            </div>
             <div class="mt-4">
               {{ $yearlevel->links()}}
             </div>
@@ -157,7 +159,7 @@
                 <div class="modal-footer">
                   <button class="btn actionBtn" type="button" data-dismiss="modal">Update</button>
                   <button class="btn btn-danger delete" type="button" data-dismiss="modal">Delete</button>
-                  <button class="btn bt"  type="button" data-dismiss="modal">Close </button>
+                  <button class="btn btn-default"  type="button" data-dismiss="modal">Close </button>
                 </div>
               </div>
             </div>
@@ -171,8 +173,9 @@
 
 @section('scripts')
   <script>
-    $(document).on('load', 'body', function() {
-        $('.hide').hide();
+   
+    $(document).ready(function() {
+        $('#example').DataTable();
     });
     $(document).on('click', '.edit-modal', function(){
       $('.modal-title').text('Edit year level');

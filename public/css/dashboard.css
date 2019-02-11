@@ -13,7 +13,7 @@ body {
 }
 
 .navbar-top {
-    background-color: #1b998b;
+    background-color: #fff;
     padding: 20px 0;
     position: absolute;
     top: 0;
@@ -23,10 +23,12 @@ body {
     padding-right: 10px;
     z-index: -1;
     width: 100%;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 .navbar-nav .navbar-na .navbar-naa {
     text-decoration: none;
-    color: #fff;
+    color: black;
 }
 .dropdown-menu a {
     color: #333;
@@ -87,9 +89,11 @@ body {
     font-size: 20px;
 }
 .nav-link:hover {
-    background: #23527c;
+    background: transparent;
     color: #fff;
-    transition: 0.4s ease-in;
+    font-size: 15px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 ol li a:hover {
     text-decoration: none;
@@ -122,10 +126,15 @@ ol li a:hover {
     font-family: roboto;
     text-transform: uppercase;
 }
+#gradeLevel {
+    display: in-line;
+}
 .card {
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
     flex-direction: row;
 }
+
 #card-subjectgrade {
     position: relative;
     top: 40px;
@@ -336,4 +345,13 @@ table a:hover {
 }
 .ui-form {
     display: block;
+}
+
+@media (min-width: 1500px) {
+    .nav {
+        display: flex;
+        flex-direction: column;
+        background: #222d32;
+        height: 100vh;
+    }
 }

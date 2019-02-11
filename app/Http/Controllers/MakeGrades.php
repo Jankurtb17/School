@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\users;
 use DB;
 use App\firstgrading;
+use App\sendgradeadmin;
 use Illuminate\Support\Facades\Crypt;
 class MakeGrades extends Controller
 {
@@ -50,7 +51,7 @@ class MakeGrades extends Controller
       $schoolYear = $request->get('schoolYear');
       $className = $request->get('className');
       
-      $data = firstgrading::where('subjectCode', $subjectCode)
+      $data = sendgradeadmin::where('subjectCode', $subjectCode)
                           ->where('gradingperiod', $gradingperiod)
                           ->count();
       if($gradingperiod == 1)
@@ -76,7 +77,7 @@ class MakeGrades extends Controller
             
             }
            
-            DB::table('firstgradings')->insert($datas);
+            DB::table('sendgradeadmins')->insert($datas);
               return redirect('/subjectload')->with('notif', 'successfully encoded! ');
           }
       }
@@ -99,7 +100,7 @@ class MakeGrades extends Controller
 
                 );
               }
-              DB::table('firstgradings')->insert($datas);
+              DB::table('sendgradeadmins')->insert($datas);
                 return redirect('/subjectload')->with('notif', 'successfully encoded! ');
             }
         }
@@ -122,7 +123,7 @@ class MakeGrades extends Controller
 
                   );
                 }
-                DB::table('firstgradings')->insert($datas);
+                DB::table('sendgradeadmins')->insert($datas);
                   return redirect('/subjectload')->with('notif', 'successfully encoded! ');
               }
           }
@@ -144,7 +145,7 @@ class MakeGrades extends Controller
                         "employee_id"      =>Auth()->user()->employee_id
                     );
                   }
-                  DB::table('firstgradings')->insert($datas);
+                  DB::table('sendgradeadmins')->insert($datas);
                     return redirect('/subjectload')->with('notif', 'successfully encoded! ');
                 }
             }
@@ -202,9 +203,10 @@ class MakeGrades extends Controller
     public function test($studentgrade, $classname)
     {   
       $advisory = DB::table('advisories')
-                ->where('employee_id', Auth()->user()->employee_id)
-                ->where('gradeLevel', '=', $studentgrade)
-                ->where('className', '=', $classname)
+                ->join('search_subjects', 'advisories.subjectCode', '=', 'search_subjects.subjectCode')
+                ->where('advisories.employee_id', Auth()->user()->employee_id)
+                ->where('search_subjects.gradeLevel', '=', $studentgrade)
+                ->groupBy('search_subjects.subjectCode')
                 ->get();
       // $subject = DB::table('search_subjects')
               

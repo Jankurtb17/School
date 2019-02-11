@@ -45,7 +45,7 @@ class changepassword extends Controller
      */
     public function show($id)
     {
-        //
+        return view('Dashboard.changepassword', compact($id));
     }
 
     /**
@@ -56,7 +56,8 @@ class changepassword extends Controller
      */
     public function edit($id)
     {
-        //
+      $student = user::findOrFail($id);
+      return view('Dashboard.changepassword', compact('student_id'));
     }
 
     /**
@@ -68,7 +69,9 @@ class changepassword extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $student = user::findOrFail($id);
+        $student->gradeLevel = $request->gradeLevel;
+        $student->className = $request->className;
     }
 
     /**

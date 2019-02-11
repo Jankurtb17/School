@@ -12,7 +12,7 @@
             <div class="col-lg-6">
                 <div class="card" id="changepassword2">
                   <div class="card-body">
-                      <form id="horizontal">
+                      <form id="horizontal" action="">
                         @csrf
                         <div class="form-group">
                           <h5 class="display-5">EDIT PROFILE </h5>
@@ -42,14 +42,14 @@
                         <div class="form-group" id="form-group">
                             <div class="row">
                               <Label class="col-lg-3">Contact Number</Label>
-                              <input  type="text" class="form-control col-lg-8" name="contactNumber" id="contactNumber" value="{{ Auth()->user()->contactNumber }}">
+                              <input  type="text" class="form-control col-lg-8" name="contactNumber" id="contactNumber" value="{{ Auth()->user()->phone_number }}">
                             </div>
                         </div>
 
                         <div class="form-group" id="form-group">
                             <div class="row">
                               <Label class="col-lg-3">Address</Label>
-                              <input  type="text" class="form-control col-lg-8" name="currentPassword" id="Address">
+                            <input  type="text" class="form-control col-lg-8" name="currentPassword" id="Address">
                             </div>
                         </div>
                         <div class="form-group" id="form-group">

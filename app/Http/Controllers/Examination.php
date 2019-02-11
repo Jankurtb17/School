@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\exam;
 use App\schoolyear;
+use DB;
 
 class Examination extends Controller
 {
@@ -15,9 +16,15 @@ class Examination extends Controller
      */
     public function index()
     {
+      $teacher = DB::table('users')
+            ->where('role_id', 3)
+            ->count();
+      $student = DB::table('users')
+            ->where('role_id', 1)
+            ->count();
         $examination = exam::paginate(10);
         $schlyr = schoolyear::all();
-        return view('Dashboard.examination', compact('examination', 'schlyr'));
+        return view('Dashboard.examination', compact('examination', 'schlyr', 'student', 'teacher'));
     }
 
     /**

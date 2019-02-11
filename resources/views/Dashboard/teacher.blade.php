@@ -18,7 +18,7 @@
             @if(session()->has('success'))
               <div class="alert alert-success" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-               <i class="fa fa-check"> </i> <strong>Teacher </strong> {{session()->get('success')}}
+               <i class="fa fa-check" aria-hidden="true"> </i> <strong>Teacher </strong> {{session()->get('success')}}
               </div>
             @endif  
 
@@ -26,15 +26,15 @@
               <div class="alert alert-danger" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                   @foreach ($errors->all() as $error)
-                      <li> {{ $error }} </li>
+                  <i class="fa fa-times" aria-hidden="true"> </i> <li> {{ $error }} </li>
                   @endforeach
               </div>
             @endif
             <div class="form-group">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalFade5">
-                Add Teacher 
+                <i class="fa fa-plus" aria-hidden="true"> </i>  Add Teacher
             </button>
-            <a href="{{ route('export.teacher')}}" class="btn btn-success">  <i class="fa fa-file-excel-o" aria-hidden="true"> </i> Export</a>
+            <a href="{{ route('teacher.pdf')}}" class="btn btn-success">  <i class="fa fa-print" aria-hidden="true"> </i> Export</a>
             </div>
 
             <div class="modal fade" id="modalFade5" tabindex = "-1" role="dialog" aria-hidden="true">
@@ -85,7 +85,7 @@
                             <label class="col-form-label"> </label>
                           </div>
                           <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="Contact Number"  name="contactNumber">
+                            <input type="text" class="form-control" placeholder="Contact Number"  name="phone_number">
                           </div> 
                           <div class="col-md-4">
                             <select name="gender" id="gender" class="form-control">
@@ -96,6 +96,48 @@
                             </select>
                           </div> 
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="">
+
+                        </div>
+                    </div>
+
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-3"> 
+                            <label class="col-form-label"> </label>
+                          </div>
+                          <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="Address"  name="address">
+                          </div> 
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                           <div class="col-md-3">
+                              <label for="col-form-label">Emergency</label>
+                           </div>
+                           <div class="col-md-3">
+                            <input type="text" name="parentFirstName" id="parentFirstName" class="form-control" placeholder=" First Name">
+                           </div>
+                           <div class="col-md-4">
+                              <input type="text" name="parentLastName" id="parentLastName"  class="form-control" placeholder="Last Name ">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" name="parentMiddleName" id="parentLastName"  class="form-control" placeholder="Middle Name" >
+                            </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-3">
+                          </div>
+                          <div class="col-lg-9">
+                              <input type="text" name="phone_number" id="phone_number" class="form-control" placeholder="Emergency Contact Number" onkeypress="isNumber(event)">
+                          </div>
+                        </div>
                       </div>
                       <div class="form-group">
                       <div class="row">
@@ -103,7 +145,7 @@
                           <label class="col-form-label">Account </label>
                         </div>
                         <div class="col-md-9">
-                          <input type="email" class="form-control" placeholder="email" name="email">
+                          <input type="email" class="form-control" placeholder="Email" name="email">
                         </div>
                       </div>
                       </div>
@@ -130,6 +172,7 @@
             <thead>
               <tr>
                 <th>Employee ID</th>
+                <th>Gender</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
@@ -138,13 +181,14 @@
               </tr>
             </thead>
             <tbody>
-                @foreach ($user as $users)
+                @foreach ($user_teacher as $users)
                 <tr class="post {{ $users->id }}">
                   <td><a href="/addteacher/{{$users->employee_id}}">{{ $users->employee_id }} </a></td>
+                    <td>{{ $users->gender}}</td>
                     <td>{{ $users->firstName }}</td>
                     <td>{{ $users->lastName }}</td>
                     <td>{{ $users->email}}</td>
-                    <th><span class="badge badge-success">Active</span></th>
+                    <th><span class="badge badge-success">{{ $users->status}}</span></th>
                     <td><a href="#" class="btn btn-warning" data-target="#modalFade" data-id="{{ $users->id }}" data-employee="{{ $users->employee_id}}"><i class="fa fa-pencil-square-o"> </i>EDIT </a></td>
                 </tr>
                 @endforeach
@@ -162,6 +206,16 @@
 @endsection
 @section('scripts')
 <script>
+  // function isNumber(evt) {
+  //   var ch = String.fromCharCode(evt.which);
+  //   if(!/^[0-9.\b]+$/.test(ch)) {
+  //     evt.preventDefault();
+  //   }
+  // }
+  $(document).on('keypress', '#phone_number', function(evt) {
+        console.log('asd');
+  });
+
   $(document).ready(function() {
       $('#example').DataTable();
   });

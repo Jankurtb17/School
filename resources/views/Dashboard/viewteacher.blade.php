@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.teacher')
 
 @section('content')
         <div class="content">
@@ -21,26 +21,80 @@
                   
                   {{-- content --}}
                   <form action="">
-                    <div class="form-group">
-                      <select name="" id="" class="form-control col-lg-3">
-                        <option value="" selected disabled>-Select Advisory-</option>
-                        @foreach ($advisory as $advisories)
-                            <option value="{{ $advisories->gradeLevel}}">Grade {{ $advisories->gradeLevel}}-{{ $advisories->className}}</option>
-                        @endforeach
-                      </select>
+                    <div class="row">
+                      <div class="col-lg-3">
+                        <div class="form-group">
+                          @foreach ($user as $users)
+                              <input type="hidden" id="employee_id" value="{{$users->employee_id}}" name="employee_id">
+                          @endforeach
+                          <select name="schoolYear" id="schoolYear" class="form-control" required>
+                            <option value="" selected disabled>-Select Advisory-</option>
+                              @foreach ($schoolyear as $schoolyears)
+                                  <option value="{{ $schoolyears->schoolYear}}">{{ $schoolyears->schoolYear }}</option>
+                              @endforeach
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-3">
+                        <div class="form-group">
+                          <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="subjectCode" required>
+                            <option value="" selected disabled>-Select Grade Level-</option>
+                            @foreach ($gradelevel as $gradeLevels)
+                                <option value="{{ $gradeLevels->gradeLevel }}"> {{ $gradeLevels->gradeLevel}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-3">
+                          <div class="form-group">
+                            <select name="subjectCode" id="subjectCode" class="form-control" required>
+                                <option value="" selected disabled>-Select Subject Code-</option>
+                                @foreach ($subjectCode as $subjectCodes)
+                                <option value="{{ $subjectCodes->subjectCode }}"> {{ $subjectCodes->subjectCode}}</option>
+                            @endforeach
+                            </select>
+                          </div>
+                      </div>
+
+                      <div class="col-lg-3">
+                        <button class="btn btn-success">Search</button>
+                      </div>
                     </div>
                   </form>
-
+                  <form action="{{ route('submitgrade.admin')}}" method="POST" id="form-submit">
+                    @csrf
+                  <table class="table" id="example">
+                      <thead>
+                        <tr>
+                         
+                          <th>Student Id</th>
+                          <th>Gender</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Grade</th>
+                          <th>Remarks</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                      </tbody>
+                  </table>
+                    <button class="btn btn-dark" type="submit"> Submit Grade </button>
+                  </form>
                 </div>
               </div>
             </div>
+
             <div class="col-lg-3">
               <div class="card" id="card-information2">
                 <div class="card-body">
                   <h4>Teacher Information </h4>
                   <div class="form-information">
                     @foreach ($user as $users)
-                    <div class="form-group">
+                    <div class="form-group">  
                       <i class="fa fa-address-card-o mr-2" id="information-icon" aria-hidden="true"></i>
                          <span>{{ $users->employee_id}}</span>
                      </div>
@@ -68,4 +122,44 @@
 </div>
 @endsection
 @section('scripts')
+<script>
+$(document).ready(function() {
+  $('.btn-dark').hide();
+});
+$(document).on('submit', 'form', function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: '{{ route("searchgrade.admin")}}',
+        method: 'POST',
+        data: {
+          "_token": $('input[name=_token]').val(),
+          "gradeLevel": $('#gradeLevel').val(),
+          "subjectCode": $('#subjectCode').val(),
+          "schoolYear": $('#schoolYear').val(),
+          "employee_id": $('#employee_id').val()
+        },
+        success:function(data) {
+          $('tbody').html(data);
+          $('.btn-dark').show();
+        }
+    });
+});
+
+$(document).on('submit', '#form-submit', function() {
+    $.ajax({
+        url: "{{ route('submitgrade.admin')}}",
+        method: "POST",
+        data: {
+          "student_id": $('#student_id').val(),
+          "grade": $('#grade').val(),
+          "_token": $('input[name=_token]').val()
+        },
+        success:function(data)
+        {
+
+        }
+    });
+}); 
+
+</script>
 @endSection

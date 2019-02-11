@@ -18,6 +18,7 @@
                   </ol>
                 </nav>
               </div>
+              {{-- @if(Auth()->user()->status == 'Active') --}}
                 <form method="POST">
                   <div class="row">
                 
@@ -51,12 +52,16 @@
                                 <th>Subject Description <th>
                                 <th>Instructor <th>
                                 <th>Grade <th>
+                                <th></th>
                               </tr>
                             </thead>
                             <tbody align="left">
 
                             </tbody>
                       </table>
+                  {{-- @else 
+                     <h4 class="display-5">Please pay your remaining balance to view grades </h1>
+                  @endIf --}}
                 </div>
               </div>
             </div>
@@ -72,7 +77,7 @@
     e.preventDefault();
       $.ajax({
           url: "{{ route('show.grades')}}",
-          type: "get",
+          type: "POST",
           data: {
             "_token": $('input[name=_token]').val(),
             "gradingPeriod": $('#gradingPeriod').val(),

@@ -60,6 +60,7 @@
                   <thead>
                     <tr>
                       <th>ID Number</th>
+                      <th>Gender</th>
                       <th>Student Name</th>
                       <th>Input Grade</th>
                     </tr>
@@ -68,7 +69,8 @@
                     @foreach ($user as $users)
                       <tr>
                           <td><input type="hidden" name="student_id[]" value="{{$users->student_id}}">{{$users->student_id}}</td>
-                          <td>{{$users->firstName}} {{$users->lastName}}</td>
+                          <td>{{$users->gender}}</td>
+                          <td>{{$users->firstName}} {{ $users->middleName}} {{$users->lastName}}</td>
                           <td><input  type="text" name="grade[]" class="form-control col-lg-2" id="grade" onkeypress="isNumber(event)" maxlength="5" required></td>
                           <input type="hidden" name="gradeLevel[]" value="{{$users->gradeLevel}}">
                       </tr>

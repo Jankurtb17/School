@@ -18,20 +18,20 @@
                 </nav>
                 <div class="ui-form">
                 @if(session()->has('success'))
-                  <div class="alert alert-success float-right mr-2" role="alert">
+                  <div class="alert alert-success" role="alert">
                     <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
-                    <strong> School Year </strong> {{ session()->get('success')}}
+                    <i class="fa fa-check" aria-hidden="true"></i> <strong> School Year </strong> {{ session()->get('success')}}
                   </div>
                 @endif
 
                 @if(session()->has('error'))
-                  <div class="alert alert-danger float-right mr-2" role="alert">
+                  <div class="alert alert-danger float-right" role="alert">
                     <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
-                    <strong> School Year </strong> {{ session()->get('error')}}
+                    <i class="fa fa-times" aria-hidden="true"></i> <strong> School Year </strong> {{ session()->get('error')}}
                   </div>
                 @endif
                 <button type="button" class="btn btn-primary mb-2 float-left" data-toggle="modal" data-target="#modalFade1">
-                   <i class="fa fa-plus"></i> Add school year 
+                   <i class="fa fa-plus"></i> ADD SCHOOL YEAR
                 </button>
                 </div>
 

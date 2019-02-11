@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Nexmo\Client;
 use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 
 class SubmittedGrades extends Controller
@@ -16,7 +17,9 @@ class SubmittedGrades extends Controller
                     ->where('employee_id', Auth()->user()->employee_id)
                     ->groupBy('gradeLevel')
                     ->get();
-        return view('teacher.submitted', compact('advisory'));
+      $schoolyear = DB::table('schoolyears')
+                    ->get();
+        return view('teacher.submitted', compact('advisory', 'schoolyear'));
     }
 
     public function fetch(Request $request)
@@ -28,6 +31,7 @@ class SubmittedGrades extends Controller
                 ->where($select, $value)
                 ->where('employee_id', Auth()->user()->employee_id)
                 ->groupBy($dependent)
+                ->orderBy('subjectCode', 'DESC')
                 ->get();
      $output = '<option value="" selected disabled>-Select Subject Code-</option>';
      foreach($data as $row)
@@ -37,51 +41,95 @@ class SubmittedGrades extends Controller
      echo $output;
     }
 
+    //search advisory usnig button
     public function search(Request $request)
     {
       $gradingperiod = $request->get('gradingperiod');
       $gradeLevel    = $request->get('gradeLevel');
       $subjectCode   = $request->get('subjectCode');
+      $schoolyear    = $request->get('schoolYear');
       $output = '';
-      $data = DB::table('firstgradings')
-                ->join('users','firstgradings.student_id', '=', 'users.student_id')
+      $data = DB::table('sendgradeadmins')
+                ->join('users','sendgradeadmins.student_id', '=', 'users.student_id')
                 ->where('users.gradeLevel', $gradeLevel)
-                ->where('firstgradings.gradingperiod', $gradingperiod)
-                ->where('firstgradings.subjectCode', $subjectCode)
-                ->where('firstgradings.employee_id', Auth()->user()->employee_id)
-                ->groupBy('firstgradings.student_id')
+                ->where('sendgradeadmins.schoolYear', $schoolyear)
+                ->where('sendgradeadmins.gradingperiod', $gradingperiod)
+                ->where('sendgradeadmins.subjectCode', $subjectCode)
+                ->where('sendgradeadmins.employee_id', Auth()->user()->employee_id)
+                ->groupBy('sendgradeadmins.student_id')
+                ->orderBy('gender', 'DESC')
                 ->get();
-
-
       $total_rows = $data->count();
       if($total_rows > 0)
       {
           foreach($data as $row)
           {
+            $grade = $row->grade;
+            if($grade >= 75)
+            {
             $output .= '
-                    <tr>
-                      <td> <input type="hidden" value="'.$row->student_id.'" id="student_od">'.$row->student_id.'</td>
-                      <td> '.$row->firstName.'</td>
-                      <td>'.$row->lastName.'</td>
-                      <td> <input type="hidden" value="grade['.$row->grade.']">'.$row->grade.'</td>
-                      <td></td>
-                      <td> <input type="checkbox" value="contactNumber['.$row->phone_number.']"></td>
-                    </tr>
-                    ';
-             
+                <tr>
+                  <td> <input type="hidden" value="'.$row->student_id.'" id="student_od">'.$row->student_id.'</td>
+                  <td>'.$row->gender.'</td>
+                  <td>'.$row->firstName.'</td>
+                  <td>'.$row->lastName.'</td>
+                  <td> <input type="hidden" value="grade['.$row->grade.']">'.$row->grade.'</td>
+                  <td> <span class="badge badge-success"> Passed </span> </td>
+                </tr>
+                ';
+            }
+            else {
+              $output .= '
+                <tr>
+                  <td>'.$row->student_id.'</td>
+                  <td>'.$row->gender.'</td>
+                  <td>'.$row->firstName.'</td>
+                  <td>'.$row->lastName.'</td>
+                  <td>'.$row->grade.'</td>
+                  <td> <span class="badge badge-danger">Failed </span></td>
+                </tr>
+                ';
+            }
           }
-          $this->getData($output);
           return response()->json($output);
+          $output = $this->get_submitted_grade();
       }
       else {
-        $output = "<tr> <td colspan='4'> No results were found </td> </tr> ";
+        $output = "<tr> <td colspan='4'> Grade not encoded </td> </tr> ";
         return response()->json($output);
       }
-        
     }
 
-    public function getData($output)
+    //create pdf//
+    public function pdf()
     {
-      return Excel::download($output, 'Grades.xlsx');
+      $pdf = \App::make('dompdf.wrapper');
+      $pdf->loadHTML($this->search($output));
+      return $pdf->stream();
     }
+
+    //send sms
+    public function create()
+    {
+      return view('Teacher.submitted');
+    }
+
+    public function sendGrade(Request $request)
+    {
+      $student_id = $request->get('student_id');
+      $grade = $request->get('student_id');
+      $phone_number = $request->get('student_id');
+
+      foreach($phone_number as $contact => $key)
+      {
+        $data[] = array(
+          'student_id '   =>$student_id[$contact],
+          'grade'         =>$grade[$contact],
+          'phone_number'  =>$phone_number[$contact],
+        );
+      }
+      SendGrade::create($data);
+      return redirect('/viewgrades')->with('success', 'Successfully Send!');
+    }
+   
 }

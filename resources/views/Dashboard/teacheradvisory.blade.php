@@ -16,6 +16,22 @@
                     <li class="breadcrumb-item active" aria-current="page">Teacher Advisory</li>
                   </ol>
                 </nav>
+                
+              
+                @if(session()->has('success'))
+                  <div class="alert alert-success">
+                    <button class="close" type="button" data-dismiss="alert"> &times; </button>
+                    <i class="fa fa-check"></i><strong> Teacher Advisory</strong> {{ session()->get('success') }}
+                  </div>
+                @endif
+
+                @if(session()->has('errors'))
+                  <div class="alert alert-danger">
+                    <button class="close" type="button" data-dismiss="alert"> &times; </button>
+                   <i class="fa fa-times"></i> <strong> Teacher Advisory </strong> {{ session()->get('errors') }}
+                  </div>
+                @endif
+
                 <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
                     Add teacher advisory
                 </button>
@@ -31,25 +47,25 @@
                           @csrf
                           <div class="form-group">
                               <label class="col-form-label"> School Year </label>
-                              <select name="schoolYear" id="schoolYear" class="form-control dynamic " data-dependent="gradeLevel">
+                              <select name="schoolYear" id="schoolYear" class="form-control">
                                   <option value=""  selected disabled>-Select Grade Level-</option>
-                                  @foreach ($yearlevel as $yearlevels)
-                                      <option value="{{ $yearlevels->schoolYear }}">{{ $yearlevels->schoolYear }}</option>
+                                  @foreach ($schoolyear as $schoolYears)
+                                      <option value="{{ $schoolYears->schoolYear }}">{{ $schoolYears->schoolYear }}</option>
                                   @endforeach
                               </select>
                           </div>
                           <div class="form-group">
                             <label class="col-form-label">Grade Level</label>
-                            <select name="gradeLevel" id="gradeLevel" class="form-control  dynamic dynamics" data-dependent="className">
+                            <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className" data-subject="subjectCode">
                                 <option value="">-Select Grade Level-</option>
-                                {{-- @foreach ($yearlevel as $yearlevels)
+                                @foreach ($yearlevel as $yearlevels)
                                     <option value="{{ $yearlevels->gradeLevel }}">Grade {{ $yearlevels->gradeLevel }}</option>
-                                @endforeach --}}
+                                @endforeach
                             </select>
                           </div>
-                          <div class="form-group">
+                       
+                           <div class="form-group"> 
                             <label class="col-form-label">Class Name</label>
-                            {{-- <input type="text" class="form-control className" id="className" placeholder="Class Name"  name="className"> --}}
                             <select name="className" id="className" class="form-control">
                               <option value="">-Select Class Name-</option>
                             </select>
@@ -64,13 +80,13 @@
                               </select>
                           </div>
                           <div class="form-group">
-                            <label class="col-form-label">Subject</label>
-                            <select name="subjectCode" class="form-control">
-                                <option value="" selected disabled>-Select Subject-</option>
-                                @foreach ($subject as $subjects)
-                                    <option value="{{ $subjects->subjectCode }}">{{ $subjects->description }}</option>
-                                @endforeach
-                            </select>
+                              <label class="col-form-label">Subject</label>
+                              <select name="subjectCode" id="subjectCode" class="form-control">
+                                  <option value="" selected disabled>-Select Subject-</option>
+                                    @foreach ($subjects as $subject)
+                                        <option value="{{$subject->subjectCode}}">{{ $subject->description}}</option>
+                                    @endforeach
+                              </select>
                           </div>
                       </div>
                       <div class="modal-footer">
@@ -81,18 +97,17 @@
                     </div>
                   </div>
                 </div>
-                <table class="table table-hover table-bordered table-responsive-md">
-                  <thead>
+                <div class="table-wrapper-scroll-y">
+                <table class="table table-hover" id="example">
                     <tr>
                       <th> ID</th>
                       <th> School Year</th>
                       <th> Grade Level</th>
                       <th> Class Name</th>
-                      <th>Subject code</th>
+                      <th> Subject code</th>
                       <th> Teacher ID</th>
                       <th> Action </th>
                     </tr>
-                  </thead>
                   <tbody>
                     <?php $n=1; ?>
                     @foreach ($advisory as $advisories)
@@ -111,6 +126,7 @@
                     @endforeach
                   </tbody>
                 </table>
+                </div>
              </div>
             </div>
           </div>
@@ -127,28 +143,35 @@
                     <input type="hidden" class="form-control" name="id" id="id" >
                     <div class="form-group">
                         <label class="col-form-label"> School Year </label>
-                        <select name="schoolYear" id="schoolYear" class="form-control dynamic " data-dependent="gradeLevel">
-                            <option value=""  selected disabled>-Select Grade Level-</option>
-                            @foreach ($yearlevel as $yearlevels)
+                        <select name="schoolYear" id="a" class="form-control" >
+                            <option value="" selected disabled>-Select Grade Level-</option>
+                            @foreach ($schoolyear as $yearlevels)
                                 <option value="{{ $yearlevels->schoolYear }}">{{ $yearlevels->schoolYear }}</option>
                             @endforeach
                         </select>
                      </div>
                     <div class="form-group">
                         <label class="col-form-label">Grade Level</label>
-                        <select name="gradeLevel" id="gradeLevel" class="form-control  dynamic" data-dependent="className">
-                            <option value="">-Select Grade Level-</option>
-                            {{-- @foreach ($yearlevel as $yearlevels)
-                                <option value="{{ $yearlevels->gradeLevel }}">Grade {{ $yearlevels->gradeLevel }}</option>
-                            @endforeach --}}
+                        <select name="gradeLevel" id="b" class="form-control dynamic" data-dependent="className">
+                            <option value="Kindergarten">Kindergarten</option>
+                            <option value="Preparatory">Preparatory</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
                         </select>
+                    </div>
                     <div class="form-group">
                         <label class="col-form-label">Class Name</label>
-                        {{-- <input type="text" class="form-control className" id="className" placeholder="Class Name"  name="className"> --}}
-                        <select name="className" id="className" class="form-control">
-                            <option value="">-Select Class Name-</option>
-                          </select>
-                      </div>
+                          <select name="className" id="className" class="form-control ero">
+                            <option value="" selected disabled>-Select Class Name-</option>
+                              @foreach ($yearlevel as $yearlevel)
+                                  <option value="{{$yearlevel->className}}">{{$yearlevel->className}}</option>
+                              @endforeach
+                          </select> 
+                    </div>
                     <div class="form-group">
                       <label for="c">Teacher Name</label>
                       {{-- <input type="text" class="form-control" name="employee_id" id="c"> --}}
@@ -164,7 +187,7 @@
                         {{-- <input type="text" class="form-control" name="employee_id" id="c"> --}}
                         <select name="subjectCode" id="d" class="form-control">
                           @foreach ($advisory as $advisories)
-                              <option value="{{ $advisories->subjectCode }}"> {{ $advisories->description }}</option>
+                              <option value="{{ $advisories->subjectCode }}"> {{ $advisories->subjectCode }}</option>
                           @endforeach
                         </select>
                       </div>
@@ -191,7 +214,10 @@
 @section('scripts')
   <script>
    
-  
+    $(document).ready(function() {
+        $('#example').dataTable();
+    });
+    
     $(document).on('click', '.modal', function() {
       $('.modal-title').text('Teacher Advisory')
     });
@@ -203,11 +229,11 @@
       $('.modal-title').text('Edit Teacher advisory');
       $('.actionBtn').addClass('btn-dark');
       $('#id').val($(this).data('id'));
-      $('#schoolyear').val($(this).data('schoolyear'));
-      $('#gradeLevel').val($(this).data('gradelevel'));
-      $('#b').val($(this).data('class'));
+      $('#a').val($(this).data('schoolyear'));
+      $('#b').val($(this).data('gradelevel'));
       $('#c').val($(this).data('employee'));
       $('#d').val($(this).data('description'));
+      $('.ero').val($(this).data('sectionname'));
       id = $('#id').val();
       $('#myModal').show();
     });
@@ -219,23 +245,23 @@
             data: {
               '_token': $('input[name=_token]').val(),
               'id':$('#id').val(),
-              'schoolYear': $('#schoolyear').val(),
-              'gradeLevel': $('#gradeLevel').val(),
-              'className': $('#className').val(),
+              'schoolYear': $('#a').val(),
+              'gradeLevel': $('#b').val(),
+              'className': $('.ero').val(),
               'employee_id': $('#c').val(),
-              'description': $('#d').val()
+              'subjectCode': $('#d').val()
             },
             success: function(data) {
               $('.post' +data.id).replaceWith(" "+
             "<tr class='post" + data.id +"'>"+
             "<td>" +data.id+ " </td>"+
-            "<td>" +data.gradeLevel+ " </td>"+
             "<td>" +data.schoolYear+ " </td>"+
+            "<td>" +data.gradeLevel+ " </td>"+
             "<td>" +data.className+ " </td>"+
             "<td>" +data.subjectCode+ " </td>"+
             "<td>" +data.employee_id+ "</td>"+
-            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-gradelevel='"+data.gradeLevel+"' data-class='"+data.className+"' data-employee='"+data.employee_id+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
-            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-gradelevel='"+data.gradeLevel+"' data-class='"+data.className+"' data-employee='"+data.employee_id +"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
+            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolyear='"+data.schoolYear+"' data-sectionname='"+data.className+"' data-gradelevel='"+data.gradeLevel+"' data-description='"+data.subjectCode+"' data-employee='"+data.employee_id+"' >"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
+            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolyear='"+data.schoolYear+"' data-sectionname='"+data.className+"' data-gradelevel='"+data.gradeLevel+"' data-description='"+data.subjectCode+"' data-employee='"+data.employee_id +"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
             "</td>"+
             "</tr>");
             }
@@ -265,6 +291,8 @@
           })
         }
     });
+
+
 
  
 

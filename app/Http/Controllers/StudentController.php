@@ -9,6 +9,9 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use DB;
 use App\yearlevels;
+use PDF;
+use App\schoolyear;
+use App\sendgradeadmin;
 
 class StudentController extends Controller
 {
@@ -34,12 +37,23 @@ class StudentController extends Controller
         $student = DB::table('users')
               ->where('role_id', 1)
               ->count();
-        $students = DB::table('Users')
+        $students = DB::table('users')
                       ->where('role_id', 1)
                       ->orderBy('gradeLevel', 'asc')
                       ->get();
         $yearlevel = yearlevels::all();
-        return view('Dashboard.student', compact('students', 'yearlevel', 'student', 'admin', 'teacher'));
+        $schoolyear = schoolyear::all();
+        $user_student = $this->get_student_data();
+        return view('Dashboard.student', compact('schoolyear','students','user_student', 'yearlevel', 'student', 'admin', 'teacher', 'student_data'));
+    }
+
+    public function get_student_data()
+    {
+      $user_student = DB::table('users')
+                      ->where('role_id', 1)
+                      ->orderBy('gradeLevel', 'asc')
+                      ->get();
+      return $user_student;
     }
 
     /**
@@ -84,6 +98,11 @@ class StudentController extends Controller
             'email'               =>$request->get('email'),
             'password'            =>bcrypt($request->get('password')),
             'phone_number'        =>$request->get('phone_number'),
+            'status'              =>'Active',
+            'parentFirstName'     =>$request->get('parentFirstName'),
+            'parentLastName'     =>$request->get('parentLastName'),
+            'parentMiddleName'     =>$request->get('parentMiddleName'),
+            'phone_number2'     =>$request->get('phone_number2'),
             'remember_token'      => str_random(20)
         ]);
         session()->flash('notif', ' successfully added');
@@ -110,7 +129,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = User::findOrFail($id);
+        return view('Dashboard.student', compact('student', 'id'));
     }
 
     /**
@@ -122,7 +142,13 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $student = User::findOrFail($id);
+      $student->schoolYear = $request->get('schoolYear');        
+      $student->gradeLevel = $request->get('gradeLevel');        
+      $student->className = $request->get('className');        
+      $student->status = $request->get('status');        
+      $student->save();
+      return response()->json($student);
     }
 
     /**
@@ -136,8 +162,6 @@ class StudentController extends Controller
         //
     }
     
- 
-
     public function fetch(Request $request)
     {
       $select = $request->get('select');
@@ -207,35 +231,116 @@ class StudentController extends Controller
     $student = DB::table('users')
                 ->where('role_id', 1)
                 ->count();
+  
     $user = DB::table('users')
                 ->where('student_id', $student_id)
                 ->groupBy('student_id')
                 ->get();
-    $first = DB::table('firstgradings')
-                ->where('student_id', $student_id)
-                ->where('gradingperiod', 1)
-                ->groupBy('subjectCode')
-                ->get();
+    $first = DB::table('search_subjects')
+                ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
+                ->select('search_subjects.subjectCode', 'search_subjects.description', 'sendgradeadmins.grade' )
+                ->where('sendgradeadmins.student_id', '=', $student_id)
+                ->where('sendgradeadmins.gradingperiod', '=',2)
+                ->where('search_subjects.gradeLevel', $gradelevel) 
+                ->groupBy('search_subjects.subjectCode')
+                  ->get(); 
+              
+   
+    // $first = DB::table('firstgradings')
+    //               ->select('grade' DB::raw('COUNT(grade) as COUNT'))
+    //               ->groupBy('student_id')
+    //               ->get();
+                  
     $second = DB::table('firstgradings')
                 ->where('student_id', $student_id)
                 ->where('gradingperiod', 2)
                 ->groupBy('subjectCode')
+                ->orderBy('subjectCode', 'DESC')
                 ->get();
-   
-
-    // $subject = DB::table('search_subjects')
-    //             ->where('gradeLevel', $gradelevel)
-    //             ->get();
-    // $finalgrade = DB::table('firstgradings')
-    //             ->where('student_id', $student_id)
-    //             ->get();
-
-      return view('Dashboard.viewstudent', compact('user', 'teacher', 'student', 'first', 'second'));
+    $subject = DB::table("search_subjects")
+                ->where('gradeLevel', $gradelevel)
+                ->get();
+    $schoolyear = DB::table('schoolyears')->get();
+      return view('Dashboard.viewstudent', compact('schoolyear','user', 'teacher', 'student', 'first', 'second', 'subject'));
     }
 
     public function excel()
     {
-     
-      return Excel::download(new UsersExport, 'Students.xlsx');
+      return Excel::download(new UsersExport, 'Students.csv');
+    }
+
+    public function pdf()
+    {
+       $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->convert_user_data());
+        return $pdf->download();
+    }
+    
+    public function convert_user_data() 
+    {
+      $user_student = $this->get_student_data();
+      $output = '
+            <div>
+                <h2>ANGELS OF DE VERA LEARNING CENTER </h2>
+                <span> Blk 1 lot 33 phase 2 Molino Homes III</span> <br>
+                <span> Molino, Cavite </span> <br>
+                <span>Jankurt@anglesdevera.com </span>
+                <br> <br>
+                <span> List of students</span>
+            </div>
+            <table class="table table-bordered" style="margin: 50px 20px 0px 0px; width: 750px; font-family:roboto">
+                <tr>
+                    <th> Student Id </th>
+                    <th> Grade Level </th>
+                    <th> Class Name </th>
+                    <th> First Name </th>
+                    <th> Middle Initial </th>
+                    <th> Last Name </th>
+                    <th> Contact Number </th>
+                    <th> Email </th>
+                </tr>
+       ';
+       foreach($user_student as $user)
+        {
+            $output .= '
+                  <tr>
+                    <td style="width:100px;">'.$user->student_id.' </td>
+                    <td >'.$user->gradeLevel.' </td>
+                    <td>'.$user->className.' </td>
+                    <td>'.$user->firstName.' </td>
+                    <td>'.$user->middleName.' </td>
+                    <td>'.$user->lastName.' </td>
+                    <td>'.$user->phone_number.' </td>
+                    <td>'.$user->email.' </td>
+                  </tr>';
+        }
+            $output .= '</table>';
+            return $output;
+    }
+   
+    public function updateStudent()
+    {
+      
+    }
+    public function sendGrade(Request $request)
+    {
+      $grade = $request->get('grade');
+      $phone_number = $request->get('phone_number');
+      $subjectCode = $request->get('subjectCode');
+
+      foreach($grade as $row => $key)
+      {
+        $data[] = array(
+            'grade'         => $grade[$row],
+            'subjectCode'   => $subjectCode[$row]
+        );
+      }
+      $nexmo = app('Nexmo\Client');
+
+      $nexmo->message()->send([
+          'to'   => '09565011210',
+          'from' => '639565011210',
+          'text' => ''
+      ]);
     }
 }

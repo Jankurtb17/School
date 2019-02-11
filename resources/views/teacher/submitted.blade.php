@@ -22,6 +22,16 @@
             @csrf
             <div class="row">
               <div class="col-lg-2">
+                  <div class="form-group">
+                    <select name="schoolYear" id="schoolYear" class="form-control">
+                        <option value="" selected disabled>-Select Grade Level-</option>
+                          @foreach ($schoolyear as $row)
+                              <option value="{{$row->schoolYear}}">{{$row->schoolYear}}</option>
+                          @endforeach
+                    </select>
+                  </div>
+              </div>
+              <div class="col-lg-2">
                 <div class="form-group">
                   <select name="gradingperiod" id="gradingperiod" class="form-control">
                     <option value="" selected disabled>-Select Grading Period-</option>
@@ -55,31 +65,25 @@
               </div>
             </div>
           </form>
-
-          <form>
+     
+          <form action="{{ route('send.grade')}}">
             @csrf
           <div class="table-wrapper-scroll-y">
-          <table class="table" id="example">
+          <table class="table">
             <thead>
               <tr>
                 <th>Student Number</th>
+                <th>Gender</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Grade</th>
                 <th>Remarks</th>
-                <th>Send Grade</th>
               </tr>
             </thead>
             <tbody>
-              
             </tbody>
           </table>
           </div>
-
-          <div class="form-group">
-              <button class="btn btn-dark" type="submit">Send Grade</button>
-          </div>
-          
           </form>
             
             </div> 
@@ -92,10 +96,12 @@
 @endSection
 @section('scripts')
 <script> 
+
 $(document).ready(function() {
-  $('.btn-dark').hide();
-  $('#example').DataTable();
+  $('.btn-dark').hide(function(w) {
+  });
 });
+
 $(document).on('change', '.dynamic', function() {
   if($(this).val() != '') 
   {
@@ -121,7 +127,6 @@ $(document).on('change', '.dynamic', function() {
 
 });
 
-
 $('form').on('submit', function(e) {
   e.preventDefault();
   $.ajax({
@@ -131,11 +136,10 @@ $('form').on('submit', function(e) {
       "_token": $('input[name=_token]').val(),
       "gradingperiod": $('#gradingperiod').val(),
       "gradeLevel": $('#gradeLevel').val(),
-      "subjectCode": $('#subjectCode').val()
+      "subjectCode": $('#subjectCode').val(),
+      'schoolYear': $('#schoolYear').val()
     },
     success:function(data){
-      $('table').show();
-      $('.btn-dark').show();
       $('tbody').html(data);
     }
   })
@@ -157,5 +161,7 @@ $(document).on('submit', '.btn-dark', function() {
       }
   }); 
 });
+
+
 </script>
 @endsection

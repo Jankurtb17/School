@@ -27,15 +27,16 @@ class teacheradvisory extends Controller
       $user = DB::Table('Users')
                 ->where('role_id', 3)
                 ->get();
-      $advisory = DB::table('search_subjects')
-                    ->join('advisories', 'search_subjects.subjectCode', '=', 'advisories.subjectCode')
+      $advisory = DB::table('advisories')
                     ->get();
       $yearlevel = DB::table('yearlevels')
-                      ->groupBy('schoolYear')
                       ->get();
-      $subject = DB::table('search_subjects')
-                    ->get();
-      return view('Dashboard.teacheradvisory', compact('user', 'advisory', 'yearlevel', 'subject', 'student', 'teacher'));
+      $schoolyear = DB::table('schoolyears')
+                      ->get();
+      $subjects = DB::table('search_subjects')
+                      ->get();
+     
+      return view('Dashboard.teacheradvisory', compact('subjects','user', 'schoolyear','advisory', 'yearlevel', 'student', 'teacher'));
     }
 
     /**
@@ -51,30 +52,52 @@ class teacheradvisory extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $requestvi
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-      
-        $this->validate($request, [
-          'schoolYear'  => 'required|string',
-          'gradeLevel'  =>  'required|string',
-          'className'   =>  'required|string',
-          'employee_id' =>  'required|string',
-          'subjectCode'     =>  'required|string',
-        ]);
-        
-        advisory::create([
-            'user_id'     =>Auth::id(),
-            'schoolYear'  =>$request->get('schoolYear'),
-            'gradeLevel'  =>$request->get('gradeLevel'),
-            'className'   =>$request->get('className'),
-            'employee_id' =>$request->get('employee_id'),
-            'subjectCode' =>$request->get('subjectCode'),
-        ]);
+      $this->validate($request, [
+        'schoolYear'  =>  'required|string',
+        'gradeLevel'  =>  'required|string',
+        'className'  =>  'required|string',
+        'employee_id' =>  'required|string',
+        'subjectCode' =>  'required|string',
+      ]);
 
-        return redirect('/advisory')->with('success', 'Teacher advisory successfully added!');
+      $employee_id = $request->get('employee_id');
+      $subjectCode = $request->get('subjectCode');
+      $gradeLevel = $request->get('gradeLevel');
+      $schoolyear = $request->get('schoolYear');
+      $data = advisory::where('employee_id', $employee_id)
+                      ->where('subjectCode', $subjectCode)
+                      ->where('gradeLevel', $gradeLevel)
+                      ->where('schoolYear', $schoolyear)
+                      ->count();
+        // $data = DB::table('advisories')
+        //           ->select('employee_id', 'subjectCode', 'gradeLevel', 'schoolYear')
+        //           ->where('employee_id', $employee_id)
+        //           ->where('subjectCode', $subjectCode)
+        //           ->where('gradeLevel', $gradeLevel)
+        //           ->count();
+      if($data > 0)
+      {
+        return redirect('/advisory')->with('errors', 'already taken!');
+      }
+      else {
+        advisory::create([
+          'user_id'     =>Auth::id(),
+          'schoolYear'  =>$request->get('schoolYear'),
+          'gradeLevel'  =>$request->get('gradeLevel'),
+          'className'   =>$request->get('className'),
+          'employee_id' =>$request->get('employee_id'),
+          'subjectCode' =>$request->get('subjectCode'),
+      ]);
+      return redirect('/advisory')->with('success', 'successfully added!');
+      }
+
+
+       
         
     }
 
@@ -112,6 +135,7 @@ class teacheradvisory extends Controller
     public function update(Request $request, $id)
     {
         $advisory = advisory::findOrFail($id);
+        $advisory->schoolYear = $request->schoolYear;
         $advisory->gradeLevel = $request->gradeLevel;
         $advisory->className = $request->className;
         $advisory->employee_id = $request->employee_id;
@@ -148,6 +172,7 @@ class teacheradvisory extends Controller
       }
       echo $output;
     }
+
 
     
 }
