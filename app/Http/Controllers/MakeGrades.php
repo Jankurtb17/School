@@ -171,10 +171,10 @@ class MakeGrades extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($studentgrade)
+    public function edit($id)
     {
-      $user = User::find($studentgrade);
-     return view('teacher.studentgrades', compact('user'));
+      $student = sendgradeadmin::findOrFail($id);
+      return view('/viewteacher', compact('student', 'id'));
     }
 
     /**
@@ -186,7 +186,10 @@ class MakeGrades extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $student = sendgradeadmin::findOrFail($id);
+      $student->grade = $request->get('grade');
+      $student->save();
+      return redirect('/teacher');
     }
 
     /**
@@ -215,4 +218,5 @@ class MakeGrades extends Controller
                     ->get();
         return view('teacher.studentgrades', compact('user', 'advisory'));
     }
+ 
 }

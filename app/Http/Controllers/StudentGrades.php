@@ -32,7 +32,6 @@ class StudentGrades extends Controller
       $count = count($search);
       if($count > 0)
       {
-     
           foreach($search as $row)
           {
             $grade = $row->grade;

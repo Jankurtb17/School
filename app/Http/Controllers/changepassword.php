@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\user;
 
 class changepassword extends Controller
 {
@@ -57,7 +58,7 @@ class changepassword extends Controller
     public function edit($id)
     {
       $student = user::findOrFail($id);
-      return view('Dashboard.changepassword', compact('student_id'));
+      return view('Dashboard.changepassword', compact('student_id', 'id'));
     }
 
     /**
@@ -70,8 +71,13 @@ class changepassword extends Controller
     public function update(Request $request, $id)
     {
         $student = user::findOrFail($id);
-        $student->gradeLevel = $request->gradeLevel;
-        $student->className = $request->className;
+        $student->firstName = $request->firstName;
+        $student->middleName = $request->middleName;
+        $student->lastName = $request->lastName;
+        $student->phone_number = $request->phone_number;
+        $student->address = $request->address;
+        $student->save();
+        return redirect('/settings')->with('updated', 'successfully updated');
     }
 
     /**

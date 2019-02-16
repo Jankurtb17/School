@@ -28,12 +28,15 @@ class teacheradvisory extends Controller
                 ->where('role_id', 3)
                 ->get();
       $advisory = DB::table('advisories')
+                    ->join('users', 'advisories.employee_id', '=', 'users.employee_id')
+                    ->select('users.*','advisories.*')
                     ->get();
       $yearlevel = DB::table('yearlevels')
                       ->get();
       $schoolyear = DB::table('schoolyears')
                       ->get();
       $subjects = DB::table('search_subjects')
+                      ->orderBy('subjectCode', 'ASC')
                       ->get();
      
       return view('Dashboard.teacheradvisory', compact('subjects','user', 'schoolyear','advisory', 'yearlevel', 'student', 'teacher'));

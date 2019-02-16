@@ -53,6 +53,7 @@
                       <th>Id</th>
                       <th>School Year</th>
                       <th>Grade Level</th>
+                      <th>Subject</th>
                     </tr> 
                   </thead>
 
@@ -62,6 +63,7 @@
                           <td>{{$advisories->id}}</td>
                           <td>{{$advisories->schoolYear}}</td>
                           <td><a href="/studentgrades/{{$advisories->gradeLevel}}/{{$advisories->className }}">{{$advisories->gradeLevel }}</a></td>
+                          <td>{{ $advisories->subjectCode}}</td>
                         </tr>
                     @endforeach
                   </tbody>

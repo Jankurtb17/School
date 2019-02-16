@@ -18,7 +18,7 @@
                   </ol>
                 </nav>
               </div>
-              {{-- @if(Auth()->user()->status == 'Active') --}}
+              @if(Auth()->user()->status == 'Active')
                 <form method="POST">
                   <div class="row">
                 
@@ -29,6 +29,7 @@
                         <option value="2">2nd Grading</option>
                         <option value="3">3rd Grading</option>
                         <option value="4">4th Grading</option>
+                        <option value="final">Final Grade</option>
                       </select>
                     </div>
                     <div class="col-lg-2">
@@ -59,9 +60,9 @@
 
                             </tbody>
                       </table>
-                  {{-- @else 
-                     <h4 class="display-5">Please pay your remaining balance to view grades </h1>
-                  @endIf --}}
+                  @else 
+                     <h4 class="display-5" style="color:red;">Please pay your remaining balance to view grades </h1>
+                  @endIf
                 </div>
               </div>
             </div>

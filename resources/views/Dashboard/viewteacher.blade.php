@@ -63,31 +63,41 @@
                       </div>
                     </div>
                   </form>
-                  <form action="{{ route('submitgrade.admin')}}" method="POST" id="form-submit">
-                    @csrf
-                  <table class="table" id="example">
-                      <thead>
-                        <tr>
-                         
-                          <th>Student Id</th>
-                          <th>Gender</th>
-                          <th>First Name</th>
-                          <th>Last Name</th>
-                          <th>Grade</th>
-                          <th>Remarks</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        
-                      </tbody>
-                  </table>
-                    <button class="btn btn-dark" type="submit"> Submit Grade </button>
-                  </form>
+                  
+                  @foreach ($user as $users)
+                  
+                  <form id="form-submit">
+                      @csrf
+                    <div class="row">
+                      <input type="hidden" value="{{ $users->id}}" name="id[]" id="id">
+                    <div class="col-lg-12">
+                    <div class="table-responsive">
+                    <table class="table" id="example">
+                        <thead>
+                          <tr>
+                            <th>Gender</th>
+                            <th>Section</th>
+                            <th>Student Id</th>
+                            <th>Student Name</th>
+                            <th>Subject</th>
+                            <th>Grading Period</th>
+                            <th>Grade</th>
+                            <th>Remarks</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    </div>
+                    </div>
+                  </div>
+                  @endforeach
+                </form>
                 </div>
               </div>
             </div>
-
+          
             <div class="col-lg-3">
               <div class="card" id="card-information2">
                 <div class="card-body">
@@ -115,6 +125,7 @@
                 </div>
               </div>
             </div>
+
           </div>
         </div>
     </div>
@@ -123,9 +134,7 @@
 @endsection
 @section('scripts')
 <script>
-$(document).ready(function() {
-  $('.btn-dark').hide();
-});
+
 $(document).on('submit', 'form', function(e) {
     e.preventDefault();
     $.ajax({
@@ -140,26 +149,27 @@ $(document).on('submit', 'form', function(e) {
         },
         success:function(data) {
           $('tbody').html(data);
-          $('.btn-dark').show();
         }
     });
 });
 
 $(document).on('submit', '#form-submit', function() {
+   id = $('#id').val();
     $.ajax({
-        url: "{{ route('submitgrade.admin')}}",
-        method: "POST",
+        url: "studentgrades/"+id,
+        method: "PUT",
         data: {
-          "student_id": $('#student_id').val(),
-          "grade": $('#grade').val(),
-          "_token": $('input[name=_token]').val()
+            "_token": $('input[name=_token]').val(),
+            "id": $('#id').val(),
+            "grade": $("#grade").val()
         },
-        success:function(data)
-        {
-
+        success:function(data) {
+          console.log('asd');
         }
+        
     });
-}); 
+});
+
 
 </script>
 @endSection

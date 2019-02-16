@@ -75,12 +75,36 @@
                 </tr>
                 <tr>
                     <td colspan="4" id="level"><strong>GRADE 4 </strong></td>
+                    @foreach ($grade4 as $grade4f)
+                    <tr>
+                      <td></td>
+                      <td>{{ $grade4f->subjectCode}}</td>
+                      <td>{{ $grade4f->description}}</td>
+                      <td></td>
+                    </tr>
+                  @endforeach
                 </tr>
                 <tr>
                     <td colspan="4" id="level"><strong>GRADE 5 </strong></td>
+                    @foreach ($grade5 as $grade5g)
+                    <tr>
+                      <td></td>
+                      <td>{{ $grade5g->subjectCode}}</td>
+                      <td>{{ $grade5g->description}}</td>
+                      <td></td>
+                    </tr>
+                  @endforeach
                 </tr>
                 <tr>
                     <td colspan="4" id="level"><strong>GRADE 6 </strong></td>
+                    @foreach ($grade6 as $grade6h)
+                    <tr>
+                      <td></td>
+                      <td>{{ $grade6h->subjectCode}}</td>
+                      <td>{{ $grade6h->description}}</td>
+                      <td></td>
+                    </tr>
+                  @endforeach
                 </tr>
                     </tbody>
                   </table>

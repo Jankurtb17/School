@@ -19,22 +19,26 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::get('/', 'HomeController@index');
     Route::get('/dashboard2', 'HomeController@dashboard2');
     Route::get('/dashboard', 'HomeController@dashboard');
+    Route::resource('/viewstudentgrades', 'viewstudentgrades');
     Route::resource('/class', 'nameOfClass');
     Route::get('/addteacher/excel', 'AddTeacherController@excel')->name('export.teacher');
     Route::get('/addteacher/search', 'AddTeacherController@search')->name('find.teacher');
     Route::get('/addteacher/fetch', 'AddTeacherController@fetch')->name('teacher.submitted');
     Route::get('/addteacher/PDF', 'AddTeacherController@pdf')->name('teacher.pdf');
-    Route::get('/addteacher/{employee_id}', 'AddTeacherController@select');
+    Route::get('/viewteacher/{employee_id}', 'AddTeacherController@select');
     Route::post('/addteacher/grade', 'AddTeacherController@searchAdminGrade')->name('searchgrade.admin');
     Route::post('/addteacher/submitgrade', 'AddTeacherController@submitGradeAdmin')->name('submitgrade.admin');
+    // Route::put('/studentgrades/{studentgrade}', 'MakeGrades@update')->name('updategrades.admin');
+    Route::put('/studentgrades/{id}', ['as' => 'updategrades.admin', 'uses' => 'MakeGrades@update']);
     Route::resource('/addteacher', 'AddTeacherController');
     Route::get('/student/search', 'StudentController@search')->name('find.student');
+    Route::post('/student/fetch', 'StudentController@fetch')->name('dynamicdependent3.fetch');
     Route::put('/student/update', 'StudentController@updateStudent')->name('status.update');
     Route::get('/student/{student_id}/{gradelevel}', 'StudentController@select');
+    Route::post('/student/{student_id}/{gradelevel}/{id}', 'StudentController@update');
     Route::get('/student/excel', 'StudentController@excel')->name('export.student');
     Route::get('/student/PDF', 'StudentController@pdf')->name('export.pdf');
     Route::resource('/student', 'StudentController');
-    Route::post('/student/fetch', 'StudentController@fetch')->name('dynamicdependent3.fetch');
     Route::resource('/schoolyear', 'schoolyr');
     // Route::resource('/subject', 'subjectview');
     Route::post('/subject/fetch', 'subjectview@fetch')->name('dynamicdependent.fetch');
@@ -43,7 +47,6 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::post('/advisory/fetch', 'teacheradvisory@fetch')->name('dynamicdependent2.fetch');
     Route::post('/advisory/scan', 'teacheradvisory@fetchSubject')->name('fetch.subject');
     Route::resource('/examination', 'Examination');
-    Route::get('/studentgrades', 'StudentGrades@index');
     });
   
   Route::group(['middleware' => 'Teacher'], function() {
@@ -61,7 +64,6 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::get('/viewgrades/pdf', 'SubmittedGrades@pdf')->name('export.grades');
     Route::post('/viewgrades/fetch', 'SubmittedGrades@fetch')->name('find.advisory');
     Route::get('/viewgrades ', 'SubmittedGrades@index');
-    Route::post('/viewgrades', 'SendGrade@sendGrade')->name('send.grade');
     
   });
     //studnets
@@ -76,6 +78,7 @@ Route::group(['middleware'  => 'revalidate'], function(){
     //changepassword
     Route::get('/settings', 'AccountSettings@showChangePasswordForm');
     Route::post('/settings', 'AccountSettings@changePassword')->name('changePassword');
+    Route::post('/settings/{id}', 'changepassword@update')->name('change.info');
     Route::get('404', ['as' => '404', 'uses' => 'ErrorController@notFound']);
     Route::get('500', ['as' => '500', 'uses' => 'ErrorController@notFound']);
   }); 

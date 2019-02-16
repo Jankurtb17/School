@@ -167,11 +167,11 @@
                                       <option value="Inactive">Inactive</option>
                                   </select>
                                 </div>
+                            </form>
                           </div>
                           <div class="modal-footer">
-                              <button type="submit" class="btn btn-dark actionBtn" data-dismiss="modal">Update</button>
+                              <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal">Update</button>
                               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            </form>
                           </div>
 
                         </div>
@@ -189,20 +189,6 @@
 @endsection
 @section('scripts')
 <script>
-  $(document).on('keyup', '#search', function() {
-    value = $(this).val();
-    $.ajax({
-      url: "{{ route('find.teacher')}}",
-      type: "GET",
-      data: {
-        "search": value,
-        "_token": $('input[name_token]').val()
-      },
-      success:function(data) {
-        $('tbody').html(data);
-      }
-    });
-  });
 
   $(document).on('change', '.dynamic', function() {
       if($(this).val() != ''){
@@ -241,7 +227,6 @@
 
         $.ajax( {
             type: "PUT",
-            url: "student/"+id,
             data: {
               "id": id,
               "schoolYear": $('#schoolYear').val(),

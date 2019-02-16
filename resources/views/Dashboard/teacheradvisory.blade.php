@@ -36,7 +36,7 @@
                     Add teacher advisory
                 </button>
                 <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog modal-sm" role="document">
+                  <div class="modal-dialog modal-md" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title"> Teacher Advisory</h5>
@@ -117,7 +117,7 @@
                           <td>{{ $advisories->gradeLevel }} </td>
                           <td>{{ $advisories->className }}</td>
                           <td>{{ $advisories->subjectCode}}</td>
-                          <td><a href="/teacher/{{ $advisories->employee_id }}">{{$advisories->employee_id }} </a></td>
+                          <td><a href="/teacher/{{ $advisories->employee_id }}">{{$advisories->firstName }} {{$advisories->middleName }} {{$advisories->lastName }} </a></td>
                           <td>
                             <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}" data-description="{{ $advisories->subjectCode}}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>
                             <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}" data-description="{{ $advisories->subjectCode}}"><i class="fa fa-trash-o" aria-hidden="true"> </i> Delete</a>
@@ -215,7 +215,7 @@
   <script>
    
     $(document).ready(function() {
-        $('#example').dataTable();
+        $('#example').DataTable();
     });
     
     $(document).on('click', '.modal', function() {

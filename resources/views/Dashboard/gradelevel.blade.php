@@ -89,7 +89,7 @@
                   <th> Action </th>
                 </tr>
               </thead>
-              <tbody class="table-bordered">
+              <tbody>
                 @foreach ($yearlevel as $yearlevels)
                   <tr class="post{{ $yearlevels->id}}">
                     <td> {{ $yearlevels->id }} </td>

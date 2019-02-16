@@ -12,11 +12,18 @@
             <div class="col-lg-6">
                 <div class="card" id="changepassword2">
                   <div class="card-body">
-                      <form id="horizontal" action="">
+                      <form id="horizontal" action="{{ route('change.info', ['id' => Auth()->user()->id] )}}" method="POST">
                         @csrf
                         <div class="form-group">
                           <h5 class="display-5">EDIT PROFILE </h5>
                         </div>
+                        
+                        @if(session()->has('updated'))
+                        <div class="alert alert-success changepass-alert">
+                            <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times; </button>
+                            <strong> User Information </strong> {{ session()->get('updated')}}
+                        </div>
+                      @endif
 
                         <div class="form-group" id="form-group">
                             <div class="row">
@@ -42,20 +49,14 @@
                         <div class="form-group" id="form-group">
                             <div class="row">
                               <Label class="col-lg-3">Contact Number</Label>
-                              <input  type="text" class="form-control col-lg-8" name="contactNumber" id="contactNumber" value="{{ Auth()->user()->phone_number }}">
+                              <input  type="text" class="form-control col-lg-8" name="phone_number" id="contactNumber" value="{{ Auth()->user()->phone_number }}">
                             </div>
                         </div>
 
                         <div class="form-group" id="form-group">
                             <div class="row">
                               <Label class="col-lg-3">Address</Label>
-                            <input  type="text" class="form-control col-lg-8" name="currentPassword" id="Address">
-                            </div>
-                        </div>
-                        <div class="form-group" id="form-group">
-                            <div class="row">
-                              <Label class="col-lg-3"></Label>
-                              <input  type="text" class="form-control col-lg-8" name="currentPassword" id="Address1">
+                            <input  type="text" class="form-control col-lg-8" name="address" id="Address" value="{{ Auth()->user()->address}}">
                             </div>
                         </div>
 

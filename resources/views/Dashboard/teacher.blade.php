@@ -183,7 +183,7 @@
             <tbody>
                 @foreach ($user_teacher as $users)
                 <tr class="post {{ $users->id }}">
-                  <td><a href="/addteacher/{{$users->employee_id}}">{{ $users->employee_id }} </a></td>
+                  <td><a href="/viewteacher/{{$users->employee_id}}">{{ $users->employee_id }} </a></td>
                     <td>{{ $users->gender}}</td>
                     <td>{{ $users->firstName }}</td>
                     <td>{{ $users->lastName }}</td>

@@ -66,7 +66,7 @@
             </div>
           </form>
      
-          <form action="{{ route('send.grade')}}">
+          <form>
             @csrf
           <div class="table-wrapper-scroll-y">
           <table class="table">
@@ -127,7 +127,7 @@ $(document).on('change', '.dynamic', function() {
 
 });
 
-$('form').on('submit', function(e) {
+$(document).on('submit', 'form', function(e) {
   e.preventDefault();
   $.ajax({
     url: "{{ route('find.grades')}}",
@@ -144,22 +144,6 @@ $('form').on('submit', function(e) {
     }
   })
 
-});
-
-$(document).on('submit', '.btn-dark', function() {
-  $.ajax({
-      url: "{{ route('send.grade')}}",
-      type: "POST",
-      data: {
-        "id": $('#student_id').val(),
-        "contactNumber": $('#contactNumber').val(),
-        "_token": $('input[name=_token]').val()
-      },
-      success:function(data)
-      {
-
-      }
-  }); 
 });
 
 

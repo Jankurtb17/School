@@ -347,11 +347,5 @@ table a:hover {
     display: block;
 }
 
-@media (min-width: 1500px) {
-    .nav {
-        display: flex;
-        flex-direction: column;
-        background: #222d32;
-        height: 100vh;
-    }
+@media (max-height: 900px) and (max-width: 1600px) {
 }

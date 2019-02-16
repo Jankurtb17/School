@@ -35,13 +35,7 @@ class AddTeacherController extends Controller
        return view('Dashboard.teacher', compact('user', 'teacher', 'student' ,'user_teacher'));
     }
 
-    public function get_teacher()
-    {
-      $user_teacher = DB::table('users')
-                      ->where('role_id', 3)
-                      ->get();
-      return $user_teacher;
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -205,114 +199,64 @@ class AddTeacherController extends Controller
                 ->where('student_id', $student_id)
                 ->get();
                 }
-
+                
+    // generate PDF
     public function pdf()
     {
+      
+      $user_teacher = DB::table('users')
+                      ->where('role_id', 3)
+                      ->get();
       $pdf = \App::make('dompdf.wrapper');
-      $pdf->loadHTML($this->convert_teacher_data());
+      $pdf = PDF::loadview('Dashboard.pdfteacher', compact('user_teacher'));
       return $pdf->stream();
     }
 
-    public function convert_teacher_data()
+    public function get_teacher()
     {
-      $user_teacher = $this->get_teacher();
-      $output = '
-            <div>
-                <h2>ANGELS OF DE VERA LEARNING CENTER </h2>
-                <span> Blk 1 lot 33 phase 2 Molino Homes III</span> <br>
-                <span> Molino, Cavite </span> <br>
-                <span>Jankurt@anglesdevera.com </span>
-                <br> <br>
-                <span> List of Teacher</span>
-            </div>
-            <table class="table table-bordered" style="margin: 50px 20px 0px 0px; width: 750px; font-family:roboto">
-                <tr>
-                    <th> Employee Id </th>
-                    <th> First Name </th>
-                    <th> Middle Initial </th>
-                    <th> Last Name </th>
-                    <th> Contact Number </th>
-                    <th> Email </th>
-                </tr>
-       ';
-       foreach($user_teacher as $user)
-        {
-            $output .= '
-                  <tr>
-                    <td style="width:100px;">'.$user->employee_id.' </td>
-                    <td>'.$user->firstName.' </td>
-                    <td>'.$user->middleName.' </td>
-                    <td>'.$user->lastName.' </td>
-                    <td style="width:100px;">'.$user->phone_number.' </td>
-                    <td>'.$user->email.' </td>
-                  </tr>';
-        }
-            $output .= '</table>';
-            return $output;
+      $user_teacher = DB::table('users')
+                      ->where('role_id', 3)
+                      ->get();
+      return $user_teacher;
     }
 
     
     public function searchAdminGrade(Request $request)
     {
-      $gradingperiod = $request->get('gradingperiod');
       $gradeLevel    = $request->get('gradeLevel');
       $subjectCode   = $request->get('subjectCode');
       $schoolyear    = $request->get('schoolYear');
       $employee_id   = $request->get('employee_id');
       $output = '';
       $data = DB::table('sendgradeadmins')
-                ->join('users','sendgradeadmins.student_id', '=', 'users.student_id')
-                ->where('users.gradeLevel', "LIKE", '%'.$gradeLevel.'%')
-                ->where('sendgradeadmins.schoolYear', "LIKE", '%'.$schoolyear.'%')
-                ->where('sendgradeadmins.gradingperiod',"LIKE", '%'.$gradingperiod.'%')
-                ->where('sendgradeadmins.subjectCode', "LIKE",'%'.$subjectCode.'%')
-                ->where('sendgradeadmins.employee_id',"LIKE", '%'.$employee_id.'%')
-                ->groupBy('sendgradeadmins.student_id')
-                ->orderBy('gender', 'DESC')
+                ->join('search_subjects', 'sendgradeadmins.subjectCode', '=', 'search_subjects.subjectCode')
+                ->leftjoin('users','sendgradeadmins.student_id', '=', 'users.student_id')
+                ->select('users.gender', 'users.student_id', 'users.firstName', 'users.middleName', 'users.lastName', 'sendgradeadmins.*', 'search_subjects.description')
+                ->where('sendgradeadmins.gradeLevel', 'LIKE', '%'.$gradeLevel.'%')
+                ->where('sendgradeadmins.schoolYear', 'LIKE', '%'.$schoolyear.'%')
+                ->where('sendgradeadmins.subjectCode', 'LIKE','%'.$subjectCode.'%')
+                ->where('sendgradeadmins.employee_id','LIKE', '%'.$employee_id.'%')
+                ->groupBy('sendgradeadmins.grade')
+                ->orderBy('sendgradeadmins.gradingperiod', 'ASC')
                 ->get();
       $total_rows = $data->count();
       if($total_rows > 0)
       {
           foreach($data as $row)
           {
-            $grade = $row->grade;
-            if($grade >= 75)
-            {
             $output .= '
                 <tr>
-                  <td>'.$row->student_id.'</td>
                   <td>'.$row->gender.'</td>
-                  <td>'.$row->firstName.'</td>
-                  <td>'.$row->lastName.'</td>
-                  <td> <input type="hidden" value="'.$row->grade.'" id="grade" name="grade[]">'.$row->grade.'</td>
+                  <td>'.$row->className.'</td>
+                  <td>'.$row->student_id.'</td>
+                  <td>'.$row->firstName.' '.$row->lastName.'</td>  
+                  <td>'.$row->description.'</td>
+                  <td>'.$row->gradingperiod.'</td>
+                  <td> <input type="hidden" class="form-control" value="'.$row->grade.'" id="grade" name="grade[]"><input type="text"  size="1" value="'.$row->grade.'" id="grade" name="grade[]" style="text-align:center;"></td>
                   <td> <span class="badge badge-success"> Passed </span> </td>
-                  <td> <input type="checkbox" id="student_id" value="'.$row->id.'" name="student_id[]"> </td
-                  <input type="hidden" id="gradeLevel" name="gradeLevel" value="'.$row->gradeLevel.'">
-                  <input type="hidden" id="schoolYear" name="schoolYear" value="'.$row->schoolYear.'">
-                  <input type="hidden" id="gradingperiod" name="gradingperiod" value="'.$row->gradingperiod.'">
-                  <input type="hidden" id="className" name="className" value="'.$row->className.'">
-                  <input type="hidden" id="employee_id" name="employee_id" value="'.$row->employee_id.'">
+                  <td> <button type="submit" class="btn btn-dark btn-sm">Update Grade</td>`
                 </tr>
                 ';
-            }
-            else {
-              $output .= '
-                <tr>
-                  <td>'.$row->student_id.'</td>
-                  <td>'.$row->gender.'</td>
-                  <td>'.$row->firstName.'</td>
-                  <td>'.$row->lastName.'</td>
-                  <td>'.$row->grade.'</td>
-                  <td> <span class="badge badge-danger">Failed </span></td>
-                  <td> <input type="checkbox" id="student_id" value="'.$row->id.'" name="student_id[]"> </td
-                  <input type="hidden" id="gradeLevel" name="gradeLevel" value="'.$row->gradeLevel.'">
-                  <input type="hidden" id="schoolYear" name="schoolYear" value="'.$row->schoolYear.'">
-                  <input type="hidden" id="gradingperiod" name="gradingperiod" value="'.$row->gradingperiod.'">
-                  <input type="hidden" id="className" name="className" value="'.$row->className.'">
-                  <inp
-                </tr>
-                ';
-            }
           }
           return response()->json($output);
       }
@@ -337,5 +281,6 @@ class AddTeacherController extends Controller
         $data = DB::table('firstgradings')->insert($datas);
         return response()->json($data);
     }
+
 
 }

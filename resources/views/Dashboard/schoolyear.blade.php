@@ -66,7 +66,7 @@
                   </div>
                 </div>
                 <div class="table table-responsive-md">
-                <table class="table table-hover">
+                <table class="table table-hover" id="example">
                   <thead>
                     <tr>
                       <th> Id </th>
@@ -74,7 +74,7 @@
                       <th> Action </th>
                     </tr>
                   </thead>
-                  <tbody class="table-bordered">
+                  <tbody>
                     <?php $no=1; ?>
                     @foreach ($schoolyear as $schoolyears)
                         <tr class="post{{ $schoolyears->id }}"> 
@@ -134,9 +134,11 @@
 
  @section('scripts')
   <script type="text/javascript">
+  
     $(document).on('click', '.modal', function() {
       $('.modal-title').text('Add School Year');
     });
+
     $(document).on('click','.edit-modal', function(){
       $('.actionBtn').show();
       $('.delete').hide();

@@ -44,29 +44,29 @@ class SubmittedGrades extends Controller
     //search advisory usnig button
     public function search(Request $request)
     {
+      $output = '';
       $gradingperiod = $request->get('gradingperiod');
       $gradeLevel    = $request->get('gradeLevel');
       $subjectCode   = $request->get('subjectCode');
       $schoolyear    = $request->get('schoolYear');
-      $output = '';
       $data = DB::table('sendgradeadmins')
-                ->join('users','sendgradeadmins.student_id', '=', 'users.student_id')
-                ->where('users.gradeLevel', $gradeLevel)
-                ->where('sendgradeadmins.schoolYear', $schoolyear)
-                ->where('sendgradeadmins.gradingperiod', $gradingperiod)
-                ->where('sendgradeadmins.subjectCode', $subjectCode)
+                ->leftJoin('users','sendgradeadmins.student_id', '=', 'users.student_id')
+                ->select('users.student_id', 'users.gender', 'users.firstName', 'users.middleName', 'users.lastName','sendgradeadmins.*')
+                ->where('sendgradeadmins.gradeLevel', 'LIKE', '%'.$gradeLevel.'%')
+                ->where('sendgradeadmins.gradingperiod', 'LIKE',  '%'.$gradingperiod.'%')
+                ->where('sendgradeadmins.subjectCode', 'LIKE',  '%'.$subjectCode.'%')
+                ->where('sendgradeadmins.schoolYear', 'LIKE', '%'.$schoolyear.'%')
                 ->where('sendgradeadmins.employee_id', Auth()->user()->employee_id)
-                ->groupBy('sendgradeadmins.student_id')
-                ->orderBy('gender', 'DESC')
                 ->get();
+    
+
       $total_rows = $data->count();
       if($total_rows > 0)
       {
           foreach($data as $row)
           {
             $grade = $row->grade;
-            if($grade >= 75)
-            {
+           
             $output .= '
                 <tr>
                   <td> <input type="hidden" value="'.$row->student_id.'" id="student_od">'.$row->student_id.'</td>
@@ -78,21 +78,8 @@ class SubmittedGrades extends Controller
                 </tr>
                 ';
             }
-            else {
-              $output .= '
-                <tr>
-                  <td>'.$row->student_id.'</td>
-                  <td>'.$row->gender.'</td>
-                  <td>'.$row->firstName.'</td>
-                  <td>'.$row->lastName.'</td>
-                  <td>'.$row->grade.'</td>
-                  <td> <span class="badge badge-danger">Failed </span></td>
-                </tr>
-                ';
-            }
-          }
+         
           return response()->json($output);
-          $output = $this->get_submitted_grade();
       }
       else {
         $output = "<tr> <td colspan='4'> Grade not encoded </td> </tr> ";

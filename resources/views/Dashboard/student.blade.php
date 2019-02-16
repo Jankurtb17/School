@@ -52,9 +52,19 @@
                             <div class="col-md-3"> 
                               <label class="col-form-label">Student </label>
                             </div>
-                            <div class="col-md-9">
+                            {{-- <div class="col-md-9">
                               <input id ="studentNumber" type="text" class="form-control" placeholder="Student Number" name="student_id" required>
+                            </div> --}}
+                            <div class="col-md-2">
+                              <input type="text" name="studone" class="form-control" value="LRN" readonly style="text-align:center;">
                             </div>
+                            <div class="col-md-4">
+                              <input type="text" name="studtwo" class="form-control" style="text-align:center;"> 
+                            </div>
+                            <div class="col-md-3">
+                              <input type="text" name="studthree" class="form-control" style="text-align:center;"> 
+                            </div>
+
                           </div>
                         </div>
                           <div class="form-group">
@@ -115,7 +125,7 @@
                        <div class="row">
                         <div class="col-md-3"> </div>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" placeholder="Address" name="Address">
+                            <input type="text" class="form-control" placeholder="Address" name="address">
                         </div>
                        </div>
                      </div> 
@@ -200,7 +210,7 @@
                       <td>{{ $user_students->firstName}} </td>
                       <td>{{ $user_students->lastName}} </td>
                       <td>{{ $user_students->email}} </td>
-                      <td id="status"><span class="badge {{ $user_students->status == 'Active' ? 'btn-success' : 'btn-danger'}}">{{$user_students->status}}</span></td>
+                      <td class="post" id="status"><span class="badge {{ $user_students->status == 'Active' ? 'btn-success' : 'btn-danger'}}">{{$user_students->status}}</span></td>
                       <td>
                       <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $user_students->id}}" data-studnumber="{{ $user_students->student_id }}" data-classname="{{ $user_students->className }}" data-gradelevel="{{ $user_students->gradeLevel }}" data-first="{{ $user_students->firstName }}" data-last="{{ $user_students->lastName }}" data-email="{{ $user_students->email }}" data-password="{{ $user_students->password }}" data-fuck="{{ $user_students->status }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
                       </td>
@@ -233,8 +243,6 @@
                         <div class="form-group">
                             <label class="col-lg-label">Grade Level </label>
                             <select name="gradeLevel" id="gradeLevel" class="form-control dynamic2" data-dependent="className">
-                              <option value="kindergarten">kindergarten</option>
-                              <option value="preparatory">preparatory</option>
                               <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
@@ -245,10 +253,11 @@
                         </div>
                         <div class="form-group">
                           <div class="col-form-label">Section </div>
-                          <select name="className" id="d className" class="form-control">
-                            <option value="" selected disabled>-Select Section-</option>
+                          <select name="className" id="className d" class="form-control">
+                            <option value="">-Select Section-</option>
                           </select>
                         </div>
+                       
                         <div class="form-group">
                             <div class="col-lg-label">Status </div>
                              <select name="status" id="c" class="form-control">
@@ -308,32 +317,9 @@
     $(document).on('click', '.edit-modal', function() {
        $(".dynamic2").val($(this).data('gradelevel'));
         $('#c').val($(this).data('fuck'));  
-        $('#d').val($(this).data('classname'));
+        $('#className').val($(this).data('classname'));
         $('#id').val($(this).data("id"));
-        $('#studentid').val($(this).data("studentid"));
         id = $('#id').val();
-    });
-    $(document).on('change', '.dynamic2', function() {
-      if($(this).val() != ''){
-        select = $(this).attr('id');
-        value = $(this).val();
-        dependent = $(this).data('dependent');
-        _token = $('input[name="_token"]').val();
-          $.ajax({
-                  url: "{{ route('dynamicdependent3.fetch') }}",
-                  method: "POST",
-                  data: {
-                    select: select,
-                    value: value,
-                    _token: _token,
-                    dependent:dependent
-                  },
-                  success:function(result)
-                  {
-                    $('#'+dependent).html(result);
-                  }
-              });
-          }
     });
 
     $('.modal-footer').on('click', '.actionBtn', function() {
@@ -349,16 +335,9 @@
               "_token": $('input[name=_token]').val()
             },
             success:function(data){
-              $('.post' +data.id).replaceWith(" "+
-                "<tr class='post" + data.id +"'>"+
-                "<td>" +data.gradeLevel+ " </td>"+
-                "<td>" +data.schoolYear+ " </td>"+
-                "<td>" +data.className+ " </td>"+
-                "<td>" +data.gradeLevel+ " </td>"+
-                "<td> <span class='badge badge-success'>" +data.status+ "</span> </td>"+
-                "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolyear='"+data.schoolYear+"' data-gradelevel='"+data.gradeLevel+"' data-description='"+data.subjectCode+"' data-employee='"+data.employee_id+"' >"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
-                "</td>"+
-                "</tr>");
+              $(document).ajaxStop(function(){
+                  setTimeout("window.location = '/student'",100);
+                });
             }
         })
     });
@@ -388,5 +367,5 @@
     });
 
   
-  </script>  
+  </script>
 @endSection
