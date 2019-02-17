@@ -22,8 +22,9 @@ class viewstudentgrades extends Controller
                     ->where('role_id', 1)
                     ->count();
         $grades = DB::table('sendgradeadmins')
-                    ->leftJoin('users', 'sendgradeadmins.employee_id', '=', 'users.employee_id')
-                    ->select('users.*', 'sendgradeadmins.*')
+                    ->join('search_subjects', 'sendgradeadmins.subjectCode', '=', 'search_subjects.subjectCode')
+                    ->join('users', 'users.student_id', '=', 'sendgradeadmins.student_id')
+                    ->select('search_subjects.subjectCode', 'search_subjects.description', 'users.student_id', 'users.firstName', 'users.lastName', 'users.middleName','sendgradeadmins.*')
                     ->get();
         return view('Dashboard.updategrade', compact('teacher', 'student', 'grades'));
     }

@@ -45,6 +45,7 @@
               </div>
             @endif
           </div>
+    
 
             <div class="table-responsive mt-3">
               <table class="table table-hover" id="example">
@@ -53,16 +54,19 @@
                       <th>Id</th>
                       <th>School Year</th>
                       <th>Grade Level</th>
+                      <th>Section</th>
                       <th>Subject</th>
                     </tr> 
                   </thead>
+
 
                   <tbody id="tbody">
                     @foreach ($advisory as $advisories)
                         <tr class="post{{ $advisories->id}}">
                           <td>{{$advisories->id}}</td>
                           <td>{{$advisories->schoolYear}}</td>
-                          <td><a href="/studentgrades/{{$advisories->gradeLevel}}/{{$advisories->className }}">{{$advisories->gradeLevel }}</a></td>
+                          <td><a href="/studentgrades/{{$advisories->gradeLevel}}/{{$advisories->className }}/{{ $advisories->subjectCode}}">{{$advisories->gradeLevel }}</a></td>
+                          <td>{{$advisories->className}}</td>
                           <td>{{ $advisories->subjectCode}}</td>
                         </tr>
                     @endforeach

@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/addmodal.css')}}">
-  <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-  <title>Document</title>
-</head>
-<body>
-  @include('Pages.sidebar')
-  @can('isStudent')
+@extends('layouts.teacher')
+
+@section('content')
         <div class="content">
           <div class="sidebar-content">
           </div>
@@ -36,7 +23,6 @@
                         <th>Level</th>
                         <th>Subject Code</th>
                         <th>Subject Description</th>
-                        <th>Remarks </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -47,7 +33,6 @@
                           <td></td>
                           <td>{{ $grade1s->subjectCode}}</td>
                           <td>{{ $grade1s->description}}</td>
-                          <td></td>
                         </tr>
                       @endforeach
                       </tr>
@@ -58,7 +43,6 @@
                           <td></td>
                           <td>{{ $grade2s->subjectCode}}</td>
                           <td>{{ $grade2s->description}}</td>
-                          <td></td>
                         </tr>
                       @endforeach
                     </tr>
@@ -69,7 +53,6 @@
                       <td></td>
                       <td>{{ $grade3e->subjectCode}}</td>
                       <td>{{ $grade3e->description}}</td>
-                      <td></td>
                     </tr>
                   @endforeach
                 </tr>
@@ -80,7 +63,6 @@
                       <td></td>
                       <td>{{ $grade4f->subjectCode}}</td>
                       <td>{{ $grade4f->description}}</td>
-                      <td></td>
                     </tr>
                   @endforeach
                 </tr>
@@ -91,7 +73,6 @@
                       <td></td>
                       <td>{{ $grade5g->subjectCode}}</td>
                       <td>{{ $grade5g->description}}</td>
-                      <td></td>
                     </tr>
                   @endforeach
                 </tr>
@@ -102,7 +83,6 @@
                       <td></td>
                       <td>{{ $grade6h->subjectCode}}</td>
                       <td>{{ $grade6h->description}}</td>
-                      <td></td>
                     </tr>
                   @endforeach
                 </tr>
@@ -115,12 +95,6 @@
     </div>
   </div>
   </div>
-
-  <script src="{{ asset('js/app.js') }}"></script>
-  <script>
-
-  
-  </script>
-</body>
-</html>
-@endCan
+  @endSection
+  @section('scripts')
+  @endSection

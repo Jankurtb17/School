@@ -20,13 +20,14 @@ class StudentGrades extends Controller
       $output = '';
       $gradingperiod = $request->get('gradingPeriod');
       $schoolyear = $request->get('schoolYear');
+      $student_id = $request->get('student_id');
       $search = DB::table('sendgradeadmins')
                   ->join('search_subjects', 'sendgradeadmins.subjectCode', '=', 'search_subjects.subjectCode')
                   ->join('users', 'sendgradeadmins.employee_id', '=', 'users.employee_id')
                   ->select('search_subjects.subjectCode', 'search_subjects.description', 'users.firstName', 'users.lastName', 'users.middleName','sendgradeadmins.grade')
-                  ->where('sendgradeadmins.gradingperiod', 'LIKE', '%'.$gradingperiod.'%')
+                  ->where('sendgradeadmins.gradingperiod', $gradingperiod)
                   ->where('sendgradeadmins.schoolYear', $schoolyear)
-                  ->where('sendgradeadmins.student_id', Auth()->user()->student_id)
+                  ->where('sendgradeadmins.student_id', $student_id)
                   ->groupBy('sendgradeadmins.subjectCode')
                   ->get();
       $count = count($search);

@@ -25,13 +25,21 @@
                         </div>
                       @endif
                         
+                        @if(Auth()->user()->role_id == 1)
                         <div class="form-group" id="form-group">
                           <div class="row">
                             <Label class="col-lg-3">Student ID</Label>
-                            <input  type="text" class="form-control col-lg-8" name="firstName" id="firstName" value="{{ Auth()->user()->student_id }}" readonly>
+                            <input  type="text" class="form-control col-lg-8" name="firstName" id="student_id" value="{{ Auth()->user()->student_id }}" readonly>
                           </div>
                         </div>
-
+                        @else 
+                        <div class="form-group" id="form-group">
+                          <div class="row">
+                            <Label class="col-lg-3">Employee ID</Label>
+                            <input  type="text" class="form-control col-lg-8" name="employee_id" id="employee_id" value="{{ Auth()->user()->employee_id }}" readonly>
+                          </div>
+                        </div>
+                        @endif
                         <div class="form-group" id="form-group">
                             <div class="row">
                               <Label class="col-lg-3">First Name</Label>

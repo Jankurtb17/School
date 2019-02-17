@@ -33,7 +33,7 @@
                 @endif
 
                 <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
-                    Add teacher advisory
+                  <i class="fa fa-plus" aria-hidden="true"></i>    ADD TEACHER ADVISORY
                 </button>
                 <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog modal-md" role="document">
@@ -99,6 +99,7 @@
                 </div>
                 <div class="table-wrapper-scroll-y">
                 <table class="table table-hover" id="example">
+                  <thead>
                     <tr>
                       <th> ID</th>
                       <th> School Year</th>
@@ -108,6 +109,7 @@
                       <th> Teacher ID</th>
                       <th> Action </th>
                     </tr>
+                  </thead>
                   <tbody>
                     <?php $n=1; ?>
                     @foreach ($advisory as $advisories)
@@ -117,7 +119,7 @@
                           <td>{{ $advisories->gradeLevel }} </td>
                           <td>{{ $advisories->className }}</td>
                           <td>{{ $advisories->subjectCode}}</td>
-                          <td><a href="/teacher/{{ $advisories->employee_id }}">{{$advisories->firstName }} {{$advisories->middleName }} {{$advisories->lastName }} </a></td>
+                          <td><a href="/viewteacher/{{ $advisories->employee_id }}">{{$advisories->firstName }} {{$advisories->middleName }} {{$advisories->lastName }} </a></td>
                           <td>
                             <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}" data-description="{{ $advisories->subjectCode}}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>
                             <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}" data-description="{{ $advisories->subjectCode}}"><i class="fa fa-trash-o" aria-hidden="true"> </i> Delete</a>

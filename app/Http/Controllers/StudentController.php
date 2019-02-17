@@ -69,7 +69,7 @@ class StudentController extends Controller
       $studone = $request->get('studone');
       $studtwo = $request->get('studtwo');
       $studthree = $request->get('studthree');
-      $student_id = " ".$studone."-".$studtwo."-".$studthree;
+      $student_id = "".$studone."-".$studtwo."-".$studthree;
         $this->validate($request, [
             'gradeLevel'            => 'required|string',
             'className'             => 'required|string',
@@ -89,7 +89,7 @@ class StudentController extends Controller
             'gradeLevel'          =>$request->get('gradeLevel'),
             'className'           =>$request->get('className'),
             'firstName'           =>$request->get('firstName'),
-            'middleName'          =>$request->get('middleName'),
+          'middleName'          =>$request->get('middleName'),
             'lastName'            =>$request->get('lastName'),
             'gender'              =>$request->get('gender'),
             'dateOfBirth'         =>$request->get('dateOfBirth'),
@@ -196,17 +196,15 @@ class StudentController extends Controller
                 ->where('student_id', $student_id)
                 ->groupBy('student_id')
                 ->get();
-    $first = DB::table('firstgradings')
-                  ->where('gradingperiod', 1)
-                  ->where('student_id', $student_id)
-                  ->get(); 
-              
-   
-    // $first = DB::table('firstgradings')
-    //               ->select('grade' DB::raw('COUNT(grade) as COUNT'))
-    //               ->groupBy('student_id')
-    //               ->get();
-                  
+    // $first = DB::table('search_subjects')
+    //               ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
+    //               ->where('search_subjects.gradelevel', $gradelevel)
+    //               ->where('sendgradeadmins.student_id', $student_id)
+    //               ->groupBy('search_subjects.subjectCode')
+    //               ->get(); 
+        $first = DB::table('sendgradeadmins')
+                    ->where('student_id', $student_id)
+                    ->get();
     $second = DB::table('firstgradings')
                 ->where('student_id', $student_id)
                 ->where('gradingperiod', 2)

@@ -79,8 +79,6 @@
                             <th>Section</th>
                             <th>Student Id</th>
                             <th>Student Name</th>
-                            <th>Subject</th>
-                            <th>Grading Period</th>
                             <th>Grade</th>
                             <th>Remarks</th>
                             <th>Action</th>

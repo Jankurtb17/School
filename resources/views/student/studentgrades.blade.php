@@ -2,8 +2,6 @@
 
 
 @section('content')
-  @include('Pages.sidebar')
-  @can('isStudent')
         <div class="content">
           <div class="sidebar-content">
           </div>
@@ -21,7 +19,7 @@
               @if(Auth()->user()->status == 'Active')
                 <form method="POST">
                   <div class="row">
-                
+                    <input type="hidden" value="{{ Auth()->user()->student_id}}" name="student_id" id="student">
                     <div class="col-lg-2">
                       <select class="form-control" name="gradingPeriod" id="gradingPeriod">
                         <option value="" selected disabled>-Grading Period-</option>
@@ -53,7 +51,6 @@
                                 <th>Subject Description <th>
                                 <th>Instructor <th>
                                 <th>Grade <th>
-                                <th></th>
                               </tr>
                             </thead>
                             <tbody align="left">
@@ -72,6 +69,7 @@
     </div>
   </div>
   </div>
+@endsection
 @section('scripts')
 <script>
   $(document).on('submit', 'form', function(e) {
@@ -81,6 +79,7 @@
           type: "POST",
           data: {
             "_token": $('input[name=_token]').val(),
+            "student_id": $('#student').val(),
             "gradingPeriod": $('#gradingPeriod').val(),
             "schoolYear": $('#schoolYear').val(),
           },
@@ -91,8 +90,4 @@
       });
   });
 </script>
-@endsection
-</body>
-</html>
-@endCan
 @endsection

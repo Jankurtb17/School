@@ -32,7 +32,7 @@
             @endif
             <div class="form-group">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalFade5">
-                <i class="fa fa-plus" aria-hidden="true"> </i>  Add Teacher
+                <i class="fa fa-plus" aria-hidden="true"> </i> ADD TEACHER
             </button>
             <a href="{{ route('teacher.pdf')}}" class="btn btn-success">  <i class="fa fa-print" aria-hidden="true"> </i> Export</a>
             </div>

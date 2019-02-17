@@ -60,6 +60,10 @@ class teacheradvisory extends Controller
      */
     public function store(Request $request)
     {
+      // $employee_id = $request->get('employee_id');
+      // $subjectCode = $request->get('subjectCode');
+      // $gradeLevel = $request->get('gradeLevel');
+      // $schoolyear = $request->get('schoolYear');
       $this->validate($request, [
         'schoolYear'  =>  'required|string',
         'gradeLevel'  =>  'required|string',
@@ -67,27 +71,7 @@ class teacheradvisory extends Controller
         'employee_id' =>  'required|string',
         'subjectCode' =>  'required|string',
       ]);
-
-      $employee_id = $request->get('employee_id');
-      $subjectCode = $request->get('subjectCode');
-      $gradeLevel = $request->get('gradeLevel');
-      $schoolyear = $request->get('schoolYear');
-      $data = advisory::where('employee_id', $employee_id)
-                      ->where('subjectCode', $subjectCode)
-                      ->where('gradeLevel', $gradeLevel)
-                      ->where('schoolYear', $schoolyear)
-                      ->count();
-        // $data = DB::table('advisories')
-        //           ->select('employee_id', 'subjectCode', 'gradeLevel', 'schoolYear')
-        //           ->where('employee_id', $employee_id)
-        //           ->where('subjectCode', $subjectCode)
-        //           ->where('gradeLevel', $gradeLevel)
-        //           ->count();
-      if($data > 0)
-      {
-        return redirect('/advisory')->with('errors', 'already taken!');
-      }
-      else {
+     
         advisory::create([
           'user_id'     =>Auth::id(),
           'schoolYear'  =>$request->get('schoolYear'),
@@ -97,9 +81,6 @@ class teacheradvisory extends Controller
           'subjectCode' =>$request->get('subjectCode'),
       ]);
       return redirect('/advisory')->with('success', 'successfully added!');
-      }
-
-
        
         
     }

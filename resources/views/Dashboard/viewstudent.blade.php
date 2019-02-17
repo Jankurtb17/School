@@ -27,6 +27,7 @@
                     <li><a href="#">4th Grading </a></li>
                   </ul>
 
+                  
                 {{-- modal 1st grading--}}
                   <div class="modal fade" id="MyModal">
                     <div class="modal-dialog" role="document"> 
@@ -95,13 +96,10 @@
                     @foreach ($user as $users)
                     <div class="form-group">
                       <i class="fa fa-address-card-o mr-2" id="information-icon" aria-hidden="true"></i>
-                         <span>{{ $users->student_id}}</span>
+                         <span>{{ $users->student_id}}, {{ $users->gradeLevel}} - {{ $users->className}}</span>
                      </div>
 
-                     <div class="form-group">
-                        <i class="fa fa-address-card-o mr-2" id="information-icon" aria-hidden="true"></i>
-                           <span>{{ $users->gradeLevel}}</span>
-                       </div>
+                  
 
                      <div class="form-group">
                         <i class="fa fa-user-circle-o mr-2" id="information-icon" aria-hidden="true"></i>
@@ -167,11 +165,11 @@
                                       <option value="Inactive">Inactive</option>
                                   </select>
                                 </div>
-                            </form>
-                          </div>
+                            </div>
                           <div class="modal-footer">
-                              <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal">Update</button>
-                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal">Update</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                              </form>
                           </div>
 
                         </div>
@@ -227,16 +225,19 @@
 
         $.ajax( {
             type: "PUT",
+            url: "student/" +id,
             data: {
               "id": id,
               "schoolYear": $('#schoolYear').val(),
               "gradeLevel": $('#gradeLevel').val(),
-              "status":     $('#status').val(),
+              "status":     $('#c').val(),
               "className":  $('#className').val(),
               "_token":     $('input[name=_token]').val()
             },
             success:function(data){
-              alert("successfully updated!");
+              $(document).ajaxStop(function(){
+                  setTimeout("window.location = '/student'",100);
+                });
             }
         })
     });

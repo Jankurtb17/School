@@ -17,7 +17,7 @@
             </div>
             <div class="overlay-3">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-success" role="alert" style="margin-right:80px;">
                             {{ session('status') }}
                         </div>
                     @endif

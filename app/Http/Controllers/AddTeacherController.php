@@ -203,7 +203,6 @@ class AddTeacherController extends Controller
     // generate PDF
     public function pdf()
     {
-      
       $user_teacher = DB::table('users')
                       ->where('role_id', 3)
                       ->get();
@@ -220,6 +219,10 @@ class AddTeacherController extends Controller
       return $user_teacher;
     }
 
+    public function exportGrade()
+    {
+
+    }
     
     public function searchAdminGrade(Request $request)
     {
@@ -250,14 +253,13 @@ class AddTeacherController extends Controller
                   <td>'.$row->className.'</td>
                   <td>'.$row->student_id.'</td>
                   <td>'.$row->firstName.' '.$row->lastName.'</td>  
-                  <td>'.$row->description.'</td>
-                  <td>'.$row->gradingperiod.'</td>
                   <td> <input type="hidden" class="form-control" value="'.$row->grade.'" id="grade" name="grade[]"><input type="text"  size="1" value="'.$row->grade.'" id="grade" name="grade[]" style="text-align:center;"></td>
                   <td> <span class="badge badge-success"> Passed </span> </td>
                   <td> <button type="submit" class="btn btn-dark btn-sm">Update Grade</td>`
                 </tr>
                 ';
           }
+   
           return response()->json($output);
       }
       else {
@@ -265,6 +267,7 @@ class AddTeacherController extends Controller
         return response()->json($output);
       }
     }
+
 
     public function submitGradeAdmin(Request $request)
     {

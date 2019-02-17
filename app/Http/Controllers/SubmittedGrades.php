@@ -49,16 +49,16 @@ class SubmittedGrades extends Controller
       $gradeLevel    = $request->get('gradeLevel');
       $subjectCode   = $request->get('subjectCode');
       $schoolyear    = $request->get('schoolYear');
+      $employee_id    = $request->get('employee_id');
       $data = DB::table('sendgradeadmins')
-                ->leftJoin('users','sendgradeadmins.student_id', '=', 'users.student_id')
+                ->leftjoin('users','sendgradeadmins.student_id', '=', 'users.student_id')
                 ->select('users.student_id', 'users.gender', 'users.firstName', 'users.middleName', 'users.lastName','sendgradeadmins.*')
                 ->where('sendgradeadmins.gradeLevel', 'LIKE', '%'.$gradeLevel.'%')
                 ->where('sendgradeadmins.gradingperiod', 'LIKE',  '%'.$gradingperiod.'%')
                 ->where('sendgradeadmins.subjectCode', 'LIKE',  '%'.$subjectCode.'%')
                 ->where('sendgradeadmins.schoolYear', 'LIKE', '%'.$schoolyear.'%')
-                ->where('sendgradeadmins.employee_id', Auth()->user()->employee_id)
+                ->where('sendgradeadmins.employee_id', 'LIKE', '%'.$employee_id.'%')
                 ->get();
-    
 
       $total_rows = $data->count();
       if($total_rows > 0)

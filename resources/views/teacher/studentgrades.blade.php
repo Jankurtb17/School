@@ -16,6 +16,7 @@
                       <li class="breadcrumb-item active" aria-current="page">GRADE ENCODING</li>
                     </ol>
                   </nav>
+                <p style="color:red;"> * Please check the grades before sending </p>
 
                 @if(count($errors))
                   <div class="alert alert-danger" role="alert">

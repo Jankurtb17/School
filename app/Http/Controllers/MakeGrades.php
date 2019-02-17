@@ -203,18 +203,20 @@ class MakeGrades extends Controller
         //
     }
 
-    public function test($studentgrade, $classname)
+    public function test($studentgrade, $classname, $subject)
     {   
       $advisory = DB::table('advisories')
                 ->join('search_subjects', 'advisories.subjectCode', '=', 'search_subjects.subjectCode')
                 ->where('advisories.employee_id', Auth()->user()->employee_id)
                 ->where('search_subjects.gradeLevel', '=', $studentgrade)
+                ->where('advisories.subjectCode', '=', $subject)
                 ->groupBy('search_subjects.subjectCode')
                 ->get();
       // $subject = DB::table('search_subjects')
               
         $user = DB::table('users')
                     ->where('gradeLevel','=', $studentgrade)
+                    ->where('className', '=', $classname)
                     ->get();
         return view('teacher.studentgrades', compact('user', 'advisory'));
     }

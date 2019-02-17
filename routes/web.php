@@ -56,7 +56,7 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::get('/subjectgrade', 'ViewSubjectGrade@index');
     Route::post('/subjectgrade/grade', 'ViewSubjectGrade@store')->name('subjectgrade.grade');
     Route::get('/studentgrades', 'MakeGrades@index');
-    Route::get('/studentgrades/{studentgrade}/{classname}', 'MakeGrades@test');
+    Route::get('/studentgrades/{studentgrade}/{classname}/{subject}', 'MakeGrades@test');
     Route::post('/studentgrades/grade', 'MakeGrades@store')->name('studentgrades.grade');
     Route::get('/subjectgrade/search', 'ViewSubjectGrade@studentSearch')->name("student.search");
     Route::post('/subjectgrade/fetch', 'ViewSubjectGrade@fetch')->name('classname.search');

@@ -30,7 +30,7 @@ class viewteacher extends Controller
                 ->where('employee_id', $employee_id)
                 ->get();
       $grade = DB::table('users')
-                ->leftJoin('sendgradeadmins', 'users.student_id', '=', 'sendgradeadmins.student_id')
+                ->join('sendgradeadmins', 'users.student_id', '=', 'sendgradeadmins.student_id')
                 ->select('users.student_id','users.firstName', 'users.middleName', 'users.lastName', 'users.role_id')
                 ->where('sendgradeadmins.employee_id', $employee_id)
                 ->where('role_id', 1) 

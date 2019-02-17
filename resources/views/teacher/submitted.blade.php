@@ -20,6 +20,7 @@
          
           <form method="POST">
             @csrf
+           <input type="hidden" value="{{ Auth()->user()->employee_id}}" name="employee_id" id="employee">
             <div class="row">
               <div class="col-lg-2">
                   <div class="form-group">
@@ -134,6 +135,7 @@ $(document).on('submit', 'form', function(e) {
     type: "GET",
     data: {
       "_token": $('input[name=_token]').val(),
+      "employee_id": $('#employee').val(),
       "gradingperiod": $('#gradingperiod').val(),
       "gradeLevel": $('#gradeLevel').val(),
       "subjectCode": $('#subjectCode').val(),
