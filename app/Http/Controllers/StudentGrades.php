@@ -24,7 +24,7 @@ class StudentGrades extends Controller
                   ->join('search_subjects', 'sendgradeadmins.subjectCode', '=', 'search_subjects.subjectCode')
                   ->join('users', 'sendgradeadmins.employee_id', '=', 'users.employee_id')
                   ->select('search_subjects.subjectCode', 'search_subjects.description', 'users.firstName', 'users.lastName', 'users.middleName','sendgradeadmins.grade')
-                  ->where('sendgradeadmins.gradingperiod', $gradingperiod)
+                  ->where('sendgradeadmins.gradingperiod', 'LIKE', '%'.$gradingperiod.'%')
                   ->where('sendgradeadmins.schoolYear', $schoolyear)
                   ->where('sendgradeadmins.student_id', Auth()->user()->student_id)
                   ->groupBy('sendgradeadmins.subjectCode')

@@ -196,10 +196,9 @@ class StudentController extends Controller
                 ->where('student_id', $student_id)
                 ->groupBy('student_id')
                 ->get();
-    $first = DB::table('search_subjects')
-                  ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
-                  // ->where('search_subjects.gradelevel', $gradelevel)
-                  ->whereNull('search_subjects.grade')
+    $first = DB::table('firstgradings')
+                  ->where('gradingperiod', 1)
+                  ->where('student_id', $student_id)
                   ->get(); 
               
    

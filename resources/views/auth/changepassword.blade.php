@@ -24,6 +24,13 @@
                             <strong> User Information </strong> {{ session()->get('updated')}}
                         </div>
                       @endif
+                        
+                        <div class="form-group" id="form-group">
+                          <div class="row">
+                            <Label class="col-lg-3">Student ID</Label>
+                            <input  type="text" class="form-control col-lg-8" name="firstName" id="firstName" value="{{ Auth()->user()->student_id }}" readonly>
+                          </div>
+                        </div>
 
                         <div class="form-group" id="form-group">
                             <div class="row">

@@ -60,7 +60,7 @@
                                 </tr>
                                 @foreach ($first as $firsts)
                                   <tr>
-                                    <td> <input type="hidden" name="subjectCode[]" value="{{ $firsts->description}}"> {{$firsts->description }}</td>
+                                    <td> <input type="hidden" name="subjectCode[]" value="{{ $firsts->subjectCode}}"> {{$firsts->subjectCode }}</td>
                                     <td><input type="hidden" value="{{$firsts->grade}}" name="grade[]">{{$firsts->grade > 0 ? $firsts->grade : 'Grade Not Encoded' }}</td>
                                     <td><input type="hidden" value="{{ Auth()->user()->phone_number}}" name="phone_number"></td>
                                   </tr>
