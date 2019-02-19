@@ -29,12 +29,19 @@ class viewteacher extends Controller
       $user= DB::table('users')
                 ->where('employee_id', $employee_id)
                 ->get();
-      $grade = DB::table('users')
-                ->join('sendgradeadmins', 'users.student_id', '=', 'sendgradeadmins.student_id')
-                ->select('users.student_id','users.firstName', 'users.middleName', 'users.lastName', 'users.role_id')
-                ->where('sendgradeadmins.employee_id', $employee_id)
-                ->where('role_id', 1) 
-                ->get();
+      // $grade = DB::table('users')
+      //           ->join('sendgradeadmins', 'users.student_id', '=', 'sendgradeadmins.student_id')
+      //           ->select('users.student_id','users.firstName', 'users.middleName', 'users.lastName')
+      //           ->where('sendgradeadmins.employee_id', $employee_id)
+      //           ->get();
+        $grade = DB::table('sendgradeadmins')
+                   ->join('users', 'sendgradeadmins.student_id', '=', 'users.student_id')
+                   ->where('sendgradeadmins.employee_id', $employee_id)
+                   ->orderBy('sendgradeadmins.gradelevel', 'ASC')
+                   ->get();
+      
        return view('Dashboard.viewteacher', compact('schoolyear','user', 'subjectCode','student', 'teacher', 'gradelevel', 'grade'));
     }
+
+    
 }

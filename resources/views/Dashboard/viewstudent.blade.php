@@ -37,43 +37,31 @@
                           <button type="button" class="close" data-dismiss="modal"> &times;</button>
                         </div>
                         <div class="modal-body">
-                          <form id="form-grade">
+                          <form id="form-grade" action="{{ route('send.sms')}}">
                             @csrf
                           <div class="row">
-                            {{-- <div class="col-lg-6">
-                            <table class="ml-5">
-                                <tr>
-                                  <th>Learning Areas</th>
-                                </tr>
-                                @foreach ($subject as $subjects)
-                                <tr>
-                                  <td>{{$subjects->description}}</td>
-                                 
-                                </tr>
-                                @endforeach
-                            </table>
-                            </div> --}}
                             <div class="col-lg-6">
                             <table class="ml-5" style="width:350px;">
-                                <tr>
+                              <tr>
                                   <th>Grade</th>
                                   <th>Learning Areas</th>
                                 </tr>
+                                @foreach ($user as $users)
+                                  <input type="hidden" value="{{$users->phone_number}}" name="phone_number">
+                                @endforeach
                                 @foreach ($first as $firsts)
                                   <tr>
-                                    <td> <input type="hidden" name="subjectCode[]" value="{{ $firsts->subjectCode}}"> {{$firsts->subjectCode }}</td>
+                                    <td> <input type="hidden" name="description[]" value="{{ $firsts->description}}"> {{$firsts->description }}</td>
                                     <td><input type="hidden" value="{{$firsts->grade}}" name="grade[]">{{$firsts->grade > 0 ? $firsts->grade : 'Grade Not Encoded' }}</td>
-                                    <td><input type="hidden" value="{{ Auth()->user()->phone_number}}" name="phone_number"></td>
                                   </tr>
                                 @endforeach
                             </table>
                             </div>
                           </div>
                           
-                          
                         </div>
                         <div class="modal-footer">
-                          <button class="btn btn-dark" type="submit"> <i class="fa fa-envelope-o" aria-hidden="true"></i> Send Grades</button>
+                        <button class="btn btn-dark" type="submit"> <i class="fa fa-envelope-o" aria-hidden="true"></i> Send Grades</button>
                         </form>
                         </div>
                       </div>

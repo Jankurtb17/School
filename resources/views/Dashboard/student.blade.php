@@ -151,7 +151,14 @@
                         <div class="row">
                           <div class="col-md-3"> </div>
                           <div class="col-md-9">
-                            <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="Contact number">
+                              <div class="input-group input-group-md">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                      +63 <input type="hidden" value="63" name="phone_one">
+                                  </div>
+                                 </div>
+                               <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="Contact number">
+                              </div>
                           </div>
                         </div>
                       </div>
@@ -366,6 +373,12 @@
           }
     });
 
+    function isNumber(evt) {
+    var ch = String.fromCharCode(evt.which);
+    if(!/^[0-9.\b]+$/.test(ch)) {
+      evt.preventDefault();
+    }
+  }
   
   </script>
 @endSection

@@ -69,7 +69,8 @@ class viewstudentgrades extends Controller
      */
     public function edit($id)
     {
-        //
+      $student = sendgradeadmin::findOrFail($id);
+      return view('Dashboard.updategrade', compact('student', 'id'));        
     }
 
     /**
@@ -81,7 +82,10 @@ class viewstudentgrades extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $student = sendgradeadmin::findOrFail($id);
+      $student->grade = $request->get('grade');
+      $student->save();
+      return response()->json($student);
     }
 
     /**

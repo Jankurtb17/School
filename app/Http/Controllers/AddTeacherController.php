@@ -11,6 +11,7 @@ use App\Exports\TeacherExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use App\firstgradings;
+use App\sendgradeadmin;
 
 class AddTeacherController extends Controller
 {
@@ -54,7 +55,13 @@ class AddTeacherController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
+        $phone_one = $request->get('phone_one');
+        $phone_two = $request->get('phone_numbertwo');
+        $phone_number = "".$phone_one."".$phone_two;
+        $phone_numberone = $request->get('phone_numberone');
+        $phone_numbertwo = $request->get('phone_number');
+        $phone_numberreal = "".$phone_numberone."".$phone_numbertwo;
         $this->validate($request, [
             'employee_Id'  => 'required|string',
             'firstName'    => 'required|string',
@@ -72,8 +79,9 @@ class AddTeacherController extends Controller
             'gender'         => $request->get('gender'),
             'email'          => $request->get('email'),
             'password'       => bcrypt($request->get('password')),
-            'phone_number'   =>$request->get('phone_number'),
+            'phone_number'   =>$phone_numberreal,
             'status'         => 'Active', 
+            'phone_number2'  =>$phone_number,
             'remember_token' => str_random(20)
         ]);
         return redirect('/addteacher')->with('success', ' successfully added!');
@@ -96,9 +104,10 @@ class AddTeacherController extends Controller
      * @param  \App\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function edit(Teacher $teacher)
+    public function edit($id)
     {
-        //
+        $student = sengradeadmin::findOrFail($id);
+        return view('Dashboard.viewteacher', compact('student', 'id'));
     }
 
     /**
@@ -108,9 +117,12 @@ class AddTeacherController extends Controller
      * @param  \App\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, $id)
     {
-        //
+      $student = sendgradeadmin::findOrFail($id);
+      $student->grade = $request->get('grade');
+      $student->save();
+      return response()->json($student);
     }
 
     /**
@@ -182,7 +194,7 @@ class AddTeacherController extends Controller
       $user= DB::table('users')
                 ->where('employee_id', $employee_id)
                 ->get();
-
+      
        return view('Dashboard.viewteacher', compact('schoolyear','user', 'subjectCode','student', 'teacher', 'gradelevel'));
     }
 
@@ -200,7 +212,7 @@ class AddTeacherController extends Controller
                 ->get();
                 }
                 
-    // generate PDF
+    // generate PDF for teachers
     public function pdf()
     {
       $user_teacher = DB::table('users')
@@ -208,6 +220,20 @@ class AddTeacherController extends Controller
                       ->get();
       $pdf = \App::make('dompdf.wrapper');
       $pdf = PDF::loadview('Dashboard.pdfteacher', compact('user_teacher'));
+      return $pdf->stream();
+    }
+
+    // generate PDF for teachers
+    public function gradepdf($employee_id)
+    {
+      $grade = sendgradeadmin::findOrFail($employee_id);
+      $grade = DB::table('sendgradeadmins')
+                   ->join('users', 'sendgradeadmins.student_id', '=', 'users.student_id')
+                   ->where('sendgradeadmins.employee_id', $employee_id)
+                   ->orderBy('sendgradeadmins.gradelevel', 'ASC')
+                   ->get();
+      $pdf = \App::make('dompdf.wrapper');
+      $pdf = PDF::loadview('Dashboard.pdfgrades', compact('grade'));
       return $pdf->stream();
     }
 
@@ -219,10 +245,6 @@ class AddTeacherController extends Controller
       return $user_teacher;
     }
 
-    public function exportGrade()
-    {
-
-    }
     
     public function searchAdminGrade(Request $request)
     {
@@ -230,14 +252,16 @@ class AddTeacherController extends Controller
       $subjectCode   = $request->get('subjectCode');
       $schoolyear    = $request->get('schoolYear');
       $employee_id   = $request->get('employee_id');
+      $gradingperiod = $request->get('gradingperiod');
       $output = '';
       $data = DB::table('sendgradeadmins')
                 ->join('search_subjects', 'sendgradeadmins.subjectCode', '=', 'search_subjects.subjectCode')
-                ->leftjoin('users','sendgradeadmins.student_id', '=', 'users.student_id')
+                ->join('users','sendgradeadmins.student_id', '=', 'users.student_id')
                 ->select('users.gender', 'users.student_id', 'users.firstName', 'users.middleName', 'users.lastName', 'sendgradeadmins.*', 'search_subjects.description')
                 ->where('sendgradeadmins.gradeLevel', 'LIKE', '%'.$gradeLevel.'%')
                 ->where('sendgradeadmins.schoolYear', 'LIKE', '%'.$schoolyear.'%')
                 ->where('sendgradeadmins.subjectCode', 'LIKE','%'.$subjectCode.'%')
+                ->where('sendgradeadmins.gradingperiod','LIKE', '%'.$gradingperiod.'%')
                 ->where('sendgradeadmins.employee_id','LIKE', '%'.$employee_id.'%')
                 ->groupBy('sendgradeadmins.grade')
                 ->orderBy('sendgradeadmins.gradingperiod', 'ASC')
@@ -249,11 +273,12 @@ class AddTeacherController extends Controller
           {
             $output .= '
                 <tr>
+                  <td> <input type="hidden" value="'.$row->id.'" name="id[]" id="id">'.$row->id.'</td>
                   <td>'.$row->gender.'</td>
                   <td>'.$row->className.'</td>
                   <td>'.$row->student_id.'</td>
                   <td>'.$row->firstName.' '.$row->lastName.'</td>  
-                  <td> <input type="hidden" class="form-control" value="'.$row->grade.'" id="grade" name="grade[]"><input type="text"  size="1" value="'.$row->grade.'" id="grade" name="grade[]" style="text-align:center;"></td>
+                  <td> <input type="hidden" class="form-control" value="'.$row->grade.'" id="grade" name="grade[]"><input type="text"  size="1" value="'.$row->grade.'" style="text-align:center;"></td>
                   <td> <span class="badge badge-success"> Passed </span> </td>
                   <td> <button type="submit" class="btn btn-dark btn-sm">Update Grade</td>`
                 </tr>
@@ -284,6 +309,8 @@ class AddTeacherController extends Controller
         $data = DB::table('firstgradings')->insert($datas);
         return response()->json($data);
     }
+
+    
 
 
 }

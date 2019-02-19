@@ -17,12 +17,12 @@
                             <li class="breadcrumb-item active" aria-current="page">Teacher Information</li>
                         </ol>
                      </nav>
-                  </div>
+             
                   
                   {{-- content --}}
-                  <form action="">
+                  {{-- <form action="">
                     <div class="row">
-                      <div class="col-lg-3">
+                      <div class="col-lg-2">
                         <div class="form-group">
                           @foreach ($user as $users)
                               <input type="hidden" id="employee_id" value="{{$users->employee_id}}" name="employee_id">
@@ -36,7 +36,7 @@
                         </div>
                       </div>
 
-                      <div class="col-lg-3">
+                      <div class="col-lg-2">
                         <div class="form-group">
                           <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="subjectCode" required>
                             <option value="" selected disabled>-Select Grade Level-</option>
@@ -59,43 +59,65 @@
                       </div>
 
                       <div class="col-lg-3">
+                          <div class="form-group">
+                            <select name="gradingperiod" id="gradingperiod" class="form-control" required>
+                               <option value="" selected dusabked>-Select Grading Period-</option>
+                               <option value="1">1st</option>
+                               <option value="2">2nd</option>
+                               <option value="3">3rd</option>
+                               <option value="4">4th</option>
+                            </select>
+                          </div>
+                      </div>
+
+                      <div class="col-lg-2">
                         <button class="btn btn-success">Search</button>
                       </div>
                     </div>
-                  </form>
+                  </form> --}}
                   
                   @foreach ($user as $users)
-                  
+                      <a href="{{ action('AddTeacherController@gradepdf', ['employee_id', $users->employee_id])}}" class="btn btn-success mb-3"> <i class="fa fa-print" aria-hidden="true" ></i> EXPORT </a>
+                  @endforeach
                   <form id="form-submit">
                       @csrf
                     <div class="row">
-                      <input type="hidden" value="{{ $users->id}}" name="id[]" id="id">
                     <div class="col-lg-12">
                     <div class="table-responsive">
                     <table class="table" id="example">
                         <thead>
                           <tr>
-                            <th>Gender</th>
+                            <th>Grading Period</th>
+                            <th>Grade Level</th>
                             <th>Section</th>
-                            <th>Student Id</th>
+                            <th>ID</th>
+                            <th>Gender</th>
                             <th>Student Name</th>
                             <th>Grade</th>
-                            <th>Remarks</th>
-                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
+                          @foreach ($grade as $grades)
+                              <tr>
+                                <td>{{ $grades->gradingperiod}}</td>
+                                <td>{{ $grades->gradeLevel }}</td>
+                                <td>{{ $grades->className }}</td>
+                                <td>{{ $grades->student_id }}</td>
+                                <td>{{ $grades->gender }}</td>
+                                <td>{{ $grades->firstName }} {{ $grades->middleName }} {{ $grades->lastName }}</td>
+                                <td><span class="badge {{ $grades->grade >= 75 ? 'badge-success' : 'badge-danger'}}"> {{ $grades->grade}} </span></td>
+                              </tr>
+                          @endforeach
                         </tbody>
                     </table>
                     </div>
                     </div>
                   </div>
-                  @endforeach
                 </form>
                 </div>
               </div>
             </div>
-          
+          </div>
             <div class="col-lg-3">
               <div class="card" id="card-information2">
                 <div class="card-body">
@@ -133,6 +155,10 @@
 @section('scripts')
 <script>
 
+$(document).ready(function() {
+  $('#example').DataTable();
+});
+
 $(document).on('submit', 'form', function(e) {
     e.preventDefault();
     $.ajax({
@@ -140,6 +166,7 @@ $(document).on('submit', 'form', function(e) {
         method: 'POST',
         data: {
           "_token": $('input[name=_token]').val(),
+          "gradingperiod": $('#gradingperiod').val(),
           "gradeLevel": $('#gradeLevel').val(),
           "subjectCode": $('#subjectCode').val(),
           "schoolYear": $('#schoolYear').val(),
@@ -158,7 +185,7 @@ $(document).on('submit', '#form-submit', function() {
         method: "PUT",
         data: {
             "_token": $('input[name=_token]').val(),
-            "id": $('#id').val(),
+            "id": id,
             "grade": $("#grade").val()
         },
         success:function(data) {

@@ -8,6 +8,7 @@ use DB;
 use App\firstgrading;
 use App\sendgradeadmin;
 use Illuminate\Support\Facades\Crypt;
+use Carbon\Carbon;
 class MakeGrades extends Controller
 {
     /**
@@ -53,6 +54,7 @@ class MakeGrades extends Controller
       
       $data = sendgradeadmin::where('subjectCode', $subjectCode)
                           ->where('gradingperiod', $gradingperiod)
+                          ->where('className', $className)
                           ->count();
       if($gradingperiod == 1)
       {
@@ -212,13 +214,15 @@ class MakeGrades extends Controller
                 ->where('advisories.subjectCode', '=', $subject)
                 ->groupBy('search_subjects.subjectCode')
                 ->get();
-      // $subject = DB::table('search_subjects')
+       $date = Carbon::now('Asia/Taipei')->toDateString();
+       $exam = DB::table('exams')
+                  ->get();
               
         $user = DB::table('users')
                     ->where('gradeLevel','=', $studentgrade)
                     ->where('className', '=', $classname)
                     ->get();
-        return view('teacher.studentgrades', compact('user', 'advisory'));
+        return view('teacher.studentgrades', compact('user', 'advisory', 'date', 'exam'));
     }
  
 }

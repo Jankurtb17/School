@@ -58,9 +58,12 @@
                             <label class="col-form-label">Grade Level</label>
                             <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className" data-subject="subjectCode">
                                 <option value="">-Select Grade Level-</option>
-                                @foreach ($yearlevel as $yearlevels)
-                                    <option value="{{ $yearlevels->gradeLevel }}">Grade {{ $yearlevels->gradeLevel }}</option>
-                                @endforeach
+                                <option value="1">Grade 1</option>
+                                <option value="2">Grade 2</option>
+                                <option value="3">Grade 3</option>
+                                <option value="4">Grade 4</option>
+                                <option value="5">Grade 5</option>
+                                <option value="6">Grade 6</option>
                             </select>
                           </div>
                        
@@ -293,10 +296,6 @@
           })
         }
     });
-
-
-
- 
 
     $(document).on('click','.delete-modal', function(){
       $('.delete').show();

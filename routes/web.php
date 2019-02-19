@@ -25,7 +25,10 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::get('/addteacher/search', 'AddTeacherController@search')->name('find.teacher');
     Route::get('/addteacher/fetch', 'AddTeacherController@fetch')->name('teacher.submitted');
     Route::get('/addteacher/PDF', 'AddTeacherController@pdf')->name('teacher.pdf');
-    Route::get('/viewteacher/{employee_id}', 'AddTeacherController@select');
+    // Route::get('/viewteacher/{employee_id}', 'AddTeacherController@select');
+    Route::get('/viewteacher/{employee_id}', 'viewteacher@select');
+    Route::put('/viewteacher/studentgrades/{id}', 'AddTeacherController@update');
+    Route::get('/viewteacher/{employee_id}//', 'AddTeacherController@gradepdf');
     Route::post('/addteacher/grade', 'AddTeacherController@searchAdminGrade')->name('searchgrade.admin');
     Route::post('/addteacher/submitgrade', 'AddTeacherController@submitGradeAdmin')->name('submitgrade.admin');
     // Route::put('/studentgrades/{studentgrade}', 'MakeGrades@update')->name('updategrades.admin');
@@ -36,6 +39,7 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::put('/student/update', 'StudentController@updateStudent')->name('status.update');
     Route::get('/student/{student_id}/{gradelevel}', 'StudentController@select');
     Route::post('/student/{student_id}/{gradelevel}/{id}', 'StudentController@update');
+    Route::post('/student/sendsms', 'StudentController@sendGrade')->name('send.sms');
     Route::get('/student/excel', 'StudentController@excel')->name('export.student');
     Route::get('/student/PDF', 'StudentController@pdf')->name('export.pdf');
     Route::resource('/student', 'StudentController');

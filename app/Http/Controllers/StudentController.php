@@ -70,6 +70,9 @@ class StudentController extends Controller
       $studtwo = $request->get('studtwo');
       $studthree = $request->get('studthree');
       $student_id = "".$studone."-".$studtwo."-".$studthree;
+      $phone_one = $request->get('phone_one');
+      $phone_two = $request->get('phone_number');
+      $phone_number = "".$phone_one."".$phone_two;
         $this->validate($request, [
             'gradeLevel'            => 'required|string',
             'className'             => 'required|string',
@@ -89,19 +92,18 @@ class StudentController extends Controller
             'gradeLevel'          =>$request->get('gradeLevel'),
             'className'           =>$request->get('className'),
             'firstName'           =>$request->get('firstName'),
-          'middleName'          =>$request->get('middleName'),
+            'middleName'          =>$request->get('middleName'),
             'lastName'            =>$request->get('lastName'),
             'gender'              =>$request->get('gender'),
             'dateOfBirth'         =>$request->get('dateOfBirth'),
             'address'             =>$request->get('address'),
             'email'               =>$request->get('email'),
             'password'            =>bcrypt($request->get('password')),
-            'phone_number'        =>$request->get('phone_number'),
+            'phone_number'        =>$phone_number,
             'status'              =>'Active',
             'parentFirstName'     =>$request->get('parentFirstName'),
             'parentLastName'     =>$request->get('parentLastName'),
             'parentMiddleName'     =>$request->get('parentMiddleName'),
-            'phone_number2'     =>$request->get('phone_number2'),
             'remember_token'      => str_random(20)
         ]);
         session()->flash('notif', ' successfully added');
@@ -196,15 +198,16 @@ class StudentController extends Controller
                 ->where('student_id', $student_id)
                 ->groupBy('student_id')
                 ->get();
-    // $first = DB::table('search_subjects')
-    //               ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
-    //               ->where('search_subjects.gradelevel', $gradelevel)
-    //               ->where('sendgradeadmins.student_id', $student_id)
-    //               ->groupBy('search_subjects.subjectCode')
-    //               ->get(); 
-        $first = DB::table('sendgradeadmins')
-                    ->where('student_id', $student_id)
-                    ->get();
+    $first = DB::table('search_subjects')
+                  ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
+                  ->where('search_subjects.gradelevel', $gradelevel)
+                  ->where('sendgradeadmins.student_id', $student_id)
+                  ->where('sendgradeadmins.gradingperiod', 1)
+                  // ->groupBy('search_subjects.subjectCode')
+                  ->get(); 
+        // $first = DB::table('sendgradeadmins')
+        //             ->where('student_id', $student_id)
+        //             ->get();
     $second = DB::table('firstgradings')
                 ->where('student_id', $student_id)
                 ->where('gradingperiod', 2)
@@ -234,7 +237,6 @@ class StudentController extends Controller
         return $pdf->stream();
     }
     
-  
    
     public function updateStudent()
     {
@@ -244,13 +246,13 @@ class StudentController extends Controller
     {
       $grade = $request->get('grade');
       $phone_number = $request->get('phone_number');
-      $subjectCode = $request->get('subjectCode');
+      $description = $request->get('description');
 
       foreach($grade as $row => $key)
       {
         $data[] = array(
             'grade'         => $grade[$row],
-            'subjectCode'   => $subjectCode[$row]
+            'subjectCode'   => $description[$row]
         );
       }
       $nexmo = app('Nexmo\Client');

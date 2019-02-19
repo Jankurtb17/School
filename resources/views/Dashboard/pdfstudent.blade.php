@@ -4,8 +4,7 @@
     table {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
-      width: 100%;
-      margin-right: 40px;
+      margin-right:60px;
     }
     th, td {
       border: 1px solid black;

@@ -85,7 +85,14 @@
                             <label class="col-form-label"> </label>
                           </div>
                           <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="Contact Number"  name="phone_number">
+                              <div class="input-group input-group-md">
+                                  <div class="input-group-prepend">
+                                      <div class="input-group-text">
+                                       +63 <input type="hidden" value="63" name="phone_numberone" id="">
+                                      </div>
+                                </div>
+                              <input type="text" class="form-control" placeholder="Contact Number"  name="phone_number" onkeypress="isNumber(event)" maxlength="10">
+                              </div>
                           </div> 
                           <div class="col-md-4">
                             <select name="gender" id="gender" class="form-control">
@@ -135,7 +142,14 @@
                           <div class="col-md-3">
                           </div>
                           <div class="col-lg-9">
-                              <input type="text" name="phone_number" id="phone_number" class="form-control" placeholder="Emergency Contact Number" onkeypress="isNumber(event)">
+                              <div class="input-group input-group-md">
+                                  <div class="input-group-prepend">
+                                      <div class="input-group-text">
+                                       +63 <input type="hidden" value="63" name="phone_one" id="">
+                                      </div>
+                                </div>
+                              <input type="text" name="phone_numbertwo" id="phone_number" class="form-control" placeholder="Emergency Contact Number" onkeypress="isNumber(event)" maxlength="10">
+                              </div>
                           </div>
                         </div>
                       </div>
@@ -183,13 +197,15 @@
             <tbody>
                 @foreach ($user_teacher as $users)
                 <tr class="post {{ $users->id }}">
-                  <td><a href="/viewteacher/{{$users->employee_id}}">{{ $users->employee_id }} </a></td>
+                  <td>{{ $users->employee_id }}</td>
                     <td>{{ $users->gender}}</td>
                     <td>{{ $users->firstName }}</td>
                     <td>{{ $users->lastName }}</td>
                     <td>{{ $users->email}}</td>
                     <th><span class="badge badge-success">{{ $users->status}}</span></th>
-                    <td><a href="#" class="btn btn-warning" data-target="#modalFade" data-id="{{ $users->id }}" data-employee="{{ $users->employee_id}}"><i class="fa fa-pencil-square-o"> </i>EDIT </a></td>
+                    <td><a href="#" class="btn btn-warning" data-target="#modalFade" data-id="{{ $users->id }}" data-employee="{{ $users->employee_id}}"><i class="fa fa-pencil-square-o"> </i>EDIT </a>
+                        <a href="/viewteacher/{{$users->employee_id}}" class="btn btn-success"> <i class="fa fa-print" aria-hidden="true"></i> EXPORT GRADE </a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -206,12 +222,12 @@
 @endsection
 @section('scripts')
 <script>
-  // function isNumber(evt) {
-  //   var ch = String.fromCharCode(evt.which);
-  //   if(!/^[0-9.\b]+$/.test(ch)) {
-  //     evt.preventDefault();
-  //   }
-  // }
+  function isNumber(evt) {
+    var ch = String.fromCharCode(evt.which);
+    if(!/^[0-9.\b]+$/.test(ch)) {
+      evt.preventDefault();
+    }
+  }
   $(document).on('keypress', '#phone_number', function(evt) {
         console.log('asd');
   });

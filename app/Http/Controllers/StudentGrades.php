@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\schoolyear;
 use App\search_subjects;
 use DB;
+use App\sendgradeadmin;
 
 class StudentGrades extends Controller
 {
@@ -64,5 +65,13 @@ class StudentGrades extends Controller
         $output = '<tr> <td colspan="5">No grades were found </td> </tr>';
         return response()->json($output);
       }
+    }
+
+    public function update(Request $request, $id)
+    {
+      $student = sendgradeadmin::findOrFail($id);
+      $student->grade = $request->get('grade');
+      $student->save();
+      return response()->json($student);
     }
 }
