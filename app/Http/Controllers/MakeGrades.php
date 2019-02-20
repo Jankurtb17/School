@@ -9,6 +9,7 @@ use App\firstgrading;
 use App\sendgradeadmin;
 use Illuminate\Support\Facades\Crypt;
 use Carbon\Carbon;
+use App\schoolyear;
 class MakeGrades extends Controller
 {
     /**
@@ -217,12 +218,13 @@ class MakeGrades extends Controller
        $date = Carbon::now('Asia/Taipei')->toDateString();
        $exam = DB::table('exams')
                   ->get();
+       $schoolyear = schoolyear::all();
               
         $user = DB::table('users')
                     ->where('gradeLevel','=', $studentgrade)
                     ->where('className', '=', $classname)
                     ->get();
-        return view('teacher.studentgrades', compact('user', 'advisory', 'date', 'exam'));
+        return view('teacher.studentgrades', compact('schoolyear','user', 'advisory', 'date', 'exam'));
     }
  
 }

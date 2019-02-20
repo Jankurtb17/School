@@ -367,7 +367,7 @@
                   },
                   success:function(result)
                   {
-                    $('#'+dependent).html(result);
+                    $('#'+dependent).val(result);
                   }
               });
           }

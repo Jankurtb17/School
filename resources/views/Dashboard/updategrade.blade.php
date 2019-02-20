@@ -15,7 +15,8 @@
                   </ol>
                 </nav>
               </div>
-
+            
+            <div class="table-wrapper-scroll-y">
             <table class="table" id="example">
               <thead>
                 <tr>
@@ -44,12 +45,13 @@
                       <td>{{ $grade->grade}}</td>
                       <td>{{ $grade->employee_id}}</td>
                       <td>
-                        <a href="#" class="edit-modal btn btn-success btn-sm" data-target="#myModal" data-toggle="modal" data-grading="{{ $grade->gradingperiod}}" data-subject="{{ $grade->description}}" data-id="{{ $grade->id}}" data-grade="{{ $grade->grade }}" data-name="{{ $grade->firstName}} {{ $grade->middleName}} {{ $grade->lastName}}">Update Grade</a>
+                        <a href="#" class="edit-modal btn btn-success btn-md" data-target="#myModal" data-toggle="modal" data-grading="{{ $grade->gradingperiod}}" data-subject="{{ $grade->description}}" data-id="{{ $grade->id}}" data-grade="{{ $grade->grade }}" data-name="{{ $grade->firstName}} {{ $grade->middleName}} {{ $grade->lastName}}">Update Grade</a>
                       </td>
                     </tr>
                 @endforeach
               </tbody>
             </table>
+            </div>
 
 
             {{-- modal content of update grade --}}
@@ -128,7 +130,7 @@
         success:function(data) {
           $(document).ajaxStop(function(){
                   setTimeout("window.location = '/viewstudentgrades'",100);
-          });
+          }); 
         }
       });
     });

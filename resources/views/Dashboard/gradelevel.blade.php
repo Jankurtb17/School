@@ -51,12 +51,10 @@
                       </select>
                     </div>
                     <div class="form-group">
-                      <label class="col-form-label">Section</label>
+                      <label class="col-form-label">Grade Level</label>
                       {{-- <input type="text" class="form-control" name="g"> --}}
                       <select name="gradeLevel" id="gradeLevel" class="form-control">
                         <option value="" selected disabled>-Select Grade Level-</option>
-                        <option value="kindergarten">Kindergarten</option>
-                        <option value="preparatory">preparatory</option>
                         <option value="1">Grade 1</option>
                         <option value="2">Grade 2</option>
                         <option value="3">Grade 3</option>

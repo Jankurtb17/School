@@ -1,10 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-    @can('isAdmin')
         <div class="content">
           <div class="sidebar-content">
-          </div>
           <div class="card" id="card-subjectgrade">
             <div class="card-body">
               <div class="title">
@@ -14,7 +12,7 @@
                     <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</li>
                   </ol>
                 </nav>
-              </div>
+            </div>
               <div class="card-deck">
                 <div class="card">
                   <div class="card-body">
@@ -57,5 +55,4 @@
     </div>
   </div>
   </div>
-  @endCan
 @endsection

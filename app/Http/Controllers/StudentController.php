@@ -124,7 +124,7 @@ class StudentController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
+     *git 
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -152,6 +152,16 @@ class StudentController extends Controller
       return response()->json($student);
     }
 
+    public function updateinfo(Request $request, $id)
+    {
+      $student = User::findOrFail($id);
+      $student->schoolYear = $request->get('schoolYear');        
+      $student->gradeLevel = $request->get('gradeLevel');        
+      $student->className = $request->get('className');        
+      $student->status = $request->get('status'); 
+      $student->save();
+      return response()->json($student);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -238,10 +248,6 @@ class StudentController extends Controller
     }
     
    
-    public function updateStudent()
-    {
-      
-    }
     public function sendGrade(Request $request)
     {
       $grade = $request->get('grade');
@@ -251,16 +257,19 @@ class StudentController extends Controller
       foreach($grade as $row => $key)
       {
         $data[] = array(
-            'grade'         => $grade[$row],
-            'subjectCode'   => $description[$row]
+           'subjectCode'   => $description[$row],
+            'grade'         => $grade[$row]
         );
+       
       }
       $nexmo = app('Nexmo\Client');
 
       $nexmo->message()->send([
-          'to'   => '09565011210',
+          'to'   => '639998572364',
           'from' => '639565011210',
-          'text' => ''
+          'text' =>  $data
       ]);
+      
+      return redirect('/student')->with('success', 'successfully send!');
     }
 }

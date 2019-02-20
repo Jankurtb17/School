@@ -27,7 +27,7 @@
                         <option value="2">2nd Grading</option>
                         <option value="3">3rd Grading</option>
                         <option value="4">4th Grading</option>
-                        <option value="final">Final Grade</option>
+                        <option value="final">Final Grading</option>
                       </select>
                     </div>
                     <div class="col-lg-2">

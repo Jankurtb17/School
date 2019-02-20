@@ -1,10 +1,8 @@
 <head>
-    <style>
-    
+  <style>
     table {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
-      margin-right:60px;
     }
     th, td {
       border: 1px solid black;
@@ -30,9 +28,8 @@
     .logo {
       background: url("/image/angel.jpg");
     }
-    
-    </style>
-    </head>
+  </style>
+</head>
     
     
     <body>
@@ -54,6 +51,7 @@
           <th>Grade Level</th>
           <th>Section</th>
           <th>Name </th>
+          <th>Grading Period</th>
           <th>Subject</th>
           <th>Grade</th>
         </tr>
@@ -66,6 +64,7 @@
                 <td>{{ $grades->gradeLevel}}</td>
                 <td>{{ $grades->className}}</td>
                 <td>{{ $grades->firstName}} {{ $grades->middleName}} {{ $grades->lastName}}</td>
+                <td>{{ $grades->gradingperiod }}</td>
                 <td>{{ $grades->subjectCode}}</td>
                 <td>{{ $grades->grade}}</td>
               </tr>

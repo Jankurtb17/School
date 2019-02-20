@@ -230,7 +230,7 @@ class AddTeacherController extends Controller
       $grade = DB::table('sendgradeadmins')
                    ->join('users', 'sendgradeadmins.student_id', '=', 'users.student_id')
                    ->where('sendgradeadmins.employee_id', $employee_id)
-                   ->orderBy('sendgradeadmins.gradelevel', 'ASC')
+                   ->orderBy('sendgradeadmins.gradingperiod', 'ASC')
                    ->get();
       $pdf = \App::make('dompdf.wrapper');
       $pdf = PDF::loadview('Dashboard.pdfgrades', compact('grade'));

@@ -26,11 +26,22 @@
                       @endforeach
                   </div>
                 @endif
-
+                
+                
                 <form method="POST" id="form-submit" action="{{ route('studentgrades.grade')}}"> 
                 @csrf
                 <div class="row">
-                  <div class="col-lg-3">
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                          <select name="schoolYear" class="form-control" required>
+                            <option value="" selected disabled>-Select School Year-</option>
+                              @foreach ($schoolyear as $schoolyears)
+                                <option value="{{ $schoolyears->schoolYear}}">{{ $schoolyears->schoolYear}}</option>
+                              @endforeach
+                          </select>
+                        </div>
+                      </div>
+                  <div class="col-lg-2">
                     <div class="form-group">
                       <select name="subjectCode" id="subjectCode" class="form-control" required>
                         <option value="" selected disabled>-Select Subject-</option>
@@ -52,7 +63,7 @@
                       </div>
                     </div>
                     @foreach ($advisory as $advisories)
-                    <input type="hidden" name="schoolYear" value="{{ $advisories->schoolYear }}">
+                    {{-- <input type="hidden" name="schoolYear" value="{{ $advisories->schoolYear }}"> --}}
                     </td><input type="hidden" name="className" value="{{ $advisories->className }}">
                     @endforeach
                 </div>
