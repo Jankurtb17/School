@@ -75,7 +75,6 @@
                                 {{-- <input type="text" class="form-control" placeholder="Level" name="level"> --}}
                                 <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className" required>
                                   <option value="" selected  disabled>-Select Grade-</option>
-                                  <option value="kindergarten">kindergarten</option>
                                   <option value="1">Grade 1</option>
                                   <option value="2">Grade 2</option>
                                   <option value="3">Grade 3</option>
@@ -219,71 +218,12 @@
                       <td>{{ $user_students->email}} </td>
                       <td class="post" id="status"><span class="badge {{ $user_students->status == 'Active' ? 'btn-success' : 'btn-danger'}}">{{$user_students->status}}</span></td>
                       <td>
-                      <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $user_students->id}}" data-studnumber="{{ $user_students->student_id }}" data-classname="{{ $user_students->className }}" data-gradelevel="{{ $user_students->gradeLevel }}" data-first="{{ $user_students->firstName }}" data-last="{{ $user_students->lastName }}" data-email="{{ $user_students->email }}" data-password="{{ $user_students->password }}" data-fuck="{{ $user_students->status }}"><i class="fa fa-pencil-square-o"> </i>Edit </a>
+                        <a href="#" class="btn btn-dark"> <i class="fa fa-print" aria-hidden="true"></i> PRINT GRADE</a>
                       </td>
                     </tr>
                   @endforeach
                 </tbody>
               </table>
-              </div>
-
-              {{-- Edit content --}}
-              <div class="modal fade" id="myModal">
-                <div class="modal-dialog modal-sm" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Update Student</h5>
-                        <button class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                      <form action="" id="form-submit">
-                        @csrf
-                        <input type="hidden" name="student_id" id="id">
-                        <div class="form-group">
-                          <label class="col-lg-label">School Year</label>
-                          <select name="schoolYear" id="schoolYear" class="form-control">
-                            @foreach ($schoolyear as $schoolyears)
-                                <option value="{{ $schoolyears->schoolYear }}"> {{ $schoolyears->schoolYear }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-label">Grade Level </label>
-                            <select name="gradeLevel" id="gradeLevel" class="form-control dynamic2" data-dependent="className">
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                          <div class="col-form-label">Section </div>
-                          <select name="className" id="className d" class="form-control">
-                            <option value="">-Select Section-</option>
-                          </select>
-                        </div>
-                       
-                        <div class="form-group">
-                            <div class="col-lg-label">Status </div>
-                             <select name="status" id="c" class="form-control">
-                                  <option value="" selected disabled>-Select Status-</option>
-                                  <option value="Active">Active</option>
-                                  <option value="Inactive">Inactive</option>
-                             </select>
-                        </div>
-                     
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal"> Submit </button>
-                        <button type="type" class="btn btn-default" data-dismiss="modal"> Cancel </button>
-                      </form>
-                    </div>
-                  </div>
-
-                </div>
-
               </div>
 
             </div>

@@ -215,15 +215,20 @@ class StudentController extends Controller
                   ->where('sendgradeadmins.gradingperiod', 1)
                   // ->groupBy('search_subjects.subjectCode')
                   ->get(); 
-        // $first = DB::table('sendgradeadmins')
-        //             ->where('student_id', $student_id)
-        //             ->get();
-    $second = DB::table('firstgradings')
-                ->where('student_id', $student_id)
-                ->where('gradingperiod', 2)
-                ->groupBy('subjectCode')
-                ->orderBy('subjectCode', 'DESC')
-                ->get();
+    $second = DB::table('search_subjects')
+                  ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
+                  ->where('search_subjects.gradelevel', $gradelevel)
+                  ->where('sendgradeadmins.student_id', $student_id)
+                  ->where('sendgradeadmins.gradingperiod', 2)
+                  // ->groupBy('search_subjects.subjectCode')
+                  ->get(); 
+        
+    // $second = DB::table('firstgradings')
+    //             ->where('student_id', $student_id)
+    //             ->where('gradingperiod', 2)
+    //             ->groupBy('subjectCode')
+    //             ->orderBy('subjectCode', 'DESC')
+    //             ->get();
     $subject = DB::table("search_subjects")
                 ->where('gradeLevel', $gradelevel)
                 ->get();
@@ -266,7 +271,7 @@ class StudentController extends Controller
 
       $nexmo->message()->send([
           'to'   => '639998572364',
-          'from' => '639565011210',
+          'from' => '639565011210', 
           'text' =>  $data
       ]);
       

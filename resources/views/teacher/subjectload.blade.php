@@ -1,8 +1,6 @@
 @extends('layouts.teacher')
 
 @section('content')
-  @include('Pages.sidebar')
-  @can('isTeacher')
         <div class="content">
           <div class="sidebar-content">
           </div>
@@ -45,8 +43,9 @@
               </div>
             @endif
           </div>
-    
-
+            
+     
+          
             <div class="table-responsive mt-3">
               <table class="table table-hover" id="example">
                   <thead>
@@ -56,20 +55,39 @@
                       <th>Grade Level</th>
                       <th>Section</th>
                       <th>Subject</th>
+                      <th>Action</th>
                     </tr> 
                   </thead>
-
+                  
+                  
 
                   <tbody id="tbody">
-                    @foreach ($advisory as $advisories)
+                    
+                    {{-- @foreach ($examdate as $examdates)
+                      @if (Carbon\Carbon::now('Asia/Taipei')->setTime(0, 0, 0)->between(Carbon\Carbon::parse($examdates->startDate), Carbon\Carbon::parse($examdates->endDate))) --}}
+                        @foreach ($advisory as $advisories)
+                            <tr class="post{{ $advisories->id}}">
+                              <td>{{$advisories->id}}</td>
+                              <td>{{$advisories->schoolYear}}</td>
+                              <td>{{$advisories->gradeLevel }}</td>
+                              <td>{{$advisories->className}}</td>
+                              <td>{{ $advisories->subjectCode}}</td>
+                              <td><a class="btn btn-success" href="/studentgrades/{{$advisories->gradeLevel}}/{{$advisories->className }}/{{ $advisories->subjectCode}}">Encode Grade</a></td>
+                            </tr>
+                        @endforeach
+                      {{-- @else --}}
+                        {{-- @foreach ($advisory as $advisories)
                         <tr class="post{{ $advisories->id}}">
                           <td>{{$advisories->id}}</td>
                           <td>{{$advisories->schoolYear}}</td>
-                          <td><a href="/studentgrades/{{$advisories->gradeLevel}}/{{$advisories->className }}/{{ $advisories->subjectCode}}">{{$advisories->gradeLevel }}</a></td>
+                          <td>{{$advisories->gradeLevel }}</td>
                           <td>{{$advisories->className}}</td>
                           <td>{{ $advisories->subjectCode}}</td>
+                          <td>Encoding of grades is not yet available</td>
                         </tr>
-                    @endforeach
+                        @endforeach --}}
+                      {{-- @endif
+                    @endforeach --}}
                   </tbody>
               </table>
             </div>
@@ -105,4 +123,3 @@
       })
   </script>
    @endSection
-   @endCan

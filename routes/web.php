@@ -39,6 +39,7 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::get('/student/{student_id}/{gradelevel}', 'StudentController@select');
     Route::post('/student/{student_id}/{gradelevel}/{id}', 'StudentController@update');
     Route::put('/student/{id}', ['as' => 'statusupdate.admin', 'uses' => 'StudentController@update']);
+    Route::put('/student/{id}', ['as' => 'viewstudentupdate.admin', 'uses' => 'StudentController@updateinfo']);
     Route::get('/student/sms/', 'StudentController@sendGrade')->name('send.sms');
     Route::get('/student/PDF', 'StudentController@pdf')->name('export.pdf');
     Route::resource('/student', 'StudentController');

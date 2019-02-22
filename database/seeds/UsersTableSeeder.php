@@ -21,6 +21,7 @@ class UsersTableSeeder extends Seeder
             'password'       => Hash::make('password'),
             'remember_token' => str_random(20),
             'user_type'      => 'admin',
+            'status'         => 'Active',
         ]);
     }
 }

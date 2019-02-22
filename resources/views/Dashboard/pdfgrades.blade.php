@@ -1,5 +1,14 @@
 <head>
   <style>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+    }
     table {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;

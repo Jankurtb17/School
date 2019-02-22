@@ -192,7 +192,7 @@ class MakeGrades extends Controller
       $student = sendgradeadmin::findOrFail($id);
       $student->grade = $request->get('grade');
       $student->save();
-      return redirect('/teacher');
+      return redirect('/teacher')->with('update', 'Successfully Updated!');
     }
 
     /**

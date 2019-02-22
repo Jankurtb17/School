@@ -68,6 +68,46 @@
                     </div>
                   </div>
 
+                  {{-- Modal 2nd Grading --}}
+                  <div class="modal fade" id="MyModal2">
+                    <div class="modal-dialog" role="document"> 
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title"> View Grades</h5>
+                          <button type="button" class="close" data-dismiss="modal"> &times;</button>
+                        </div>
+                        <div class="modal-body">
+                          <form id="form-grade" action="{{ route('send.sms')}}">
+                            @csrf
+                          <div class="row">
+                            <div class="col-lg-6">
+                            <table class="ml-5" style="width:350px;">
+                              <tr>
+                                  <th>Grade</th>
+                                  <th>Learning Areas</th>
+                                </tr>
+                                @foreach ($user as $users)
+                                  <input type="hidden" value="{{$users->phone_number}}" name="phone_number">
+                                @endforeach
+                                @foreach ($second as $seconds)
+                                  <tr>
+                                    <td> <input type="hidden" name="description[]" value="{{ $seconds->description}}"> {{$seconds->description }}</td>
+                                    <td><input type="hidden" value="{{$seconds->grade}}" name="grade[]">{{$seconds->grade > 0 ? $seconds->grade : 'Grade Not Encoded' }}</td>
+                                  </tr>
+                                @endforeach
+                            </table>
+                            </div>
+                          </div>
+                          
+                        </div>
+                        <div class="modal-footer">
+                        <button class="btn btn-dark" type="submit"> <i class="fa fa-envelope-o" aria-hidden="true"></i> Send Grades</button>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                  
                 </div>
               </div>
@@ -200,7 +240,7 @@
     });
 
     $(document).on('click', '.edit-modal', function() {
-       $(".dynamic2").val($(this).data('gradelevel'));
+       $(".dynamic").val($(this).data('gradelevel'));
         $('#c').val($(this).data('fuck'));  
         $('#className').val($(this).data('classname'));
         $('#id').val($(this).data("id"));
@@ -213,7 +253,7 @@
 
         $.ajax( {
             type: "PUT",
-            url: "student/" +id,
+            url: "/student/"+id,
             data: {
               "id": id,
               "schoolYear": $('#schoolYear').val(),

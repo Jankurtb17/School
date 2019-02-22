@@ -17,8 +17,8 @@ class CreateExamsTable extends Migration
             $table->increments('id');
             $table->string('schoolYear');
             $table->string('grading');
-            $table->date('startDate');
-            $table->date('endDate');
+            $table->datetime('startDate');
+            $table->datetime('endDate');
             $table->timestamps();
         });
     }

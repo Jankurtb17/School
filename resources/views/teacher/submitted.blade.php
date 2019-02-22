@@ -62,7 +62,6 @@
                 </div>
               <div class="col-lg-4">
                 <button type="submit" name="submit" class="btn btn-primary">Proceed</button>
-                <a href="{{ Route('export.grades')}}" class="btn btn-success">Export</a>
               </div>
             </div>
           </form>

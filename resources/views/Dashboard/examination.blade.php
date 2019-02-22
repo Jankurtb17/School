@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/addmodal.css') }}">
-  <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-  <title>Document</title>
-</head>
-<body>
-  @include('Pages.sidebar')
+@extends('layouts.teacher')
+
+
+@section('content')
         <div class="content">
           <div class="sidebar-content">
           </div>
@@ -121,10 +110,7 @@
                   <div class="modal-body">
                     <form method="POST" class="form-horizontal" role="modal">
                       @csrf
-                      <div class="form-group">
-                          <label class="col-form-label">Id</label>
-                          <input type="text" class="form-control" id="id" disabled>
-                      </div>
+                          <input type="hidden" class="form-control" id="id">
                       <div class="form-group">
                           <label class="col-form-label">School Year</label>
                           <select name="schoolYear" id="a" class="form-control">
@@ -146,11 +132,11 @@
                       </div>
                       <div class="form-group">
                         <label class="col-form-label">Start Date </label>
-                        <input type="date" class="form-control" id="c" name="startDate" required>
+                        <input type="date" class="form-control" id="start" name="startDate" required>
                       </div>
                       <div class="form-group">
                           <label class="col-form-label">End Date </label>
-                          <input type="date" class="form-control" id="d" name="endDate" required>
+                          <input type="date" class="form-control" id="end" name="endDate" required>
                       </div>
                     </form>
                   <div class="deleteContent">
@@ -171,8 +157,9 @@
     </div>
   </div>
   </div>
-  <script src="{{ asset('js/app.js') }}"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  @endsection
+
+  @section('scripts')
   <script type="text/javascript">
     $(document).on('click', '.modal', function() {
       $('.modal-title').text('Examination date');
@@ -189,8 +176,8 @@
       $('.actionBtn').removeClass('delete');
       $('#a').val($(this).data('schoolyear'));
       $('#b').val($(this).data('grading'));
-      $('#c').val($(this).data('startdate'));
-      $('#d').val($(this).data('enddate'));
+      $('#start').val($(this).data('startdate'));
+      $('#end').val($(this).data('enddate'));
       $('#id').val($(this).data('id'));
       id = $('#id').val();
       $('#myModal').show();
@@ -249,5 +236,4 @@
         });
     });
   </script>
-</body>
-</html>
+@endsection
