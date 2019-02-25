@@ -193,6 +193,7 @@ class StudentController extends Controller
     }
 
 
+
     //viewstudent
     public function select($student_id, $gradelevel)
     {
@@ -262,16 +263,15 @@ class StudentController extends Controller
       foreach($grade as $row => $key)
       {
         $data[] = array(
-           'subjectCode'   => $description[$row],
-            'grade'         => $grade[$row]
+           'Subject'   => $description[$row],
+            'Grade'         => $grade[$row]
         );
-       
       }
       $nexmo = app('Nexmo\Client');
 
       $nexmo->message()->send([
-          'to'   => '639998572364',
-          'from' => '639565011210', 
+          'to'   => $phone_number,
+          'from' => '639998572364', 
           'text' =>  $data
       ]);
       

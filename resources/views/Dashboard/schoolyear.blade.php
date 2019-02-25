@@ -119,7 +119,7 @@
                   <div class="modal-footer">
                     <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal"> Update </button>
                     <button type="button" class="btn btn-danger delete" data-dismiss="modal">Delete</button>
-                    <button type="button" class="btn cancel" data-dismiss="modal"> Cancel</button>
+                    <button type="button" class="btn btn-default cancel" data-dismiss="modal"> Cancel</button>
                   </div>
                 </div>
               </div>

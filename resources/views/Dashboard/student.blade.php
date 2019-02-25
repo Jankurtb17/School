@@ -1,8 +1,6 @@
 @extends('layouts.teacher')
 @section('content')
         <div class="content">
-          <div class="sidebar-content">
-          </div>
           <div class="card" id="card-subjectgrade">
           <div class="card-body">
           <div class="title">
@@ -205,7 +203,7 @@
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    {{-- <th>Action</th> --}}
                   </tr>
                 </thead>
                 <tbody>
@@ -217,9 +215,9 @@
                       <td>{{ $user_students->lastName}} </td>
                       <td>{{ $user_students->email}} </td>
                       <td class="post" id="status"><span class="badge {{ $user_students->status == 'Active' ? 'btn-success' : 'btn-danger'}}">{{$user_students->status}}</span></td>
-                      <td>
+                      {{-- <td>
                         <a href="#" class="btn btn-dark"> <i class="fa fa-print" aria-hidden="true"></i> PRINT GRADE</a>
-                      </td>
+                      </td> --}}
                     </tr>
                   @endforeach
                 </tbody>

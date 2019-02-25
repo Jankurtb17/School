@@ -23,6 +23,7 @@ class CreateSendgradeadminsTable extends Migration
             $table->string('subjectCode');
             $table->string('grade');
             $table->string('employee_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

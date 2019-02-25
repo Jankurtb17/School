@@ -63,8 +63,7 @@
 
                   <tbody id="tbody">
                     
-                    {{-- @foreach ($examdate as $examdates)
-                      @if (Carbon\Carbon::now('Asia/Taipei')->setTime(0, 0, 0)->between(Carbon\Carbon::parse($examdates->startDate), Carbon\Carbon::parse($examdates->endDate))) --}}
+                    @foreach ($examdate as $examdates)
                         @foreach ($advisory as $advisories)
                             <tr class="post{{ $advisories->id}}">
                               <td>{{$advisories->id}}</td>
@@ -72,22 +71,14 @@
                               <td>{{$advisories->gradeLevel }}</td>
                               <td>{{$advisories->className}}</td>
                               <td>{{ $advisories->subjectCode}}</td>
-                              <td><a class="btn btn-success" href="/studentgrades/{{$advisories->gradeLevel}}/{{$advisories->className }}/{{ $advisories->subjectCode}}">Encode Grade</a></td>
+                              @if (Carbon\Carbon::now('Asia/Taipei')->setTime(0, 0, 0)->between(Carbon\Carbon::parse($examdates->startDate), Carbon\Carbon::parse($examdates->endDate)))
+                                  <td><a class="btn btn-success" href="/studentgrades/{{$advisories->gradeLevel}}/{{$advisories->className }}/{{ $advisories->subjectCode}}">Encode Grade</a></td>
+                               @else
+                               <td><a class="btn btn-success">Encoding of Grades is not yet available</a></td>
+                              @endif
                             </tr>
                         @endforeach
-                      {{-- @else --}}
-                        {{-- @foreach ($advisory as $advisories)
-                        <tr class="post{{ $advisories->id}}">
-                          <td>{{$advisories->id}}</td>
-                          <td>{{$advisories->schoolYear}}</td>
-                          <td>{{$advisories->gradeLevel }}</td>
-                          <td>{{$advisories->className}}</td>
-                          <td>{{ $advisories->subjectCode}}</td>
-                          <td>Encoding of grades is not yet available</td>
-                        </tr>
-                        @endforeach --}}
-                      {{-- @endif
-                    @endforeach --}}
+                    @endforeach
                   </tbody>
               </table>
             </div>

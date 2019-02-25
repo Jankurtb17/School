@@ -1,10 +1,9 @@
 @extends('layouts.teacher')
 
 @section('content')
-@can('isAdmin')
         <div class="content">
-          <div class="sidebar-content">
-          </div>
+          <div class="row">
+          <div class="col-lg-12 col-sm-12">
           <div class="card" id="card-subjectgrade">
            <div class="card-body">
           <div class="title">
@@ -20,13 +19,14 @@
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                <i class="fa fa-check" aria-hidden="true"> </i> <strong>Teacher </strong> {{session()->get('success')}}
               </div>
+            
             @endif  
 
             @if(count($errors) > 0)
               <div class="alert alert-danger" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                   @foreach ($errors->all() as $error)
-                  <i class="fa fa-times" aria-hidden="true"> </i> <li> {{ $error }} </li>
+                  <li> {{ $error }} </li>
                   @endforeach
               </div>
             @endif
@@ -85,14 +85,14 @@
                             <label class="col-form-label"> </label>
                           </div>
                           <div class="col-md-5">
-                              <div class="input-group input-group-md">
-                                  <div class="input-group-prepend">
-                                      <div class="input-group-text">
-                                       +63 <input type="hidden" value="63" name="phone_numberone" id="">
-                                      </div>
-                                </div>
-                              <input type="text" class="form-control" placeholder="Contact Number"  name="phone_number" onkeypress="isNumber(event)" maxlength="10">
-                              </div>
+                               {{-- <input placeholder="Selected date" type="text" id="date-picker-example" class="form-control datepicker">> --}}
+                               {{-- <div class="input-group date" data-provide="datepicker">
+                                  <input type="text" class="form-control">
+                                  <div class="input-group-addon">
+                                      <span class="glyphicon glyphicon-th"></span>
+                                  </div>
+                              </div> --}}
+                              <input type="date" class="form-control" name="dateOfBirth">
                           </div> 
                           <div class="col-md-4">
                             <select name="gender" id="gender" class="form-control">
@@ -106,8 +106,20 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="">
-
+                        <div class="row">
+                            <div class="col-md-3"> 
+                                <label class="col-form-label"> </label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="input-group input-group-md">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                         +63 <input type="hidden" value="63" name="phone_numberone">
+                                        </div>
+                                  </div>
+                                <input type="text" class="form-control" placeholder="Contact Number"  name="phone_number" onkeypress="isNumber(event)" maxlength="10">
+                                </div>
+                            </div> 
                         </div>
                     </div>
 
@@ -133,7 +145,7 @@
                               <input type="text" name="parentLastName" id="parentLastName"  class="form-control" placeholder="Last Name ">
                             </div>
                             <div class="col-md-2">
-                                <input type="text" name="parentMiddleName" id="parentLastName"  class="form-control" placeholder="Middle Name" >
+                                <input type="text" name="parentMiddleName" id="parentMiddleName"  class="form-control" placeholder="Middle Name" >
                             </div>
                         </div>
                       </div>
@@ -167,10 +179,18 @@
                       <div class="row">
                           <div class="col-md-3"> </div>
                           <div class="col-md-9">
-                            <input type="password" class="form-control" placeholder="Password" name="password">
+                            <input type="password" class="form-control" placeholder="Confirm Password" name="password">
                           </div>
                       </div>
                     </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3"> </div>
+                            <div class="col-md-9">
+                              <input type="password" class="form-control" placeholder="Password" name="password_confirmation">
+                            </div>
+                        </div>
+                      </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
@@ -202,19 +222,62 @@
                     <td>{{ $users->firstName }}</td>
                     <td>{{ $users->lastName }}</td>
                     <td>{{ $users->email}}</td>
-                    <th><span class="badge badge-success">{{ $users->status}}</span></th>
-                    <td><a href="#" class="btn btn-warning" data-target="#modalFade" data-id="{{ $users->id }}" data-employee="{{ $users->employee_id}}"><i class="fa fa-pencil-square-o"> </i>EDIT </a>
+                    <th><span class="badge {{ $users->status == 'Active' ? 'badge-success' : 'badge-danger'}}">{{ $users->status}}</span></th>
+                    <td><a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $users->id }}" data-employee="{{ $users->employee_id}}" data-name="{{ $users->firstName }} {{ $users->middleName }} {{ $users->lastName }}" data-status="{{ $users->status }}"><i class="fa fa-pencil-square-o"> </i>EDIT </a>
                         <a href="/viewteacher/{{$users->employee_id}}" class="btn btn-success"> <i class="fa fa-print" aria-hidden="true"></i> EXPORT GRADE </a>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
           </table>
-         
+          
+          {{-- Edit Modal --}}
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Teacher</h5>
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <form id="teacher-status">
+                      @csrf
+                      <input type="hidden" id="id">
+                      <div class="form-group">
+                      <label for="Status">Employee ID</label>
+                      <input type="text" class="form-control" id="employee_id" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="Status">Name</label>
+                      <input type="text" class="form-control" id="name" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="Status">Status</label>
+                      <select name="status" id="status" class="form-control">
+                        <option value="" selected disabled>-Select Status-</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                      </select>
+                    </div>
+                  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark actionBtn" data-dismiss="modal">Update</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
           </div>
           </div>
           </div>
         </div>
+        </div>
+        </div>
+        {{-- end row --}}
+                
       </div>
     </div>
   </div>
@@ -249,9 +312,31 @@
       }
     });
   });
-  $(document).ready(function() {
-      student = $('#employee-id').val();
+ 
+ $(document).on('click', '.edit-modal', function() {
+  $('#id').val($(this).data('id'));
+  $('#employee_id').val($(this).data('employee'));
+  $('#name').val($(this).data('name'));
+  $('#status').val($(this).data('status'));
+  id = $('#id').val();
+ });
+
+ $(document).on('click', '.actionBtn', function() {
+  $.ajax({
+      url: "/addteacher/"+id,
+      type: "PUT",
+      data: {
+        "_token": $('input[name=_token]').val(),
+        "id": $('#employee_id').val(),
+        "status": $('#status').val()
+      },
+      success:function(data)
+      {
+        $(document).ajaxStop(function(){
+                  setTimeout("window.location = '/addteacher'",100);
+          });
+      }
   });
+ });
 </script>
 @endSection
-@endCan

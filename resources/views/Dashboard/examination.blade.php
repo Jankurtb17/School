@@ -11,7 +11,7 @@
                 <h1>Examination Date </h1>
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"> <i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon">  </i><a href="/dashboard">Dashboard </a> </li>
+                    <li class="breadcrumb-item"> <i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon">  </i><a href="/dashboard"> Dashboard </a> </li>
                     <li class="breadcrumb-item active" aria-current="page">School Year</li>
                   </ol>
                 </nav>
@@ -192,8 +192,8 @@
           'id': id,
           'schoolYear': $('#a').val(),
           'grading': $('#b').val(),
-          'startDate': $('#c').val(),
-          'endDate': $('#d').val()
+          'startDate': $('#start').val(),
+          'endDate': $('#end').val()
         },
         success: function(data) {
           $('.post' + data.id).replaceWith(" "+

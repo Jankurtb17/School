@@ -136,7 +136,7 @@
             </div>
           </div>
           <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"></h5>
@@ -158,8 +158,6 @@
                     <div class="form-group">
                         <label class="col-form-label">Grade Level</label>
                         <select name="gradeLevel" id="b" class="form-control dynamic" data-dependent="className">
-                            <option value="Kindergarten">Kindergarten</option>
-                            <option value="Preparatory">Preparatory</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -191,8 +189,8 @@
                         <label for="d">Subject Description</label>
                         {{-- <input type="text" class="form-control" name="employee_id" id="c"> --}}
                         <select name="subjectCode" id="d" class="form-control">
-                          @foreach ($advisory as $advisories)
-                              <option value="{{ $advisories->subjectCode }}"> {{ $advisories->subjectCode }}</option>
+                          @foreach ($subjects as $subject)
+                            <option value="{{$subject->subjectCode}}">{{ $subject->description}}</option>
                           @endforeach
                         </select>
                       </div>

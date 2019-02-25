@@ -81,7 +81,7 @@
                             @csrf
                           <div class="row">
                             <div class="col-lg-6">
-                            <table class="ml-5" style="width:350px;">
+                            <table class="ml-5" style="width:500px;">
                               <tr>
                                   <th>Grade</th>
                                   <th>Learning Areas</th>

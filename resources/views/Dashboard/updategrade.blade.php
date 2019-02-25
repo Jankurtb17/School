@@ -17,7 +17,7 @@
               </div>
             
             <div class="table-wrapper-scroll-y">
-            <table class="table" id="example">
+            <table class="table" id="example" >
               <thead>
                 <tr>
                   <th>Student Id</th>
@@ -29,7 +29,7 @@
                   <th>Subject</th>
                   <th>Grade</th>
                   <th>Teacher ID</th>
-                  <th>Action</th>
+                  <th>Action</th> 
                 </tr>
               </thead>
               <tbody>
@@ -55,9 +55,9 @@
 
 
             {{-- modal content of update grade --}}
-            <div class="modal" id="myModal">
-              <div class="modal-dialog">
-                <div class="modal-content modal-sm" role="document">
+            <div class="modal" id="myModal" role="dialog">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content" >
                   <div class="modal-header">
                       <h5 class="modal-title">Update Grade</h5>
                       <button class="close" data-dismiss="modal">&times;</button>

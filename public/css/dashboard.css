@@ -347,6 +347,9 @@ table a:hover {
     display: block;
 }
 
+.alert .close:hover {
+    color: #fff;
+}
 @media (max-height: 900px) and (max-width: 1600px) {
     .nav {
         position: relative;
@@ -354,9 +357,60 @@ table a:hover {
         display: block;
         overflow-y: scroll;
     }
-    .content {
+    #card-subjectgrade {
         position: absolute;
-        width: 80%;
+        top: 35px;
+        width: 90%;
         overflow-x: scroll;
     }
+
+    .edit-modal {
+        margin-bottom: 3px;
+        width: 90px;
+    }
+    .alert .close:hover {
+        color: #fff;
+    }
+}
+@media (max-width: 575px) {
+    .nav {
+        display: none;
+    }
+    #card-subjectgrade {
+        position: absolute;
+        top: 35px;
+        right: 320px;
+        width: 90%;
+        overflow-x: scroll;
+    }
+    .navbar-top {
+        width: 90%;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .nav {
+        display: none;
+    }
+    /* .navbar-top {
+        width: 100%;
+    } */
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .nav {
+        display: block;
+    }
+    #card-subjectgrade {
+        position: absolute;
+        top: 35px;
+        width: 90%;
+        overflow-x: scroll;
+    }
+    .navbar-top {
+        width: 770px;
+    }
+}
+
+@media (min-width: 1200px) {
 }

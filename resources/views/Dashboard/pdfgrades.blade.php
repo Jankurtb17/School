@@ -12,6 +12,7 @@
     table {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
+     
     }
     th, td {
       border: 1px solid black;
@@ -34,9 +35,7 @@
       flex-direction: row;
     }
     
-    .logo {
-      background: url("/image/angel.jpg");
-    }
+    
   </style>
 </head>
     

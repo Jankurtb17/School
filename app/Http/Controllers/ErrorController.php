@@ -16,3 +16,4 @@ class ErrorController extends Controller
       return view('errors.500');
     }
 }
+      

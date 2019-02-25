@@ -66,8 +66,10 @@ class AddTeacherController extends Controller
             'employee_Id'  => 'required|string',
             'firstName'    => 'required|string',
             'lastName'     => 'required|string',
+            'address'      => 'required|string',
             'email'        => 'required|string|unique:users',
-            'password'     => 'required|string|alpha_num|min:6',
+            'password'     => 'required|string|confirmed|alpha_num|min:6',
+            'phone_number' => 'required|string',
         ]);
         $user = User::create([
             'user_type'      => 'teacher',
@@ -77,6 +79,8 @@ class AddTeacherController extends Controller
             'middleName'     => $request->get('middleName'),
             'lastName'       => $request->get('lastName'),
             'gender'         => $request->get('gender'),
+            'dateOfBirth'    => $request->get('dateOfBirth'),
+            'address'        => $request->get('address'),
             'email'          => $request->get('email'),
             'password'       => bcrypt($request->get('password')),
             'phone_number'   =>$phone_numberreal,
@@ -106,8 +110,8 @@ class AddTeacherController extends Controller
      */
     public function edit($id)
     {
-        $student = sengradeadmin::findOrFail($id);
-        return view('Dashboard.viewteacher', compact('student', 'id'));
+        $teacher = User::findOrFail($id);
+        return view('Dashboard.teacher', compact('teacher', 'id'));
     }
 
     /**
@@ -119,10 +123,11 @@ class AddTeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $student = sendgradeadmin::findOrFail($id);
-      $student->grade = $request->get('grade');
-      $student->save();
-      return response()->json($student);
+      $teacher = User::findOrFail($id);
+      $teacher->status = $request->status;
+      $teacher->save();
+      return response()->json($teacher);
+      // return redirect('/teacher')->with('success', 'Successfully Updated!');
     }
 
     /**
