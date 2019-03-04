@@ -21,14 +21,16 @@
               </div>
             @endif
 
-            @if(session()->has('error'))
+            @if(count($errors) > 0)
             <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert"> &times; </button>
-                <i class="fa fa-times" aria-hidden="true"></i>  <strong> Grade Level </strong> {{ session()->get('error') }}
+                @foreach ($errors->all() as $error)
+                  <li>  {{ $error}} </li>
+                @endforeach
             </div>
           @endif
 
-          <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade">
+          <button type="button" class="btn btn-primary mb-2 add-modal" data-toggle="modal" data-target="#modalFade">
                <i class="fa fa-plus"></i> ADD GRADE LEVEL
             </button>
             <div class="modal fade" id="modalFade" tabindex = "-1" role="dialog" aria-hidden="true">
@@ -175,6 +177,12 @@
     $(document).ready(function() {
         $('#example').DataTable();
     });
+
+    $(document).on('click', '.add-modal', function() {
+        $('.modal-title').text('Add year Level');        
+    }); 
+
+
     $(document).on('click', '.edit-modal', function(){
       $('.modal-title').text('Edit year level');
       $('.actionBtn').show();
@@ -188,6 +196,14 @@
       $('#id').val($(this).data('id'));
       id = $('#id').val();
       $('#myModal').show();
+      
+    });
+
+    $(document).keypress(
+    function(event){
+      if (event.which == '13') {
+        event.preventDefault();
+      }
     });
  
     $('.modal-footer').on('click', '.actionBtn', function() {

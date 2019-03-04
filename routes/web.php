@@ -22,13 +22,9 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::resource('/viewstudentgrades', 'viewstudentgrades');
     Route::resource('/class', 'nameOfClass');
     Route::get('/addteacher/excel', 'AddTeacherController@excel')->name('export.teacher');
-    Route::get('/addteacher/search', 'AddTeacherController@search')->name('find.teacher');
     Route::get('/addteacher/fetch', 'AddTeacherController@fetch')->name('teacher.submitted');
     Route::get('/addteacher/PDF', 'AddTeacherController@pdf')->name('teacher.pdf');
-    // Route::get('/viewteacher/{employee_id}', 'AddTeacherController@select');
-    Route::get('/viewteacher/{employee_id}', 'viewteacher@select');
-    Route::put('/viewteacher/studentgrades/{id}', 'AddTeacherController@update');
-    Route::get('/viewteacher/{employee_id}/', 'AddTeacherController@gradepdf');
+    Route::get('/addteacher/{employee_id}/', 'AddTeacherController@gradepdf'); 
     Route::post('/addteacher/grade', 'AddTeacherController@searchAdminGrade')->name('searchgrade.admin');
     Route::post('/addteacher/submitgrade', 'AddTeacherController@submitGradeAdmin')->name('submitgrade.admin');
     // Route::put('/studentgrades/{studentgrade}', 'MakeGrades@update')->name('updategrades.admin');
@@ -49,6 +45,7 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::resource('/gradelevel', 'yearlevel');
     Route::resource('/advisory', 'teacheradvisory');
     Route::post('/advisory/fetch', 'teacheradvisory@fetch')->name('dynamicdependent2.fetch');
+    Route::post('/advisory/getclass', 'teacheradvisory@getclass')->name('advisory.fetch');
     Route::post('/advisory/scan', 'teacheradvisory@fetchSubject')->name('fetch.subject');
     Route::resource('/examination', 'Examination');
     });

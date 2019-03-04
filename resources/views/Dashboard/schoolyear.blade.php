@@ -25,22 +25,25 @@
                 @endif
 
                 @if(session()->has('error'))
-                  <div class="alert alert-danger float-right" role="alert">
+                  <div class="alert alert-danger" role="alert">
                     <button class="close" aria-hidden="true" data-dismiss="alert">&times; </button>
                     <i class="fa fa-times" aria-hidden="true"></i> <strong> School Year </strong> {{ session()->get('error')}}
                   </div>
                 @endif
-                <button type="button" class="btn btn-primary mb-2 float-left" data-toggle="modal" data-target="#modalFade1">
-                   <i class="fa fa-plus"></i> ADD SCHOOL YEAR
-                </button>
-                </div>
-
+              
                 @if(count($errors) > 0)
+                <div class="alert alert-danger" role="alert" data-dismiss="alert">
                   <button class="close" data-dismiss="alert"> &times; </button>
                     @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger">{{ $error}} </div>
+                       {{ $error}} 
                     @endforeach
+                  </div>
                 @endif
+
+                <button type="button" class="btn btn-primary mb-2 add-modal" data-toggle="modal" data-target="#modalFade1">
+                    <i class="fa fa-plus"></i> ADD SCHOOL YEAR
+                 </button>
+                 </div>
             
                 <div class="modal fade" id="modalFade1" tabindex = "-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog modal-sm" role="document">
@@ -135,23 +138,33 @@
  @section('scripts')
   <script type="text/javascript">
   
-    $(document).on('click', '.modal', function() {
-      $('.modal-title').text('Add School Year');
-    });
+    $(document).on('click', '.add-modal', function() {
+        $('.modal-title').text('Add year Level');        
+    }); 
 
     $(document).on('click','.edit-modal', function(){
       $('.actionBtn').show();
       $('.delete').hide();
-      $('.modal-title').text('Edit school year');
       $('.form-horizontal').show();
       $('.deleteContent').hide();
+      $('.modal-title').text('Edit school year');        
       $('.actionBtn').removeClass('delete');
       $('#id').val($(this).data('id'));
       $('#a').val($(this).data('schoolyear'));
       id = $('#id').val();
       $('#myModal').show();
+      $('input[type=text]').click(function() {
+          $('.modal-title').text('Edit school year');
+      });
+      
     });
 
+    $(document).keypress(
+    function(event){
+      if (event.which == '13') {
+        event.preventDefault();
+      }
+    });
     $('.modal-footer').on('click', '.actionBtn', function() {
       $.ajax({
         type: 'PUT',

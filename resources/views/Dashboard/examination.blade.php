@@ -83,11 +83,11 @@
                           <td> {{ $no++ }} </td>
                           <td> {{ $examinations->schoolYear }}</td>
                           <td> {{ $examinations->grading }} Grading</td>
-                          <td> {{ $examinations->startDate }}</td>
-                          <td> {{ $examinations->endDate }}</td>
+                          <td> {{ date('m-d-Y', strtotime($examinations->startDate)) }}</td>
+                          <td> {{ date('m-d-Y', strtotime($examinations->endDate)) }}</td>
                           <td> 
-                              <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}" data-grading="{{ $examinations->grading}}" data-startdate="{{ $examinations->startDate}}" data-enddate="{{ $examinations->endDate}}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
-                              <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}" data-grading="{{ $examinations->grading}}" data-startdate="{{ $examinations->startDate}}" data-enddate="{{ $examinations->endDate}}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
+                              <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}" data-grading="{{ $examinations->grading}}" data-startdate="{{ $examinations->startDate }}" data-enddate="{{ $examinations->endDate }}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
+                              <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}" data-grading="{{ $examinations->grading}}" data-startdate="{{ $examinations->startDate }}" data-enddate="{{ $examinations->endDate }}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
                             </td>
                         </tr>
                     @endforeach
@@ -132,11 +132,11 @@
                       </div>
                       <div class="form-group">
                         <label class="col-form-label">Start Date </label>
-                        <input type="date" class="form-control" id="start" name="startDate" required>
+                        <input type="date" class="form-control" id="c" name="startDate" required>
                       </div>
                       <div class="form-group">
                           <label class="col-form-label">End Date </label>
-                          <input type="date" class="form-control" id="end" name="endDate" required>
+                          <input type="date" class="form-control" id="d" name="endDate" required>
                       </div>
                     </form>
                   <div class="deleteContent">
@@ -176,8 +176,8 @@
       $('.actionBtn').removeClass('delete');
       $('#a').val($(this).data('schoolyear'));
       $('#b').val($(this).data('grading'));
-      $('#start').val($(this).data('startdate'));
-      $('#end').val($(this).data('enddate'));
+      $('#c').val($(this).data('startdate'));
+      $('#d').val($(this).data('enddate'));
       $('#id').val($(this).data('id'));
       id = $('#id').val();
       $('#myModal').show();
@@ -192,8 +192,8 @@
           'id': id,
           'schoolYear': $('#a').val(),
           'grading': $('#b').val(),
-          'startDate': $('#start').val(),
-          'endDate': $('#end').val()
+          'startDate': $('#c').val(),
+          'endDate': $('#d').val()
         },
         success: function(data) {
           $('.post' + data.id).replaceWith(" "+

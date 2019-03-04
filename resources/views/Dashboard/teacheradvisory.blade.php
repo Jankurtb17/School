@@ -148,7 +148,7 @@
                     <input type="hidden" class="form-control" name="id" id="id" >
                     <div class="form-group">
                         <label class="col-form-label"> School Year </label>
-                        <select name="schoolYear" id="a" class="form-control" >
+                      <select name="schoolYear" id="a" class="form-control" >
                             <option value="" selected disabled>-Select Grade Level-</option>
                             @foreach ($schoolyear as $yearlevels)
                                 <option value="{{ $yearlevels->schoolYear }}">{{ $yearlevels->schoolYear }}</option>
@@ -157,7 +157,7 @@
                      </div>
                     <div class="form-group">
                         <label class="col-form-label">Grade Level</label>
-                        <select name="gradeLevel" id="b" class="form-control dynamic" data-dependent="className">
+                        <select name="gradeLevel" id="gradeLevel" class="form-control dynamic2" data-dependent="className">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -168,11 +168,8 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Class Name</label>
-                          <select name="className" id="className" class="form-control ero">
+                          <select name="className" id="className2" class="form-control">
                             <option value="" selected disabled>-Select Class Name-</option>
-                              @foreach ($yearlevel as $yearlevel)
-                                  <option value="{{$yearlevel->className}}">{{$yearlevel->className}}</option>
-                              @endforeach
                           </select> 
                     </div>
                     <div class="form-group">
@@ -233,10 +230,9 @@
       $('.actionBtn').addClass('btn-dark');
       $('#id').val($(this).data('id'));
       $('#a').val($(this).data('schoolyear'));
-      $('#b').val($(this).data('gradelevel'));
+      $('#gradeLevel').val($(this).data('gradelevel'));
       $('#c').val($(this).data('employee'));
       $('#d').val($(this).data('description'));
-      $('.ero').val($(this).data('sectionname'));
       id = $('#id').val();
       $('#myModal').show();
     });
@@ -249,8 +245,8 @@
               '_token': $('input[name=_token]').val(),
               'id':$('#id').val(),
               'schoolYear': $('#a').val(),
-              'gradeLevel': $('#b').val(),
-              'className': $('.ero').val(),
+              'gradeLevel': $('#gradeLevel').val(),
+              'className': $('#className2').val(),
               'employee_id': $('#c').val(),
               'subjectCode': $('#d').val()
             },
@@ -279,6 +275,31 @@
           _token = $('input[name="_token"]').val();
           $.ajax({
             url: "{{ route('dynamicdependent2.fetch')}}",
+            method: "POST",
+            data: {
+              select: select,
+              value: value,
+              _token: _token,
+              dependent: dependent
+            },
+            success:function(result)
+            {
+              $('#'+dependent).html(result);
+            }
+
+          })
+        }
+    });
+
+    $(document).on('change', '.dynamic2', function() {
+        if($(this).val() != '')
+        {
+          select = $(this).attr("id");
+          value= $(this).val();
+          dependent =$(this).data('dependent');
+          _token = $('input[name="_token"]').val();
+          $.ajax({
+            url: "{{ route('advisory.fetch')}}",
             method: "POST",
             data: {
               select: select,

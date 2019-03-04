@@ -23,8 +23,9 @@
                   <ul>
                     <li><a href="#" data-toggle="modal" data-target="#MyModal">1st Grading </a></li>
                     <li><a href="#" data-toggle="modal" data-target="#MyModal2">2nd Grading </a></li>
-                    <li><a href="#">3rd Grading </a></li>
-                    <li><a href="#">4th Grading </a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#MyModal3">3rd Grading </a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#MyModal4">4th Grading </a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#MyModal4">4th Grading </a></li>
                   </ul>
 
                   
@@ -43,8 +44,8 @@
                             <div class="col-lg-6">
                             <table class="ml-5" style="width:350px;">
                               <tr>
-                                  <th>Grade</th>
-                                  <th>Learning Areas</th>
+                                <th>Learning Areas</th>
+                                <th>Grade</th>
                                 </tr>
                                 @foreach ($user as $users)
                                   <input type="hidden" value="{{$users->phone_number}}" name="phone_number">
@@ -54,7 +55,7 @@
                                     <td> <input type="hidden" name="description[]" value="{{ $firsts->description}}"> {{$firsts->description }}</td>
                                     <td><input type="hidden" value="{{$firsts->grade}}" name="grade[]">{{$firsts->grade > 0 ? $firsts->grade : 'Grade Not Encoded' }}</td>
                                   </tr>
-                                @endforeach
+                                @endforeach 
                             </table>
                             </div>
                           </div>
@@ -81,10 +82,10 @@
                             @csrf
                           <div class="row">
                             <div class="col-lg-6">
-                            <table class="ml-5" style="width:500px;">
+                            <table class="ml-5" style="width:350px;">
                               <tr>
-                                  <th>Grade</th>
-                                  <th>Learning Areas</th>
+                                <th>Learning Areas</th>
+                                <th>Grade</th>
                                 </tr>
                                 @foreach ($user as $users)
                                   <input type="hidden" value="{{$users->phone_number}}" name="phone_number">
@@ -107,6 +108,86 @@
                       </div>
                     </div>
                   </div>
+
+                  {{-- 4th grading --}}
+                  <div class="modal fade" id="MyModal4" aria-hidden="true" role="dialog">
+                      <div class="modal-dialog" role="document"> 
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title"> View Grades</h5>
+                            <button type="button" class="close" data-dismiss="modal"> &times;</button>
+                          </div>
+                          <div class="modal-body">
+                            <form id="form-grade" action="{{ route('send.sms')}}">
+                              @csrf
+                            <div class="row">
+                              <div class="col-lg-6">
+                              <table class="ml-5" style="width:350px;">
+                                <tr>
+                                  <th>Learning Areas</th>
+                                  <th>Grade</th>
+                                  </tr>
+                                  @foreach ($user as $users)
+                                    <input type="hidden" value="{{$users->phone_number}}" name="phone_number">
+                                  @endforeach
+                                  @foreach ($fourth as $fourths)
+                                    <tr>
+                                      <td> <input type="hidden" name="description[]" value="{{ $fourths->description}}"> {{$fourths->description }}</td>
+                                      <td><input type="hidden" value="{{$fourths->grade}}" name="grade[]">{{$fourths->grade > 0 ? $fourths->grade : 'Grade Not Encoded' }}</td>
+                                    </tr>
+                                  @endforeach
+                              </table>
+                              </div>
+                            </div>
+                            
+                          </div>
+                          <div class="modal-footer">
+                          <button class="btn btn-dark" type="submit"> <i class="fa fa-envelope-o" aria-hidden="true"></i> Send Grades</button>
+                          </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {{-- 3rd grading --}}
+                    <div class="modal fade" id="MyModal3">
+                        <div class="modal-dialog" role="document"> 
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title"> View Grades</h5>
+                              <button type="button" class="close" data-dismiss="modal"> &times;</button>
+                            </div>
+                            <div class="modal-body">
+                              <form id="form-grade" action="{{ route('send.sms')}}">
+                                @csrf
+                              <div class="row">
+                                <div class="col-lg-6">
+                                <table class="ml-5" style="width:350px;">
+                                  <tr>
+                                    <th>Learning Areas</th>
+                                    <th>Grade</th>
+                                    </tr>
+                                    @foreach ($user as $users)
+                                      <input type="hidden" value="{{$users->phone_number}}" name="phone_number">
+                                    @endforeach
+                                    @foreach ($third as $thirds)
+                                      <tr>
+                                        <td> <input type="hidden" name="description[]" value="{{ $thirds->description}}"> {{$thirds->description }}</td>
+                                        <td><input type="hidden" value="{{$thirds->grade}}" name="grade[]">{{$thirds->grade > 0 ? $thirds->grade : 'Grade Not Encoded' }}</td>
+                                      </tr>
+                                    @endforeach
+                                </table>
+                                </div>
+                              </div>
+                              
+                            </div>
+                            <div class="modal-footer">
+                            <button class="btn btn-dark" type="submit"> <i class="fa fa-envelope-o" aria-hidden="true"></i> Send Grades</button>
+                            </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
                  
                 </div>
@@ -147,7 +228,7 @@
                      </div>
                     @endforeach
 
-                    <div class="modal" id="myModal">
+                    <div class="modal fade" id="myModal">
                       <div class="modal-dialog modal-sm">
                         <div class="modal-content">
                           <div class="modal-header">

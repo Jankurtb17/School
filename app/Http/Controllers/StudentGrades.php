@@ -44,42 +44,37 @@ class StudentGrades extends Controller
    
       if($gradingperiod == 'final')
       {
-        if($finalsearch > 0)
+        foreach($finalsearch as $finalsearchs)
         {
-            foreach($finalsearch as $finalsearchs)
-            {
-              $grade = $finalsearchs->grade;
-              if($grade >= 75){
-                  $output .= '
-                        <tr>
-                          <td colspan="2">'.$finalsearchs->subjectCode.'</td>
-                          <td colspan="2">'.$finalsearchs->description.'</td>
-                          <td colspan="2">'.$finalsearchs->firstName.' '.$finalsearchs->middleName.' '.$finalsearchs->lastName.'</td>
-                          <td>'.$finalsearchs->grade.'</td>
-                          <td> <span class="badge badge-success"> Passed </span> </td>
-                        </tr>';
-                }
-                else {
-                  $output .= '
-                        <tr>
-                          <td colspan="2">'.$finalsearchs->subjectCode.'</td>
-                          <td colspan="2">'.$finalsearchs->description.'</td>
-                          <td colspan="2">'.$finalsearchs->firstName.' '.$finalsearchs->middleName.' '.$finalsearchs->lastName.'</td>
-                          <td>'.$finalsearchs->grade.'</td>
-                          <td><span class="badge badge-danger"> Failed </span> </td>
-                        </tr>';
-                      }
-                }
-                    return response()->json($output);
+          $grade = $finalsearchs->grade;
+          if($grade >= 75)
+          {
+              $output .= '
+                    <tr>
+                      <td colspan="2">'.$finalsearchs->subjectCode.'</td>
+                      <td colspan="2">'.$finalsearchs->description.'</td>
+                      <td colspan="2">'.$finalsearchs->firstName.' '.$finalsearchs->middleName.' '.$finalsearchs->lastName.'</td>
+                      <td>'.$finalsearchs->grade.'</td>
+                      <td> <span class="badge badge-success"> Passed </span> </td>
+                    </tr>';
+          }
+          else 
+          {
+              $output .= '
+                    <tr>
+                      <td colspan="2">'.$finalsearchs->subjectCode.'</td>
+                      <td colspan="2">'.$finalsearchs->description.'</td>
+                      <td colspan="2">'.$finalsearchs->firstName.' '.$finalsearchs->middleName.' '.$finalsearchs->lastName.'</td>
+                      <td>'.$finalsearchs->grade.'</td>
+                      <td><span class="badge badge-danger"> Failed </span> </td>
+                    </tr>';
+          }
+        }
+        return response()->json($output);
         
-        }
-        else {
-          $output = '<tr> <td colspan="5">No grades were found </td> </tr>';
-          return response()->json($output);
-        }
       }
-
-      else {
+      else 
+      {
         if($count > 0)
         {
             foreach($search as $row)

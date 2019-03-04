@@ -78,7 +78,7 @@
                         <div class="form-group" id="form-group">
                             <div class="row">
                             <div class="col-lg-3"> </div>
-                            <button type="submit" class="btn btn-primary col-lg-8" id="changepassButton">Edit</button>
+                            <button type="submit" class="btn btn-primary col-lg-3" id="changepassButton">Update Information </button>
                             </div>
                         </div>
 
@@ -145,7 +145,7 @@
                     <div class="form-group" id="form-group">
                         <div class="row">
                         <div class="col-lg-3"> </div>
-                        <button type="submit" class="btn btn-primary col-lg-8" id="changepassButton2">Change Password</button>
+                        <button type="submit" class="btn btn-primary col-lg-3" id="changepassButton2">Change Password</button>
                         </div>
                     </div>
                   </form>

@@ -231,7 +231,6 @@ class AddTeacherController extends Controller
     // generate PDF for teachers
     public function gradepdf($employee_id)
     {
-      $grade = sendgradeadmin::findOrFail($employee_id);
       $grade = DB::table('sendgradeadmins')
                    ->join('users', 'sendgradeadmins.student_id', '=', 'users.student_id')
                    ->where('sendgradeadmins.employee_id', $employee_id)
@@ -299,23 +298,6 @@ class AddTeacherController extends Controller
     }
 
 
-    public function submitGradeAdmin(Request $request)
-    {
-        $student = $request->get('student_id');
-        $grade = $request->get('grade');
-
-        foreach($input as $students => $key)
-        {
-            $datas[] = array(
-              'student_id' =>$input[$students],
-              'grade'   =>$input[$students]
-            );
-        }
-        $data = DB::table('firstgradings')->insert($datas);
-        return response()->json($data);
-    }
-
-    
 
 
 }

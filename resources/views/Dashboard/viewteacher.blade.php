@@ -76,9 +76,7 @@
                     </div>
                   </form> --}}
                   
-                  @foreach ($user as $users)
-                      <a href="{{ action('AddTeacherController@gradepdf', ['employee_id', $users->employee_id])}}" class="btn btn-success mb-3"> <i class="fa fa-print" aria-hidden="true" ></i> EXPORT </a>
-                  @endforeach
+                 
                   <form id="form-submit">
                       @csrf
                     <div class="row">
@@ -97,7 +95,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($grade as $grades)
+                          {{-- @foreach ($grade as $grades)
                               <tr>
                                 <td>{{ $grades->gradingperiod}}</td>
                                 <td>{{ $grades->gradeLevel }}</td>
@@ -107,7 +105,7 @@
                                 <td>{{ $grades->firstName }} {{ $grades->middleName }} {{ $grades->lastName }}</td>
                                 <td><span class="badge {{ $grades->grade >= 75 ? 'badge-success' : 'badge-danger'}}"> {{ $grades->grade}} </span></td>
                               </tr>
-                          @endforeach
+                          @endforeach --}}
                         </tbody>
                     </table>
                     </div>

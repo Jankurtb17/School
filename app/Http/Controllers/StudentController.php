@@ -82,7 +82,7 @@ class StudentController extends Controller
             'dateOfBirth'           => 'required|string',
             'address'               => 'required|string',
             'email'                 => 'required|string|unique:users',
-            'password'              => 'required|string',
+            'password'              => 'required|string|confirmed',
             'phone_number'          => 'required|string',
         ]);
             User::create([
@@ -214,16 +214,25 @@ class StudentController extends Controller
                   ->where('search_subjects.gradelevel', $gradelevel)
                   ->where('sendgradeadmins.student_id', $student_id)
                   ->where('sendgradeadmins.gradingperiod', 1)
-                  // ->groupBy('search_subjects.subjectCode')
                   ->get(); 
     $second = DB::table('search_subjects')
                   ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
                   ->where('search_subjects.gradelevel', $gradelevel)
                   ->where('sendgradeadmins.student_id', $student_id)
                   ->where('sendgradeadmins.gradingperiod', 2)
-                  // ->groupBy('search_subjects.subjectCode')
                   ->get(); 
-        
+    $third = DB::table('search_subjects')
+                  ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
+                  ->where('search_subjects.gradelevel', $gradelevel)
+                  ->where('sendgradeadmins.student_id', $student_id)
+                  ->where('sendgradeadmins.gradingperiod', 3)
+                  ->get(); 
+    $fourth = DB::table('search_subjects')
+                  ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
+                  ->where('search_subjects.gradelevel', $gradelevel)
+                  ->where('sendgradeadmins.student_id', $student_id)
+                  ->where('sendgradeadmins.gradingperiod', 4)
+                  ->get(); 
     // $second = DB::table('firstgradings')
     //             ->where('student_id', $student_id)
     //             ->where('gradingperiod', 2)
@@ -234,7 +243,7 @@ class StudentController extends Controller
                 ->where('gradeLevel', $gradelevel)
                 ->get();
     $schoolyear = DB::table('schoolyears')->get();
-      return view('Dashboard.viewstudent', compact('schoolyear','user', 'teacher', 'student', 'first', 'second', 'subject'));
+      return view('Dashboard.viewstudent', compact('schoolyear','user', 'teacher', 'student', 'first', 'second', 'subject', 'third', 'fourth'));
     }
 
     public function excel()
@@ -259,19 +268,17 @@ class StudentController extends Controller
       $grade = $request->get('grade');
       $phone_number = $request->get('phone_number');
       $description = $request->get('description');
+      $data = "";
 
-      foreach($grade as $row => $key)
-      {
-        $data[] = array(
-           'Subject'   => $description[$row],
-            'Grade'         => $grade[$row]
-        );
+      foreach ($grade as $row => $key) {
+        $data .= $description[$row].": " .$grade[$row]."\n";
       }
+     
       $nexmo = app('Nexmo\Client');
 
       $nexmo->message()->send([
-          'to'   => $phone_number,
-          'from' => '639998572364', 
+          'to'   => '639499989239',
+          'from' => '639565011210', 
           'text' =>  $data
       ]);
       

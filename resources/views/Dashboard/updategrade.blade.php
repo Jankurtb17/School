@@ -15,11 +15,12 @@
                   </ol>
                 </nav>
               </div>
-            
+            <button class="delete-modal btn btn-danger mb-2" data-target="#myModal" data-toggle="modal"> <i class="fa fa-trash"></i></button>
             <div class="table-wrapper-scroll-y">
             <table class="table" id="example" >
               <thead>
                 <tr>
+                  <th><input type="checkbox" class="toggle-button"></th>
                   <th>Student Id</th>
                   <th>Student Name</th>
                   <th>Grade Level</th>
@@ -35,6 +36,7 @@
               <tbody>
                 @foreach ($grades as $grade)
                     <tr>
+                      <td><input type="checkbox" name="id[]"></td>
                       <td>{{ $grade->student_id}}</td>
                       <td>{{ $grade->firstName}} {{ $grade->middleName}} {{ $grade->lastName}}</td>
                       <td>{{ $grade->gradeLevel}}</td>
@@ -63,7 +65,7 @@
                       <button class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
-                      <form action="">
+                      <form action="" class="form-horizontal">
                         @csrf
                         <div class="form-group">
                             <input type="hidden" name="id" id="studentid" class="form-control">
@@ -85,9 +87,13 @@
                           <input type="text" class="form-control" id="grade" name="grade">
                         </div>
                       </form>
+                        <div class="delete-content">
+                            Are you sure you want to delete This?
+                        </div>
                   </div>
                   <div class="modal-footer">
                       <button class="btn btn-dark actionBtn" type="button">Update</button>
+                      <button class="btn btn-danger deleteBtn" type="button">Update</button>
                       <button class="btn btn-defualt" data-dismiss="modal">Close</button>
                   </div>
                 </div>
@@ -109,11 +115,15 @@
 
     
     $(document).on('click','.edit-modal', function(){
+      $('.form-horizontal').show();
+      $('.delete-content').hide();
       $('#studentid').val($(this).data('id'));
       $('#name').val($(this).data('name'));
       $('#grade').val($(this).data('grade'));
       $('#subjectCode').val($(this).data('subject'));
       $('#gradingperiod').val($(this).data('grading'));
+      $('.modal-title').text('Update Grades');
+      $('.deleteBtn').hide();
       id = $('#studentid').val();
       $('#myModal').show(); 
     });
@@ -134,6 +144,21 @@
         }
       });
     });
+
+  $(document).on('click', '.delete-modal', function() {
+    $('.delete-content').show();
+    $('.form-horizontal').hide();
+    $('.modal-title').text('Delete Record');
+    $('.deleteBtn').show();
+    $('.actionBtn').hide();
+
+
+
+
+  })
     
+  $('.toggle-button').click( function () {
+    $('input[type="checkbox"]').prop('checked', this.checked)
+  });
   </script>
 @endsection

@@ -177,6 +177,14 @@
                             </div>
                         </div>
                       </div>
+                      <div class="form-group">
+                          <div class="row">
+                              <div class="col-md-3"> </div>
+                              <div class="col-md-9">
+                                <input type="password" class="form-control" placeholder="Password" name="confirm_password" required>
+                              </div>
+                          </div>
+                        </div>
                   </div>
                   <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" name="submit"> Submit </button>                    

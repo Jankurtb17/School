@@ -157,6 +157,24 @@ class teacheradvisory extends Controller
       echo $output;
     }
 
+    public function getclass(Request $request)
+    {
+      $select = $request->get('select');
+      $value = $request->get('value');
+      $dependent = $request->get('dependent');
+      $data = DB::table('yearlevels')
+                  ->where($select, $value)
+                  ->groupBy($dependent)
+                  ->get();
+      $output = '<option value="" selected disabled>-Select '.ucfirst($dependent).'- </option>';
+      foreach($data as  $row)
+      {
+        $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
+      }
+      echo $output;
+    }
+
+
 
     
 }

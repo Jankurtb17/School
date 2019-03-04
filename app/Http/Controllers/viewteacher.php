@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use DB;
-
+use App\sendgradeadmin;
 use Illuminate\Http\Request;
 
 class viewteacher extends Controller
@@ -29,11 +29,11 @@ class viewteacher extends Controller
       $user= DB::table('users')
                 ->where('employee_id', $employee_id)
                 ->get();
-      // $grade = DB::table('users')
-      //           ->join('sendgradeadmins', 'users.student_id', '=', 'sendgradeadmins.student_id')
-      //           ->select('users.student_id','users.firstName', 'users.middleName', 'users.lastName')
-      //           ->where('sendgradeadmins.employee_id', $employee_id)
-      //           ->get();
+      $grade = DB::table('users')
+                ->join('sendgradeadmins', 'users.student_id', '=', 'sendgradeadmins.student_id')
+                ->select('users.student_id','users.firstName', 'users.middleName', 'users.lastName')
+                ->where('sendgradeadmins.employee_id', $employee_id)
+                ->get();
         $grade = DB::table('sendgradeadmins')
                    ->join('users', 'sendgradeadmins.student_id', '=', 'users.student_id')
                    ->where('sendgradeadmins.employee_id', $employee_id)
@@ -43,5 +43,17 @@ class viewteacher extends Controller
        return view('Dashboard.viewteacher', compact('schoolyear','user', 'subjectCode','student', 'teacher', 'gradelevel', 'grade'));
     }
 
+    public function gradepdf($employee_id)
+    {
+      $grade = sendgradeadmin::findOrFail($employee_id);
+      $grade = DB::table('sendgradeadmins')
+                   ->join('users', 'sendgradeadmins.student_id', '=', 'users.student_id')
+                   ->where('sendgradeadmins.employee_id', $employee_id)
+                   ->orderBy('sendgradeadmins.gradingperiod', 'ASC')
+                   ->get();
+      $pdf = \App::make('dompdf.wrapper');
+      $pdf = PDF::loadview('Dashboard.pdfgrades', compact('grade'));
+      return $pdf->stream();
+    }
     
 }

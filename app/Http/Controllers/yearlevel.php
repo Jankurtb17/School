@@ -58,16 +58,11 @@ class yearlevel extends Controller
           'gradeLevel' => 'required|string',
           'className'  => 'required|string'
         ]);
-        
-        $schoolyear = $request->get('schoolYear');
-        $gradeLevel = $request->get('gradeLevel');
-        $className  = $request->get('className');
-      
-          yearlevels::create([
-            'schoolYear'     =>$schoolyear,
-            'gradeLevel'     =>$gradeLevel,
-            'className'      =>$className
-          ]);
+        yearlevels::create([
+          'schoolYear'     =>$request->get('schoolYear'),
+          'gradeLevel'     =>$request->get('gradeLevel'),
+          'className'      =>$request->get('className')
+        ]);
         return redirect('/gradelevel')->with('success', 'successfully added!');
     }
 

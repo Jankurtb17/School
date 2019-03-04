@@ -224,7 +224,7 @@
                     <td>{{ $users->email}}</td>
                     <th><span class="badge {{ $users->status == 'Active' ? 'badge-success' : 'badge-danger'}}">{{ $users->status}}</span></th>
                     <td><a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $users->id }}" data-employee="{{ $users->employee_id}}" data-name="{{ $users->firstName }} {{ $users->middleName }} {{ $users->lastName }}" data-status="{{ $users->status }}"><i class="fa fa-pencil-square-o"> </i>EDIT </a>
-                        <a href="/viewteacher/{{$users->employee_id}}" class="btn btn-success"> <i class="fa fa-print" aria-hidden="true"></i> EXPORT GRADE </a>
+                        <a href="/addteacher/{{$users->employee_id}}" class="btn btn-success"> <i class="fa fa-print" aria-hidden="true"></i> EXPORT GRADE </a>
                     </td>
                 </tr>
                 @endforeach
@@ -298,20 +298,7 @@
   $(document).ready(function() {
       $('#example').DataTable();
   });
-  $(document).on('keyup', '#search', function() {
-    value = $(this).val();
-    $.ajax({
-      url: "{{ route('find.teacher')}}",
-      type: "GET",
-      data: {
-        "search": value,
-        "_token": $('input[name_token]').val()
-      },
-      success:function(data) {
-        $('tbody').html(data);
-      }
-    });
-  });
+ 
  
  $(document).on('click', '.edit-modal', function() {
   $('#id').val($(this).data('id'));
