@@ -20,6 +20,7 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::get('/dashboard2', 'HomeController@dashboard2');
     Route::get('/dashboard', 'HomeController@dashboard');
     Route::resource('/viewstudentgrades', 'viewstudentgrades');
+    Route::delete('/viewstudentgrades-multiple-delete', ['as' => 'multiple.delete', 'uses' => 'viewstudentgrades@multipleDelete']);
     Route::resource('/class', 'nameOfClass');
     Route::get('/addteacher/excel', 'AddTeacherController@excel')->name('export.teacher');
     Route::get('/addteacher/fetch', 'AddTeacherController@fetch')->name('teacher.submitted');

@@ -36,8 +36,6 @@ class AddTeacherController extends Controller
        return view('Dashboard.teacher', compact('user', 'teacher', 'student' ,'user_teacher'));
     }
 
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -71,6 +69,7 @@ class AddTeacherController extends Controller
             'password'     => 'required|string|confirmed|alpha_num|min:6',
             'phone_number' => 'required|string',
         ]);
+
         $user = User::create([
             'user_type'      => 'teacher',
             'role_id'        => '3',

@@ -80,10 +80,10 @@ class StudentController extends Controller
             'lastName'              => 'required|string',
             'gender'                => 'required|string',
             'dateOfBirth'           => 'required|string',
+            'phone_number'          => 'required|string',
             'address'               => 'required|string',
             'email'                 => 'required|string|unique:users',
-            'password'              => 'required|string|confirmed',
-            'phone_number'          => 'required|string',
+            'password'              => 'required|string|confirmed|alpha_num|min:6',
         ]);
             User::create([
             'user_type'           => 'student',
@@ -214,24 +214,28 @@ class StudentController extends Controller
                   ->where('search_subjects.gradelevel', $gradelevel)
                   ->where('sendgradeadmins.student_id', $student_id)
                   ->where('sendgradeadmins.gradingperiod', 1)
+                  ->whereNull('deleted_at')
                   ->get(); 
     $second = DB::table('search_subjects')
                   ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
                   ->where('search_subjects.gradelevel', $gradelevel)
                   ->where('sendgradeadmins.student_id', $student_id)
                   ->where('sendgradeadmins.gradingperiod', 2)
+                  ->whereNull('deleted_at')
                   ->get(); 
     $third = DB::table('search_subjects')
                   ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
                   ->where('search_subjects.gradelevel', $gradelevel)
                   ->where('sendgradeadmins.student_id', $student_id)
                   ->where('sendgradeadmins.gradingperiod', 3)
+                  ->whereNull('deleted_at')
                   ->get(); 
     $fourth = DB::table('search_subjects')
                   ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
                   ->where('search_subjects.gradelevel', $gradelevel)
                   ->where('sendgradeadmins.student_id', $student_id)
                   ->where('sendgradeadmins.gradingperiod', 4)
+                  ->whereNull('deleted_at')
                   ->get(); 
     // $second = DB::table('firstgradings')
     //             ->where('student_id', $student_id)

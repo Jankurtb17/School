@@ -309,12 +309,13 @@
             },
             success:function(result)
             {
-              $('#'+dependent).html(result);
+              $('#'+dependent).val(result);
             }
 
           })
         }
     });
+   
 
     $(document).on('click','.delete-modal', function(){
       $('.delete').show();

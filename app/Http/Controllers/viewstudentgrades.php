@@ -25,11 +25,14 @@ class viewstudentgrades extends Controller
                     ->join('search_subjects', 'sendgradeadmins.subjectCode', '=', 'search_subjects.subjectCode')
                     ->join('users', 'users.student_id', '=', 'sendgradeadmins.student_id')
                     ->select('search_subjects.subjectCode', 'search_subjects.description', 'users.student_id', 'users.firstName', 'users.lastName', 'users.middleName','sendgradeadmins.*')
+                    ->whereNull('deleted_at')
                     ->get();
+      
+
         return view('Dashboard.updategrade', compact('teacher', 'student', 'grades'));
     }
 
-    /**
+    /*s*
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -96,6 +99,15 @@ class viewstudentgrades extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student = sendgradeadmin::findOrFail($id);
+        $student->delete();
+        return response()->json($student);
+    }
+
+    public function multipleDelete(Request $request, $id)
+    {
+        $id = $request->id;
+        $student = sendgradeadmin::whereIn('id',explode(",",$id))->delete();
+        return response()->json($student);
     }
 }

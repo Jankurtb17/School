@@ -181,7 +181,7 @@
                           <div class="row">
                               <div class="col-md-3"> </div>
                               <div class="col-md-9">
-                                <input type="password" class="form-control" placeholder="Password" name="confirm_password" required>
+                                <input type="password" class="form-control" placeholder="Password" name="password_confirmation" required>
                               </div>
                           </div>
                         </div>

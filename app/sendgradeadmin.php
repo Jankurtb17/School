@@ -19,4 +19,7 @@ class sendgradeadmin extends Model
     'grade',  
     'employee_id'
   ];
+
+  protected $softDelete = true;
 }
+  

@@ -72,6 +72,16 @@ class teacheradvisory extends Controller
         'subjectCode' =>  'required|string',
       ]);
      
+      $subjectCode = $request->get('subjectCode');
+
+      $advisory = advisory::where('subjectCode', $subjectCode)
+                            ->count();
+      if($advisory > 0 )
+      {
+      return redirect('/advisory')->with('errors', 'tangina!');
+      }
+      else
+      { 
         advisory::create([
           'user_id'     =>Auth::id(),
           'schoolYear'  =>$request->get('schoolYear'),
@@ -80,6 +90,9 @@ class teacheradvisory extends Controller
           'employee_id' =>$request->get('employee_id'),
           'subjectCode' =>$request->get('subjectCode'),
       ]);
+      }
+        
+
       return redirect('/advisory')->with('success', 'successfully added!');
        
         
@@ -174,7 +187,7 @@ class teacheradvisory extends Controller
       echo $output;
     }
 
-
+    
 
     
 }

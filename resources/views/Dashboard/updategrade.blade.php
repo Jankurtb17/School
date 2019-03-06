@@ -15,12 +15,12 @@
                   </ol>
                 </nav>
               </div>
-            <button class="delete-modal btn btn-danger mb-2" data-target="#myModal" data-toggle="modal"> <i class="fa fa-trash"></i></button>
+            <a class="delete-modal btn btn-danger mb-2" data-target="#myModal" data-toggle="modal"> <i class="fa fa-trash"></i></a>
             <div class="table-wrapper-scroll-y">
             <table class="table" id="example" >
               <thead>
                 <tr>
-                  <th><input type="checkbox" class="toggle-button"></th>
+                  <th><input type="checkbox" id="checkall" class="toggle-button"></th>
                   <th>Student Id</th>
                   <th>Student Name</th>
                   <th>Grade Level</th>
@@ -35,8 +35,8 @@
               </thead>
               <tbody>
                 @foreach ($grades as $grade)
-                    <tr>
-                      <td><input type="checkbox" name="id[]"></td>
+                    <tr class="post{{$grade->id}}">
+                      <td><input type="checkbox" class="checkbox" name="row_id[]" data-id="{{$grade->id}}"></td>
                       <td>{{ $grade->student_id}}</td>
                       <td>{{ $grade->firstName}} {{ $grade->middleName}} {{ $grade->lastName}}</td>
                       <td>{{ $grade->gradeLevel}}</td>
@@ -48,6 +48,7 @@
                       <td>{{ $grade->employee_id}}</td>
                       <td>
                         <a href="#" class="edit-modal btn btn-success btn-md" data-target="#myModal" data-toggle="modal" data-grading="{{ $grade->gradingperiod}}" data-subject="{{ $grade->description}}" data-id="{{ $grade->id}}" data-grade="{{ $grade->grade }}" data-name="{{ $grade->firstName}} {{ $grade->middleName}} {{ $grade->lastName}}">Update Grade</a>
+                        <a href="#" class="delete-modal btn btn-danger btn-md" data-target="#myModal" data-toggle="modal" data-grading="{{ $grade->gradingperiod}}" data-subject="{{ $grade->description}}" data-id="{{ $grade->id}}" data-grade="{{ $grade->grade }}" data-name="{{ $grade->firstName}} {{ $grade->middleName}} {{ $grade->lastName}}">Delete Grade</a>
                       </td>
                     </tr>
                 @endforeach
@@ -71,6 +72,9 @@
                             <input type="hidden" name="id" id="studentid" class="form-control">
                         </div>
                         <div class="form-group">
+                          <input type="hidden" name="rowId[]" id="id" class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label for="name" class="col-label-form">Name</label>
                             <input type="text" class="form-control" id="name" name="name" readonly>
                         </div>
@@ -87,13 +91,14 @@
                           <input type="text" class="form-control" id="grade" name="grade">
                         </div>
                       </form>
+                      {{-- Delete Content --}}
                         <div class="delete-content">
                             Are you sure you want to delete This?
                         </div>
                   </div>
                   <div class="modal-footer">
                       <button class="btn btn-dark actionBtn" type="button">Update</button>
-                      <button class="btn btn-danger deleteBtn" type="button">Update</button>
+                      <button class="btn btn-danger deleteBtn" type="button">Delete</button>
                       <button class="btn btn-defualt" data-dismiss="modal">Close</button>
                   </div>
                 </div>
@@ -110,7 +115,43 @@
   <script type="text/javascript">
 
     $(document).ready(function() {
-        $('#example').dataTable();
+      $('#example').dataTable();
+      $('.toggle-button').click( function () {
+      $('input[type="checkbox"]').prop('checked', this.checked)
+      });
+    
+      $(document).on('click', '.delete-modal', function() {
+        $('.delete-content').show();
+        $('.form-horizontal').hide();
+        $('.modal-title').text('Delete Record');
+        $('.deleteBtn').show();
+        $('.actionBtn').hide();
+        $('#id').val($(this).data('id'));
+        id = $('#id').val();
+      });
+
+      $('.modal-footer').on('click', '.deleteBtn', function() {
+        let idsArr =[];
+        $('.checkbox:checked').each(function() {
+          idsArr.push($(this).attr('data-id'));
+        });
+
+        let strIds = idsArr.join(","); 
+          $.ajax({
+              url: "viewstudentgrades/"+strIds,
+              type: 'DELETE',
+              data: {
+                "id": +strIds,
+                "_token": $('input[name=_token').val()
+              },
+              success: function (data) {
+                  $('.post'+id).remove();
+              },
+              error: function (data) {
+                  alert(data.responseText);
+              }
+        });
+      });
     });
 
     
@@ -122,13 +163,15 @@
       $('#grade').val($(this).data('grade'));
       $('#subjectCode').val($(this).data('subject'));
       $('#gradingperiod').val($(this).data('grading'));
+      $('#id').val($(this).data('rowid'));
       $('.modal-title').text('Update Grades');
       $('.deleteBtn').hide();
+      $('.actionBtn').show();
       id = $('#studentid').val();
       $('#myModal').show(); 
     });
 
-    $('.modal-footer').on('click', '.actionBtn', function() {
+    $('.modal-footer').on('click', '.actionBtn', function() { 
       $.ajax({
         type: 'PUT',
         url: 'viewstudentgrades/' +id,
@@ -145,20 +188,7 @@
       });
     });
 
-  $(document).on('click', '.delete-modal', function() {
-    $('.delete-content').show();
-    $('.form-horizontal').hide();
-    $('.modal-title').text('Delete Record');
-    $('.deleteBtn').show();
-    $('.actionBtn').hide();
-
-
-
-
-  })
-    
-  $('.toggle-button').click( function () {
-    $('input[type="checkbox"]').prop('checked', this.checked)
-  });
+  
+  
   </script>
 @endsection

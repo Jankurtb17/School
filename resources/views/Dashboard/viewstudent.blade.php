@@ -252,7 +252,6 @@
                                 <div class="form-group">
                                     <label class="col-form-label"> Grade Level </label>
                                     <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className">
-                                        <option value="kindergarten">kindergarten</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>

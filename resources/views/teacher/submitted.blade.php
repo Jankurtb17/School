@@ -40,6 +40,7 @@
                     <option value="2">2nd</option>
                     <option value="3">3rd</option>
                     <option value="4">4th</option>
+                    <option value="final">Final</option>
                   </select>
                 </div>
               </div>
