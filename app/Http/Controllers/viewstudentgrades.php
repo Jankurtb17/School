@@ -39,7 +39,6 @@ class viewstudentgrades extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -61,7 +60,8 @@ class viewstudentgrades extends Controller
      */
     public function show($id)
     {
-        //
+       sendgradeadmin::withTrashed()->findOrFail($id)->restore();
+        
     }
 
     /**
@@ -104,10 +104,13 @@ class viewstudentgrades extends Controller
         return response()->json($student);
     }
 
-    public function multipleDelete(Request $request, $id)
+    public function multipleDelete(Request $request)
     {
-        $id = $request->id;
-        $student = sendgradeadmin::whereIn('id',explode(",",$id))->delete();
-        return response()->json($student);
+        $id = $request->get('id');
+        $student = sendgradeadmin::whereIn('id',explode(",", $id))->delete();
+        return response()->json([
+          'status'  => 'success',
+          'message' => 'Successfully moved to archieve!'
+        ]);
     }
 }

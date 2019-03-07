@@ -24,7 +24,7 @@
             <div class="row">
               <div class="col-lg-2">
                   <div class="form-group">
-                    <select name="schoolYear" id="schoolYear" class="form-control">
+                    <select name="schoolYear" id="schoolYear" class="form-control" required>
                         <option value="" selected disabled>-Select Grade Level-</option>
                           @foreach ($schoolyear as $row)
                               <option value="{{$row->schoolYear}}">{{$row->schoolYear}}</option>
@@ -34,7 +34,7 @@
               </div>
               <div class="col-lg-2">
                 <div class="form-group">
-                  <select name="gradingperiod" id="gradingperiod" class="form-control">
+                  <select name="gradingperiod" id="gradingperiod" class="form-control" required>
                     <option value="" selected disabled>-Select Grading Period-</option>
                     <option value="1">1st</option>
                     <option value="2">2nd</option>
@@ -46,7 +46,7 @@
               </div>
               <div class="col-lg-2">
                 <div class="form-group">
-                  <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="subjectCode">
+                  <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="subjectCode" required>
                       <option value="" selected disabled>-Select Grade Level-</option>
                         @foreach ($advisory as $row)
                             <option value="{{$row->gradeLevel}}">Grade {{$row->gradeLevel}}</option>
@@ -56,7 +56,7 @@
               </div>
               <div class="col-lg-2">
                   <div class="form-group">
-                    <select name="subjectCode" id="subjectCode" class="form-control">
+                    <select name="subjectCode" id="subjectCode" class="form-control" required>
                         <option value="" selected disabled>-Select Subject-</option>
                     </select>
                   </div>
@@ -70,7 +70,7 @@
           <form>
             @csrf
           <div class="table-wrapper-scroll-y">
-          <table class="table">
+          <table class="table" id="example">
             <thead>
               <tr>
                 <th>Student Number</th>
@@ -99,7 +99,21 @@
 <script> 
 
 $(document).ready(function() {
-  $('.btn-dark').hide(function(w) {
+  $('#example').dataTable({
+    "searching": false,
+    "paging": false,
+    // "processing": false,
+    // "serverSide": true,
+    // "ajax": "{{ route('find.grades') }}",
+    //     "columns":[
+    //         { "data": "Student Number" },
+    //         { "data": "Gender" },
+    //         { "data": "First Name" },
+    //         { "data": "Middle Name" },
+    //         { "data": "Last Name" },
+    //         { "data": "Grade"},
+    //         { "data": "Remarks", orderable:true, searchable:true}
+    //     ]
   });
 });
 

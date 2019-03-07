@@ -196,16 +196,10 @@
           'endDate': $('#d').val()
         },
         success: function(data) {
-          $('.post' + data.id).replaceWith(" "+
-          "<tr class='post'"+data.id +"'>" +
-            "<td>" + data.id + "</td>"+
-            "<td>" + data.schoolYear + "</td>"+
-            "<td>" + data.grading + "</td>"+
-            "<td>" + data.startDate + "</td>"+
-            "<td>" + data.endDate + "</td>"+
-            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolyear='"+data.schoolYear+"' data-grading='"+data.grading+"' data-startdate='"+data.startDate+"' data-enddate='"+data.endDate+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
-              "     <a href='#' class='delete-modal btn btn-danger'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolyear='"+data.schoolYear+"' data-grading='"+data.grading+"' data-startdate='"+data.startDate+"'data-enddate='"+data.endDate+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Delete </a>" +
-              "</tr>");
+          alert('Successfully updated!');
+          $(document).ajaxStop(function(){
+                  setTimeout("window.location = '/examination'",100);
+          });
           }
         });
       });
@@ -231,7 +225,10 @@
               'id': $('#id').val()
             },
             success:function(data) {
-                $('.post'+id).remove();
+              alert('Successfully deleted!');
+              $(document).ajaxStop(function(){
+                  setTimeout("window.location = '/examination'",100);
+               });
             }
         });
     });

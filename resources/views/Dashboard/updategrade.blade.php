@@ -15,7 +15,15 @@
                   </ol>
                 </nav>
               </div>
-            <a class="delete-modal btn btn-danger mb-2" data-target="#myModal" data-toggle="modal"> <i class="fa fa-trash"></i></a>
+            
+            @if(session()->has('message'))
+              <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert"> &times; </button>
+                <i class="fa fa-check" aria-hidden="true"></i> Grades {{ session()->get('message')}}
+              </div>
+            @endif
+
+            <a href="#" class="delete-modal btn btn-danger mb-2" data-target="#myModal" data-toggle="modal"> <i class="fa fa-paper-plane-o"></i> Archieve</a>
             <div class="table-wrapper-scroll-y">
             <table class="table" id="example" >
               <thead>
@@ -48,7 +56,6 @@
                       <td>{{ $grade->employee_id}}</td>
                       <td>
                         <a href="#" class="edit-modal btn btn-success btn-md" data-target="#myModal" data-toggle="modal" data-grading="{{ $grade->gradingperiod}}" data-subject="{{ $grade->description}}" data-id="{{ $grade->id}}" data-grade="{{ $grade->grade }}" data-name="{{ $grade->firstName}} {{ $grade->middleName}} {{ $grade->lastName}}">Update Grade</a>
-                        <a href="#" class="delete-modal btn btn-danger btn-md" data-target="#myModal" data-toggle="modal" data-grading="{{ $grade->gradingperiod}}" data-subject="{{ $grade->description}}" data-id="{{ $grade->id}}" data-grade="{{ $grade->grade }}" data-name="{{ $grade->firstName}} {{ $grade->middleName}} {{ $grade->lastName}}">Delete Grade</a>
                       </td>
                     </tr>
                 @endforeach
@@ -93,13 +100,13 @@
                       </form>
                       {{-- Delete Content --}}
                         <div class="delete-content">
-                            Are you sure you want to delete This?
+                            Do you want this to move in archieve?
                         </div>
                   </div>
                   <div class="modal-footer">
                       <button class="btn btn-dark actionBtn" type="button">Update</button>
-                      <button class="btn btn-danger deleteBtn" type="button">Delete</button>
-                      <button class="btn btn-defualt" data-dismiss="modal">Close</button>
+                      <button class="btn btn-danger deleteBtn" type="button">Yes</button>
+                      <button class="btn btn-defualt" data-dismiss="modal">No</button>
                   </div>
                 </div>
               </div>
@@ -123,34 +130,64 @@
       $(document).on('click', '.delete-modal', function() {
         $('.delete-content').show();
         $('.form-horizontal').hide();
-        $('.modal-title').text('Delete Record');
+        $('.modal-title').text('Move to archieve');
         $('.deleteBtn').show();
         $('.actionBtn').hide();
         $('#id').val($(this).data('id'));
         id = $('#id').val();
       });
 
+      $('.toggle-button').click( function () {
+          $('input[type="checkbox"]').prop('checked', this.checked)
+      });
+      
+      $('.toggle-button').on('click',function(){
+      if($('.checkbox:checked').length == $('.checkbox').length)
+      {
+        $('#check_all').prop('checked',true);
+      }
+      else
+      {
+        $('#check_all').prop('checked',false);
+      }
+      });
+
       $('.modal-footer').on('click', '.deleteBtn', function() {
         let idsArr =[];
+      
+        
         $('.checkbox:checked').each(function() {
           idsArr.push($(this).attr('data-id'));
         });
+       
+        if(idsArr.length <=0)  
+        {  
+          alert("Please select atleast one record to delete.");  
 
-        let strIds = idsArr.join(","); 
-          $.ajax({
-              url: "viewstudentgrades/"+strIds,
-              type: 'DELETE',
-              data: {
-                "id": +strIds,
-                "_token": $('input[name=_token').val()
-              },
-              success: function (data) {
-                  $('.post'+id).remove();
-              },
-              error: function (data) {
-                  alert(data.responseText);
-              }
-        });
+        }  
+        else 
+        {  
+          if(confirm("Are you sure, you want to delete the selected categories?"))
+          {  
+            let strIds = idsArr.join(","); 
+              $.ajax({
+                  url: "viewstudentgrades/"+strIds,
+                  type: 'DELETE',
+                  data: {
+                    "id": +strIds,
+                    "_token": $('input[name=_token').val()
+                  },
+                  success: function (data) {
+                  $(document).ajaxStop(function(){
+                    setTimeout("window.location = '/viewstudentgrades'",100);
+                  });
+                  },
+                  error: function (data) {
+                      alert(data.responseText);
+                  }
+              });
+          }
+        }
       });
     });
 
@@ -182,7 +219,7 @@
         },
         success:function(data) {
           $(document).ajaxStop(function(){
-                  setTimeout("window.location = '/viewstudentgrades'",100);
+            setTimeout("window.location = '/viewstudentgrades'",100);
           }); 
         }
       });

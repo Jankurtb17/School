@@ -78,7 +78,7 @@ class teacheradvisory extends Controller
                             ->count();
       if($advisory > 0 )
       {
-      return redirect('/advisory')->with('errors', 'tangina!');
+      return redirect('/advisory')->with('errors', 'Already Taken!');
       }
       else
       { 
@@ -184,7 +184,7 @@ class teacheradvisory extends Controller
       {
         $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
       }
-      echo $output;
+      return response()->json($output);
     }
 
     

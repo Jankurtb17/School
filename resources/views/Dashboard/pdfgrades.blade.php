@@ -12,6 +12,8 @@
     table {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
+      margin: 10px 0 0 -30px;
+      width: 100vw;
      
     }
     th, td {

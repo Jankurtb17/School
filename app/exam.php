@@ -10,7 +10,4 @@ class exam extends Model
       'schoolYear','grading','startDate','endDate',
     ];
 
-    protected $dates = [
-      'startDate', 'endDate'
-    ];
 }

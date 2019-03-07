@@ -28,7 +28,7 @@
                 @if(session()->has('errors'))
                   <div class="alert alert-danger">
                     <button class="close" type="button" data-dismiss="alert"> &times; </button>
-                   <i class="fa fa-times"></i> <strong> Teacher Advisory </strong> {{ session()->get('errors') }}
+                   <i class="fa fa-times"></i> <strong> Subject Code</strong> {{ session()->get('errors') }}
                   </div>
                 @endif
 
@@ -109,7 +109,7 @@
                       <th> Grade Level</th>
                       <th> Class Name</th>
                       <th> Subject code</th>
-                      <th> Teacher ID</th>
+                      <th> Teacher Name</th>
                       <th> Action </th>
                     </tr>
                   </thead>
@@ -122,7 +122,7 @@
                           <td>{{ $advisories->gradeLevel }} </td>
                           <td>{{ $advisories->className }}</td>
                           <td>{{ $advisories->subjectCode}}</td>
-                          <td><a href="/viewteacher/{{ $advisories->employee_id }}">{{$advisories->firstName }} {{$advisories->middleName }} {{$advisories->lastName }} </a></td>
+                          <td>{{$advisories->firstName }} {{$advisories->middleName }} {{$advisories->lastName }}</td>
                           <td>
                             <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}" data-description="{{ $advisories->subjectCode}}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i> Edit</a>
                             <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $advisories->id }}" data-schoolyear="{{ $advisories->schoolYear }}" data-gradelevel="{{ $advisories->gradeLevel }}" data-sectionname="{{ $advisories->className }}" data-employee = "{{ $advisories->employee_id }}" data-description="{{ $advisories->subjectCode}}"><i class="fa fa-trash-o" aria-hidden="true"> </i> Delete</a>
@@ -158,6 +158,7 @@
                     <div class="form-group">
                         <label class="col-form-label">Grade Level</label>
                         <select name="gradeLevel" id="gradeLevel" class="form-control dynamic2" data-dependent="className">
+                            <option value="" selected disabled>-Select Grade Level-</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -270,7 +271,7 @@
         if($(this).val() != '')
         {
           select = $(this).attr("id");
-          value= $(this).val();
+          value  = $(this).val();
           dependent =$(this).data('dependent');
           _token = $('input[name="_token"]').val();
           $.ajax({

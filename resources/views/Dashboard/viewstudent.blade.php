@@ -9,7 +9,7 @@
               <div class="card" id="card-information1">
                 <div class="card-body">
                   <div class="title">
-                     <h3> List of Subject </h3>
+                     <h3> Grades </h3>
                      <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"> <i class="fa fa-tachometer" aria-hidden = "true" id="dashboard-icon"> </i> <a href="/dashboard">Dashboard </a></li>
@@ -25,7 +25,7 @@
                     <li><a href="#" data-toggle="modal" data-target="#MyModal2">2nd Grading </a></li>
                     <li><a href="#" data-toggle="modal" data-target="#MyModal3">3rd Grading </a></li>
                     <li><a href="#" data-toggle="modal" data-target="#MyModal4">4th Grading </a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#MyModal4">4th Grading </a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#MyModal5">Final Grading </a></li>
                   </ul>
 
                   
@@ -53,7 +53,7 @@
                                 @foreach ($first as $firsts)
                                   <tr>
                                     <td> <input type="hidden" name="description[]" value="{{ $firsts->description}}"> {{$firsts->description }}</td>
-                                    <td><input type="hidden" value="{{$firsts->grade}}" name="grade[]">{{$firsts->grade > 0 ? $firsts->grade : 'Grade Not Encoded' }}</td>
+                                    <td><input type="hidden" value="{{$firsts->grade}}" name="grade[]">{{ $firsts->grade > 0 ? $firsts->grade : 'Grade Not Encoded' }}</td>
                                   </tr>
                                 @endforeach 
                             </table>
@@ -346,7 +346,7 @@
               $(document).ajaxStop(function(){
                   setTimeout("window.location = '/student'",100);
                 });
-            }
+            } 
         })
     });
 </script>

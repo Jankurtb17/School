@@ -68,7 +68,8 @@ class Examination extends Controller
      */
     public function show($id)
     {
-        //
+      $exam = exam::fimdOrFail($id);
+      return view('/examination', compact('exam', 'id'));
     }
 
     /**

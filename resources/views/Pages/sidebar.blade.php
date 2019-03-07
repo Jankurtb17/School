@@ -40,10 +40,10 @@
                 <a class="nav-link {{ setActive('viewstudentgrades', 'current') }}" href="/viewstudentgrades"> <i class="fa fa-book" aria-hidden="true" id="icon-dashboard"></i> Student Grades </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link {{ setActive('student', 'current') }}" href="/student"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Students  <span class="badge badge-success ml-3">{{ $student }}</span> </a>
+                  <a class="nav-link {{ setActive('student', 'current') }}" href="/student"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Students  <span class="badge {{ $student > 0 ? 'badge-success': 'badge-danger'}} ml-3">{{ $student }}</span> </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ setActive('addteacher', 'current') }}" href="/addteacher"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers <span class="badge badge-success ml-3">{{ $teacher }}</span> </a>
+                <a class="nav-link {{ setActive('addteacher', 'current') }}" href="/addteacher"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers <span class="badge {{ $teacher > 0 ? 'badge-success': 'badge-danger'}} ml-3">{{ $teacher }}</span> </a>
               </li>
               <li class="nav-item">
                   <a class="nav-link {{ setActive('advisory', 'current') }}" href="/advisory"> <i class="fa fa-user" aria-hidden="true" id="icon-dashboard"></i> Teachers Advisory </a>

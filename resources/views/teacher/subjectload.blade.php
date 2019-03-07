@@ -71,7 +71,7 @@
                               <td>{{$advisories->gradeLevel }}</td>
                               <td>{{$advisories->className}}</td>
                               <td>{{ $advisories->subjectCode}}</td>
-                              @if (Carbon\Carbon::now('Asia/Taipei')->setTime(0, 0, 0)->between(Carbon\Carbon::parse($examdates->startDate), Carbon\Carbon::parse($examdates->endDate)))
+                              @if (Carbon\Carbon::now('Asia/Taipei')->setTime(23, 59, 59)->between(Carbon\Carbon::parse($examdates->startDate)->setTime(0, 0 ,0), Carbon\Carbon::parse($examdates->endDate)->setTime(23, 59, 59)))
                                   <td><a class="btn btn-success" href="/studentgrades/{{$advisories->gradeLevel}}/{{$advisories->className }}/{{ $advisories->subjectCode}}">Encode Grade</a></td>
                                @else
                                <td><a class="btn btn-success">Encoding of Grades is not yet available</a></td>

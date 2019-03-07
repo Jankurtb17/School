@@ -218,16 +218,10 @@
           'className':  $('#c').val() 
         },
         success: function(data){
-          $('.post' +data.id).replaceWith(" "+
-            "<tr class='post" + data.id +"'>"+
-            "<td>" +data.id+ "</td>"+
-            "<td>" +data.schoolYear+ "</td>"+
-            "<td>" +data.gradeLevel+ " </td>"+
-            "<td>" +data.className+ " </td>"+
-            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolyear='"+data.schoolYear+"' data-gradelevel='"+data.gradeLevel+"' data-classname='"+data.className+"'>"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
-            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolyear='"+data.schoolYear+"' data-gradelevel='"+data.gradeLevel+"' data-classname='"+data.className+"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
-            "</td>"+
-            "</tr>");
+          alert('Successfully updated!');
+          $(document).ajaxStop(function(){
+                  setTimeout("window.location = '/gradelevel'",100);
+          });
         }
       });
     });
@@ -252,7 +246,10 @@
             'id': $('#id').val()
           },
           success: function(data) {
-            $('.post' +$('#id').val()).remove();
+            alert('Successfully deleted!');
+            $(document).ajaxStop(function(){
+                    setTimeout("window.location = '/gradelevel'",100);
+            });
           }
       });
     });
