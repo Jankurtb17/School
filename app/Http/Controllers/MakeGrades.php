@@ -152,6 +152,28 @@ class MakeGrades extends Controller
                     return redirect('/subjectload')->with('notif', 'successfully encoded! ');
                 }
             }
+            elseif($gradingperiod == 'final'){
+              if($data > 0){
+                return redirect('/subjectload')->with('error', 'already encoded! ');
+              }
+              else{
+                foreach($student as $students => $key)
+                  {
+                      $datas[] = array(
+                          "student_id"       =>$student[$students],
+                          "gradeLevel"       =>$gradeLevel[$students],
+                          "schoolYear"       =>$schoolYear,
+                          "gradingperiod"    =>'final',
+                          "className"        =>$className,
+                          "subjectCode"      =>$subjectCode,
+                          "grade"            =>$grade[$students],
+                          "employee_id"      =>Auth()->user()->employee_id
+                      );
+                    }
+                    DB::table('sendgradeadmins')->insert($datas);
+                      return redirect('/subjectload')->with('notif', 'successfully encoded! ');
+                  }
+              }
 
       
 

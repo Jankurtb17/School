@@ -237,17 +237,18 @@ class StudentController extends Controller
                   ->where('sendgradeadmins.gradingperiod', 4)
                   ->whereNull('deleted_at')
                   ->get(); 
-    // $second = DB::table('firstgradings')
-    //             ->where('student_id', $student_id)
-    //             ->where('gradingperiod', 2)
-    //             ->groupBy('subjectCode')
-    //             ->orderBy('subjectCode', 'DESC')
-    //             ->get();
+    $final = DB::table('search_subjects')
+                  ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
+                  ->where('search_subjects.gradelevel', $gradelevel)
+                  ->where('sendgradeadmins.student_id', $student_id)
+                  ->where('sendgradeadmins.gradingperiod', 'final')
+                  ->whereNull('deleted_at')
+                  ->get(); 
     $subject = DB::table("search_subjects")
                 ->where('gradeLevel', $gradelevel)
                 ->get();
     $schoolyear = DB::table('schoolyears')->get();
-      return view('Dashboard.viewstudent', compact('schoolyear','user', 'teacher', 'student', 'first', 'second', 'subject', 'third', 'fourth'));
+      return view('Dashboard.viewstudent', compact('schoolyear','user', 'teacher', 'student', 'first', 'second', 'subject', 'third', 'fourth', 'final'));
     }
 
     public function excel()
@@ -265,6 +266,20 @@ class StudentController extends Controller
         $pdf = PDF::loadview('Dashboard.pdfstudent', compact('user_student'));
         return $pdf->stream();
     }
+
+    public function pdfgrades($student_id)
+    { 
+      $grades = DB::table('search_subjects')
+                  ->join('sendgradeadmins', 'search_subjects.subjectCode', '=', 'sendgradeadmins.subjectCode')
+                  ->join('users', 'sendgradeadmins.employee_id', '=', 'users.employee_id')
+                  ->where('sendgradeadmins.student_id', $student_id)
+                  ->whereNull('deleted_at')
+                  ->orderBy('gradingperiod')
+                  ->get(); 
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf = PDF::loadview('Dashboard.pdfgradestudent', compact('grades'));
+        return $pdf->stream();
+    }
     
    
     public function sendGrade(Request $request)
@@ -273,7 +288,6 @@ class StudentController extends Controller
       $phone_number = $request->get('phone_number');
       $description = $request->get('description');
       $data = "";
-
       foreach ($grade as $row => $key) {
         $data .= $description[$row].": " .$grade[$row]."\n";
       }
@@ -281,7 +295,7 @@ class StudentController extends Controller
       $nexmo = app('Nexmo\Client');
 
       $nexmo->message()->send([
-          'to'   => '639499989239',
+          'to'   => $phone_number,
           'from' => '639565011210', 
           'text' =>  $data
       ]);

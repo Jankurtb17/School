@@ -136,6 +136,7 @@ class teacheradvisory extends Controller
         $advisory->gradeLevel = $request->gradeLevel;
         $advisory->className = $request->className;
         $advisory->employee_id = $request->employee_id;
+        $advisory->subjectCode = $request->subjectCode;
         $advisory->save();
         return response()->json($advisory);
     }

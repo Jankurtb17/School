@@ -16,7 +16,7 @@
                   </ol>
                 </nav>
                 <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFade1">
-                    Add examination date
+                    <i class="fa fa-plus"></i> ADD EXAMINATION DATE
                 </button>
                 <div class="modal fade" id="modalFade1" tabindex = "-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog modal-sm" role="document">
@@ -35,16 +35,6 @@
                               @foreach ($schlyr as $schlyrs)
                                   <option value="{{ $schlyrs->schoolYear}}">{{ $schlyrs->schoolYear}}</option>
                               @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-form-label"> Grading Period</label>
-                            <select name="grading" id="grading" class="form-control">
-                              <option value="" selected disabled>-Select Grading Period-</option>
-                              <option value="1">1st Grading</option>
-                              <option value="2">2nd Grading</option>
-                              <option value="3">3rd Grading</option>
-                              <option value="4">4th Grading</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -70,7 +60,6 @@
                     <tr>
                       <th> Id </th>
                       <th> School Year </th>
-                      <th> Grading Period </th>
                       <th> Start Date of Examination</th>
                       <th> End Date of Examination</th>
                       <th> Action </th>
@@ -82,12 +71,11 @@
                         <tr class="post{{ $examinations->id }}"> 
                           <td> {{ $no++ }} </td>
                           <td> {{ $examinations->schoolYear }}</td>
-                          <td> {{ $examinations->grading }} Grading</td>
                           <td> {{ date('m-d-Y', strtotime($examinations->startDate)) }}</td>
                           <td> {{ date('m-d-Y', strtotime($examinations->endDate)) }}</td>
                           <td> 
-                              <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}" data-grading="{{ $examinations->grading}}" data-startdate="{{ $examinations->startDate }}" data-enddate="{{ $examinations->endDate }}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
-                              <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}" data-grading="{{ $examinations->grading}}" data-startdate="{{ $examinations->startDate }}" data-enddate="{{ $examinations->endDate }}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
+                              <a href="#" class="edit-modal btn btn-warning" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}"  data-startdate="{{ $examinations->startDate }}" data-enddate="{{ $examinations->endDate }}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit </a>
+                              <a href="#" class="delete-modal btn btn-danger" data-target="#myModal" data-toggle="modal" data-id="{{ $examinations->id}}" data-schoolyear="{{ $examinations->schoolYear}}"  data-startdate="{{ $examinations->startDate }}" data-enddate="{{ $examinations->endDate }}"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete </a>
                             </td>
                         </tr>
                     @endforeach
@@ -118,16 +106,6 @@
                             @foreach ($schlyr as $schlyrs)
                                 <option value="{{ $schlyrs->schoolYear}}">{{ $schlyrs->schoolYear}}</option>
                             @endforeach
-                          </select>
-                      </div>
-                      <div class="form-group">
-                          <label class="col-form-label"> Grading Period</label>
-                          <select name="grading" id="b" class="form-control">
-                            <option value="" selected disabled>-Select Grading Period-</option>
-                            <option value="1">1st Grading</option>
-                            <option value="2">2nd Grading</option>
-                            <option value="3">3rd Grading</option>
-                            <option value="4">4th Grading</option>
                           </select>
                       </div>
                       <div class="form-group">
@@ -175,7 +153,6 @@
       $('.actionBtn').removeClass('btn-danger');
       $('.actionBtn').removeClass('delete');
       $('#a').val($(this).data('schoolyear'));
-      $('#b').val($(this).data('grading'));
       $('#c').val($(this).data('startdate'));
       $('#d').val($(this).data('enddate'));
       $('#id').val($(this).data('id'));
@@ -191,7 +168,6 @@
           '_token': $('input[name=_token').val(),
           'id': id,
           'schoolYear': $('#a').val(),
-          'grading': $('#b').val(),
           'startDate': $('#c').val(),
           'endDate': $('#d').val()
         },
@@ -200,7 +176,7 @@
           $(document).ajaxStop(function(){
                   setTimeout("window.location = '/examination'",100);
           });
-          }
+        }
         });
       });
 

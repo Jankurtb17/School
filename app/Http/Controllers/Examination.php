@@ -47,13 +47,11 @@ class Examination extends Controller
     {
         $this->validate($request, [
           'schoolYear'  => 'required|string',
-          'grading'     => 'required|string',
           'startDate'   => 'required|string',
           'endDate'     => 'required|string',
         ]);
         $exam = exam::create([
           'schoolYear'    =>$request->get('schoolYear'),
-          'grading'       =>$request->get('grading'),
           'startDate'     =>$request->get('startDate'),
           'endDate'       =>$request->get('endDate'),
         ]);

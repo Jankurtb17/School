@@ -39,6 +39,22 @@ class HomeController extends Controller
       return view('Dashboard.home', compact('admin', 'teacher', 'student'));
     }
 
+    public function archieve()
+    {
+      $teacher = DB::table('users')
+                  ->where('role_id', 3)
+                  ->count();
+      $student = DB::table('users')
+                  ->where('role_id', 1)
+                  ->count();
+      $grades = DB::table('sendgradeadmins')
+                  ->join('search_subjects', 'sendgradeadmins.subjectCode', '=', 'search_subjects.subjectCode')
+                  ->join('users', 'users.student_id', '=', 'sendgradeadmins.student_id')
+                  ->select('search_subjects.subjectCode', 'search_subjects.description', 'users.student_id', 'users.firstName', 'users.lastName', 'users.middleName','sendgradeadmins.*')
+                  ->get();
+      return view('Dashboard.archieve', compact('grades', 'student', 'teacher'));
+    }
+
     public function dashboard()
     {
       $admin = DB::table('users')
@@ -50,7 +66,7 @@ class HomeController extends Controller
       $student = DB::table('users')
             ->where('role_id', 1)
             ->count();
-return view('Dashboard.home', compact('admin', 'teacher', 'student'));
+    return view('Dashboard.home', compact('admin', 'teacher', 'student'));
     }
 
     public function teacherDashboard()
@@ -63,11 +79,6 @@ return view('Dashboard.home', compact('admin', 'teacher', 'student'));
       return view('dashboard.welcome');
     }
     
-    public function dashboard2() 
-    {
-      
-      return view('Dashboard.sidebar');  
-    }
     public function showChangePasswordForm()
     {
       return view('auth.changepassword');

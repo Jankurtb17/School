@@ -18,14 +18,18 @@
                         </ol>
                      </nav>
                   </div>
-
+                  
+                  @foreach ($user as $users)
+                  <a href="/viewstudentgrade/{{ $users->student_id }}" class="btn btn-success"><i class="fa fa-print"></i> Print Grade </a>
+                  @endforeach
+                 
                   {{-- content --}}
                   <ul>
                     <li><a href="#" data-toggle="modal" data-target="#MyModal">1st Grading </a></li>
                     <li><a href="#" data-toggle="modal" data-target="#MyModal2">2nd Grading </a></li>
                     <li><a href="#" data-toggle="modal" data-target="#MyModal3">3rd Grading </a></li>
                     <li><a href="#" data-toggle="modal" data-target="#MyModal4">4th Grading </a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#MyModal5">Final Grading </a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#myModal5">Final Grading </a></li>
                   </ul>
 
                   
@@ -149,8 +153,8 @@
                       </div>
                     </div>
 
-                    {{-- 3rd grading --}}
-                    <div class="modal fade" id="MyModal3">
+                    {{-- Final grading --}}
+                    <div class="modal fade" id="myModal5">
                         <div class="modal-dialog" role="document"> 
                           <div class="modal-content">
                             <div class="modal-header">
@@ -170,10 +174,10 @@
                                     @foreach ($user as $users)
                                       <input type="hidden" value="{{$users->phone_number}}" name="phone_number">
                                     @endforeach
-                                    @foreach ($third as $thirds)
+                                    @foreach ($final as $finals)
                                       <tr>
-                                        <td> <input type="hidden" name="description[]" value="{{ $thirds->description}}"> {{$thirds->description }}</td>
-                                        <td><input type="hidden" value="{{$thirds->grade}}" name="grade[]">{{$thirds->grade > 0 ? $thirds->grade : 'Grade Not Encoded' }}</td>
+                                        <td> <input type="hidden" name="description[]" value="{{ $finals->description}}"> {{$finals->description }}</td>
+                                        <td><input type="hidden" value="{{$finals->grade}}" name="grade[]">{{$finals->grade > 0 ? $finals->grade : 'Grade Not Encoded' }}</td>
                                       </tr>
                                     @endforeach
                                 </table>
@@ -207,8 +211,6 @@
                       <i class="fa fa-address-card-o mr-2" id="information-icon" aria-hidden="true"></i>
                          <span>{{ $users->student_id}}, {{ $users->gradeLevel}} - {{ $users->className}}</span>
                      </div>
-
-                  
 
                      <div class="form-group">
                         <i class="fa fa-user-circle-o mr-2" id="information-icon" aria-hidden="true"></i>

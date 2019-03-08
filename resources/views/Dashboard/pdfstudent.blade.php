@@ -4,7 +4,7 @@
     table {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
-      margin-right:60px;
+      margin: 0 0 0 -15px;
     }
     th, td {
       border: 1px solid black;
@@ -41,7 +41,7 @@
       <div class="heading">
         <h2>Angels of De Vera Learning Center </h4>
         <p>Blk 1 lot 33 phase 2 Molino Homes, <br> Molino, Cavite <br> Jankurt@angelsofdevera.com</p>
-        <p>List of teachers</p>
+        <p>List of Students</p>
       </div>
       <div class="logo">
       </div>

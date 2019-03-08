@@ -20,7 +20,8 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::get('/dashboard2', 'HomeController@dashboard2');
     Route::get('/dashboard', 'HomeController@dashboard');
     Route::resource('/viewstudentgrades', 'viewstudentgrades');
-    Route::delete('/viewstudentgrades-multiple-delete', ['as' => 'multiple.delete', 'uses' => 'viewstudentgrades@multipleDelete']);
+    Route::delete('/viewstudentgrades/massdelete', ['as' => 'multiple.delete', 'uses' => 'viewstudentgrades@multipleDelete']);
+    Route::resource('/archieve', 'archieve');
     Route::resource('/class', 'nameOfClass');
     Route::get('/addteacher/excel', 'AddTeacherController@excel')->name('export.teacher');
     Route::get('/addteacher/fetch', 'AddTeacherController@fetch')->name('teacher.submitted');
@@ -35,6 +36,7 @@ Route::group(['middleware'  => 'revalidate'], function(){
     Route::post('/student/fetch', 'StudentController@fetch')->name('dynamicdependent3.fetch');
     Route::get('/student/{student_id}/{gradelevel}', 'StudentController@select');
     Route::post('/student/{student_id}/{gradelevel}/{id}', 'StudentController@update');
+    Route::get('/viewstudentgrade/{student_id}', [ 'as' => 'pdfgrades.student', 'uses' => 'StudentController@pdfgrades']);
     Route::put('/student/{id}', ['as' => 'statusupdate.admin', 'uses' => 'StudentController@update']);
     Route::put('/student/{id}', ['as' => 'viewstudentupdate.admin', 'uses' => 'StudentController@updateinfo']);
     Route::get('/student/sms/', 'StudentController@sendGrade')->name('send.sms');

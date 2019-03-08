@@ -20,72 +20,22 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th>Level</th>
+                        <th></th>
                         <th>Subject Code</th>
                         <th>Subject Description</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                      <td colspan="4" id="level"><strong>GRADE 1 </strong></td>
-                      @foreach ($grade1 as $grade1s)
+                      @foreach ($subjects as $subject)
                         <tr>
                           <td></td>
-                          <td>{{ $grade1s->subjectCode}}</td>
-                          <td>{{ $grade1s->description}}</td>
+                          <td>{{ $subject->subjectCode}}</td>
+                          <td>{{ $subject->description}}</td>
                         </tr>
                       @endforeach
                       </tr>
                       <tr>
-                      <td colspan="4" id="level"><strong>GRADE 2 </strong></td>
-                      @foreach ($grade2 as $grade2s)
-                        <tr>
-                          <td></td>
-                          <td>{{ $grade2s->subjectCode}}</td>
-                          <td>{{ $grade2s->description}}</td>
-                        </tr>
-                      @endforeach
-                    </tr>
-                    <tr>
-                    <td colspan="4" id="level"> <strong> GRADE 3 </strong></td>
-                    @foreach ($grade3 as $grade3e)
-                    <tr>
-                      <td></td>
-                      <td>{{ $grade3e->subjectCode}}</td>
-                      <td>{{ $grade3e->description}}</td>
-                    </tr>
-                  @endforeach
-                </tr>
-                <tr>
-                    <td colspan="4" id="level"><strong>GRADE 4 </strong></td>
-                    @foreach ($grade4 as $grade4f)
-                    <tr>
-                      <td></td>
-                      <td>{{ $grade4f->subjectCode}}</td>
-                      <td>{{ $grade4f->description}}</td>
-                    </tr>
-                  @endforeach
-                </tr>
-                <tr>
-                    <td colspan="4" id="level"><strong>GRADE 5 </strong></td>
-                    @foreach ($grade5 as $grade5g)
-                    <tr>
-                      <td></td>
-                      <td>{{ $grade5g->subjectCode}}</td>
-                      <td>{{ $grade5g->description}}</td>
-                    </tr>
-                  @endforeach
-                </tr>
-                <tr>
-                    <td colspan="4" id="level"><strong>GRADE 6 </strong></td>
-                    @foreach ($grade6 as $grade6h)
-                    <tr>
-                      <td></td>
-                      <td>{{ $grade6h->subjectCode}}</td>
-                      <td>{{ $grade6h->description}}</td>
-                    </tr>
-                  @endforeach
-                </tr>
                     </tbody>
                   </table>
               </div>

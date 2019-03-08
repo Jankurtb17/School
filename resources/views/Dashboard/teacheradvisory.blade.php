@@ -57,7 +57,7 @@
                           <div class="form-group">
                             <label class="col-form-label">Grade Level</label>
                             <select name="gradeLevel" id="gradeLevel" class="form-control dynamic" data-dependent="className" data-subject="subjectCode">
-                                <option value="">-Select Grade Level-</option>
+                                <option value="" selected disabled>-Select Grade Level-</option>
                                 <option value="1">Grade 1</option>
                                 <option value="2">Grade 2</option>
                                 <option value="3">Grade 3</option>
@@ -171,14 +171,17 @@
                         <label class="col-form-label">Class Name</label>
                           <select name="className" id="className2" class="form-control">
                             <option value="" selected disabled>-Select Class Name-</option>
+                            @foreach ($yearlevel as $yearlevels)
+                                <option value="{{ $yearlevels->className}}">{{ $yearlevels->className}}</option>
+                            @endforeach
                           </select> 
                     </div>
                     <div class="form-group">
                       <label for="c">Teacher Name</label>
                       {{-- <input type="text" class="form-control" name="employee_id" id="c"> --}}
                       <select name="employee_id" id="c" class="form-control">
-                        @foreach ($user as $user)
-                            <option value="{{ $user->employee_id }}"> {{ $user->employee_id }}</option>
+                        @foreach ($user as $users)
+                            <option value="{{ $users->employee_id }}"> {{ $users->firstName }} {{ $users->middleName }} {{ $users->lastName }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -194,7 +197,7 @@
                       </div>
                    
                   </form>
-                  <div class="deleteContent">
+                  <div class="deleteContent" style="text-align:center;">
                     Are you sure you want to delete this?
                   </div>
                 </div>
@@ -214,7 +217,6 @@
   @endSection
 @section('scripts')
   <script>
-   
     $(document).ready(function() {
         $('#example').DataTable();
     });
@@ -231,7 +233,8 @@
       $('.actionBtn').addClass('btn-dark');
       $('#id').val($(this).data('id'));
       $('#a').val($(this).data('schoolyear'));
-      $('#gradeLevel').val($(this).data('gradelevel'));
+      $('.dynamic2').val($(this).data('gradelevel'));
+      $('#className2').val($(this).data('sectionname'));
       $('#c').val($(this).data('employee'));
       $('#d').val($(this).data('description'));
       id = $('#id').val();
@@ -246,24 +249,16 @@
               '_token': $('input[name=_token]').val(),
               'id':$('#id').val(),
               'schoolYear': $('#a').val(),
-              'gradeLevel': $('#gradeLevel').val(),
+              'gradeLevel': $('.dynamic2').val(),
               'className': $('#className2').val(),
               'employee_id': $('#c').val(),
               'subjectCode': $('#d').val()
             },
             success: function(data) {
-              $('.post' +data.id).replaceWith(" "+
-            "<tr class='post" + data.id +"'>"+
-            "<td>" +data.id+ " </td>"+
-            "<td>" +data.schoolYear+ " </td>"+
-            "<td>" +data.gradeLevel+ " </td>"+
-            "<td>" +data.className+ " </td>"+
-            "<td>" +data.subjectCode+ " </td>"+
-            "<td>" +data.employee_id+ "</td>"+
-            "<td> <a href='#' class='edit-modal btn btn-warning'  data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolyear='"+data.schoolYear+"' data-sectionname='"+data.className+"' data-gradelevel='"+data.gradeLevel+"' data-description='"+data.subjectCode+"' data-employee='"+data.employee_id+"' >"+ " <i class='fa fa-pencil-square-o' aria-hidden='true'> </i> Edit </a>" +
-            "     <a href='#' class='delete-modal btn btn-danger' data-target='#myModal' data-toggle='modal' data-id='"+data.id+"' data-schoolyear='"+data.schoolYear+"' data-sectionname='"+data.className+"' data-gradelevel='"+data.gradeLevel+"' data-description='"+data.subjectCode+"' data-employee='"+data.employee_id +"'>"+ " <i class='fa fa-trash-o' aria-hidden='true'> </i> Delete </a>"+
-            "</td>"+
-            "</tr>");
+              alert('Successfully updated!');
+              $(document).ajaxStop(function(){
+                      setTimeout("window.location = '/advisory'",100);
+              });
             }
         });
     });

@@ -12,6 +12,8 @@
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"> <i class="fa fa-tachometer" aria-hidden="true" id="dashboard-icon">  </i><a href="/dashboard"> Dashboard </a> </li>
                     <li class="breadcrumb-item active" aria-current="page">Student Grades</li>
+                    <li class="breadcrumb-item"> <a href="/archieve">Archieve</a> </li>
+
                   </ol>
                 </nav>
               </div>
@@ -23,7 +25,7 @@
               </div>
             @endif
 
-            <a href="#" class="delete-modal btn btn-danger mb-2" data-target="#myModal" data-toggle="modal"> <i class="fa fa-paper-plane-o"></i> Archieve</a>
+            <a href="#" class="delete-modal btn btn-danger mb-2" data-target="#myModal" data-toggle="modal" data-url=""> <i class="fa fa-paper-plane-o"></i> Archieve</a>
             <div class="table-wrapper-scroll-y">
             <table class="table" id="example" >
               <thead>
@@ -105,8 +107,8 @@
                   </div>
                   <div class="modal-footer">
                       <button class="btn btn-dark actionBtn" type="button">Update</button>
-                      <button class="btn btn-danger deleteBtn" type="button">Yes</button>
-                      <button class="btn btn-defualt" data-dismiss="modal">No</button>
+                      <button class="btn btn-danger deleteBtn" type="button" data-toggle="confirmation"  data-dismiss="modal">Yes</button>
+                      <button class="btn btn-default" data-dismiss="modal">No</button>
                   </div>
                 </div>
               </div>
@@ -123,9 +125,7 @@
 
     $(document).ready(function() {
       $('#example').dataTable();
-      $('.toggle-button').click( function () {
-      $('input[type="checkbox"]').prop('checked', this.checked)
-      });
+    
     
       $(document).on('click', '.delete-modal', function() {
         $('.delete-content').show();
@@ -137,61 +137,51 @@
         id = $('#id').val();
       });
 
-      $('.toggle-button').click( function () {
-          $('input[type="checkbox"]').prop('checked', this.checked)
-      });
-      
-      $('.toggle-button').on('click',function(){
-      if($('.checkbox:checked').length == $('.checkbox').length)
-      {
-        $('#check_all').prop('checked',true);
-      }
-      else
-      {
-        $('#check_all').prop('checked',false);
-      }
-      });
+      $('#checkall').on('click', function(e) {
+         if($(this).is(':checked',true))  
+         {
+            $(".checkbox").prop('checked', true);  
+         } else {  
+            $(".checkbox").prop('checked',false);  
+         }  
+        });
 
       $('.modal-footer').on('click', '.deleteBtn', function() {
         let idsArr =[];
-      
-        
         $('.checkbox:checked').each(function() {
           idsArr.push($(this).attr('data-id'));
         });
        
-        if(idsArr.length <=0)  
+        if( idsArr.length <=0 )  
         {  
-          alert("Please select atleast one record to delete.");  
-
+          alert("Please select atleast one record to move.");  
         }  
         else 
         {  
-          if(confirm("Are you sure, you want to delete the selected categories?"))
+          if(confirm("Are you sure, you want to move this to archieve?"))
           {  
-            let strIds = idsArr.join(","); 
-              $.ajax({
-                  url: "viewstudentgrades/"+strIds,
-                  type: 'DELETE',
-                  data: {
-                    "id": +strIds,
-                    "_token": $('input[name=_token').val()
-                  },
-                  success: function (data) {
-                  $(document).ajaxStop(function(){
-                    setTimeout("window.location = '/viewstudentgrades'",100);
+          const strIds = idsArr.join(","); 
+            $.ajax({
+                url: "viewstudentgrades/"+strIds,
+                type: 'DELETE',
+                data: {
+                  "id": +strIds,
+                  "_token": $('input[name=_token').val()
+                },
+                success: function (data) {
+                  $(".checkbox:checked").each(function() {  
+                    $(this).parents("tr").remove();
                   });
-                  },
-                  error: function (data) {
-                      alert(data.responseText);
-                  }
-              });
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                }
+            });
           }
         }
       });
-    });
 
-    
+    });
     $(document).on('click','.edit-modal', function(){
       $('.form-horizontal').show();
       $('.delete-content').hide();
@@ -223,6 +213,9 @@
           }); 
         }
       });
+
+     
+
     });
 
   
